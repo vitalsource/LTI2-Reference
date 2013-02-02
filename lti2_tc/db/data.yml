@@ -1,0 +1,395 @@
+
+--- 
+admin_users: 
+  columns: 
+  - id
+  - email
+  - encrypted_password
+  - reset_password_token
+  - reset_password_sent_at
+  - remember_created_at
+  - sign_in_count
+  - current_sign_in_at
+  - last_sign_in_at
+  - current_sign_in_ip
+  - last_sign_in_ip
+  - created_at
+  - updated_at
+  - user_id
+  - first_name
+  - last_name
+  - role
+  records: 
+  - - 2
+    - admin@lumos.org
+    - $2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC
+    - 
+    - 2012-07-31 22:37:10.000000
+    - 
+    - 94
+    - 2013-01-13 19:19:40.000000
+    - 2013-01-06 17:23:48.000000
+    - 127.0.0.1
+    - 127.0.0.1
+    - 2012-07-09 23:37:35.000000
+    - 2013-01-13 19:19:40.000000
+    - admin
+    - Cis
+    - Admn
+    - Administrator
+  - - 6
+    - cadmin@lumos.org
+    - $2a$10$fcq0XejjaJ30GSyE34wzxO5pMXh1EV75BfI3t76YQ7IEW4/9qdzYq
+    - 
+    - 
+    - 
+    - 0
+    - 
+    - 
+    - 
+    - 
+    - 2012-07-31 22:47:32.000000
+    - 2012-07-31 22:47:32.000000
+    - john.adams
+    - John
+    - Adams
+    - Instructor
+  - - 7
+    - tarne@lumos.org
+    - $2a$10$KrvXKBGBCYH6idjDE3Ctpe1fUmvbkRFISyJBpriHtPCrTHkt.UPV6
+    - 
+    - 
+    - 
+    - 6
+    - 2012-10-09 14:49:01.000000
+    - 2012-10-09 14:45:45.000000
+    - 127.0.0.1
+    - 127.0.0.1
+    - 2012-07-31 22:48:15.000000
+    - 2012-10-09 14:49:01.000000
+    - tom.arne
+    - Tom
+    - Arne
+    - Learner
+  - - 8
+    - hbingen@lumos.org
+    - $2a$10$IVQh8q/2t38cF2wuVO6Ec.GQF3RVKNy45W1tr.vqX2F4QxT3nzMwG
+    - 
+    - 
+    - 
+    - 0
+    - 
+    - 
+    - 
+    - 
+    - 2012-07-31 22:48:57.000000
+    - 2012-07-31 22:48:57.000000
+    - hildy.bingen
+    - Hildy
+    - Bingen
+    - Instructor
+  - - 9
+    - wbach@lumos.org
+    - $2a$10$QcjasSRFSesjvBodh5A0zOd6aux..zHhZ7znkOzDaeIxrIj/Gyu32
+    - 
+    - 
+    - 
+    - 0
+    - 
+    - 
+    - 
+    - 
+    - 2012-07-31 22:49:39.000000
+    - 2012-07-31 22:49:39.000000
+    - willie.bach
+    - Willie
+    - Bach
+    - Learner
+  - - 10
+    - bdev@lumos.org
+    - $2a$10$Y99OkiogEHrTW8G96Dhty.84RSgCcbFOqevTfEyUgY8qtATbLLQGa
+    - 
+    - 
+    - 
+    - 0
+    - 
+    - 
+    - 
+    - 
+    - 2012-07-31 22:50:27.000000
+    - 2012-07-31 22:50:27.000000
+    - bcdev
+    - BC
+    - Dev
+    - Learner
+
+--- 
+courses: 
+  columns: 
+  - id
+  - course_label
+  - course_title
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - ENG110A
+    - English Masters
+    - 2012-07-31 23:09:13.000000
+    - 2012-07-31 23:09:13.000000
+  - - 2
+    - SMPL101A
+    - Nursing Compendium
+    - 2012-07-31 23:09:54.000000
+    - 2012-07-31 23:09:54.000000
+  - - 3
+    - NURS200A
+    - Nursing Operations
+    - 2012-07-31 23:10:31.000000
+    - 2012-07-31 23:10:31.000000
+  - - 4
+    - DEV400A
+    - Developer Seminar
+    - 2012-07-31 23:12:28.000000
+    - 2012-07-31 23:12:28.000000
+
+--- 
+enrollments: 
+  columns: 
+  - id
+  - admin_user_id
+  - course_id
+  - role
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 6
+    - 1
+    - instructor
+    - 2012-07-31 23:18:59.000000
+    - 2012-07-31 23:18:59.000000
+  - - 2
+    - 6
+    - 3
+    - instructor
+    - 2012-07-31 23:19:45.000000
+    - 2012-07-31 23:19:45.000000
+  - - 3
+    - 6
+    - 2
+    - instructor
+    - 2012-07-31 23:20:07.000000
+    - 2012-07-31 23:20:07.000000
+  - - 4
+    - 7
+    - 1
+    - student
+    - 2012-07-31 23:20:24.000000
+    - 2012-07-31 23:20:24.000000
+  - - 5
+    - 7
+    - 3
+    - student
+    - 2012-07-31 23:20:39.000000
+    - 2012-07-31 23:20:39.000000
+  - - 6
+    - 7
+    - 2
+    - student
+    - 2012-07-31 23:21:01.000000
+    - 2012-07-31 23:21:01.000000
+  - - 7
+    - 8
+    - 1
+    - instructor
+    - 2012-07-31 23:23:56.000000
+    - 2012-07-31 23:23:56.000000
+  - - 8
+    - 8
+    - 3
+    - instructor
+    - 2012-07-31 23:24:15.000000
+    - 2012-07-31 23:24:15.000000
+  - - 9
+    - 8
+    - 2
+    - instructor
+    - 2012-07-31 23:24:30.000000
+    - 2012-07-31 23:24:30.000000
+  - - 10
+    - 9
+    - 1
+    - student
+    - 2012-07-31 23:24:45.000000
+    - 2012-07-31 23:24:45.000000
+  - - 11
+    - 9
+    - 3
+    - student
+    - 2012-07-31 23:24:53.000000
+    - 2012-07-31 23:24:53.000000
+  - - 12
+    - 9
+    - 2
+    - student
+    - 2012-07-31 23:25:00.000000
+    - 2012-07-31 23:25:00.000000
+  - - 13
+    - 10
+    - 4
+    - student
+    - 2012-07-31 23:25:15.000000
+    - 2012-07-31 23:25:15.000000
+  - - 14
+    - 2
+    - 4
+    - instructor
+    - 2012-07-31 23:25:28.000000
+    - 2012-07-31 23:25:28.000000
+
+--- 
+registries: 
+  columns: 
+  - id
+  - name
+  - content
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - tool_consumer_profile_template
+    - |-
+      {
+        "@context" : [
+          "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+          {
+            "ltitcp" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+          }
+        ],
+        "@type" : "ToolConsumerProfile",
+        "@id" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+        "lti_version" : "LTI-2p0",
+        "guid" : "4d469a076541-fcc9-9454-d1ec-106aff6b",
+        "product_instance" : {
+          "guid" : "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+          "product_info" : {
+            "product_name" : {
+              "default_value" : "Elan/{tool_consumer_name}",
+              "key" : "product.name"
+            },
+            "product_version" : "3.1",
+            "description" : {
+              "default_value" : "Elan University/{tool_consumer_name} Learning Platform",
+              "key" : "product.version"
+            },
+            "technical_description" : {
+              "default_value" : "LTI 1, 1.1 and 2.0 compliant",
+              "key" : "product.technicalDescription"
+            },
+            "product_family" : {
+              "code" : "{tool_consumer_name}",
+              "vendor" : {
+                "code" : "lms.{tool_consumer_name}.org",
+                "name" : {
+                  "default_value" : "{tool_consumer_name} Corporation",
+                  "key" : "product.vendor.name"
+                },
+                "description" : {
+                  "default_value" : "{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System",
+                  "key" : "product.vendor.description"
+                },
+                "website" : "http://lms.{tool_consumer_name}.org/products/omega",
+                "timestamp" : "2012-07-09T012:08:16-04:00",
+                "contact" : {
+                  "email" : "support@lms.{tool_consumer_name}.org"
+                }
+              }
+            }
+          },
+          "support" : {
+            "email" : "john.tibbetts@kinexis.com"
+          },
+          "service_provider" : {
+            "@id" : "http://ec2.{tool_consumer_name}.org/ServiceProvider",
+            "guid" : "ec2.{tool_consumer_name}.org",
+            "timestamp" : "2012-07-09T012:08:16-04:00",
+            "provider_name" : {
+              "default_value" : "Elan University",
+              "key" : "service_provider.name"
+            },
+            "description" : {
+              "default_value" : "Elan University EC2 Cloud",
+              "key" : "service_provider.description"
+            },
+            "support" : {
+              "email" : "support@yasp.{tool_consumer_name}.org"
+            }
+          }
+        },
+        "capability_enabled" : [
+           "basic-lti-launch-request",
+           "Result.autocreate",
+           "Result.sourcedGUID"
+        ],
+        "service_offered" : [
+          { 
+            "@type" : "RestService",
+            "@id" : "ltitcp:ToolProxy.collection",
+            "endpoint" : "{tc_deployment_url}/tools",
+            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
+            "action" : "POST"
+          },
+          { 
+            "@type" : "RestService",
+            "@id" : "ltitcp:ToolProxy.item",
+            "endpoint" : "{tc_deployment_url}/tools/{tool_proxy_guid}",
+            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
+            "action" : [
+              "GET",
+              "PUT"
+            ]
+          },
+          { 
+            "@type" : "RestService",
+            "@id" : "ltitcp:Result.item",
+            "endpoint" : "{tc_deployment_url}/resources/Result/{sourcedId}",
+            "format" : "application/vnd.ims.lis.v2.Result+json",
+            "action" : [
+              "GET",
+              "PUT"
+            ]
+          }
+        ]
+      }
+    - 2012-07-09 23:45:10.000000
+    - 2012-07-09 23:45:10.000000
+  - - 3
+    - tc_deployment_url
+    - http://localhost:4000
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 5
+    - relaxed_oauth_check
+    - "false"
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 6
+    - result_template
+    - |
+      {
+        "@context" : "http://www.imsglobal.org/imspurl/lis/v2/ctx/Result",
+        "@type" : "Result",
+        "resultScore" : {
+          "@type" : "decimal",
+          "@value"  : {value}
+        }
+      }
+
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 7
+    - tool_consumer_name
+    - LuMoS
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000

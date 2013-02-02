@@ -1,0 +1,2 @@
+module DeploymentProposalsHelper
+end

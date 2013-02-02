@@ -1,0 +1,35 @@
+
+:javascript
+  function show_tool_consumer_profile(tool) {
+    window.open('tcp_url')
+  }
+  
+:textile
+
+  h3. LuMoS -- Tool Actions
+
+- @tools = request['tools']
+
+%table
+  %tr
+    %td
+      %h4 Tool
+    %td
+      %h4 Description
+    %td
+      %h4 Key
+    %td
+      %h4 Enabled?
+
+  - @tools.each do |tool|
+    %tr
+      %td{:width => "50"}
+        #{tool.product_name}
+      %td{:width => "100"}
+        #{tool.description}
+      %td{:width => "50"}
+        #{tool.key}
+      %td{:width => "30"}
+        %a{:href=> "/admin/tool_actions?method=toggle&tool_id=#{tool.id}&toggle=#{not tool.is_enabled}"} #{tool['toggle_label']}
+      %td{:width => "30"}
+        %a{:href=> "/admin/tool_actions?method=reregister&tool_id=#{tool.id}"} [re-register]

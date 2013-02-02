@@ -1,0 +1,173 @@
+
+
+%head
+  %title Mock iResource
+  = csrf_meta_tag
+
+%h2
+  %img#thumb{:src => "/assets/vitalsource.jpg", :alt => "VitalSource"}
+  iResource Mock
+  
+Role: #{@role} 
+
+%form{:name => "iresource_mock", :id => "iresource_mock", :method => "post"}
+  %input{:id => 'bc_token', :name => 'bc_token', :type=>"hidden", :value => "#{@bc_token}" }
+  %input{:id => 'role', :name => 'role', :type=>"hidden", :value => "#{@role}" }
+  %input{:id => 'score', :name => 'score', :type=>"hidden", :value => "#{@score}" }
+  %input{:id => 'ticket', :name => 'score', :type=>"hidden", :value => "#{@ticket}" }
+  %input{:id => '_method', :name => '_method', :type=>"hidden", :value => "" }
+
+
+  .student_view
+    View: Student
+    
+    %fieldset
+      %ol
+        %li
+          %label{:for => "message[value]"} Enter Value (0.0-1.0 excl):
+          %input{:type => "text", :name => "score_student", :class => "text", :style => "width:150px"}
+        %li
+          %label{:for => "message[empty]"} &nbsp
+          %input{:type => "submit", :value => "Submit", :class => "button", :onclick => "return submitPost();"}
+          
+    %p
+    = flash[:error_message] 
+    %p
+    %p
+    
+    %a{:href=>"#", "onclick"=>"toggleViews();"}
+      Switch to Instructor view
+  .instructor_view
+    View: Instructor    
+    
+    %fieldset
+      %ol
+        %li
+          %label{:for => "message[current]"} Current Value:
+          %label{:for => "message[current_value]"} #{@current_value}
+        %li
+          %label{:for => "message[value]"} Update Value (0.0->1.0):
+          %input{:type => "text", :name => "score_instructor", :class => "text", :style => "width:150px", :value => ""}
+        %li
+          %label{:for => "message[empty]"} &nbsp
+          %input{:type => "submit", :value => "Submit", :class => "button", :onclick => "return submitPost();"}
+          %input{:type => "submit", :value => "DeleteValue", :class => "button", :onclick => "return deletePost();"} 
+
+    %p
+    = flash[:error_message] 
+    %p
+    %p
+       
+    %a{:href=>"#", "onclick"=>"toggleViews();"}
+      Switch to Student view
+  %p
+  %p
+  %a{:href=>"#", "onclick"=>"toggleParams();"}
+    Toggle parameters table
+
+
+%p
+%p
+        
+.parameters
+  %table{:style => "width:400px;border-style:outset;border-width:1px;"}
+    - @parameters.keys.sort.each do |k|
+      %tr
+        %td{:style => "border-style:inset;border-width:1px;"}= k
+        %td{:style => "border-style:inset;border-width:1px;"}= @parameters[k]
+
+  
+:javascript
+  // set initial state
+  $(document).ready(function() {
+    $('.parameters').hide()
+    if ("#{@role}" == "Student") {
+      $('.student_view').show()
+      $('.instructor_view').hide()
+    } else {
+      $('.student_view').hide()
+      $('.instructor_view').show()
+    }
+  });
+  
+  function deletePost() {
+    jQuery('input=[name=_method]').val('delete')
+
+    this_form = $('#iresource_mock')[0]
+    dataString = $('#iresource_mock').serialize() // must be whole form object array
+    new_url = window.location.pathname
+
+    this_form.action = new_url
+    this_form.submit()
+    return false
+  }
+  
+  function sliceAfterDelim(path, ch) {
+    result = path
+    lastPos = result.lastIndexOf('/')
+    if (lastPos >= 0) {
+      if (lastPos < (result.length - 1)) {
+        result = result.substring(lastPos+1)
+      } else {
+        result = ""
+      }
+    }
+    return result
+  }
+  
+  function sliceBeforeDelim(path, ch) {
+    result = path
+    lastPos = result.lastIndexOf(ch)
+    if (lastPos >= 0) {
+      result = result.substring(0,lastPos)
+    }
+    return result
+  }
+  
+  function sliceLastZoneFromPath(path) {
+    return sliceAfterDelim(path, '/')
+  }
+  
+  function slicePathFromURI(path) {
+    return sliceBeforeDelim(path, '?')
+  }
+  
+  function submitPost() {
+    jQuery('input=[name=_method]').val('post')
+    
+    this_form = $('#iresource_mock')[0]
+    score_student = jQuery('input=[name=score_student]').val()
+    score_instructor = jQuery('input=[name=score_instructor]').val()
+    if (score_student != undefined && score_student != '') {
+      score = score_student
+    }
+    else if (score_instructor != undefined && score_instructor != '') {
+      score = score_instructor
+    } 
+    else {
+      score = ''
+    }
+    jQuery('input=[name=score]').val(score)
+    
+    baseURI = this_form.baseURI 
+    baseURI = slicePathFromURI(baseURI)
+    if (sliceLastZoneFromPath(baseURI) == 'show') {
+      baseURI = trimLastZoneFromPath(baseURI)
+    }
+    this_form.action = baseURI
+    this_form.submit()
+    return false
+  }
+  
+  function toggleParams() {
+    $('.parameters').toggle()
+  }
+
+  function toggleViews() {
+    $('.student_view').toggle()
+    $('.instructor_view').toggle()    
+  }
+  
+  function trimLastZoneFromPath(path) {
+    return sliceBeforeDelim(path, '/')
+  }
