@@ -5,6 +5,7 @@ include Signer
 class Link < ActiveRecord::Base
   belongs_to :course
   belongs_to :resource
+  has_many :tool_settings, :as => :scopeable
 
   attr_accessible :enrollment_id, :resource_link_label, :tool_id, :link_parameters, :grade_item_id
   

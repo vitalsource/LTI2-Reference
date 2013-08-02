@@ -87,7 +87,11 @@ class ToolsController < ApplicationController
 
     tool_proxy_guid = tool_proxy.first_at('tool_proxy_guid')
     tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/toolproxies/#{tool_proxy_guid}"
-    
+
+    tool_proxy.root['@id'] = tool_proxy_id
+    @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
+    @tool.save
+
     tool_proxy_response = {
       "@context" => "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
       "@type" => "ToolProxy",
@@ -97,7 +101,39 @@ class ToolsController < ApplicationController
     
     render :json => tool_proxy_response, :location => tool_proxy_id, :content_type => "application/vnd.ims.lti.v2.ToolProxy.id+json", :status => 201
   end
-  
+
+  def show
+    id_parm = params[:id]
+    match = /^id=(\d+)/.match(id_parm)
+    if match.present?
+      id = match[1]
+      @tool = Tool.find_by_id(id)
+    else
+      @tool = Tool.where(:key => id_parm).first
+    end
+    (render :text => "Unauthorized", :status => 401 unless @tool.present?) and return
+    secret = @tool.secret
+    #oauth_validation_using_secret secret
+
+    tool_proxy_str = @tool.tool_proxy
+    tool_proxy = JSON.load(tool_proxy_str)
+
+    # merge in Tool Settings for ToolProxy level
+    tool_settings = ToolSetting.where(:scopeable_id => @tool.id)
+    tool_settings_custom = {}
+    tool_settings.each do |tool_setting|
+      tool_settings_custom[tool_setting.name] = tool_setting.value
+    end
+    if tool_settings_custom.length > 0
+      tool_proxy_custom['@id'] = ""
+      tool_proxy[:custom] = tool_settings_custom
+
+    end
+
+    tool_proxy_pretty_str = JSON.pretty_generate(tool_proxy)
+    render :text => "<pre>#{tool_proxy_pretty_str}</pre>"
+  end
+
   def update 
     rack_parameters = OAuthRequest.collect_rack_parameters request
     key = rack_parameters[:oauth_consumer_key]

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231165540) do
+ActiveRecord::Schema.define(:version => 20130801221129) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
+    t.string   "role"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -43,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
     t.string   "user_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "role"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -125,6 +126,14 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
   end
 
   add_index "tool_consumer_profiles", ["tc_profile_guid"], :name => "index_tool_consumer_profiles_on_tc_profile_guid", :unique => true
+
+  create_table "tool_settings", :force => true do |t|
+    t.integer "tool_id"
+    t.integer "scopeable_id"
+    t.string  "scopeable_type"
+    t.string  "name"
+    t.string  "value"
+  end
 
   create_table "tools", :force => true do |t|
     t.text     "tool_proxy"
