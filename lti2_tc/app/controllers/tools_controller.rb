@@ -86,7 +86,7 @@ class ToolsController < ApplicationController
     @deployment_request.delete
 
     tool_proxy_guid = tool_proxy.first_at('tool_proxy_guid')
-    tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/toolproxies/#{tool_proxy_guid}"
+    tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
 
     tool_proxy.root['@id'] = tool_proxy_id
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root

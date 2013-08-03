@@ -1,0 +1,102 @@
+{
+    "@context" : [
+        "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+        {
+            "ltitcp" : "{tc_deployment_url}/tool_consumer_profiles/{tool_consumer_profile_guid}#"
+        }
+    ],
+    "@type" : "ToolConsumerProfile",
+    "@id" : "{tc_deployment_url}/tool_consumer_profiles/{tool_consumer_profile_guid}",
+    "lti_version" : "LTI-2p0",
+    "guid" : "{tool_consumer_profiles}",
+    "product_instance" : {
+        "guid" : "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+        "product_info" : {
+            "product_name" : {
+                "default_value" : "Elan/{tool_consumer_name}",
+                "key" : "product.name"
+            },
+            "product_version" : "3.1",
+            "description" : {
+                "default_value" : "Elan University/{tool_consumer_name} Learning Platform",
+                "key" : "product.version"
+            },
+            "technical_description" : {
+                "default_value" : "LTI 1, 1.1 and 2.0 compliant",
+                "key" : "product.technicalDescription"
+            },
+            "product_family" : {
+                "code" : "{tool_consumer_name}",
+                "vendor" : {
+                    "code" : "lms.{tool_consumer_name}.org",
+                    "name" : {
+                        "default_value" : "{tool_consumer_name} Corporation",
+                        "key" : "product.vendor.name"
+                    },
+                    "description" : {
+                        "default_value" : "{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System",
+                        "key" : "product.vendor.description"
+                    },
+                    "website" : "http://lms.{tool_consumer_name}.org/products/omega",
+                    "timestamp" : "2012-07-09T012:08:16-04:00",
+                    "contact" : {
+                        "email" : "support@lms.{tool_consumer_name}.org"
+                    }
+                }
+            }
+        },
+        "support" : {
+            "email" : "john.tibbetts@kinexis.com"
+        },
+        "service_provider" : {
+            "@id" : "http://ec2.{tool_consumer_name}.org/ServiceProvider",
+            "guid" : "ec2.{tool_consumer_name}.org",
+            "timestamp" : "2012-07-09T012:08:16-04:00",
+            "provider_name" : {
+                "default_value" : "Elan University",
+                "key" : "service_provider.name"
+            },
+            "description" : {
+                "default_value" : "Elan University EC2 Cloud",
+                "key" : "service_provider.description"
+            },
+            "support" : {
+                "email" : "support@yasp.{tool_consumer_name}.org"
+            }
+        }
+    },
+    "capability_enabled" : [
+        "basic-lti-launch-request",
+        "Result.autocreate",
+        "Result.sourcedGUID"
+    ],
+    "service_offered" : [
+        {
+            "@type" : "RestService",
+            "@id" : "ltitcp:ToolProxy.collection",
+            "endpoint" : "{tc_deployment_url}/tools",
+            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
+            "action" : "POST"
+        },
+        {
+            "@type" : "RestService",
+            "@id" : "ltitcp:ToolProxy.item",
+            "endpoint" : "{tc_deployment_url}/tools/{tool_proxy_guid}",
+            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
+            "action" : [
+                "GET",
+                "PUT"
+            ]
+        },
+        {
+            "@type" : "RestService",
+            "@id" : "ltitcp:Result.item",
+            "endpoint" : "{tc_deployment_url}/resources/Result/{sourcedId}",
+            "format" : "application/vnd.ims.lis.v2.Result+json",
+            "action" : [
+                "GET",
+                "PUT"
+            ]
+        }
+    ]
+}
