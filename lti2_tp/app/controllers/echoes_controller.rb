@@ -1,6 +1,6 @@
 class EchoesController < ApplicationController
   before_filter :pre_process_tenant
-  
+
   def create
     output = "<h2>Echo Tool</h2><br><br>\n"
     return_url = request.request_parameters['launch_presentation_return_url']

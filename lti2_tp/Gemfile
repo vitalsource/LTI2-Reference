@@ -15,7 +15,7 @@ gem 'json'
 # gem 'json-ld'
 gem 'jsonpath'
 
-gem 'lti2_commons'
+gem 'lti2_commons',   '~> 1.1'
 
 gem "haml-rails"
 gem 'RedCloth'
@@ -23,7 +23,7 @@ gem "activeadmin" , :git  =>  'git://github.com/gregbell/active_admin.git'
 gem 'lrucache'
 gem 'httparty'
 gem 'yaml_db'
-# gem 'mysql2'
+gem 'mysql2'
 gem 'uuid'
 
 # Gems used only for assets and not required

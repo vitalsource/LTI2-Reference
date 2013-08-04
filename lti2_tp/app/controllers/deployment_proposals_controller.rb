@@ -202,7 +202,7 @@ class DeploymentProposalsController < InheritedResources::Base
         "http://purl.org/blackboard/ctx/v1/iconStyle"
       ],
       '@type' => "ToolProxy",
-      '@id' => "#{tool_provider_registry.tp_deployment_url}#{UUID.generate}",
+      '@id' => "ToolProxyProposal_at_#{Time.now.utc.iso8601}",
       'lti_version' => 'LTI-2p0',
       'tool_proxy_guid' => tool_proxy_guid,
       'tool_consumer_profile' => tool_consumer_profile_url,

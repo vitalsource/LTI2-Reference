@@ -62,7 +62,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    curb (0.8.3)
+    curb (0.8.4)
     devise (2.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -81,7 +81,7 @@ GEM
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
     has_scope (0.5.1)
-    hashie (1.2.0)
+    hashie (2.0.5)
     hike (1.2.1)
     httparty (0.10.0)
       multi_json (~> 1.0)
@@ -102,7 +102,7 @@ GEM
       activesupport (>= 3.0.0)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
-    lti2_commons (1.0)
+    lti2_commons (1.1)
       curb
       httparty
       lrucache
@@ -122,9 +122,10 @@ GEM
     mime-types (1.19)
     multi_json (1.5.0)
     multi_xml (0.5.2)
+    mysql2 (0.3.13)
     oauth (0.4.7)
-    omniauth (1.1.1)
-      hashie (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
       rack
     orm_adapter (0.4.0)
     polyamorous (0.5.0)
@@ -196,7 +197,8 @@ DEPENDENCIES
   json
   jsonpath
   lrucache
-  lti2_commons
+  lti2_commons (~> 1.1)
+  mysql2
   rack (< 1.4.2)
   rails (= 3.2.6)
   sass-rails (~> 3.2.3)
