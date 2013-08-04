@@ -29,7 +29,7 @@ module Lti2Commons
     # @param content_type [String] HTTP CONTENT-TYPE header; defaults: 'application/x-www-form-urlencoded'
     # @return [Request] Signed request
     def create_signed_request(launch_url, http_method, consumer_key, consumer_secret, params={}, 
-                              body=nil, content_type=nil)
+                              body=nil, content_type=nil, accept=nil)
       params['oauth_consumer_key'] = consumer_key
       params['oauth_nonce'] = (rand*10E12).to_i.to_s unless params.has_key? 'oauth_nonce'    
       params['oauth_signature_method'] = "HMAC-SHA1" unless params.has_key? 'oauth_signature_method'     
@@ -64,6 +64,7 @@ module Lti2Commons
       
       request.body = body
       request.content_type = content_type
+      request.accept = accept
                       
       request.sign! :consumer_secret => consumer_secret
       

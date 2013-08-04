@@ -24,10 +24,10 @@ ActiveAdmin.register_page "Tool Actions" do
       tool = Tool.find(tool_id)
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
       tool_consumer_profile = ToolConsumerProfile.new
-      tc_profile_str = tool_consumer_registry.tool_consumer_profile
+      tool_consumer_profile_wrapper = tool_consumer_registry.tool_consumer_profile_wrapper
       tc_deployment_url = tool_consumer_registry.tc_deployment_url
       html_body = ToolRegistration::reregister_tool current_admin_user, deployment_request, 
-                      tool, tool_consumer_profile_wrapper, tc_profile_str, tc_deployment_url,
+                      tool, tool_consumer_profile, tool_consumer_profile_wrapper, tc_deployment_url,
                       "#{tc_deployment_url}/admin/tool_actions"
       render :inline => html_body
     end

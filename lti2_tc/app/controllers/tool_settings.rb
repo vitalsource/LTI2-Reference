@@ -1,21 +1,9 @@
 
-
 class ToolSettingsController < ApplicationController
   before_filter :oauth_validation   # look in ApplicationController
   
   def show
-    begin
-      grade_result = GradeResult.find(params['id'])
-      result_json_object = {
-        '@context' => "http://www.imsglobal.org/imspurl/lis/v2/ctx/Result",
-        '@type' => "Result",
-        'resourceScore' => { '@type' => 'decimal', '@value' => "#{grade_result.result}" }
-      }
-      
-      render :json => result_json_object
-    rescue
-      raise ActionController::RoutingError.new('Not Found')
-    end
+
   end
   
   def update

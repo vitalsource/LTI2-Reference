@@ -74,6 +74,7 @@ module Lti2Commons
       method = request.method.downcase
       headers = {}
       headers['Authorization'] = request.oauth_header
+      headers['ACCEPT'] = request.accept if request.accept.present?
       if ['post','put'].include? method
         headers['Content-Type'] = request.content_type if request.content_type
         headers['Content-Length'] = request.body.length.to_s if request.body

@@ -57,7 +57,7 @@ module Lti2Commons
         result = resolve_by_category full_name, name, resolvers if resolvers
         return result if result        
         
-        return full_name
+        return "$#{full_name}"
       end
       
       def to_s

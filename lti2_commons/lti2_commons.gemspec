@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name          = "lti2_commons"
-  gem.version       = "1.0"
+  gem.version       = "1.1"
   gem.authors       = ["John Tibbetts"]
   gem.email         = ["jtibbetts@kinexis.com"]
   gem.description   = %q{LTI common utilities}

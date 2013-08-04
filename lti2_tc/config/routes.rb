@@ -5,6 +5,7 @@ Lumos::Application.routes.draw do
   resources :tool_consumer_profiles
   resources :tools
   resources :results
+  resources :tool_settings
   
   match "docs", :to => "docs#show"
   
