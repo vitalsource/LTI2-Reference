@@ -73,7 +73,7 @@ class ToolSettingsController < ApplicationController
     scopeable_type, tool_guid, scopeable_id = ToolSetting.parse_uri(request.path)
 
     if scopeable_type == 'Tool'
-      ToolSetting.where(:scopeable_type => scopeable_type, :)
+      #ToolSetting.where(:scopeable_type => scopeable_type, :)
     else
     end
   end
