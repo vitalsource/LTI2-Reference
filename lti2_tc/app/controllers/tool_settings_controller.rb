@@ -57,19 +57,25 @@ class ToolSettingsController < ApplicationController
   def update
     tool_guid = params[:tool_guid]
     collection_type = get_collection_type(request.path)
-    node_id = collection_type == 'tool' ? nil : params[:node_id]
+    node_id = collection_type == 'Tool' ? nil : params[:node_id]
 
-    content_type = request.headers['CONTENT-TYPE']
-    (render :text => "Unacceptable Content-Type header for ToolSettings", :status => 406 if is_unacceptable(content_type)) and return
+    content_type = request.headers['CONTENT_TYPE']
+    (render :text => "Unacceptable Content_Type header for ToolSettings", :status => 406 if is_unacceptable(content_type)) and return
 
     if is_header_full_not_simple(content_type)
 
     else
-
+      body_str = request.body.read
+      json_str = CGI::unescape body_str
+      settings = JsonWrapper.new(json_str)
     end
 
-    target_matches = get_target_matches(collection_type, tool_guid, node_id)
+    scopeable_type, tool_guid, scopeable_id = ToolSetting.parse_uri(request.path)
 
+    if scopeable_type == 'Tool'
+      ToolSetting.where(:scopeable_type => scopeable_type, :)
+    else
+    end
   end
 
   private
@@ -94,10 +100,7 @@ class ToolSettingsController < ApplicationController
   end
 
   def get_collection_type(path)
-    /^\/tool_settings\/.*\/context\/.*$/.match(path) and return 'Context'
-    /^\/tool_settings\/.*\/ltilink\/.*$/.match(path) and return 'Ltilink'
-    /^\/tool_settings\/.*$/.match(path) and return 'Tool'
-    nil
+    ToolSetting.parse_uri(path)[0]
   end
 
   def get_distinct_matches(matches)
