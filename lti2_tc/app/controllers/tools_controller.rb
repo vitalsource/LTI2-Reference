@@ -87,7 +87,6 @@ class ToolsController < ApplicationController
 
     tool_proxy_guid = tool_proxy.first_at('tool_proxy_guid')
     tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
-
     tool_proxy.root['@id'] = tool_proxy_id
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
     @tool.save
@@ -156,6 +155,12 @@ class ToolsController < ApplicationController
     @tool.key = tool_proxy.first_at('tool_proxy_guid')
     @tool.secret = tool_proxy.first_at('security_contract.shared_secret')
 
+    tool_proxy_guid = tool_proxy.first_at('tool_proxy_guid')
+    tool_consumer_registry = Rails.application.config.tool_consumer_registry
+    tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
+    tool_proxy.root['@id'] = tool_proxy_id
+
+    @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
     # TEMPORARY: enable tool
     @tool.is_enabled = true
     

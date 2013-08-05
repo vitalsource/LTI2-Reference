@@ -55,6 +55,20 @@ class ToolSettingsController < ApplicationController
   end
   
   def update
+    tool_guid = params[:tool_guid]
+    collection_type = get_collection_type(request.path)
+    node_id = collection_type == 'tool' ? nil : params[:node_id]
+
+    content_type = request.headers['CONTENT-TYPE']
+    (render :text => "Unacceptable Content-Type header for ToolSettings", :status => 406 if is_unacceptable(content_type)) and return
+
+    if is_header_full_not_simple(content_type)
+
+    else
+
+    end
+
+    target_matches = get_target_matches(collection_type, tool_guid, node_id)
 
   end
 

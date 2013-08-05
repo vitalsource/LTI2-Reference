@@ -149,13 +149,24 @@ class Link < ActiveRecord::Base
   end
 
   def tool_proxy_resolver(fieldname)
-    puts 'in resolver'
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Tool')
+    end
   end
 
   def tool_proxy_binding_resolver(fieldname)
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Context', self.course_id)
+    end
   end
 
   def lti_link_resolver(fieldname)
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Ltilink', self.id)
+    end
   end
 
   private
