@@ -1,5 +1,6 @@
 class ToolSetting < ActiveRecord::Base
   belongs_to :scopeable, :polymorphic => true
+  attr_accessible :scopeable_id, :scopeable_type, :tool_id, :name, :value
 
   def self.create_uri(tool_id, scopeable_type, scopeable_id=nil)
     tool_consumer_registry = Rails.application.config.tool_consumer_registry

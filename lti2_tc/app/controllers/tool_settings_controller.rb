@@ -71,11 +71,22 @@ class ToolSettingsController < ApplicationController
     end
 
     scopeable_type, tool_guid, scopeable_id = ToolSetting.parse_uri(request.path)
+    tool = Tool.where(:key => tool_guid).first
 
+    # first clear out the old data
     if scopeable_type == 'Tool'
-      #ToolSetting.where(:scopeable_type => scopeable_type, :)
+      ToolSetting.where(:scopeable_type => scopeable_type, :tool_id => tool.id).delete_all
     else
+      ToolSetting.where(:scopeable_type => scopeable_type, :tool_id => tool.id, :scopeable_id => scopeable_id).delete_all
     end
+
+    settings.root.each_pair do |k,v|
+      ts = ToolSetting.create(:scopeable_type => scopeable_type, :tool_id => tool.id, :scopeable_id => scopeable_id,
+                          :name => k, :value => v)
+      ts.save
+    end
+
+    render :json => "Successfully updated #{settings.root.length} values"
   end
 
   private
