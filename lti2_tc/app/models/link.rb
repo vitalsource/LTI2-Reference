@@ -72,13 +72,13 @@ class Link < ActiveRecord::Base
     end
 
     # add parameters from Settings levels
-    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => tool.id, :scopeable_type => 'Tool')
+    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_type => 'Tool')
     settings.each {|setting| parameters[setting.name] = setting.value}
 
     settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.course.id, :scopeable_type => 'Context')
     settings.each {|setting| parameters[setting.name] = setting.value}
 
-    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.id, :scopeable_type => 'Link')
+    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.id, :scopeable_type => 'Ltilink')
     settings.each {|setting| parameters[setting.name] = setting.value}
     
     # auto-create result (if required) and add to reference to parameters

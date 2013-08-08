@@ -1,5 +1,4 @@
 class SettingsController < ApplicationController
-  before_filter :pre_process_tenant
 
   def create
     oauth_consumer_key = params['oauth_consumer_key']
