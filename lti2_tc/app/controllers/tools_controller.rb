@@ -25,7 +25,7 @@ class ToolsController < ApplicationController
     tool_consumer_registry = Rails.application.config.tool_consumer_registry
    
     product_name = tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
-    
+
     @tool = Tool.new
     @tool.is_enabled = false
     
@@ -89,6 +89,9 @@ class ToolsController < ApplicationController
     tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
     tool_proxy.root['@id'] = tool_proxy_id
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
+
+    capture_and_excise_settings(tool_proxy.root, @tool)
+
     @tool.save
 
     tool_proxy_response = {
@@ -148,7 +151,7 @@ class ToolsController < ApplicationController
     tool_proxy = JsonWrapper.new(json_str)
     
     product_name = tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
-    
+
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
     @tool.product_name = product_name
     @tool.description = tool_proxy.first_at('tool_profile.product_instance.product_info.description.default_value')
@@ -163,11 +166,31 @@ class ToolsController < ApplicationController
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
     # TEMPORARY: enable tool
     @tool.is_enabled = true
-    
+
+    capture_and_excise_settings(tool_proxy.root, @tool)
+
     @tool.save
     
     # 202 - Available; cf. LTI2 IG section 8.1
     render :nothing => true, :status => 202   
   end
 
+  private
+
+  # for this reference impl: tool proxy settings system-of-record is db not TP itself
+  def capture_and_excise_settings(tool_proxy, tool)
+    settings = tool_proxy['custom']
+    if settings.present?
+      ToolSetting.where(:scopeable_type => 'Tool', :tool_id => tool.id).delete_all
+
+      settings.each_pair do |k,v|
+        ts = ToolSetting.create(:scopeable_type => 'Tool', :tool_id => tool.id, :scopeable_id => tool.id,
+                                :name => k, :value => v)
+        ts.save
+      end
+
+      tool_proxy.delete('custom')
+
+    end
+  end
 end
