@@ -1,5 +1,3 @@
-
-
 class IresourcesController < ApplicationController
   before_filter :pre_process_tenant
     

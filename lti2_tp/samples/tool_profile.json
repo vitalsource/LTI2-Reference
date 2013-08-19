@@ -61,45 +61,75 @@
 			"path": "{tp_deployment_url}/reregistrations",
 			"parameter": [
 				{
-					"variable": "$Lti.tc_profile_url",
+					"variable": "ToolConsumerProfile.url",
 					"name": "tc_profile_url"
 				}
 			]
 		}
 	],
 	"resource_handler": [
-		{
-			"message": [
-				{
-					"path": "/echoes",
-					"parameter": [
-						{
-							"fixed": "Narcissus",
-							"name": "referrer"
-						}, {
-							"fixed": "3.14159",
-							"name": "pi"
-						}, {
-							"variable": "$Person.email.primary",
-							"name": "user_primary_email"
-						}, {
-							"variable": "$CourseOffering.label",
-							"name": "discipline"
-						}
-					],
-					"message_type": "basic-lti-launch-request"
-				}
-			],
-			"name": {
-				"default_value": "Echo",
-				"key": "resource.name"
-			},
-			"resource_type": "echo",
-			"description": {
-				"default_value": "Echo service",
-				"key": "resource.description"
-			}
-		}, {
+        {
+            "message": [
+                {
+                    "path": "/echoes",
+                    "parameter": [
+                        {
+                            "fixed": "Narcissus",
+                            "name": "referrer"
+                        }, {
+                            "fixed": "3.14159",
+                            "name": "pi"
+                        }, {
+                            "variable": "Person.email.primary",
+                            "name": "user_primary_email"
+                        }, {
+                            "variable": "CourseOffering.label",
+                            "name": "discipline"
+                        }
+                    ],
+                    "message_type": "basic-lti-launch-request"
+                }
+            ],
+            "name": {
+                "default_value": "Echo",
+                "key": "resource.name"
+            },
+            "resource_type": "echo",
+            "description": {
+                "default_value": "Echo service",
+                "key": "resource.description"
+            }
+        },
+        {
+            "message": [
+                {
+                    "path": "/settings",
+                    "parameter": [
+                        {
+                            "variable": "ToolProxy.custom.uri",
+                            "name": "tool_proxy_custom_uri"
+                        }, {
+                            "variable": "ToolProxyBinding.custom.uri",
+                            "name": "tool_proxy_binding_custom_uri"
+                        }, {
+                            "variable": "LtiLink.custom.uri",
+                            "name": "lti_link_custom_uri"
+                        }
+                    ],
+                    "message_type": "basic-lti-launch-request"
+                }
+            ],
+            "name": {
+                "default_value": "Settings",
+                "key": "resource.name"
+            },
+            "resource_type": "setting",
+            "description": {
+                "default_value": "Settings service",
+                "key": "resource.description"
+            }
+        },
+        {
 			"message": [
 				{
 					"path": "/books",
@@ -120,7 +150,8 @@
 				"default_value": "VitalSource reader for XML, PDF, and ePub content",
 				"key": "resource.description"
 			}
-		}, {
+		},
+        {
 			"message": [
 				{
 					"path": "/bookselections",
@@ -143,7 +174,8 @@
 				"default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
 				"key": "resource.description"
 			}
-		}, {
+		},
+        {
 			"message": [
 				{
 					"path": "/iresources",
@@ -154,7 +186,7 @@
 						{
 							"name": "vbid"
 						}, {
-							"variable": "$Result.uri",
+							"variable": "Result.uri",
 							"name": "result_uri"
 						}
 					],
@@ -171,13 +203,14 @@
 				"default_value": "Interactive resource",
 				"key": "resource.description"
 			}
-		}, {
+		},
+        {
 			"message": [
 				{
 					"path": "/bookshelves",
 					"parameter": [
 						{
-							"variable": "$CourseOffering.label",
+							"variable": "CourseOffering.label",
 							"name": "course_label"
 						}
 					],
@@ -204,5 +237,4 @@
 			"default_base_url": "{tp_deployment_url}"
 		}
 	]
-
 }

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231165540) do
+ActiveRecord::Schema.define(:version => 20130801221129) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -56,6 +57,19 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "deployment_proposals", :force => true do |t|
+    t.string   "tenant_name"
+    t.string   "user_id"
+    t.string   "reg_key"
+    t.string   "reg_password"
+    t.string   "tc_profile_url"
+    t.string   "launch_presentation_return_url"
+    t.string   "status"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "message_type"
+  end
+
   create_table "deployment_requests", :force => true do |t|
     t.string   "reg_key"
     t.string   "reg_password"
@@ -92,6 +106,16 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "iresources", :force => true do |t|
+    t.integer  "tenant_id"
+    t.string   "result_uri"
+    t.string   "userid"
+    t.string   "contextid"
+    t.float    "score"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "links", :force => true do |t|
     t.string   "resource_link_label"
     t.boolean  "is_enabled"
@@ -117,6 +141,22 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
     t.string  "description"
   end
 
+  create_table "tenant_users", :force => true do |t|
+    t.integer  "tenant_id"
+    t.string   "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tenants", :force => true do |t|
+    t.string   "tenant_name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "tool_consumer_profiles", :force => true do |t|
     t.string   "tc_profile_guid"
     t.text     "tc_profile"
@@ -125,6 +165,27 @@ ActiveRecord::Schema.define(:version => 20121231165540) do
   end
 
   add_index "tool_consumer_profiles", ["tc_profile_guid"], :name => "index_tool_consumer_profiles_on_tc_profile_guid", :unique => true
+
+  create_table "tool_deployments", :force => true do |t|
+    t.integer  "tenant_id"
+    t.integer  "tool_id"
+    t.string   "product_name"
+    t.text     "tool_proxy"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "key"
+    t.string   "secret"
+  end
+
+  add_index "tool_deployments", ["key"], :name => "index_tool_deployments_on_key", :unique => true
+
+  create_table "tool_settings", :force => true do |t|
+    t.integer "tool_id"
+    t.integer "scopeable_id"
+    t.string  "scopeable_type"
+    t.string  "name"
+    t.string  "value"
+  end
 
   create_table "tools", :force => true do |t|
     t.text     "tool_proxy"

@@ -1,5 +1,11 @@
 class ToolRegistration
-  def self.register_tool user, deployment_request, tool_consumer_profile_string, tc_deployment_url
+  def self.remap_tool_consumer_profile(tool_consumer_profile_wrapper, tc_profile_guid)
+    tool_consumer_profile_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_consumer_profile_guid' => tc_profile_guid}
+    tool_consumer_profile_wrapper.root['guid'] = tc_profile_guid
+    JSON.pretty_generate(tool_consumer_profile_wrapper.root)
+  end
+
+  def self.register_tool user, deployment_request, tool_consumer_profile_wrapper, tc_deployment_url
     unless deployment_request.status == "prepared"
       if deployment_request.status == "submitted"
         raise "This deployment request has already been send to the Tool Provider"
@@ -13,7 +19,8 @@ class ToolRegistration
     deployment_request.save
     
     tool_consumer_profile = ToolConsumerProfile.new
-    tool_consumer_profile.tc_profile = JSON.pretty_generate tool_consumer_profile_string
+    tool_consumer_profile.tc_profile = remap_tool_consumer_profile(tool_consumer_profile_wrapper,
+                                                                   deployment_request.tc_profile_guid)
     tool_consumer_profile.tc_profile_guid = deployment_request.tc_profile_guid
     tool_consumer_profile.save
     
@@ -22,7 +29,7 @@ class ToolRegistration
     html_body
   end
   
-  def self.reregister_tool user, deployment_request, tool, tool_consumer_profile, tc_profile_string, 
+  def self.reregister_tool user, deployment_request, tool, tool_consumer_profile, tool_consumer_profile_wrapper,
               tc_deployment_url, launch_presentation_return_url
     tool_proxy = tool.get_tool_proxy
     tp_base_url = tool_proxy.select('tool_profile.base_url_choice', 
@@ -45,7 +52,8 @@ class ToolRegistration
     deployment_request.save
     
     # tool_consumer_profile = ToolConsumerProfile.new
-    tool_consumer_profile.tc_profile = JSON.pretty_generate tc_profile_string
+    tool_consumer_profile.tc_profile = remap_tool_consumer_profile(tool_consumer_profile_wrapper,
+                                                                   deployment_request.tc_profile_guid)
     tool_consumer_profile.tc_profile_guid = deployment_request.tc_profile_guid
     tool_consumer_profile.save
     

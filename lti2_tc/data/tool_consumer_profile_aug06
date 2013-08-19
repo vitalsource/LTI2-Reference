@@ -2,23 +2,23 @@
   "@context" : [
     "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
     {
-      "" : "http://{{lumos_base_url}}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+      "ltitcp" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
     }
   ],
   "@type" : "ToolConsumerProfile",
-  "@id" : "{{lumos_base_url}}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
   "lti_version" : "LTI-2p0",
   "guid" : "4d469a076541-fcc9-9454-d1ec-106aff6b",
   "product_instance" : {
     "guid" : "dcddf9808107-81ea-eaa4-1edf-5d24568c",
     "product_info" : {
       "product_name" : {
-        "default_value" : "LuMoS LMS",
+        "default_value" : "Elan/{tool_consumer_name}",
         "key" : "product.name"
       },
       "product_version" : "3.1",
       "description" : {
-        "default_value" : "LuMoS is a fictitious LMS-like LTI Tool Consumer",
+        "default_value" : "Elan University/{tool_consumer_name} Learning Platform",
         "key" : "product.version"
       },
       "technical_description" : {
@@ -26,21 +26,21 @@
         "key" : "product.technicalDescription"
       },
       "product_family" : {
-        "code" : "lumos",
+        "code" : "{tool_consumer_name}",
         "vendor" : {
-          "code" : "lms.lumos.org",
+          "code" : "lms.{tool_consumer_name}.org",
           "name" : {
-            "default_value" : "Lumos Corporation",
+            "default_value" : "{tool_consumer_name} Corporation",
             "key" : "product.vendor.name"
           },
           "description" : {
-            "default_value" : "Lumos Corporation is a fictitious vendor of a Learning Management System",
+            "default_value" : "{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System",
             "key" : "product.vendor.description"
           },
-          "website" : "http://lms.lumos.org/products/omega",
+          "website" : "http://lms.{tool_consumer_name}.org/products/omega",
           "timestamp" : "2012-07-09T012:08:16-04:00",
           "contact" : {
-            "email" : "support@lms.lumos.org"
+            "email" : "support@lms.{tool_consumer_name}.org"
           }
         }
       }
@@ -49,49 +49,49 @@
       "email" : "john.tibbetts@kinexis.com"
     },
     "service_provider" : {
-      "@id" : "http://ec2.lumos.org/ServiceProvider",
-      "guid" : "ec2.lumos.org",
+      "@id" : "http://ec2.{tool_consumer_name}.org/ServiceProvider",
+      "guid" : "ec2.{tool_consumer_name}.org",
       "timestamp" : "2012-07-09T012:08:16-04:00",
       "provider_name" : {
-        "default_value" : "EC2 Sonoma",
+        "default_value" : "Elan University",
         "key" : "service_provider.name"
       },
       "description" : {
-        "default_value" : "EC2 is a cloud-based Amazon Ubuntu 12 instance",
+        "default_value" : "Elan University EC2 Cloud",
         "key" : "service_provider.description"
       },
       "support" : {
-        "email" : "support@yasp.lumos.org"
+        "email" : "support@yasp.{tool_consumer_name}.org"
       }
     }
   },
-  "capability" : [
+  "capability_enabled" : [
      "basic-lti-launch-request",
      "Result.autocreate",
      "Result.sourcedGUID"
   ],
   "service_offered" : [
-    { 
+    {
       "@type" : "RestService",
-      "@id" : ":ToolProxy.collection",
-      "endpoint" : "http:/{{lumos_base_url}}/resources/ToolProxy",
+      "@id" : "ltitcp:ToolProxy.collection",
+      "endpoint" : "{tc_deployment_url}/tools",
       "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
       "action" : "POST"
     },
-    { 
+    {
       "@type" : "RestService",
-      "@id" : ":ToolProxy.item",
-      "endpoint" : "http://{{lumos_base_url}}/resources/ToolProxy/{tool_proxy_guid}",
+      "@id" : "ltitcp:ToolProxy.item",
+      "endpoint" : "{tc_deployment_url}/tools/{tool_proxy_guid}",
       "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
       "action" : [
         "GET",
         "PUT"
       ]
     },
-    { 
+    {
       "@type" : "RestService",
-      "@id" : ":Result.item",
-      "endpoint" : "http://{{lumos_base_url}}/resources/Result/{sourcedGUID}",
+      "@id" : "ltitcp:Result.item",
+      "endpoint" : "{tc_deployment_url}/resources/Result/{sourcedId}",
       "format" : "application/vnd.ims.lis.v2.Result+json",
       "action" : [
         "GET",

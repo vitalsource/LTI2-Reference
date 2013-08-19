@@ -69,12 +69,21 @@ class ApplicationController < ActionController::Base
   def is_parameters_in_flash
     not flash[:lti_context].nil?
   end
-  
+
   def restore_request_parameters_from_flash
     request[:lti_context] = flash[:lti_context]
   end
-  
+
   def save_request_parameters_to_flash
     flash[:lti_context] = request.parameters.dup
+  end
+
+  def restore_request_parameters_from_session
+    request[:lti_context] = session[:lti_context]
+    session[:lti_context] = nil
+  end
+
+  def save_request_parameters_to_session
+    session[:lti_context] = request.parameters.dup
   end
 end

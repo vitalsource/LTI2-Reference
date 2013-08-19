@@ -5,6 +5,7 @@ include Signer
 class Link < ActiveRecord::Base
   belongs_to :course
   belongs_to :resource
+  has_many :tool_settings, :as => :scopeable
 
   attr_accessible :enrollment_id, :resource_link_label, :tool_id, :link_parameters, :grade_item_id
   
@@ -69,6 +70,16 @@ class Link < ActiveRecord::Base
       link_parameters = JSON.parse link_parameter_json
       parameters.merge! link_parameters
     end
+
+    # add parameters from Settings levels
+    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_type => 'Tool')
+    settings.each {|setting| parameters[setting.name] = setting.value}
+
+    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.course.id, :scopeable_type => 'Context')
+    settings.each {|setting| parameters[setting.name] = setting.value}
+
+    settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.id, :scopeable_type => 'Ltilink')
+    settings.each {|setting| parameters[setting.name] = setting.value}
     
     # auto-create result (if required) and add to reference to parameters
     capabilities = resource_handler.first_at('message[0].enabled_capability')
@@ -94,23 +105,23 @@ class Link < ActiveRecord::Base
       end
     end
     
-    # perform variable substition on all parameters
+    # perform variable substitution on all parameters
     resolver = Lti2Commons::SubstitutionSupport::Resolver.new
-    resolver.add_resolver("$User", user.method(:user_resolver))
-    resolver.add_resolver("$Person", user.method(:person_resolver))
+    resolver.add_resolver("User", user.method(:user_resolver))
+    resolver.add_resolver("Person", user.method(:person_resolver))
     course = Course.find(parameters['context_id'])
-    resolver.add_resolver("$CourseOffering", course.method(:course_resolver))
-    resolver.add_resolver("$Result", grade_result.method(:grade_result_resolver)) if grade_result
-        
+    resolver.add_resolver("CourseOffering", course.method(:course_resolver))
+    resolver.add_resolver("Result", grade_result.method(:grade_result_resolver)) if grade_result
+
+    # Settings resolvers
+    resolver.add_resolver("ToolProxy", self.method(:tool_proxy_resolver))
+    resolver.add_resolver("ToolProxyBinding", self.method(:tool_proxy_binding_resolver))
+    resolver.add_resolver("LtiLink", self.method(:lti_link_resolver))
+
     # and resolve and normalize
     final_parameters = {}
     parameters.each { |k,v|
-      # only apply substitution when the value looks like a candidate
-      if v =~ /^\$\w+\.\w/
-        resolved_value = resolver.resolve(v)
-      else
-        resolved_value = v
-      end
+      resolved_value = resolver.resolve(v)
       if known_lti2_parameters.include? k or deprecated_lti_parameters.include? k
         final_parameters[k] = v
       else 
@@ -136,7 +147,28 @@ class Link < ActiveRecord::Base
     puts body
     body
   end
-      
+
+  def tool_proxy_resolver(fieldname)
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Tool')
+    end
+  end
+
+  def tool_proxy_binding_resolver(fieldname)
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Context', self.course_id)
+    end
+  end
+
+  def lti_link_resolver(fieldname)
+    if fieldname == 'custom.uri'
+      tool_guid = self.resource.tool.key
+      ToolSetting.create_uri(tool_guid, 'Ltilink', self.id)
+    end
+  end
+
   private
   
   def deprecated_lti_parameters

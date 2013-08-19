@@ -26,7 +26,7 @@ ActiveAdmin.register DeploymentRequest do
     @deployment_request = DeploymentRequest.find(params[:id])
 
     html_body = ToolRegistration.register_tool current_admin_user, @deployment_request, 
-    				tool_consumer_registry.tool_consumer_profile, tool_consumer_registry.tc_deployment_url
+    				tool_consumer_registry.tool_consumer_profile_wrapper, tool_consumer_registry.tc_deployment_url
     
     render :inline => html_body
   end

@@ -23,13 +23,14 @@ module OAuth
     class OAuthRequest < OAuth::RequestProxy::Base
       proxies Hash
       
-      attr_accessor :body, :content_type
+      attr_accessor :body, :content_type, :accept
      
       def self.collect_rack_parameters(rack_request)
         parameters = HashWithIndifferentAccess.new
         parameters.merge!(rack_request.query_parameters)
         parameters.merge!(self.parse_authorization_header(rack_request.headers['HTTP_AUTHORIZATION']))
         content_type = rack_request.headers['CONTENT_TYPE']
+        accept = rack_request.headers['ACCEPT']
         if content_type == "application/x-www-form-urlencoded"
           parameters.merge!(rack_request.request_parameters)
         end
