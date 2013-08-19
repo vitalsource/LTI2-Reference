@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="wirelog.css" />
 
 <div class="ToolConsumer"><pre>
-2013-08-06 13:50:15 -0400
+2013-08-09 11:47:29 -0700
 LtiMessage: Request Tool Registration
 LaunchUrl: http://localhost:5000/deployment_proposals
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -12,9 +12,9 @@ LaunchUrl: http://localhost:5000/deployment_proposals
       &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
-      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/tool_consumer_profiles/7ee87e20-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_key" value="7ee87b60-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_password" value="bf621039070462e88f8e21cc5fa6d89f"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="e632e420-e351-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="2eba72e2ef8502f8ef4e3df376c6fb37"/&gt;
       &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
   &lt;/form&gt;
@@ -26,30 +26,30 @@ LaunchUrl: http://localhost:5000/deployment_proposals
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 13:50:15 -0400
+2013-08-09 11:47:29 -0700
 LtiService: Get Tool Consumer Profile
-GET http://localhost:4000/tool_consumer_profiles/7ee87e20-e0ee-0130-9849-20c9d07c6451
+GET http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 13:50:15 -0400
+2013-08-09 11:47:29 -0700
 Response: Get Tool Consumer Profile
 Status: 200 OK
 Headers:
 content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
-content-length: 2195
+content-length: 2225
 {
   "@context": [
     "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
     {
-      "ltitcp": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+      "ltitcp": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451#"
     }
   ],
   "@type": "ToolConsumerProfile",
-  "@id": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451",
   "lti_version": "LTI-2p0",
-  "guid": "7ee87e20-e0ee-0130-9849-20c9d07c6451",
+  "guid": "e632e7e0-e351-0130-9852-20c9d07c6451",
   "product_instance": {
     "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
     "product_info": {
@@ -145,13 +145,13 @@ content-length: 2195
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 13:51:46 -0400
+2013-08-09 11:51:20 -0700
 LtiService: Register ToolProxy with ToolConsumer
 POST http://localhost:4000/tools
 Headers:
-Authorization: OAuth oauth_consumer_key="7ee87b60-e0ee-0130-9849-20c9d07c6451", oauth_nonce="2140207962277", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375811506", oauth_version="1.0", oauth_body_hash="G9qYs3olQ%2FQ9Bgd9A9tHkIkyvms%3D", oauth_signature="qivB73Zt9jhau5hmfs5IQazHMik%3D"
+Authorization: OAuth oauth_consumer_key="e632e420-e351-0130-9852-20c9d07c6451", oauth_nonce="8420949237395", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074280", oauth_version="1.0", oauth_body_hash="5lGP0QQboYPRq2AEcaS4xUO001A%3D", oauth_signature="GYvvioRS5EvTs0x3HZu3%2Fd12rQQ%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
-Content-Length: 8261
+Content-Length: 8334
 Body:
 {
   "@context": [
@@ -159,10 +159,14 @@ Body:
     "http://purl.org/blackboard/ctx/v1/iconStyle"
   ],
   "@type": "ToolProxy",
-  "@id": "ToolProxyProposal_at_2013-08-06T17:51:46Z",
+  "@id": "ToolProxyProposal_at_2013-08-09T18:51:20Z",
+  "custom": {
+    "tenant_id": "fab23",
+    "tenant_name": "Lumos1"
+  },
   "lti_version": "LTI-2p0",
-  "tool_proxy_guid": "c9424e10-e0ee-0130-984a-20c9d07c6451",
-  "tool_consumer_profile": "http://localhost:4000/tool_consumer_profiles/7ee87e20-e0ee-0130-9849-20c9d07c6451",
+  "tool_proxy_guid": "9a978d50-e352-0130-9853-20c9d07c6451",
+  "tool_consumer_profile": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451",
   "tool_profile": {
     "product_instance": {
       "product_info": {
@@ -419,7 +423,7 @@ Body:
     ]
   },
   "security_contract": {
-    "shared_secret": "fbf6816334365b9a9e1fa729f7cbaae9",
+    "shared_secret": "0e1546560d8f287ed650775026bd678a",
     "tool_service": [
       {
         "@type": "RestService",
@@ -455,7 +459,7 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 13:51:46 -0400
+2013-08-09 11:51:20 -0700
 Response: Register ToolProxy with ToolConsumer
 Status: 201 Created
 Headers:
@@ -464,49 +468,14 @@ content-length: 220
 {
   "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
   "@type": "ToolProxy",
-  "@id": "http://localhost:4000/tools/c9445ac0-e0ee-0130-9849-20c9d07c6451",
-  "tool_proxy_guid": "c9445ac0-e0ee-0130-9849-20c9d07c6451"
+  "@id": "http://localhost:4000/tools/9aa28c00-e352-0130-9852-20c9d07c6451",
+  "tool_proxy_guid": "9aa28c00-e352-0130-9852-20c9d07c6451"
 }
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-06 13:55:32 -0400
-LtiMessage: Lti Launch
-LaunchUrl: http://localhost:5000/echoes
-&lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/echoes"
-    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
-    encType="application/x-www-form-urlencoded"
-    target="_blank"&gt;
-      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
-      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="91"/&gt;
-      &lt;input type="hidden" name="user_id" value="2"/&gt;
-      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
-      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
-      &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
-      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
-      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
-      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="1890665066904"/&gt;
-      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375811732"/&gt;
-      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="xmCFCnJUhE6+3IMv+lNH6o6mzc0="/&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-&lt;script language="javascript"&gt;
-  document.ltiLaunchForm.submit(); 
-&lt;/script&gt;
-
-
-</div></pre>
-<div class="ToolConsumer"><pre>
-2013-08-06 13:56:48 -0400
+2013-08-09 11:52:45 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/books
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -516,19 +485,21 @@ LaunchUrl: http://localhost:5000/books
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="93"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="117"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
       &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="6976711512953"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6718052501369"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375811808"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074365"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="5lPeSB3GSxMawlih6aERw2u3r/4="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="gtUeCMAzx0ToSGC+ZB4/1uegA+s="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -538,7 +509,7 @@ LaunchUrl: http://localhost:5000/books
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 13:56:49 -0400
+2013-08-09 11:52:45 -0700
 LtiMessage: Launch to external tool
 LaunchUrl: http://bc.vitalsource.com/books/book
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -555,12 +526,14 @@ LaunchUrl: http://bc.vitalsource.com/books/book
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
       &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="543104466721"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7273943156503"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375811809"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074365"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="XoopPldyhHFxRTRUwH8o1LkNL6o="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="sGbs9mWJbDYkMI+yGpQ4sP7tkfk="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -570,30 +543,69 @@ LaunchUrl: http://bc.vitalsource.com/books/book
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-06 13:58:06 -0400
+2013-08-09 11:53:15 -0700
 LtiMessage: Lti Launch
-LaunchUrl: http://localhost:5000/iresources
+LaunchUrl: http://localhost:5000/echoes
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/iresources"
+  &lt;form action="http://localhost:5000/echoes"
     name="ltiLaunchForm" id="ltiLaunchForm" method="post"
     encType="application/x-www-form-urlencoded"
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="95"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="115"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="9815196108164"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074395"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="32dNLTcj9mQESiGQgu2WZ8roM5o="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-08-09 11:56:12 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/bookselections
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/bookselections"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="118"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
       &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="custom_result_uri" value="http://localhost:4000/results/2"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="7451648547157"/&gt;
+      &lt;input type="hidden" name="custom_book_location" value="outline/3"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6901567822275"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375811886"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074572"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="pYX2wPsNWGQr7U9s7b37Obtz8O4="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="gcIXNF+A1aL9kRjKvyH1ULe+9Bs="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -603,31 +615,42 @@ LaunchUrl: http://localhost:5000/iresources
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 13:58:11 -0400
-LtiService: Submit Result to ToolConsumer
-PUT http://localhost:4000/results/2
-Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="4308001369612", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375811891", oauth_version="1.0", oauth_body_hash="6aA0uZ804wYJ%2ByzWF9yinzFYKEk%3D", oauth_signature="Dj4kT0BrErXzciDWfO6mtMnA4OE%3D"
-Content-Type: application/vnd.ims.lis.v2.Result+json
-Content-Length: 132
-Body:
-{"@context":"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result","@type":"Result","resultScore":{"@type":"decimal","@value":"0.87"}}
-
-
-</div></pre>
-<div class="ToolProviderResponse"><pre>
-2013-08-06 13:58:11 -0400
-Response: Submit Result to ToolConsumer
-Status: 200 OK
-Headers:
-content-type: text/html; charset=utf-8
-content-length: 1
- 
+2013-08-09 11:56:13 -0700
+LtiMessage: Launch to external tool
+LaunchUrl: http://bc.vitalsource.com/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://bc.vitalsource.com/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-1p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
+      &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
+      &lt;input type="hidden" name="roles" value="student"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_book_location" value="outline/3"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1165999459249"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074573"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="cc48FVX+eduZxyV2vCmCUGt3sC8="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-06 14:04:45 -0400
+2013-08-09 11:58:18 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/settings
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -637,21 +660,23 @@ LaunchUrl: http://localhost:5000/settings
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="92"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="116"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
       &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/context/2"/&gt;
-      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/ltilink/92"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="6933392537092"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2"/&gt;
+      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="193714249776"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375812285"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376074698"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="MqOx7QezPOpeRvvHfNmn7GpsSuU="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="H2osFWmd8skbsy5wf938/6ISc7A="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -661,11 +686,11 @@ LaunchUrl: http://localhost:5000/settings
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 14:04:45 -0400
+2013-08-09 11:58:18 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
 Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="3169369141496", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812285", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="wk1gnyS6%2BASf1MSM%2BMgbSymUsFA%3D"
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="8130747951298", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="tskhIJmkKX7xoY3BcOpHaer%2FoBQ%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -673,7 +698,33 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 14:04:45 -0400
+2013-08-09 11:58:18 -0700
+Response: Get settings for ToolProxy
+Status: 200 OK
+Headers:
+content-type: application/json; charset=utf-8
+content-length: 44
+{
+  "tenant_id": "fab23",
+  "tenant_name": "Lumos1"
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-08-09 11:58:18 -0700
+LtiService: Get settings for ToolProxy
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+Headers:
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="9661927826449", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="5jJdNGUB%2FxQXYOGwpXulkX39Npw%3D"
+ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
+Body:
+
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-08-09 11:58:18 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -685,11 +736,11 @@ content-length: 2
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 14:04:45 -0400
+2013-08-09 11:58:18 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/context/2
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
 Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="1814693405731", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812285", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="hzhmxPrqNP5yuzw%2BNyKLibsPELw%3D"
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="5514221911945", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="7m6epOLACzQk4WMQDOeTOy2gSQs%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -697,7 +748,7 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 14:04:45 -0400
+2013-08-09 11:58:18 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -709,46 +760,50 @@ content-length: 2
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 14:04:45 -0400
-LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/ltilink/92
-Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="9459486406003", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812285", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="hpNN%2FtH1Lt0qKSExCkN52%2BG%2FZfg%3D"
-ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Body:
-
-
-
-</div></pre>
-<div class="ToolProviderResponse"><pre>
-2013-08-06 14:04:45 -0400
-Response: Get settings for ToolProxy
-Status: 200 OK
-Headers:
-content-type: application/json; charset=utf-8
-content-length: 2
-{
-}
-
-
-</div></pre>
-<div class="ToolProvider"><pre>
-2013-08-06 14:09:23 -0400
+2013-08-09 12:04:51 -0700
 LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451
+PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
 Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="9088696079481", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812563", oauth_version="1.0", oauth_body_hash="ElZL4O%2FHSeKSSk0CDdI57jfxJZw%3D", oauth_signature="IAwYsYpoAttTHMu4v4CxjrkrIq0%3D"
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="7013809327393", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="AjmqbFwNy9SOGHrzJyzNW8D3GMY%3D", oauth_signature="Zep56SoG8h34mdEBuMfupqUlpes%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 30
+Content-Length: 84
 Body:
 {
-  "client_id": "IMSGlobal"
+  "tenant_id": "fab23",
+  "tenant_name": "UnivOfPoker",
+  "client_id": "1234443"
 }
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 14:09:23 -0400
+2013-08-09 12:04:51 -0700
+Response: Put settings for ToolProxy
+Status: 200 OK
+Headers:
+content-type: application/json; charset=utf-8
+content-length: 29
+Successfully updated 3 values
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-08-09 12:04:51 -0700
+LtiService: Put settings for ToolProxy
+PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+Headers:
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="9609420930628", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="5Y5X9xn6DCJPw88ZbAiZzoiDgAk%3D", oauth_signature="iGQ5tg5kNeezXOGRe%2F15uLqg%2BVQ%3D"
+Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
+Content-Length: 35
+Body:
+{
+  "vbid": "L123456,98712341234"
+}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-08-09 12:04:51 -0700
 Response: Put settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -759,59 +814,149 @@ Successfully updated 1 values
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-06 14:09:23 -0400
+2013-08-09 12:04:51 -0700
 LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/context/2
+PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
 Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="5419546950850", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812563", oauth_version="1.0", oauth_body_hash="Oe0eJJk1C%2B82048PwIckTvzZs60%3D", oauth_signature="8rBcRhZWesX7NDndItJTL9aiEXs%3D"
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="5236986121540", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="OaWjBkynE%2BaiWly8MDhf54EfGEY%3D", oauth_signature="rBiRpmXMGHta5xEF4wB5uN4DwXw%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 50
+Content-Length: 29
 Body:
 {
-  "isbn": "L123456789",
-  "instr_code": "3270"
+  "demolink": "lunchdemo"
 }
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-06 14:09:23 -0400
+2013-08-09 12:04:51 -0700
 Response: Put settings for ToolProxy
 Status: 200 OK
 Headers:
 content-type: application/json; charset=utf-8
 content-length: 29
-Successfully updated 2 values
-
-
-</div></pre>
-<div class="ToolProvider"><pre>
-2013-08-06 14:09:23 -0400
-LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/c9445ac0-e0ee-0130-9849-20c9d07c6451/ltilink/92
-Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="3707093157584", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375812563", oauth_version="1.0", oauth_body_hash="3%2Fihcx9ZzK0FazRhAtHh0BS4Q%2FM%3D", oauth_signature="m0w6ghJlF5dd4SwnqcYvARiIlDE%3D"
-Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 3
-Body:
-{
-}
-
-
-</div></pre>
-<div class="ToolProviderResponse"><pre>
-2013-08-06 14:09:23 -0400
-Response: Put settings for ToolProxy
-Status: 200 OK
-Headers:
-content-type: application/json; charset=utf-8
-content-length: 29
-Successfully updated 0 values
+Successfully updated 1 values
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-06 14:09:33 -0400
+2013-08-09 12:05:16 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/settings
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/settings"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="116"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2"/&gt;
+      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="UnivOfPoker"/&gt;
+      &lt;input type="hidden" name="custom_client_id" value="1234443"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L123456,98712341234"/&gt;
+      &lt;input type="hidden" name="custom_demolink" value="lunchdemo"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="9769913655525"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376075116"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="wG06FQBQrooX1FdwW8e3E8wEt3o="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-08-09 12:05:16 -0700
+LtiService: Get settings for ToolProxy
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
+Headers:
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="4485001834354", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="YW%2FIOM%2FwCam4KS2QnJJHyt0LKEw%3D"
+ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
+Body:
+
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-08-09 12:05:16 -0700
+Response: Get settings for ToolProxy
+Status: 200 OK
+Headers:
+content-type: application/json; charset=utf-8
+content-length: 71
+{
+  "tenant_id": "fab23",
+  "tenant_name": "UnivOfPoker",
+  "client_id": "1234443"
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-08-09 12:05:16 -0700
+LtiService: Get settings for ToolProxy
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+Headers:
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="3681603032632", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="%2FYplFi7JDVCoOmYOGIJK5CCJfAY%3D"
+ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
+Body:
+
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-08-09 12:05:16 -0700
+Response: Get settings for ToolProxy
+Status: 200 OK
+Headers:
+content-type: application/json; charset=utf-8
+content-length: 30
+{
+  "vbid": "L123456,98712341234"
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-08-09 12:05:16 -0700
+LtiService: Get settings for ToolProxy
+GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
+Headers:
+Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="260016414577", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="7C5KubsV8gdXz7Ls7oENw6BVgnM%3D"
+ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
+Body:
+
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-08-09 12:05:16 -0700
+Response: Get settings for ToolProxy
+Status: 200 OK
+Headers:
+content-type: application/json; charset=utf-8
+content-length: 24
+{
+  "demolink": "lunchdemo"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-08-09 12:05:57 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/echoes
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -821,7 +966,7 @@ LaunchUrl: http://localhost:5000/echoes
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="91"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="115"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
       &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
@@ -831,485 +976,21 @@ LaunchUrl: http://localhost:5000/echoes
       &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
       &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
       &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
-      &lt;input type="hidden" name="custom_client_id" value="IMSGlobal"/&gt;
-      &lt;input type="hidden" name="custom_isbn" value="L123456789"/&gt;
-      &lt;input type="hidden" name="custom_instr_code" value="3270"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="9450889424147"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="UnivOfPoker"/&gt;
+      &lt;input type="hidden" name="custom_client_id" value="1234443"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L123456,98712341234"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7856912392386"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375812573"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1376075157"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="K1Qwk0hSdwHNUqIMq1jxCKUHYoo="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="fEnDOzxwyjnBv73KHduqVXqElnc="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
   document.ltiLaunchForm.submit(); 
 &lt;/script&gt;
-
-
-</div></pre>
-<div class="ToolConsumer"><pre>
-2013-08-06 14:18:57 -0400
-LtiMessage: Reregister Tool
-LaunchUrl: http://localhost:5000/reregistrations
-&lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/reregistrations"
-    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
-    encType="application/x-www-form-urlencoded"
-    target="_blank"&gt;
-      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/tool_consumer_profiles/95201fc0-e0f2-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="c9445ac0-e0ee-0130-9849-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="3925565356185"/&gt;
-      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1375813137"/&gt;
-      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="8tlv/xvylotn2t9eUk3DkMm7H3M="/&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-&lt;script language="javascript"&gt;
-  document.ltiLaunchForm.submit(); 
-&lt;/script&gt;
-
-
-</div></pre>
-<div class="ToolProvider"><pre>
-2013-08-06 14:18:57 -0400
-LtiService: Get Tool Consumer Profile
-GET http://localhost:4000/tool_consumer_profiles/95201fc0-e0f2-0130-9849-20c9d07c6451
-
-
-</div></pre>
-<div class="ToolProviderResponse"><pre>
-2013-08-06 14:18:57 -0400
-Response: Get Tool Consumer Profile
-Status: 200 OK
-Headers:
-content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
-content-length: 2195
-{
-  "@context": [
-    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
-    {
-      "ltitcp": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
-    }
-  ],
-  "@type": "ToolConsumerProfile",
-  "@id": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
-  "lti_version": "LTI-2p0",
-  "guid": "95201fc0-e0f2-0130-9849-20c9d07c6451",
-  "product_instance": {
-    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
-    "product_info": {
-      "product_name": {
-        "default_value": "Elan/LuMoS",
-        "key": "product.name"
-      },
-      "product_version": "3.1",
-      "description": {
-        "default_value": "Elan University/LuMoS Learning Platform",
-        "key": "product.version"
-      },
-      "technical_description": {
-        "default_value": "LTI 1, 1.1 and 2.0 compliant",
-        "key": "product.technicalDescription"
-      },
-      "product_family": {
-        "code": "LuMoS",
-        "vendor": {
-          "code": "lms.LuMoS.org",
-          "name": {
-            "default_value": "LuMoS Corporation",
-            "key": "product.vendor.name"
-          },
-          "description": {
-            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
-            "key": "product.vendor.description"
-          },
-          "website": "http://lms.LuMoS.org/products/omega",
-          "timestamp": "2012-07-09T012:08:16-04:00",
-          "contact": {
-            "email": "support@lms.LuMoS.org"
-          }
-        }
-      }
-    },
-    "support": {
-      "email": "john.tibbetts@kinexis.com"
-    },
-    "service_provider": {
-      "@id": "http://ec2.LuMoS.org/ServiceProvider",
-      "guid": "ec2.LuMoS.org",
-      "timestamp": "2012-07-09T012:08:16-04:00",
-      "provider_name": {
-        "default_value": "Elan University",
-        "key": "service_provider.name"
-      },
-      "description": {
-        "default_value": "Elan University EC2 Cloud",
-        "key": "service_provider.description"
-      },
-      "support": {
-        "email": "support@yasp.LuMoS.org"
-      }
-    }
-  },
-  "capability_enabled": [
-    "basic-lti-launch-request",
-    "Result.autocreate",
-    "Result.sourcedGUID"
-  ],
-  "service_offered": [
-    {
-      "@type": "RestService",
-      "@id": "ltitcp:ToolProxy.collection",
-      "endpoint": "http://localhost:4000/tools",
-      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
-      "action": "POST"
-    },
-    {
-      "@type": "RestService",
-      "@id": "ltitcp:ToolProxy.item",
-      "endpoint": "http://localhost:4000/tools/{tool_proxy_guid}",
-      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
-      "action": [
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "@type": "RestService",
-      "@id": "ltitcp:Result.item",
-      "endpoint": "http://localhost:4000/resources/Result/{sourcedId}",
-      "format": "application/vnd.ims.lis.v2.Result+json",
-      "action": [
-        "GET",
-        "PUT"
-      ]
-    }
-  ]
-}
-
-
-</div></pre>
-<div class="ToolProvider"><pre>
-2013-08-06 14:19:08 -0400
-LtiService: Register ToolProxy with ToolConsumer
-PUT http://localhost:4000/tools/c9445ac0-e0ee-0130-9849-20c9d07c6451
-Headers:
-Authorization: OAuth oauth_consumer_key="c9445ac0-e0ee-0130-9849-20c9d07c6451", oauth_nonce="2783696896933", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1375813148", oauth_version="1.0", oauth_body_hash="WWWJenS3CzSRoJXyNuJpF79yppU%3D", oauth_signature="IXKIcXnRufKUrP6ZS8Y7glPO%2BHc%3D"
-Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
-Content-Length: 8280
-Body:
-{
-  "@context": [
-    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
-    "http://purl.org/blackboard/ctx/v1/iconStyle"
-  ],
-  "@type": "ToolProxy",
-  "@id": "ToolProxyProposal_at_2013-08-06T18:19:08Z",
-  "lti_version": "LTI-2p0",
-  "tool_proxy_guid": "c9445ac0-e0ee-0130-9849-20c9d07c6451",
-  "tool_consumer_profile": "http://localhost:4000/tool_consumer_profiles/95201fc0-e0f2-0130-9849-20c9d07c6451",
-  "tool_profile": {
-    "product_instance": {
-      "product_info": {
-        "product_version": "10.3",
-        "technical_description": {
-          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
-          "key": "tool.technical"
-        },
-        "product_name": {
-          "default_value": "LTI2 BookTools",
-          "key": "tool.name"
-        },
-        "product_family": {
-          "code": "assessment-tool",
-          "vendor": {
-            "website": "{http://localhost:5000}",
-            "code": "fabericious.org",
-            "name": {
-              "default_value": "Fab",
-              "key": "tool.vendor.name"
-            },
-            "timestamp": "2012-04-05T09:08:16-04:00",
-            "contact": {
-              "email": "info@fabericious.com"
-            },
-            "description": {
-              "default_value": "Fabericious is a leading provider of interactive tools for education",
-              "key": "tool.vendor.description"
-            }
-          }
-        },
-        "description": {
-          "default_value": "Fabericious reflowable ePub3 Textbook",
-          "key": "tool.description"
-        }
-      },
-      "support": {
-        "email": "helpdesk@fabericious.com"
-      },
-      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
-      "service_provider": {
-        "support": {
-          "email": "support@ec2.fabericious.com"
-        },
-        "provider_name": {
-          "default_value": "Amazon Cloud",
-          "key": "service_provider.name"
-        },
-        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
-        "description": {
-          "default_value": "Provider of high performance managed hosting environments",
-          "key": "service_provider.description"
-        },
-        "timestamp": "2012-04-05T09:08:16-04:00"
-      }
-    },
-    "lti_version": "LTI-2p0",
-    "message": [
-      {
-        "message_type": [
-          "ToolProxyRegistrationRequest",
-          "ToolProxyReregistrationRequest"
-        ],
-        "path": "http://localhost:5000/reregistrations",
-        "parameter": [
-          {
-            "variable": "ToolConsumerProfile.url",
-            "name": "tc_profile_url"
-          }
-        ]
-      }
-    ],
-    "resource_handler": [
-      {
-        "message": [
-          {
-            "path": "/echoes",
-            "parameter": [
-              {
-                "fixed": "Narcissus",
-                "name": "referrer"
-              },
-              {
-                "fixed": "3.14159",
-                "name": "pi"
-              },
-              {
-                "variable": "Person.email.primary",
-                "name": "user_primary_email"
-              },
-              {
-                "variable": "CourseOffering.label",
-                "name": "discipline"
-              }
-            ],
-            "message_type": "basic-lti-launch-request"
-          }
-        ],
-        "name": {
-          "default_value": "Echo",
-          "key": "resource.name"
-        },
-        "resource_type": "echo",
-        "description": {
-          "default_value": "Echo service",
-          "key": "resource.description"
-        }
-      },
-      {
-        "message": [
-          {
-            "path": "/settings",
-            "parameter": [
-              {
-                "variable": "ToolProxy.custom.uri",
-                "name": "tool_proxy_custom_uri"
-              },
-              {
-                "variable": "ToolProxyBinding.custom.uri",
-                "name": "tool_proxy_binding_custom_uri"
-              },
-              {
-                "variable": "LtiLink.custom.uri",
-                "name": "lti_link_custom_uri"
-              }
-            ],
-            "message_type": "basic-lti-launch-request"
-          }
-        ],
-        "name": {
-          "default_value": "Settings",
-          "key": "resource.name"
-        },
-        "resource_type": "setting",
-        "description": {
-          "default_value": "Settings service",
-          "key": "resource.description"
-        }
-      },
-      {
-        "message": [
-          {
-            "path": "/books",
-            "parameter": [
-              {
-                "name": "vbid"
-              }
-            ],
-            "message_type": "basic-lti-launch-request"
-          }
-        ],
-        "name": {
-          "default_value": "Book",
-          "key": "resource.name"
-        },
-        "resource_type": "book",
-        "description": {
-          "default_value": "VitalSource reader for XML, PDF, and ePub content",
-          "key": "resource.description"
-        }
-      },
-      {
-        "message": [
-          {
-            "path": "/bookselections",
-            "parameter": [
-              {
-                "name": "vbid"
-              },
-              {
-                "name": "book_location"
-              }
-            ],
-            "message_type": "basic-lti-launch-request"
-          }
-        ],
-        "name": {
-          "default_value": "BookSelection",
-          "key": "resource.name"
-        },
-        "resource_type": "bookselection",
-        "description": {
-          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
-          "key": "resource.description"
-        }
-      },
-      {
-        "message": [
-          {
-            "path": "/iresources",
-            "enabled_capability": [
-              "Result.autocreate"
-            ],
-            "parameter": [
-              {
-                "name": "vbid"
-              },
-              {
-                "variable": "Result.uri",
-                "name": "result_uri"
-              }
-            ],
-            "message_type": "basic-lti-launch-request",
-            "capability": [
-              "Result.autocreate"
-            ]
-          }
-        ],
-        "name": {
-          "default_value": "InteractiveResource",
-          "key": "resource.name"
-        },
-        "resource_type": "iresource",
-        "description": {
-          "default_value": "Interactive resource",
-          "key": "resource.description"
-        }
-      },
-      {
-        "message": [
-          {
-            "path": "/bookshelves",
-            "parameter": [
-              {
-                "variable": "CourseOffering.label",
-                "name": "course_label"
-              }
-            ],
-            "message_type": "basic-lti-launch-request"
-          }
-        ],
-        "name": {
-          "default_value": "Bookshelf",
-          "key": "resource.name"
-        },
-        "resource_type": "bookshelf",
-        "description": {
-          "default_value": "VitalSource Bookshelf",
-          "key": "resource.description"
-        }
-      }
-    ],
-    "base_url_choice": [
-      {
-        "selector": {
-          "applies_to": [
-            "IconEndpoint",
-            "MessageHandler"
-          ]
-        },
-        "secure_base_url": "http://localhost:5000",
-        "default_base_url": "http://localhost:5000"
-      }
-    ]
-  },
-  "security_contract": {
-    "shared_secret": "1f38600a6192edb2f157815fc72bf22c",
-    "tool_service": [
-      {
-        "@type": "RestService",
-        "@id": "ltitcp:ToolProxy.collection",
-        "service": "http://localhost:4000/tools",
-        "action": "POST",
-        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
-      },
-      {
-        "@type": "RestService",
-        "@id": "ltitcp:ToolProxy.item",
-        "service": "http://localhost:4000/tools/c9445ac0-e0ee-0130-9849-20c9d07c6451",
-        "action": [
-          "GET",
-          "PUT"
-        ],
-        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
-      },
-      {
-        "@type": "RestService",
-        "@id": "ltitcp:Result.item",
-        "service": "http://localhost:4000/resources/Result/{sourcedId}",
-        "action": [
-          "GET",
-          "PUT"
-        ],
-        "format": "application/vnd.ims.lis.v2.Result+json"
-      }
-    ]
-  }
-}
-
-
-</div></pre>
-<div class="ToolProviderResponse"><pre>
-2013-08-06 14:19:08 -0400
-Response: Register ToolProxy with ToolConsumer
-Status: 202 Accepted
-Headers:
-content-type: text/html; charset=utf-8
-content-length: 1
- 
 
 
 </div></pre>

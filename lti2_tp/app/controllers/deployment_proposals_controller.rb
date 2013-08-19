@@ -203,6 +203,10 @@ class DeploymentProposalsController < InheritedResources::Base
       ],
       '@type' => "ToolProxy",
       '@id' => "ToolProxyProposal_at_#{Time.now.utc.iso8601}",
+      
+      #for testing initial tool settings
+      'custom' => {'tenant_id' => 'fab23', 'tenant_name' => 'Lumos1'},
+      
       'lti_version' => 'LTI-2p0',
       'tool_proxy_guid' => tool_proxy_guid,
       'tool_consumer_profile' => tool_consumer_profile_url,
