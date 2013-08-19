@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: localhost (MySQL 5.5.28)
+# Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: lumos
-# Generation Time: 2013-08-06 09:26:10 +0000
+# Generation Time: 2013-08-19 14:46:58 +0000
 # ************************************************************
 
 
@@ -27,19 +27,19 @@ DROP TABLE IF EXISTS `active_admin_comments`;
 
 CREATE TABLE `active_admin_comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resource_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `resource_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `resource_id` varchar(255) NOT NULL,
+  `resource_type` varchar(255) NOT NULL,
   `author_id` int(11) DEFAULT NULL,
-  `author_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8_unicode_ci,
+  `author_type` varchar(255) DEFAULT NULL,
+  `body` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `namespace` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `namespace` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_active_admin_comments_on_author_type_and_author_id` (`author_type`,`author_id`),
   KEY `index_active_admin_comments_on_namespace` (`namespace`),
   KEY `index_admin_notes_on_resource_type_and_resource_id` (`resource_type`,`resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -50,26 +50,26 @@ DROP TABLE IF EXISTS `admin_users`;
 
 CREATE TABLE `admin_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `encrypted_password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `reset_password_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
+  `reset_password_token` varchar(255) DEFAULT NULL,
   `reset_password_sent_at` datetime DEFAULT NULL,
   `remember_created_at` datetime DEFAULT NULL,
   `sign_in_count` int(11) DEFAULT '0',
   `current_sign_in_at` datetime DEFAULT NULL,
   `last_sign_in_at` datetime DEFAULT NULL,
-  `current_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_admin_users_on_email` (`email`),
   UNIQUE KEY `index_admin_users_on_reset_password_token` (`reset_password_token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `admin_users` WRITE;
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
@@ -94,12 +94,12 @@ DROP TABLE IF EXISTS `courses`;
 
 CREATE TABLE `courses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `course_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `course_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `course_label` varchar(255) DEFAULT NULL,
+  `course_title` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
@@ -122,18 +122,18 @@ DROP TABLE IF EXISTS `deployment_proposals`;
 
 CREATE TABLE `deployment_proposals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reg_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reg_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tc_profile_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `launch_presentation_return_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `reg_key` varchar(255) DEFAULT NULL,
+  `reg_password` varchar(255) DEFAULT NULL,
+  `tc_profile_url` varchar(255) DEFAULT NULL,
+  `launch_presentation_return_url` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `message_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message_type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -144,17 +144,17 @@ DROP TABLE IF EXISTS `deployment_requests`;
 
 CREATE TABLE `deployment_requests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reg_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reg_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `partner_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reg_key` varchar(255) DEFAULT NULL,
+  `reg_password` varchar(255) DEFAULT NULL,
+  `partner_url` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `tool_id` int(11) DEFAULT NULL,
-  `tc_profile_guid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tc_profile_guid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_deployment_requests_on_tc_profile_guid` (`tc_profile_guid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -167,11 +167,11 @@ CREATE TABLE `enrollments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `admin_user_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `enrollments` WRITE;
 /*!40000 ALTER TABLE `enrollments` DISABLE KEYS */;
@@ -205,11 +205,11 @@ DROP TABLE IF EXISTS `grade_items`;
 CREATE TABLE `grade_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `course_id` int(11) DEFAULT NULL,
-  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -226,7 +226,7 @@ CREATE TABLE `grade_results` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -238,14 +238,14 @@ DROP TABLE IF EXISTS `iresources`;
 CREATE TABLE `iresources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
-  `result_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `userid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contextid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `result_uri` varchar(255) DEFAULT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  `contextid` varchar(255) DEFAULT NULL,
   `score` float DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -256,16 +256,16 @@ DROP TABLE IF EXISTS `links`;
 
 CREATE TABLE `links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resource_link_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `resource_link_label` varchar(255) DEFAULT NULL,
   `is_enabled` tinyint(1) DEFAULT NULL,
   `grade_item_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `course_id` int(11) DEFAULT NULL,
   `resource_id` int(11) DEFAULT NULL,
-  `link_parameters` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link_parameters` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -276,19 +276,19 @@ DROP TABLE IF EXISTS `registries`;
 
 CREATE TABLE `registries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci,
+  `name` varchar(255) DEFAULT NULL,
+  `content` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `registries` WRITE;
 /*!40000 ALTER TABLE `registries` DISABLE KEYS */;
 
 INSERT INTO `registries` (`id`, `name`, `content`, `created_at`, `updated_at`)
 VALUES
-	(1,'tool_consumer_profile_template','{\n    \"@context\" : [\n        \"http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile\",\n        {\n            \"ltitcp\" : \"{tc_deployment_url}/tool_consumer_profiles/{tool_consumer_profile_guid}#\"\n        }\n    ],\n    \"@type\" : \"ToolConsumerProfile\",\n    \"@id\" : \"{tc_deployment_url}/tool_consumer_profiles/{tool_consumer_profile_guid}\",\n    \"lti_version\" : \"LTI-2p0\",\n    \"guid\" : \"{tool_consumer_profiles}\",\n    \"product_instance\" : {\n        \"guid\" : \"dcddf9808107-81ea-eaa4-1edf-5d24568c\",\n        \"product_info\" : {\n            \"product_name\" : {\n                \"default_value\" : \"Elan/{tool_consumer_name}\",\n                \"key\" : \"product.name\"\n            },\n            \"product_version\" : \"3.1\",\n            \"description\" : {\n                \"default_value\" : \"Elan University/{tool_consumer_name} Learning Platform\",\n                \"key\" : \"product.version\"\n            },\n            \"technical_description\" : {\n                \"default_value\" : \"LTI 1, 1.1 and 2.0 compliant\",\n                \"key\" : \"product.technicalDescription\"\n            },\n            \"product_family\" : {\n                \"code\" : \"{tool_consumer_name}\",\n                \"vendor\" : {\n                    \"code\" : \"lms.{tool_consumer_name}.org\",\n                    \"name\" : {\n                        \"default_value\" : \"{tool_consumer_name} Corporation\",\n                        \"key\" : \"product.vendor.name\"\n                    },\n                    \"description\" : {\n                        \"default_value\" : \"{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System\",\n                        \"key\" : \"product.vendor.description\"\n                    },\n                    \"website\" : \"http://lms.{tool_consumer_name}.org/products/omega\",\n                    \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n                    \"contact\" : {\n                        \"email\" : \"support@lms.{tool_consumer_name}.org\"\n                    }\n                }\n            }\n        },\n        \"support\" : {\n            \"email\" : \"john.tibbetts@kinexis.com\"\n        },\n        \"service_provider\" : {\n            \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceProvider\",\n            \"guid\" : \"ec2.{tool_consumer_name}.org\",\n            \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n            \"provider_name\" : {\n                \"default_value\" : \"Elan University\",\n                \"key\" : \"service_provider.name\"\n            },\n            \"description\" : {\n                \"default_value\" : \"Elan University EC2 Cloud\",\n                \"key\" : \"service_provider.description\"\n            },\n            \"support\" : {\n                \"email\" : \"support@yasp.{tool_consumer_name}.org\"\n            }\n        }\n    },\n    \"capability_enabled\" : [\n        \"basic-lti-launch-request\",\n        \"Result.autocreate\",\n        \"Result.sourcedGUID\"\n    ],\n    \"service_offered\" : [\n        {\n            \"@type\" : \"RestService\",\n            \"@id\" : \"ltitcp:ToolProxy.collection\",\n            \"endpoint\" : \"{tc_deployment_url}/tools\",\n            \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n            \"action\" : \"POST\"\n        },\n        {\n            \"@type\" : \"RestService\",\n            \"@id\" : \"ltitcp:ToolProxy.item\",\n            \"endpoint\" : \"{tc_deployment_url}/tools/{tool_proxy_guid}\",\n            \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n            \"action\" : [\n                \"GET\",\n                \"PUT\"\n            ]\n        },\n        {\n            \"@type\" : \"RestService\",\n            \"@id\" : \"ltitcp:Result.item\",\n            \"endpoint\" : \"{tc_deployment_url}/resources/Result/{sourcedId}\",\n            \"format\" : \"application/vnd.ims.lis.v2.Result+json\",\n            \"action\" : [\n                \"GET\",\n                \"PUT\"\n            ]\n        }\n    ]\n}','2012-07-09 23:45:10','2012-07-09 23:45:10'),
+	(1,'tool_consumer_profile_template','{\n  \"@context\" : [\n    \"http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile\",\n    {\n      \"ltitcp\" : \"{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#\"\n    }\n  ],\n  \"@type\" : \"ToolConsumerProfile\",\n  \"@id\" : \"{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b\",\n  \"lti_version\" : \"LTI-2p0\",\n  \"guid\" : \"4d469a076541-fcc9-9454-d1ec-106aff6b\",\n  \"product_instance\" : {\n    \"guid\" : \"dcddf9808107-81ea-eaa4-1edf-5d24568c\",\n    \"product_info\" : {\n      \"product_name\" : {\n        \"default_value\" : \"Elan/{tool_consumer_name}\",\n        \"key\" : \"product.name\"\n      },\n      \"product_version\" : \"3.1\",\n      \"description\" : {\n        \"default_value\" : \"Elan University/{tool_consumer_name} Learning Platform\",\n        \"key\" : \"product.version\"\n      },\n      \"technical_description\" : {\n        \"default_value\" : \"LTI 1, 1.1 and 2.0 compliant\",\n        \"key\" : \"product.technicalDescription\"\n      },\n      \"product_family\" : {\n        \"code\" : \"{tool_consumer_name}\",\n        \"vendor\" : {\n          \"code\" : \"lms.{tool_consumer_name}.org\",\n          \"name\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation\",\n            \"key\" : \"product.vendor.name\"\n          },\n          \"description\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System\",\n            \"key\" : \"product.vendor.description\"\n          },\n          \"website\" : \"http://lms.{tool_consumer_name}.org/products/omega\",\n          \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n          \"contact\" : {\n            \"email\" : \"support@lms.{tool_consumer_name}.org\"\n          }\n        }\n      }\n    },\n    \"support\" : {\n      \"email\" : \"john.tibbetts@kinexis.com\"\n    },\n    \"service_provider\" : {\n      \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceProvider\",\n      \"guid\" : \"ec2.{tool_consumer_name}.org\",\n      \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n      \"provider_name\" : {\n        \"default_value\" : \"Elan University\",\n        \"key\" : \"service_provider.name\"\n      },\n      \"description\" : {\n        \"default_value\" : \"Elan University EC2 Cloud\",\n        \"key\" : \"service_provider.description\"\n      },\n      \"support\" : {\n        \"email\" : \"support@yasp.{tool_consumer_name}.org\"\n      }\n    }\n  },\n  \"capability_enabled\" : [\n     \"basic-lti-launch-request\",\n     \"Result.autocreate\",\n     \"Result.sourcedGUID\"\n  ],\n  \"service_offered\" : [\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.collection\",\n      \"endpoint\" : \"{tc_deployment_url}/tools\",\n      \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n      \"action\" : \"POST\"\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.item\",\n      \"endpoint\" : \"{tc_deployment_url}/tools/{tool_proxy_guid}\",\n      \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:Result.item\",\n      \"endpoint\" : \"{tc_deployment_url}/resources/Result/{sourcedId}\",\n      \"format\" : \"application/vnd.ims.lis.v2.Result+json\",\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    }\n  ]\n}','2012-07-09 23:45:10','2012-07-09 23:45:10'),
 	(3,'tc_deployment_url','http://localhost:4000','2012-07-29 17:58:18','2012-07-29 17:58:18'),
 	(5,'relaxed_oauth_check','false','2012-07-29 17:58:18','2012-07-29 17:58:18'),
 	(6,'result_template','{\n  \"@context\" : \"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result\",\n  \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"  : {value}\n  }\n}\n','2012-07-29 17:58:18','2012-07-29 17:58:18'),
@@ -306,11 +306,11 @@ DROP TABLE IF EXISTS `resources`;
 CREATE TABLE `resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tool_id` int(11) DEFAULT NULL,
-  `resource_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `resource_type` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -344,14 +344,14 @@ DROP TABLE IF EXISTS `tenant_users`;
 CREATE TABLE `tenant_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -362,11 +362,11 @@ DROP TABLE IF EXISTS `tenants`;
 
 CREATE TABLE `tenants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -377,13 +377,13 @@ DROP TABLE IF EXISTS `tool_consumer_profiles`;
 
 CREATE TABLE `tool_consumer_profiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tc_profile_guid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tc_profile` text COLLATE utf8_unicode_ci,
+  `tc_profile_guid` varchar(255) DEFAULT NULL,
+  `tc_profile` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_tool_consumer_profiles_on_tc_profile_guid` (`tc_profile_guid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -396,15 +396,15 @@ CREATE TABLE `tool_deployments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
   `tool_id` int(11) DEFAULT NULL,
-  `product_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tool_proxy` text COLLATE utf8_unicode_ci,
+  `product_name` varchar(255) DEFAULT NULL,
+  `tool_proxy` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `secret` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `key` varchar(255) DEFAULT NULL,
+  `secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_tool_deployments_on_key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -417,11 +417,11 @@ CREATE TABLE `tool_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tool_id` int(11) DEFAULT NULL,
   `scopeable_id` int(11) DEFAULT NULL,
-  `scopeable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scopeable_type` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -432,17 +432,17 @@ DROP TABLE IF EXISTS `tools`;
 
 CREATE TABLE `tools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tool_proxy` text COLLATE utf8_unicode_ci,
+  `tool_proxy` text,
   `is_enabled` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `product_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `secret` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `key` varchar(255) DEFAULT NULL,
+  `secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_tools_on_key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: localhost (MySQL 5.5.28)
+# Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: fabericious
-# Generation Time: 2013-08-06 09:19:53 +0000
+# Generation Time: 2013-08-19 14:47:09 +0000
 # ************************************************************
 
 
@@ -27,18 +27,18 @@ DROP TABLE IF EXISTS `deployment_proposals`;
 
 CREATE TABLE `deployment_proposals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reg_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reg_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tc_profile_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `launch_presentation_return_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `reg_key` varchar(255) DEFAULT NULL,
+  `reg_password` varchar(255) DEFAULT NULL,
+  `tc_profile_url` varchar(255) DEFAULT NULL,
+  `launch_presentation_return_url` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `message_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message_type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -50,14 +50,14 @@ DROP TABLE IF EXISTS `iresources`;
 CREATE TABLE `iresources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
-  `result_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `userid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contextid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `result_uri` varchar(255) DEFAULT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  `contextid` varchar(255) DEFAULT NULL,
   `score` float DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -68,12 +68,12 @@ DROP TABLE IF EXISTS `registries`;
 
 CREATE TABLE `registries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci,
+  `name` varchar(255) DEFAULT NULL,
+  `content` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `registries` WRITE;
 /*!40000 ALTER TABLE `registries` DISABLE KEYS */;
@@ -119,14 +119,14 @@ DROP TABLE IF EXISTS `tenant_users`;
 CREATE TABLE `tenant_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -137,11 +137,11 @@ DROP TABLE IF EXISTS `tenants`;
 
 CREATE TABLE `tenants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -154,15 +154,15 @@ CREATE TABLE `tool_deployments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tenant_id` int(11) DEFAULT NULL,
   `tool_id` int(11) DEFAULT NULL,
-  `product_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tool_proxy` text COLLATE utf8_unicode_ci,
+  `product_name` varchar(255) DEFAULT NULL,
+  `tool_proxy` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `secret` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `key` varchar(255) DEFAULT NULL,
+  `secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_tool_deployments_on_key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -173,12 +173,12 @@ DROP TABLE IF EXISTS `tools`;
 
 CREATE TABLE `tools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tool_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tool_profile_template` text COLLATE utf8_unicode_ci,
+  `tool_name` varchar(255) DEFAULT NULL,
+  `tool_profile_template` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `tools` WRITE;
 /*!40000 ALTER TABLE `tools` DISABLE KEYS */;

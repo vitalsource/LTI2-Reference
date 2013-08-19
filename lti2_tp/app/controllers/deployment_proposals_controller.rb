@@ -125,7 +125,7 @@ class DeploymentProposalsController < InheritedResources::Base
     tool_proxy = create_tool_proxy @deployment_proposal.tc_profile_url, get_tool_consumer_profile(session),
                                   @tool.get_tool_profile(@tool_options), UUID.generate
     if tool_proxy
-      service_offered = get_tool_consumer_profile(session)['service_offered'].select { |entry| entry['@id'] == 'ltitcp:ToolProxy.collection'}[0]
+      service_offered = get_tool_consumer_profile(session)['service_offered'].select { |entry| entry['format'] == 'application/vnd.ims.lti.v2.ToolProxy+json'}[0]
       tool_proxy_response = register_tool_proxy get_tool_consumer_profile(session), tool_proxy, service_offered, "post"
       
       # get guid from the response returned by the TC

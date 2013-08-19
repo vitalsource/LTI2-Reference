@@ -22,8 +22,9 @@ gem "activeadmin" , :git  =>  'git://github.com/gregbell/active_admin.git'
 gem 'lrucache'
 gem 'httparty'
 gem 'yaml_db'
-gem 'mysql2'
+gem 'mysql2','0.3.13'
 gem 'uuid'
+gem 'haml-contrib'
 
 # Gems used only for assets and not required
 # in production environments by default.
