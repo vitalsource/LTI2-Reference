@@ -211,7 +211,7 @@ class DeploymentProposalsController < InheritedResources::Base
       'tool_proxy_guid' => tool_proxy_guid,
       'tool_consumer_profile' => tool_consumer_profile_url,
       'tool_profile' => tool_profile,
-      'security_contract' => resolve_security_contract(tool_consumer_profile, tool_provider_registry)
+      'security_contract' => resolve_security_contract(tool_consumer_profile)
     }
     tool_proxy_wrapper = JsonWrapper.new tool_proxy
     tool_proxy_wrapper.root
@@ -266,7 +266,7 @@ class DeploymentProposalsController < InheritedResources::Base
     render
 	end
 	  
-  def resolve_security_contract tool_consumer_profile, tool_provider_registry
+  def resolve_security_contract tool_consumer_profile
     security_contract = {}
     
     security_contract['shared_secret'] = SecureRandom.hex
@@ -275,7 +275,7 @@ class DeploymentProposalsController < InheritedResources::Base
     services_offered = tool_consumer_profile['service_offered']
     services_offered.each { |service_offered|
       tool_service = {}
-      tool_service['@type'] = service_offered['@type']
+      tool_service['@type'] = 'RestServiceProfile'
       tool_service['@id'] = service_offered['@id']
       tool_service['service'] = service_offered['endpoint']
       tool_service['action'] = service_offered['action']

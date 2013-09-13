@@ -35,8 +35,8 @@ class ToolsController < ApplicationController
     @tool.key = tool_proxy_guid
     @tool.secret = tool_proxy.first_at('security_contract.shared_secret')
 
-    # TEMPORARY: enable tool
-    @tool.is_enabled = true
+    # TEMPORARY: enable tool...FOR DEMOS
+    # @tool.is_enabled = true
     
     @tool.save
     
@@ -164,8 +164,9 @@ class ToolsController < ApplicationController
     tool_proxy.root['@id'] = tool_proxy_id
 
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
-    # TEMPORARY: enable tool
-    @tool.is_enabled = true
+
+    # TEMPORARY: enable tool...FOR DEMOS
+    # @tool.is_enabled = true
 
     capture_and_excise_settings(tool_proxy.root, @tool)
 

@@ -13,7 +13,6 @@ class ToolProviderRegistry
     @relaxed_oauth_check = registry['relaxed_oauth_check']
     @result_template = registry['result_template']
     @tool_provider_name = registry['tool_provider_name']
-    @security_contract_template = registry['security_contract_template']
 
 	end
 	

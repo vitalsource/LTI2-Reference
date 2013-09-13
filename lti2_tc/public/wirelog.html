@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="wirelog.css" />
 
 <div class="ToolConsumer"><pre>
-2013-08-09 11:47:29 -0700
+2013-09-02 11:10:20 -0700
 LtiMessage: Request Tool Registration
 LaunchUrl: http://localhost:5000/deployment_proposals
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -12,10 +12,10 @@ LaunchUrl: http://localhost:5000/deployment_proposals
       &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
-      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_key" value="e632e420-e351-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_password" value="2eba72e2ef8502f8ef4e3df376c6fb37"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/c6302320-f628-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="c62fe340-f628-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="711e93150f066edbba20eb739f8035a6"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
@@ -26,30 +26,30 @@ LaunchUrl: http://localhost:5000/deployment_proposals
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:47:29 -0700
+2013-09-02 11:10:21 -0700
 LtiService: Get Tool Consumer Profile
-GET http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451
+GET http://rails.kinexis.com:4000/tool_consumer_profiles/c6302320-f628-0130-10db-20c9d07c6451
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 11:47:29 -0700
+2013-09-02 11:10:21 -0700
 Response: Get Tool Consumer Profile
 Status: 200 OK
 Headers:
 content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
-content-length: 2225
+content-length: 2235
 {
   "@context": [
     "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
     {
-      "ltitcp": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451#"
+      "ltitcp": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
     }
   ],
   "@type": "ToolConsumerProfile",
-  "@id": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451",
+  "@id": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
   "lti_version": "LTI-2p0",
-  "guid": "e632e7e0-e351-0130-9852-20c9d07c6451",
+  "guid": "c6302320-f628-0130-10db-20c9d07c6451",
   "product_instance": {
     "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
     "product_info": {
@@ -115,14 +115,14 @@ content-length: 2225
     {
       "@type": "RestService",
       "@id": "ltitcp:ToolProxy.collection",
-      "endpoint": "http://localhost:4000/tools",
+      "endpoint": "http://rails.kinexis.com:4000/tools",
       "format": "application/vnd.ims.lti.v2.ToolProxy+json",
       "action": "POST"
     },
     {
       "@type": "RestService",
       "@id": "ltitcp:ToolProxy.item",
-      "endpoint": "http://localhost:4000/tools/{tool_proxy_guid}",
+      "endpoint": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
       "format": "application/vnd.ims.lti.v2.ToolProxy+json",
       "action": [
         "GET",
@@ -132,7 +132,7 @@ content-length: 2225
     {
       "@type": "RestService",
       "@id": "ltitcp:Result.item",
-      "endpoint": "http://localhost:4000/resources/Result/{sourcedId}",
+      "endpoint": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
       "format": "application/vnd.ims.lis.v2.Result+json",
       "action": [
         "GET",
@@ -145,13 +145,13 @@ content-length: 2225
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:51:20 -0700
+2013-09-02 11:11:51 -0700
 LtiService: Register ToolProxy with ToolConsumer
-POST http://localhost:4000/tools
+POST http://rails.kinexis.com:4000/tools
 Headers:
-Authorization: OAuth oauth_consumer_key="e632e420-e351-0130-9852-20c9d07c6451", oauth_nonce="8420949237395", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074280", oauth_version="1.0", oauth_body_hash="5lGP0QQboYPRq2AEcaS4xUO001A%3D", oauth_signature="GYvvioRS5EvTs0x3HZu3%2Fd12rQQ%3D"
+Authorization: OAuth oauth_consumer_key="c62fe340-f628-0130-10db-20c9d07c6451", oauth_nonce="1258741793472", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378145511", oauth_version="1.0", oauth_body_hash="1NtHts8TdctTZQQ%2FjE0WZemj6VM%3D", oauth_signature="2FnRrxjo7R8GlZVXBYo94Eyck1w%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
-Content-Length: 8334
+Content-Length: 8366
 Body:
 {
   "@context": [
@@ -159,14 +159,14 @@ Body:
     "http://purl.org/blackboard/ctx/v1/iconStyle"
   ],
   "@type": "ToolProxy",
-  "@id": "ToolProxyProposal_at_2013-08-09T18:51:20Z",
+  "@id": "ToolProxyProposal_at_2013-09-02T18:11:51Z",
   "custom": {
     "tenant_id": "fab23",
     "tenant_name": "Lumos1"
   },
   "lti_version": "LTI-2p0",
-  "tool_proxy_guid": "9a978d50-e352-0130-9853-20c9d07c6451",
-  "tool_consumer_profile": "http://localhost:4000/tool_consumer_profiles/e632e7e0-e351-0130-9852-20c9d07c6451",
+  "tool_proxy_guid": "105d6350-f629-0130-10d6-20c9d07c6451",
+  "tool_consumer_profile": "http://rails.kinexis.com:4000/tool_consumer_profiles/c6302320-f628-0130-10db-20c9d07c6451",
   "tool_profile": {
     "product_instance": {
       "product_info": {
@@ -423,19 +423,19 @@ Body:
     ]
   },
   "security_contract": {
-    "shared_secret": "0e1546560d8f287ed650775026bd678a",
+    "shared_secret": "cbf6f8fd1342eb0d320ae20b447cf350",
     "tool_service": [
       {
         "@type": "RestService",
         "@id": "ltitcp:ToolProxy.collection",
-        "service": "http://localhost:4000/tools",
+        "service": "http://rails.kinexis.com:4000/tools",
         "action": "POST",
         "format": "application/vnd.ims.lti.v2.ToolProxy+json"
       },
       {
         "@type": "RestService",
         "@id": "ltitcp:ToolProxy.item",
-        "service": "http://localhost:4000/tools/{tool_proxy_guid}",
+        "service": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
         "action": [
           "GET",
           "PUT"
@@ -445,7 +445,7 @@ Body:
       {
         "@type": "RestService",
         "@id": "ltitcp:Result.item",
-        "service": "http://localhost:4000/resources/Result/{sourcedId}",
+        "service": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
         "action": [
           "GET",
           "PUT"
@@ -459,91 +459,23 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 11:51:20 -0700
+2013-09-02 11:11:51 -0700
 Response: Register ToolProxy with ToolConsumer
 Status: 201 Created
 Headers:
 content-type: application/vnd.ims.lti.v2.ToolProxy.id+json; charset=utf-8
-content-length: 220
+content-length: 228
 {
   "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
   "@type": "ToolProxy",
-  "@id": "http://localhost:4000/tools/9aa28c00-e352-0130-9852-20c9d07c6451",
-  "tool_proxy_guid": "9aa28c00-e352-0130-9852-20c9d07c6451"
+  "@id": "http://rails.kinexis.com:4000/tools/10613a60-f629-0130-10db-20c9d07c6451",
+  "tool_proxy_guid": "10613a60-f629-0130-10db-20c9d07c6451"
 }
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-09 11:52:45 -0700
-LtiMessage: Lti Launch
-LaunchUrl: http://localhost:5000/books
-&lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/books"
-    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
-    encType="application/x-www-form-urlencoded"
-    target="_blank"&gt;
-      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
-      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="117"/&gt;
-      &lt;input type="hidden" name="user_id" value="2"/&gt;
-      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
-      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
-      &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
-      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="6718052501369"/&gt;
-      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074365"/&gt;
-      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="gtUeCMAzx0ToSGC+ZB4/1uegA+s="/&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-&lt;script language="javascript"&gt;
-  document.ltiLaunchForm.submit(); 
-&lt;/script&gt;
-
-
-</div></pre>
-<div class="ToolProvider"><pre>
-2013-08-09 11:52:45 -0700
-LtiMessage: Launch to external tool
-LaunchUrl: http://bc.vitalsource.com/books/book
-&lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://bc.vitalsource.com/books/book"
-    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
-    encType="application/x-www-form-urlencoded"
-    target="_blank"&gt;
-      &lt;input type="hidden" name="lti_version" value="LTI-1p0"/&gt;
-      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
-      &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
-      &lt;input type="hidden" name="roles" value="student"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
-      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
-      &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
-      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="7273943156503"/&gt;
-      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074365"/&gt;
-      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="sGbs9mWJbDYkMI+yGpQ4sP7tkfk="/&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-&lt;script language="javascript"&gt;
-  document.ltiLaunchForm.submit(); 
-&lt;/script&gt;
-
-
-</div></pre>
-<div class="ToolConsumer"><pre>
-2013-08-09 11:53:15 -0700
+2013-09-02 11:14:00 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/echoes
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -553,10 +485,10 @@ LaunchUrl: http://localhost:5000/echoes
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="115"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="102"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
@@ -565,12 +497,12 @@ LaunchUrl: http://localhost:5000/echoes
       &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
       &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="9815196108164"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6078653891839"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074395"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378145640"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="32dNLTcj9mQESiGQgu2WZ8roM5o="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="s8UVko4qslO1rf+zlFKaCYocFPk="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -580,32 +512,31 @@ LaunchUrl: http://localhost:5000/echoes
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-09 11:56:12 -0700
+2013-09-02 11:15:14 -0700
 LtiMessage: Lti Launch
-LaunchUrl: http://localhost:5000/bookselections
+LaunchUrl: http://localhost:5000/books
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/bookselections"
+  &lt;form action="http://localhost:5000/books"
     name="ltiLaunchForm" id="ltiLaunchForm" method="post"
     encType="application/x-www-form-urlencoded"
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="118"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="104"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="custom_book_location" value="outline/3"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
       &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="6901567822275"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="8499378988237"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074572"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378145714"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="gcIXNF+A1aL9kRjKvyH1ULe+9Bs="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="nKrN6aRUwIte+IR1XAAVS/80tk8="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -615,7 +546,7 @@ LaunchUrl: http://localhost:5000/bookselections
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:56:13 -0700
+2013-09-02 11:15:14 -0700
 LtiMessage: Launch to external tool
 LaunchUrl: http://bc.vitalsource.com/books/book
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -628,19 +559,18 @@ LaunchUrl: http://bc.vitalsource.com/books/book
       &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
       &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
       &lt;input type="hidden" name="roles" value="student"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
       &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
-      &lt;input type="hidden" name="custom_book_location" value="outline/3"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
       &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
       &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="1165999459249"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7955873262569"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074573"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378145714"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="cc48FVX+eduZxyV2vCmCUGt3sC8="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="SFMR4IkwQAidB5lqgVviyV2Gwk8="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -650,7 +580,7 @@ LaunchUrl: http://bc.vitalsource.com/books/book
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:29 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/settings
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -660,23 +590,23 @@ LaunchUrl: http://localhost:5000/settings
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="116"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="103"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2"/&gt;
-      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/context/2"/&gt;
+      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/ltilink/103"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
       &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="193714249776"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1298096484744"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376074698"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378146329"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="H2osFWmd8skbsy5wf938/6ISc7A="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="tUttETXr+1iPFhpec8KrvJj/zeQ="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -686,11 +616,11 @@ LaunchUrl: http://localhost:5000/settings
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="8130747951298", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="tskhIJmkKX7xoY3BcOpHaer%2FoBQ%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="7488966065581", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146330", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="LQ45xlBuEQfB1hS7UJA0IT%2FRvXM%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -698,7 +628,7 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -712,11 +642,11 @@ content-length: 44
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/context/2
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="9661927826449", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="5jJdNGUB%2FxQXYOGwpXulkX39Npw%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="3593511355739", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146330", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="wjtMLWrJUqaJOYQn5Qp9TMqsB00%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -724,7 +654,7 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -736,11 +666,11 @@ content-length: 2
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/ltilink/103
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="5514221911945", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376074698", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="7m6epOLACzQk4WMQDOeTOy2gSQs%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="1571820857069", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146330", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="HzS6444k90pIUwk0LkYPLhs74To%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -748,7 +678,7 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 11:58:18 -0700
+2013-09-02 11:25:30 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -760,24 +690,24 @@ content-length: 2
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
+PUT http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="7013809327393", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="AjmqbFwNy9SOGHrzJyzNW8D3GMY%3D", oauth_signature="Zep56SoG8h34mdEBuMfupqUlpes%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="6685868099523", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146637", oauth_version="1.0", oauth_body_hash="XqJPxEEkLbaTn2wHICy0%2FTiQgNI%3D", oauth_signature="pkvcGWxApOvFo0rkMbfzmme9eqQ%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 84
+Content-Length: 79
 Body:
 {
   "tenant_id": "fab23",
-  "tenant_name": "UnivOfPoker",
-  "client_id": "1234443"
+  "tenant_name": "Lumos1",
+  "vendor_id": "IMSDemo"
 }
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 Response: Put settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -788,22 +718,22 @@ Successfully updated 3 values
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+PUT http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/context/2
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="9609420930628", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="5Y5X9xn6DCJPw88ZbAiZzoiDgAk%3D", oauth_signature="iGQ5tg5kNeezXOGRe%2F15uLqg%2BVQ%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="5303564054113", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146637", oauth_version="1.0", oauth_body_hash="xWQQSQrWxbUYGf08d36ApkmhxHQ%3D", oauth_signature="UjDyQG3uFRK90SQl9UJ%2FkyS89N8%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 35
+Content-Length: 32
 Body:
 {
-  "vbid": "L123456,98712341234"
+  "course_book": "LTI2Class"
 }
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 Response: Put settings for ToolProxy
 Status: 200 OK
 Headers:
@@ -814,33 +744,32 @@ Successfully updated 1 values
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 LtiService: Put settings for ToolProxy
-PUT http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
+PUT http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/ltilink/103
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="5236986121540", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075091", oauth_version="1.0", oauth_body_hash="OaWjBkynE%2BaiWly8MDhf54EfGEY%3D", oauth_signature="rBiRpmXMGHta5xEF4wB5uN4DwXw%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="7865546361278", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146637", oauth_version="1.0", oauth_body_hash="3%2Fihcx9ZzK0FazRhAtHh0BS4Q%2FM%3D", oauth_signature="wK%2B18Zoa2FPDyxiZo3P08GkL4AQ%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolSettings.simple+json
-Content-Length: 29
+Content-Length: 3
 Body:
 {
-  "demolink": "lunchdemo"
 }
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:04:51 -0700
+2013-09-02 11:30:37 -0700
 Response: Put settings for ToolProxy
 Status: 200 OK
 Headers:
 content-type: application/json; charset=utf-8
 content-length: 29
-Successfully updated 1 values
+Successfully updated 0 values
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 LtiMessage: Lti Launch
 LaunchUrl: http://localhost:5000/settings
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -850,26 +779,25 @@ LaunchUrl: http://localhost:5000/settings
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="116"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="103"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2"/&gt;
-      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/context/2"/&gt;
+      &lt;input type="hidden" name="custom_lti_link_custom_uri" value="http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/ltilink/103"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
-      &lt;input type="hidden" name="custom_tenant_name" value="UnivOfPoker"/&gt;
-      &lt;input type="hidden" name="custom_client_id" value="1234443"/&gt;
-      &lt;input type="hidden" name="custom_vbid" value="L123456,98712341234"/&gt;
-      &lt;input type="hidden" name="custom_demolink" value="lunchdemo"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="9769913655525"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="custom_vendor_id" value="IMSDemo"/&gt;
+      &lt;input type="hidden" name="custom_course_book" value="LTI2Class"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="10613a60-f629-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1091006140340"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376075116"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378146645"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="wG06FQBQrooX1FdwW8e3E8wEt3o="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="Wkmcm4MBQZdN12EXm895TYDHS7k="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -879,11 +807,11 @@ LaunchUrl: http://localhost:5000/settings
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="4485001834354", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="YW%2FIOM%2FwCam4KS2QnJJHyt0LKEw%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="3294684165597", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146646", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="bGa%2F0dHIsjgGoKf9VNPgfw9CyWY%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -891,26 +819,26 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
 content-type: application/json; charset=utf-8
-content-length: 71
+content-length: 66
 {
   "tenant_id": "fab23",
-  "tenant_name": "UnivOfPoker",
-  "client_id": "1234443"
+  "tenant_name": "Lumos1",
+  "vendor_id": "IMSDemo"
 }
 
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/context/2
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/context/2
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="3681603032632", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="%2FYplFi7JDVCoOmYOGIJK5CCJfAY%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="6507255566486", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146646", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="J%2BHYQHvYuhJgxQN%2F6%2BvPUuhD%2FT4%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -918,24 +846,24 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
 content-type: application/json; charset=utf-8
-content-length: 30
+content-length: 27
 {
-  "vbid": "L123456,98712341234"
+  "course_book": "LTI2Class"
 }
 
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 LtiService: Get settings for ToolProxy
-GET http://localhost:4000/tool_settings/9aa28c00-e352-0130-9852-20c9d07c6451/ltilink/116
+GET http://rails.kinexis.com:4000/tool_settings/10613a60-f629-0130-10db-20c9d07c6451/ltilink/103
 Headers:
-Authorization: OAuth oauth_consumer_key="9aa28c00-e352-0130-9852-20c9d07c6451", oauth_nonce="260016414577", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376075116", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="7C5KubsV8gdXz7Ls7oENw6BVgnM%3D"
+Authorization: OAuth oauth_consumer_key="10613a60-f629-0130-10db-20c9d07c6451", oauth_nonce="4061594681447", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1378146646", oauth_version="1.0", oauth_body_hash="2jmj7l5rSw0yVb%2FvlWAYkK%2FYBwk%3D", oauth_signature="vurBPImf8rSWRKLGzCtuKbmNWH8%3D"
 ACCEPT: application/vnd.ims.lti.v2.ToolSettings.simple+json
 Body:
 
@@ -943,49 +871,68 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-09 12:05:16 -0700
+2013-09-02 11:30:46 -0700
 Response: Get settings for ToolProxy
 Status: 200 OK
 Headers:
 content-type: application/json; charset=utf-8
-content-length: 24
+content-length: 2
 {
-  "demolink": "lunchdemo"
 }
 
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-09 12:05:57 -0700
-LtiMessage: Lti Launch
-LaunchUrl: http://localhost:5000/echoes
+2013-09-02 11:33:07 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://bc-dev.vitalsource.com/lti2_registration
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
-  &lt;form action="http://localhost:5000/echoes"
+  &lt;form action="http://bc-dev.vitalsource.com/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/fe4ddc60-f62b-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="fe4dd800-f62b-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="8062d9fc4d3094b9f654a4e1fe4feda8"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-02 11:34:13 -0700
+LtiMessage: Lti Launch
+LaunchUrl: https://bc-dev.vitalsource.com/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="https://bc-dev.vitalsource.com/books/book"
     name="ltiLaunchForm" id="ltiLaunchForm" method="post"
     encType="application/x-www-form-urlencoded"
     target="_blank"&gt;
       &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
       &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
-      &lt;input type="hidden" name="resource_link_id" value="115"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="109"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="Administrator"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
       &lt;input type="hidden" name="context_id" value="2"/&gt;
-      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
-      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
-      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
-      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
       &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
-      &lt;input type="hidden" name="custom_tenant_name" value="UnivOfPoker"/&gt;
-      &lt;input type="hidden" name="custom_client_id" value="1234443"/&gt;
-      &lt;input type="hidden" name="custom_vbid" value="L123456,98712341234"/&gt;
-      &lt;input type="hidden" name="oauth_consumer_key" value="9aa28c00-e352-0130-9852-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="oauth_nonce" value="7856912392386"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="194784c0-f62c-0130-10db-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6504211821987"/&gt;
       &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
-      &lt;input type="hidden" name="oauth_timestamp" value="1376075157"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378146853"/&gt;
       &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
-      &lt;input type="hidden" name="oauth_signature" value="fEnDOzxwyjnBv73KHduqVXqElnc="/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="5BiNsS21EodoTEaPrsEcvTcPt7k="/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
 &lt;script language="javascript"&gt;
@@ -995,7 +942,605 @@ LaunchUrl: http://localhost:5000/echoes
 
 </div></pre>
 <div class="ToolConsumer"><pre>
-2013-08-19 08:18:27 -0700
+2013-09-06 15:19:36 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://bc-dev.vitalsource.com/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://bc-dev.vitalsource.com/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/52a41fa0-f970-0130-e388-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="52a41a70-f970-0130-e388-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="9f95ef95307de553ecaa521b83d5698f"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-06 15:20:28 -0700
+LtiMessage: Lti Launch
+LaunchUrl: https://bc-dev.vitalsource.com/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="https://bc-dev.vitalsource.com/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="113"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="69cc0110-f970-0130-e388-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="997985508988"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1378506028"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="b43H0YZJ+1SUtOhR8x/NU3VjGk4="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 09:43:15 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/7f4e7a60-fec1-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="7f4e7580-fec1-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="be1cbf28306669a60a69741093aecccb"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 09:47:48 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/224fa000-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="224f9d50-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="848803bbf7cd9c5627d13a6e017cda53"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 09:48:34 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/38e925e0-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="38e92300-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="b1d1345d117c1c7d7db06ebd4e8c4607"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 09:51:45 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/b0189a90-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="b0189620-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="b1f7f7a0eeb9b2996193591c0e130016"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 09:53:17 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/e5e9d6b0-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="e5e9d050-fec2-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="581c7cc1ee251eafb89f45834de62336"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:08:19 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/00389250-fec5-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="00388fa0-fec5-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="6be353fc9f0f4b9e40626c3f7d004172"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:09:30 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/diagnostics
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/diagnostics"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="116"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="$Person.email.primary"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="$CourseOffering.label"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0e495130-fec5-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6321994825561"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379092170"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="8GztsMSQrpzOghCMiNciR2yhRNE="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:09:51 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="117"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0e495130-fec5-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6447513818283"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379092191"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="DCL1eLwrncLZAongUb5E5sQ+2Uk="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:25:36 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/698a5c40-fec7-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="698a57e0-fec7-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="a5ebf6ebf8c7791913d31cf0951879f8"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:26:09 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/7ddba230-fec7-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="7ddb9f20-fec7-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="2d598730778cff59c3a565f6f7834abe"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:35:44 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/d47a37a0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="d47a3500-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="ce6499bad83e36ff06f2dcd97c4c05a1"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:36:53 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="125"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1024893954305"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379093813"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="xriIqYDsQkuPil20Flhyy8WQQVg="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:38:50 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/diagnostics
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/diagnostics"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="124"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="$Person.email.primary"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="$CourseOffering.label"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="2944558817667"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379093930"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="cwqF4ACcj69ZduPdAHCXNQu9pnk="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:40:32 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="125"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1161858840520"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094032"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="ri5m9k74zhttgBgLkckg0mKjgAM="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:40:46 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/bookshelf
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/bookshelf"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="127"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_course_label" value="$CourseOffering.label"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1165857105886"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094046"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="HmqImOmpTD5PWPhmf9PMGOHwBFM="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:40:55 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="126"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="[link-to-resolve]"/&gt;
+      &lt;input type="hidden" name="custom_book_location" value="[link-to-resolve]"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1245867060824"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094055"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="9ztWXZ0aOsrdJKL1Go44/IuHwsg="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:40:59 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="126"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="[link-to-resolve]"/&gt;
+      &lt;input type="hidden" name="custom_book_location" value="[link-to-resolve]"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="f37a4ce0-fec8-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6393881594385"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094059"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="K16rGUXEgWwjhAvytP2BdzFAdPE="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:45:15 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:3000/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="117"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0e495130-fec5-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="2178402741566"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094315"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="6IHsyWKWUVVhXAwFQPx8bSlmSb0="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:50:57 -0700
 LtiMessage: Request Tool Registration
 LaunchUrl: http://localhost:5000/deployment_proposals
 &lt;div id="ltiLaunchFormSubmitArea"&gt;
@@ -1006,10 +1551,35 @@ LaunchUrl: http://localhost:5000/deployment_proposals
       &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
       &lt;input type="hidden" name="user_id" value="2"/&gt;
       &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
-      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/tool_consumer_profiles/826441e0-eb10-0130-1842-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_key" value="82643d80-eb10-0130-1842-20c9d07c6451"/&gt;
-      &lt;input type="hidden" name="reg_password" value="72ec1d42cf447d343463774004a65a8b"/&gt;
-      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/f45bdc20-feca-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="f45bd970-feca-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="f844d4ba4d9598f49ba3b2640ad3a8ec"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:51:31 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/deployment_proposals
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/deployment_proposals"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/0640d2e0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="0640d010-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="e7796af97ca299d6597948b35664bc8e"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
       &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
   &lt;/form&gt;
 &lt;/div&gt;
@@ -1020,30 +1590,30 @@ LaunchUrl: http://localhost:5000/deployment_proposals
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-19 08:18:27 -0700
+2013-09-13 10:51:31 -0700
 LtiService: Get Tool Consumer Profile
-GET http://localhost:4000/tool_consumer_profiles/826441e0-eb10-0130-1842-20c9d07c6451
+GET http://rails.kinexis.com:4000/tool_consumer_profiles/0640d2e0-fecb-0130-8f0c-20c9d07c6451
 
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-19 08:18:27 -0700
+2013-09-13 10:51:31 -0700
 Response: Get Tool Consumer Profile
 Status: 200 OK
 Headers:
 content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
-content-length: 2195
+content-length: 2235
 {
   "@context": [
     "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
     {
-      "ltitcp": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+      "ltitcp": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
     }
   ],
   "@type": "ToolConsumerProfile",
-  "@id": "http://localhost:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
   "lti_version": "LTI-2p0",
-  "guid": "826441e0-eb10-0130-1842-20c9d07c6451",
+  "guid": "0640d2e0-fecb-0130-8f0c-20c9d07c6451",
   "product_instance": {
     "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
     "product_info": {
@@ -1109,14 +1679,14 @@ content-length: 2195
     {
       "@type": "RestService",
       "@id": "ltitcp:ToolProxy.collection",
-      "endpoint": "http://localhost:4000/tools",
+      "endpoint": "http://rails.kinexis.com:4000/tools",
       "format": "application/vnd.ims.lti.v2.ToolProxy+json",
       "action": "POST"
     },
     {
       "@type": "RestService",
       "@id": "ltitcp:ToolProxy.item",
-      "endpoint": "http://localhost:4000/tools/{tool_proxy_guid}",
+      "endpoint": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
       "format": "application/vnd.ims.lti.v2.ToolProxy+json",
       "action": [
         "GET",
@@ -1126,7 +1696,7 @@ content-length: 2195
     {
       "@type": "RestService",
       "@id": "ltitcp:Result.item",
-      "endpoint": "http://localhost:4000/resources/Result/{sourcedId}",
+      "endpoint": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
       "format": "application/vnd.ims.lis.v2.Result+json",
       "action": [
         "GET",
@@ -1139,13 +1709,13 @@ content-length: 2195
 
 </div></pre>
 <div class="ToolProvider"><pre>
-2013-08-19 08:18:30 -0700
+2013-09-13 10:51:35 -0700
 LtiService: Register ToolProxy with ToolConsumer
-POST http://localhost:4000/tools
+POST http://rails.kinexis.com:4000/tools
 Headers:
-Authorization: OAuth oauth_consumer_key="82643d80-eb10-0130-1842-20c9d07c6451", oauth_nonce="5979804659665", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1376925510", oauth_version="1.0", oauth_body_hash="rOztry5eU2mDVvalaLDc59Pe%2FlE%3D", oauth_signature="0d41eoUZ2RIOW%2FBmjHyXSQWd5X8%3D"
+Authorization: OAuth oauth_consumer_key="0640d010-fecb-0130-8f0c-20c9d07c6451", oauth_nonce="1373338204183", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1379094695", oauth_version="1.0", oauth_body_hash="VrQCd24Bz%2FqqPo6ZSaPL5mbQhWI%3D", oauth_signature="OQeBDuJoJ0NLbHIE0vO%2BzJLsScI%3D"
 Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
-Content-Length: 7468
+Content-Length: 8366
 Body:
 {
   "@context": [
@@ -1153,14 +1723,14 @@ Body:
     "http://purl.org/blackboard/ctx/v1/iconStyle"
   ],
   "@type": "ToolProxy",
-  "@id": "ToolProxyProposal_at_2013-08-19T15:18:30Z",
+  "@id": "ToolProxyProposal_at_2013-09-13T17:51:35Z",
   "custom": {
     "tenant_id": "fab23",
     "tenant_name": "Lumos1"
   },
   "lti_version": "LTI-2p0",
-  "tool_proxy_guid": "8769a450-eb10-0130-10a3-20c9d07c6451",
-  "tool_consumer_profile": "http://localhost:4000/tool_consumer_profiles/826441e0-eb10-0130-1842-20c9d07c6451",
+  "tool_proxy_guid": "0e243d10-fecb-0130-8f10-20c9d07c6451",
+  "tool_consumer_profile": "http://rails.kinexis.com:4000/tool_consumer_profiles/0640d2e0-fecb-0130-8f0c-20c9d07c6451",
   "tool_profile": {
     "product_instance": {
       "product_info": {
@@ -1227,7 +1797,7 @@ Body:
         "path": "http://localhost:5000/reregistrations",
         "parameter": [
           {
-            "variable": "$ToolConsumerProfile.url",
+            "variable": "ToolConsumerProfile.url",
             "name": "tc_profile_url"
           }
         ]
@@ -1248,11 +1818,11 @@ Body:
                 "name": "pi"
               },
               {
-                "variable": "$Person.email.primary",
+                "variable": "Person.email.primary",
                 "name": "user_primary_email"
               },
               {
-                "variable": "$CourseOffering.label",
+                "variable": "CourseOffering.label",
                 "name": "discipline"
               }
             ],
@@ -1266,6 +1836,37 @@ Body:
         "resource_type": "echo",
         "description": {
           "default_value": "Echo service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/settings",
+            "parameter": [
+              {
+                "variable": "ToolProxy.custom.uri",
+                "name": "tool_proxy_custom_uri"
+              },
+              {
+                "variable": "ToolProxyBinding.custom.uri",
+                "name": "tool_proxy_binding_custom_uri"
+              },
+              {
+                "variable": "LtiLink.custom.uri",
+                "name": "lti_link_custom_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Settings",
+          "key": "resource.name"
+        },
+        "resource_type": "setting",
+        "description": {
+          "default_value": "Settings service",
           "key": "resource.description"
         }
       },
@@ -1328,7 +1929,7 @@ Body:
                 "name": "vbid"
               },
               {
-                "variable": "$Result.uri",
+                "variable": "Result.uri",
                 "name": "result_uri"
               }
             ],
@@ -1354,7 +1955,7 @@ Body:
             "path": "/bookshelves",
             "parameter": [
               {
-                "variable": "$CourseOffering.label",
+                "variable": "CourseOffering.label",
                 "name": "course_label"
               }
             ],
@@ -1386,19 +1987,19 @@ Body:
     ]
   },
   "security_contract": {
-    "shared_secret": "8c9ddb1649679a27d948fa0b2020c3be",
+    "shared_secret": "6e129ddbc514ac3fdaf2291647335408",
     "tool_service": [
       {
         "@type": "RestService",
         "@id": "ltitcp:ToolProxy.collection",
-        "service": "http://localhost:4000/tools",
+        "service": "http://rails.kinexis.com:4000/tools",
         "action": "POST",
         "format": "application/vnd.ims.lti.v2.ToolProxy+json"
       },
       {
         "@type": "RestService",
         "@id": "ltitcp:ToolProxy.item",
-        "service": "http://localhost:4000/tools/{tool_proxy_guid}",
+        "service": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
         "action": [
           "GET",
           "PUT"
@@ -1408,7 +2009,7 @@ Body:
       {
         "@type": "RestService",
         "@id": "ltitcp:Result.item",
-        "service": "http://localhost:4000/resources/Result/{sourcedId}",
+        "service": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
         "action": [
           "GET",
           "PUT"
@@ -1422,18 +2023,1345 @@ Body:
 
 </div></pre>
 <div class="ToolProviderResponse"><pre>
-2013-08-19 08:18:30 -0700
+2013-09-13 10:51:35 -0700
 Response: Register ToolProxy with ToolConsumer
 Status: 201 Created
 Headers:
 content-type: application/vnd.ims.lti.v2.ToolProxy.id+json; charset=utf-8
-content-length: 220
+content-length: 228
 {
   "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
   "@type": "ToolProxy",
-  "@id": "http://localhost:4000/tools/876d3980-eb10-0130-1842-20c9d07c6451",
-  "tool_proxy_guid": "876d3980-eb10-0130-1842-20c9d07c6451"
+  "@id": "http://rails.kinexis.com:4000/tools/0e26a180-fecb-0130-8f0c-20c9d07c6451",
+  "tool_proxy_guid": "0e26a180-fecb-0130-8f0c-20c9d07c6451"
 }
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:51:46 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/echoes
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/echoes"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="128"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0e26a180-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7248394780557"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094706"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="xjLXv+pAgJhJTEhRAt9zL1OO9B4="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:51:50 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/books
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/books"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="130"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0e26a180-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1214937635844"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094710"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="gi941WhKcx0v+W9J0qFVD4SnGsg="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:51:50 -0700
+LtiMessage: Launch to external tool
+LaunchUrl: http://bc.vitalsource.com/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://bc.vitalsource.com/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-1p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
+      &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
+      &lt;input type="hidden" name="roles" value="student"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6594589526173"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094710"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="cgo9yt3IU7TInmcyVQsX+W2dCwA="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:54:37 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/deployment_proposals
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/deployment_proposals"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/7494d550-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="7494d290-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="5996396561f6f490bdc80cd4a453a49f"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:54:38 -0700
+LtiService: Get Tool Consumer Profile
+GET http://rails.kinexis.com:4000/tool_consumer_profiles/7494d550-fecb-0130-8f0c-20c9d07c6451
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-09-13 10:54:38 -0700
+Response: Get Tool Consumer Profile
+Status: 200 OK
+Headers:
+content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
+content-length: 2235
+{
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+    {
+      "ltitcp": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+    }
+  ],
+  "@type": "ToolConsumerProfile",
+  "@id": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "lti_version": "LTI-2p0",
+  "guid": "7494d550-fecb-0130-8f0c-20c9d07c6451",
+  "product_instance": {
+    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+    "product_info": {
+      "product_name": {
+        "default_value": "Elan/LuMoS",
+        "key": "product.name"
+      },
+      "product_version": "3.1",
+      "description": {
+        "default_value": "Elan University/LuMoS Learning Platform",
+        "key": "product.version"
+      },
+      "technical_description": {
+        "default_value": "LTI 1, 1.1 and 2.0 compliant",
+        "key": "product.technicalDescription"
+      },
+      "product_family": {
+        "code": "LuMoS",
+        "vendor": {
+          "code": "lms.LuMoS.org",
+          "name": {
+            "default_value": "LuMoS Corporation",
+            "key": "product.vendor.name"
+          },
+          "description": {
+            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
+            "key": "product.vendor.description"
+          },
+          "website": "http://lms.LuMoS.org/products/omega",
+          "timestamp": "2012-07-09T012:08:16-04:00",
+          "contact": {
+            "email": "support@lms.LuMoS.org"
+          }
+        }
+      }
+    },
+    "support": {
+      "email": "john.tibbetts@kinexis.com"
+    },
+    "service_provider": {
+      "@id": "http://ec2.LuMoS.org/ServiceProvider",
+      "guid": "ec2.LuMoS.org",
+      "timestamp": "2012-07-09T012:08:16-04:00",
+      "provider_name": {
+        "default_value": "Elan University",
+        "key": "service_provider.name"
+      },
+      "description": {
+        "default_value": "Elan University EC2 Cloud",
+        "key": "service_provider.description"
+      },
+      "support": {
+        "email": "support@yasp.LuMoS.org"
+      }
+    }
+  },
+  "capability_enabled": [
+    "basic-lti-launch-request",
+    "Result.autocreate",
+    "Result.sourcedGUID"
+  ],
+  "service_offered": [
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.collection",
+      "endpoint": "http://rails.kinexis.com:4000/tools",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": "POST"
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.item",
+      "endpoint": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:Result.item",
+      "endpoint": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
+      "format": "application/vnd.ims.lis.v2.Result+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    }
+  ]
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:54:40 -0700
+LtiService: Register ToolProxy with ToolConsumer
+POST http://rails.kinexis.com:4000/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="7494d290-fecb-0130-8f0c-20c9d07c6451", oauth_nonce="6260658353578", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1379094880", oauth_version="1.0", oauth_body_hash="JECvzhi4YZajzQVBie7ZuTZDnog%3D", oauth_signature="vLpnCloHe%2FpROnKitdiyHH4deq8%3D"
+Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
+Content-Length: 8387
+Body:
+{
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
+    "http://purl.org/blackboard/ctx/v1/iconStyle"
+  ],
+  "@type": "ToolProxy",
+  "@id": "ToolProxyProposal_at_2013-09-13T17:54:40Z",
+  "custom": {
+    "tenant_id": "fab23",
+    "tenant_name": "Lumos1"
+  },
+  "lti_version": "LTI-2p0",
+  "tool_proxy_guid": "7cc4f2d0-fecb-0130-8f10-20c9d07c6451",
+  "tool_consumer_profile": "http://rails.kinexis.com:4000/tool_consumer_profiles/7494d550-fecb-0130-8f0c-20c9d07c6451",
+  "tool_profile": {
+    "product_instance": {
+      "product_info": {
+        "product_version": "10.3",
+        "technical_description": {
+          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
+          "key": "tool.technical"
+        },
+        "product_name": {
+          "default_value": "LTI2 BookTools",
+          "key": "tool.name"
+        },
+        "product_family": {
+          "code": "assessment-tool",
+          "vendor": {
+            "website": "{http://localhost:5000}",
+            "code": "fabericious.org",
+            "name": {
+              "default_value": "Fab",
+              "key": "tool.vendor.name"
+            },
+            "timestamp": "2012-04-05T09:08:16-04:00",
+            "contact": {
+              "email": "info@fabericious.com"
+            },
+            "description": {
+              "default_value": "Fabericious is a leading provider of interactive tools for education",
+              "key": "tool.vendor.description"
+            }
+          }
+        },
+        "description": {
+          "default_value": "Fabericious reflowable ePub3 Textbook",
+          "key": "tool.description"
+        }
+      },
+      "support": {
+        "email": "helpdesk@fabericious.com"
+      },
+      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
+      "service_provider": {
+        "support": {
+          "email": "support@ec2.fabericious.com"
+        },
+        "provider_name": {
+          "default_value": "Amazon Cloud",
+          "key": "service_provider.name"
+        },
+        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+        "description": {
+          "default_value": "Provider of high performance managed hosting environments",
+          "key": "service_provider.description"
+        },
+        "timestamp": "2012-04-05T09:08:16-04:00"
+      }
+    },
+    "lti_version": "LTI-2p0",
+    "message": [
+      {
+        "message_type": [
+          "ToolProxyRegistrationRequest",
+          "ToolProxyReregistrationRequest"
+        ],
+        "path": "http://localhost:5000/reregistrations",
+        "parameter": [
+          {
+            "variable": "ToolConsumerProfile.url",
+            "name": "tc_profile_url"
+          }
+        ]
+      }
+    ],
+    "resource_handler": [
+      {
+        "message": [
+          {
+            "path": "/echoes",
+            "parameter": [
+              {
+                "fixed": "Narcissus",
+                "name": "referrer"
+              },
+              {
+                "fixed": "3.14159",
+                "name": "pi"
+              },
+              {
+                "variable": "Person.email.primary",
+                "name": "user_primary_email"
+              },
+              {
+                "variable": "CourseOffering.label",
+                "name": "discipline"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Echo",
+          "key": "resource.name"
+        },
+        "resource_type": "echo",
+        "description": {
+          "default_value": "Echo service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/settings",
+            "parameter": [
+              {
+                "variable": "ToolProxy.custom.uri",
+                "name": "tool_proxy_custom_uri"
+              },
+              {
+                "variable": "ToolProxyBinding.custom.uri",
+                "name": "tool_proxy_binding_custom_uri"
+              },
+              {
+                "variable": "LtiLink.custom.uri",
+                "name": "lti_link_custom_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Settings",
+          "key": "resource.name"
+        },
+        "resource_type": "setting",
+        "description": {
+          "default_value": "Settings service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/books",
+            "parameter": [
+              {
+                "name": "vbid"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Book",
+          "key": "resource.name"
+        },
+        "resource_type": "book",
+        "description": {
+          "default_value": "VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookselections",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "book_location"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "BookSelection",
+          "key": "resource.name"
+        },
+        "resource_type": "bookselection",
+        "description": {
+          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/iresources",
+            "enabled_capability": [
+              "Result.autocreate"
+            ],
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "variable": "Result.uri",
+                "name": "result_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request",
+            "capability": [
+              "Result.autocreate"
+            ]
+          }
+        ],
+        "name": {
+          "default_value": "InteractiveResource",
+          "key": "resource.name"
+        },
+        "resource_type": "iresource",
+        "description": {
+          "default_value": "Interactive resource",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookshelves",
+            "parameter": [
+              {
+                "variable": "CourseOffering.label",
+                "name": "course_label"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Bookshelf",
+          "key": "resource.name"
+        },
+        "resource_type": "bookshelf",
+        "description": {
+          "default_value": "VitalSource Bookshelf",
+          "key": "resource.description"
+        }
+      }
+    ],
+    "base_url_choice": [
+      {
+        "selector": {
+          "applies_to": [
+            "IconEndpoint",
+            "MessageHandler"
+          ]
+        },
+        "secure_base_url": "http://localhost:5000",
+        "default_base_url": "http://localhost:5000"
+      }
+    ]
+  },
+  "security_contract": {
+    "shared_secret": "37a24277de660ed0a933054cc2be7812",
+    "tool_service": [
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:ToolProxy.collection",
+        "service": "http://rails.kinexis.com:4000/tools",
+        "action": "POST",
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
+      },
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:ToolProxy.item",
+        "service": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
+      },
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:Result.item",
+        "service": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": "application/vnd.ims.lis.v2.Result+json"
+      }
+    ]
+  }
+}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-09-13 10:54:40 -0700
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.ToolProxy.id+json; charset=utf-8
+content-length: 228
+{
+  "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://rails.kinexis.com:4000/tools/7cc711d0-fecb-0130-8f0c-20c9d07c6451",
+  "tool_proxy_guid": "7cc711d0-fecb-0130-8f0c-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:54:55 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/echoes
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/echoes"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="134"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="7cc711d0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6071414040103"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094895"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="EgJXZG4HcJEUxGd2FxPbpeQ3mPc="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:55:26 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/deployment_proposals
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/deployment_proposals"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/94924ed0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="94924c10-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="5d34b1c8a29b0de06ff69bfd446179a1"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:55:26 -0700
+LtiService: Get Tool Consumer Profile
+GET http://rails.kinexis.com:4000/tool_consumer_profiles/94924ed0-fecb-0130-8f0c-20c9d07c6451
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-09-13 10:55:26 -0700
+Response: Get Tool Consumer Profile
+Status: 200 OK
+Headers:
+content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
+content-length: 2235
+{
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+    {
+      "ltitcp": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+    }
+  ],
+  "@type": "ToolConsumerProfile",
+  "@id": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "lti_version": "LTI-2p0",
+  "guid": "94924ed0-fecb-0130-8f0c-20c9d07c6451",
+  "product_instance": {
+    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+    "product_info": {
+      "product_name": {
+        "default_value": "Elan/LuMoS",
+        "key": "product.name"
+      },
+      "product_version": "3.1",
+      "description": {
+        "default_value": "Elan University/LuMoS Learning Platform",
+        "key": "product.version"
+      },
+      "technical_description": {
+        "default_value": "LTI 1, 1.1 and 2.0 compliant",
+        "key": "product.technicalDescription"
+      },
+      "product_family": {
+        "code": "LuMoS",
+        "vendor": {
+          "code": "lms.LuMoS.org",
+          "name": {
+            "default_value": "LuMoS Corporation",
+            "key": "product.vendor.name"
+          },
+          "description": {
+            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
+            "key": "product.vendor.description"
+          },
+          "website": "http://lms.LuMoS.org/products/omega",
+          "timestamp": "2012-07-09T012:08:16-04:00",
+          "contact": {
+            "email": "support@lms.LuMoS.org"
+          }
+        }
+      }
+    },
+    "support": {
+      "email": "john.tibbetts@kinexis.com"
+    },
+    "service_provider": {
+      "@id": "http://ec2.LuMoS.org/ServiceProvider",
+      "guid": "ec2.LuMoS.org",
+      "timestamp": "2012-07-09T012:08:16-04:00",
+      "provider_name": {
+        "default_value": "Elan University",
+        "key": "service_provider.name"
+      },
+      "description": {
+        "default_value": "Elan University EC2 Cloud",
+        "key": "service_provider.description"
+      },
+      "support": {
+        "email": "support@yasp.LuMoS.org"
+      }
+    }
+  },
+  "capability_enabled": [
+    "basic-lti-launch-request",
+    "Result.autocreate",
+    "Result.sourcedGUID"
+  ],
+  "service_offered": [
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.collection",
+      "endpoint": "http://rails.kinexis.com:4000/tools",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": "POST"
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.item",
+      "endpoint": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:Result.item",
+      "endpoint": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
+      "format": "application/vnd.ims.lis.v2.Result+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    }
+  ]
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:55:52 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/deployment_proposals
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/deployment_proposals"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/a4b56f60-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="a4b56cc0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="06bcd322ca4ee32ce260d3aeebad4c42"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:55:52 -0700
+LtiService: Get Tool Consumer Profile
+GET http://rails.kinexis.com:4000/tool_consumer_profiles/a4b56f60-fecb-0130-8f0c-20c9d07c6451
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-09-13 10:55:52 -0700
+Response: Get Tool Consumer Profile
+Status: 200 OK
+Headers:
+content-type: application/vnd.ims.lti.v2.ToolConsumerProfile+json; charset=utf-8
+content-length: 2235
+{
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+    {
+      "ltitcp": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+    }
+  ],
+  "@type": "ToolConsumerProfile",
+  "@id": "http://rails.kinexis.com:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "lti_version": "LTI-2p0",
+  "guid": "a4b56f60-fecb-0130-8f0c-20c9d07c6451",
+  "product_instance": {
+    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+    "product_info": {
+      "product_name": {
+        "default_value": "Elan/LuMoS",
+        "key": "product.name"
+      },
+      "product_version": "3.1",
+      "description": {
+        "default_value": "Elan University/LuMoS Learning Platform",
+        "key": "product.version"
+      },
+      "technical_description": {
+        "default_value": "LTI 1, 1.1 and 2.0 compliant",
+        "key": "product.technicalDescription"
+      },
+      "product_family": {
+        "code": "LuMoS",
+        "vendor": {
+          "code": "lms.LuMoS.org",
+          "name": {
+            "default_value": "LuMoS Corporation",
+            "key": "product.vendor.name"
+          },
+          "description": {
+            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
+            "key": "product.vendor.description"
+          },
+          "website": "http://lms.LuMoS.org/products/omega",
+          "timestamp": "2012-07-09T012:08:16-04:00",
+          "contact": {
+            "email": "support@lms.LuMoS.org"
+          }
+        }
+      }
+    },
+    "support": {
+      "email": "john.tibbetts@kinexis.com"
+    },
+    "service_provider": {
+      "@id": "http://ec2.LuMoS.org/ServiceProvider",
+      "guid": "ec2.LuMoS.org",
+      "timestamp": "2012-07-09T012:08:16-04:00",
+      "provider_name": {
+        "default_value": "Elan University",
+        "key": "service_provider.name"
+      },
+      "description": {
+        "default_value": "Elan University EC2 Cloud",
+        "key": "service_provider.description"
+      },
+      "support": {
+        "email": "support@yasp.LuMoS.org"
+      }
+    }
+  },
+  "capability_enabled": [
+    "basic-lti-launch-request",
+    "Result.autocreate",
+    "Result.sourcedGUID"
+  ],
+  "service_offered": [
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.collection",
+      "endpoint": "http://rails.kinexis.com:4000/tools",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": "POST"
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:ToolProxy.item",
+      "endpoint": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "@type": "RestService",
+      "@id": "ltitcp:Result.item",
+      "endpoint": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
+      "format": "application/vnd.ims.lis.v2.Result+json",
+      "action": [
+        "GET",
+        "PUT"
+      ]
+    }
+  ]
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:55:57 -0700
+LtiService: Register ToolProxy with ToolConsumer
+POST http://rails.kinexis.com:4000/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="a4b56cc0-fecb-0130-8f0c-20c9d07c6451", oauth_nonce="5219869314314", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1379094957", oauth_version="1.0", oauth_body_hash="uTx%2BvlBRV5UISlFL3EbqOB7gX5U%3D", oauth_signature="aDIWwE6UtB4nx4bzAVlBxkwMtlA%3D"
+Content-Type: application/vnd.ims.lti.v2.ToolProxy+json
+Content-Length: 8387
+Body:
+{
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
+    "http://purl.org/blackboard/ctx/v1/iconStyle"
+  ],
+  "@type": "ToolProxy",
+  "@id": "ToolProxyProposal_at_2013-09-13T17:55:57Z",
+  "custom": {
+    "tenant_id": "fab23",
+    "tenant_name": "Lumos1"
+  },
+  "lti_version": "LTI-2p0",
+  "tool_proxy_guid": "aa8a88e0-fecb-0130-8f10-20c9d07c6451",
+  "tool_consumer_profile": "http://rails.kinexis.com:4000/tool_consumer_profiles/a4b56f60-fecb-0130-8f0c-20c9d07c6451",
+  "tool_profile": {
+    "product_instance": {
+      "product_info": {
+        "product_version": "10.3",
+        "technical_description": {
+          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
+          "key": "tool.technical"
+        },
+        "product_name": {
+          "default_value": "LTI2 BookTools",
+          "key": "tool.name"
+        },
+        "product_family": {
+          "code": "assessment-tool",
+          "vendor": {
+            "website": "{http://localhost:5000}",
+            "code": "fabericious.org",
+            "name": {
+              "default_value": "Fab",
+              "key": "tool.vendor.name"
+            },
+            "timestamp": "2012-04-05T09:08:16-04:00",
+            "contact": {
+              "email": "info@fabericious.com"
+            },
+            "description": {
+              "default_value": "Fabericious is a leading provider of interactive tools for education",
+              "key": "tool.vendor.description"
+            }
+          }
+        },
+        "description": {
+          "default_value": "Fabericious reflowable ePub3 Textbook",
+          "key": "tool.description"
+        }
+      },
+      "support": {
+        "email": "helpdesk@fabericious.com"
+      },
+      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
+      "service_provider": {
+        "support": {
+          "email": "support@ec2.fabericious.com"
+        },
+        "provider_name": {
+          "default_value": "Amazon Cloud",
+          "key": "service_provider.name"
+        },
+        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+        "description": {
+          "default_value": "Provider of high performance managed hosting environments",
+          "key": "service_provider.description"
+        },
+        "timestamp": "2012-04-05T09:08:16-04:00"
+      }
+    },
+    "lti_version": "LTI-2p0",
+    "message": [
+      {
+        "message_type": [
+          "ToolProxyRegistrationRequest",
+          "ToolProxyReregistrationRequest"
+        ],
+        "path": "http://localhost:5000/reregistrations",
+        "parameter": [
+          {
+            "variable": "ToolConsumerProfile.url",
+            "name": "tc_profile_url"
+          }
+        ]
+      }
+    ],
+    "resource_handler": [
+      {
+        "message": [
+          {
+            "path": "/echoes",
+            "parameter": [
+              {
+                "fixed": "Narcissus",
+                "name": "referrer"
+              },
+              {
+                "fixed": "3.14159",
+                "name": "pi"
+              },
+              {
+                "variable": "Person.email.primary",
+                "name": "user_primary_email"
+              },
+              {
+                "variable": "CourseOffering.label",
+                "name": "discipline"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Echo",
+          "key": "resource.name"
+        },
+        "resource_type": "echo",
+        "description": {
+          "default_value": "Echo service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/settings",
+            "parameter": [
+              {
+                "variable": "ToolProxy.custom.uri",
+                "name": "tool_proxy_custom_uri"
+              },
+              {
+                "variable": "ToolProxyBinding.custom.uri",
+                "name": "tool_proxy_binding_custom_uri"
+              },
+              {
+                "variable": "LtiLink.custom.uri",
+                "name": "lti_link_custom_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Settings",
+          "key": "resource.name"
+        },
+        "resource_type": "setting",
+        "description": {
+          "default_value": "Settings service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/books",
+            "parameter": [
+              {
+                "name": "vbid"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Book",
+          "key": "resource.name"
+        },
+        "resource_type": "book",
+        "description": {
+          "default_value": "VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookselections",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "book_location"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "BookSelection",
+          "key": "resource.name"
+        },
+        "resource_type": "bookselection",
+        "description": {
+          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/iresources",
+            "enabled_capability": [
+              "Result.autocreate"
+            ],
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "variable": "Result.uri",
+                "name": "result_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request",
+            "capability": [
+              "Result.autocreate"
+            ]
+          }
+        ],
+        "name": {
+          "default_value": "InteractiveResource",
+          "key": "resource.name"
+        },
+        "resource_type": "iresource",
+        "description": {
+          "default_value": "Interactive resource",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookshelves",
+            "parameter": [
+              {
+                "variable": "CourseOffering.label",
+                "name": "course_label"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Bookshelf",
+          "key": "resource.name"
+        },
+        "resource_type": "bookshelf",
+        "description": {
+          "default_value": "VitalSource Bookshelf",
+          "key": "resource.description"
+        }
+      }
+    ],
+    "base_url_choice": [
+      {
+        "selector": {
+          "applies_to": [
+            "IconEndpoint",
+            "MessageHandler"
+          ]
+        },
+        "secure_base_url": "http://localhost:5000",
+        "default_base_url": "http://localhost:5000"
+      }
+    ]
+  },
+  "security_contract": {
+    "shared_secret": "f739eef61b0eef15667027916821d942",
+    "tool_service": [
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:ToolProxy.collection",
+        "service": "http://rails.kinexis.com:4000/tools",
+        "action": "POST",
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
+      },
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:ToolProxy.item",
+        "service": "http://rails.kinexis.com:4000/tools/{tool_proxy_guid}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json"
+      },
+      {
+        "@type": "RestServiceProfile",
+        "@id": "ltitcp:Result.item",
+        "service": "http://rails.kinexis.com:4000/resources/Result/{sourcedId}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": "application/vnd.ims.lis.v2.Result+json"
+      }
+    ]
+  }
+}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-09-13 10:55:57 -0700
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.ToolProxy.id+json; charset=utf-8
+content-length: 228
+{
+  "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://rails.kinexis.com:4000/tools/aa8ca1f0-fecb-0130-8f0c-20c9d07c6451",
+  "tool_proxy_guid": "aa8ca1f0-fecb-0130-8f0c-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:56:10 -0700
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/books
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/books"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="142"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="aa8ca1f0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="8876764217947"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094970"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="TWVWME1VQjIEteQcXkQfW/ttJcw="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-09-13 10:56:10 -0700
+LtiMessage: Launch to external tool
+LaunchUrl: http://bc.vitalsource.com/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://bc.vitalsource.com/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-1p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
+      &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
+      &lt;input type="hidden" name="roles" value="student"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="custom_tenant_id" value="fab23"/&gt;
+      &lt;input type="hidden" name="custom_tenant_name" value="Lumos1"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="640e19b0-5ff8-11e2-bcfd-0800200c9a66"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5349804567422"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1379094970"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="C/ss3Sxy64Rsuw2PmgxY8obgrYY="/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2013-09-13 10:56:49 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:3000/lti2_registration
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:3000/lti2_registration"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/tool_consumer_profiles/c66be880-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="c66be4d0-fecb-0130-8f0c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="e86753bd7ecbdf869b7e5bbb3d61176c"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
 
 
 </div></pre>
