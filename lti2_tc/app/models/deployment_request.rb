@@ -16,8 +16,9 @@ class DeploymentRequest < ActiveRecord::Base
   def create_request_tool_deployment base_url, user_id, lti_message_type = 'ToolProxyRegistrationRequest'
     parameters = {
       'lti_message_type' => lti_message_type,
+      'lti_version' => 'LTI-2p0',
       'user_id' => "#{user_id}",
-      'roles' => 'urn:lti:sysrole:ims/lti/SysAdmin',
+      'roles' => 'urn:lti:sysrole:ims/lis/SysAdmin',
       'tc_profile_url' => "#{base_url}/tool_consumer_profiles/#{self.tc_profile_guid}",
       'reg_key' => self.reg_key,
       'reg_password' => self.reg_password,
