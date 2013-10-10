@@ -99,11 +99,6 @@ MySQL Database Initialization (only used if MySQL replaces Sqlite)
 2. Allow Lumos access to user: 'ltiuser' with password 'ltipswd'.
 3. mysql Lumus -u ltiuser -p < data/lti2_tp.sql
 
-Running lti2_tp
----------------
-http://localhost:5000/admin
-Login credentials: admin@lumos.org / password		(literally: 'password')
-
 
 Resetting the data
 ------------------
