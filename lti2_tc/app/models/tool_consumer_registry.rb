@@ -5,7 +5,7 @@ class ToolConsumerRegistry
               :tool_consumer_name, :registry, :tool_consumer_profile_wrapper
 	
 	def initialize
-    registry_entries = Registry.find(:all)
+    registry_entries = Registry.all
     @registry = {}
     registry_entries.each { |entry| @registry[entry.name] = entry.content unless entry.name == 'content' }
     

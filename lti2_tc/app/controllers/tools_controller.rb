@@ -11,13 +11,12 @@ class ToolsController < ApplicationController
 
     message_type = "registration"
     secret = @deployment_request.reg_password
-    
-    oauth_validation_using_secret secret
-    
-    body_str = request.body.read
-    json_str = CGI::unescape body_str
-    tool_proxy = JsonWrapper.new(json_str)
-    
+
+    (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
+    if error_msg.present?
+      (render :status => status, :errors => [error_msg]) and return
+    end
+
     # generate guid for tool_proxy
     tool_proxy_guid = UUID.generate
     tool_proxy.root['tool_proxy_guid'] = tool_proxy_guid
@@ -127,7 +126,7 @@ class ToolsController < ApplicationController
       tool_settings_custom[tool_setting.name] = tool_setting.value
     end
     if tool_settings_custom.length > 0
-      tool_proxy_custom['@id'] = ""
+      tool_settings_custom['@id'] = ""
       tool_proxy[:custom] = tool_settings_custom
 
     end
@@ -192,5 +191,38 @@ class ToolsController < ApplicationController
       tool_proxy.delete('custom')
 
     end
+  end
+
+  def check_for_validitiy(tool_proxy)
+    if tool_proxy.first_at('security_contract.shared_secret').blank?
+      return 'Missing shared_secret'
+    end
+
+
+  end
+
+  def process_tool_proxy(request, secret)
+    begin
+      oauth_validation_using_secret secret
+    rescue
+      return [nil, 401, 'Invalid signature']
+    end
+
+    body_str = request.body.read
+    json_str = CGI::unescape body_str
+
+    begin
+      tool_proxy = JsonWrapper.new(json_str)
+    rescue
+      return [nil, 400, 'JSON validation failure']
+    end
+
+    error_msg = check_for_validity(tool_proxy)
+    if error_msg.present?
+      (render :status => 400, :errors => [error_msg]) and return
+      return [nil, 400, error_msg]
+    end
+
+    [tool_proxy, nil, nil]
   end
 end
