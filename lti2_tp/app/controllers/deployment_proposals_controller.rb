@@ -33,7 +33,7 @@ class DeploymentProposalsController < InheritedResources::Base
       @deployment_proposal.message_type = "registration"
       @deployment_proposal.status = "received"
 
-      get_tool_consumer_profile session, params['tc_profile_url'], params['reg_key'], params['reg_password'], response
+      get_tool_consumer_profile Lti2ContextHolder.get(session), params['tc_profile_url'], params['reg_key'], params['reg_password'], response
       tcp_wrapper = JsonWrapper.new @tool_consumer_profile
       @deployment_proposal.tenant_name = tcp_wrapper.first_at('product_instance.product_info.product_name.default_value')      
       @deployment_proposal.save
@@ -61,7 +61,6 @@ class DeploymentProposalsController < InheritedResources::Base
     @deployment_proposal.reg_key = @tool_deployment.key
     @deployment_proposal.reg_password = @tool_deployment.secret
 
-    get_tool_consumer_profile session, params['tc_profile_url'], @tool_deployment.key, @tool_deployment.secret, response
     tcp_wrapper = JsonWrapper.new @tool_consumer_profile
     @deployment_proposal.tenant_name = tcp_wrapper.first_at('product_instance.product_info.product_name.default_value')      
     @deployment_proposal.save
@@ -70,7 +69,7 @@ class DeploymentProposalsController < InheritedResources::Base
   end
   
   def update
-    get_tool_consumer_profile session
+    get_tool_consumer_profile Lti2ContextHolder.get(session)
     form_params = request.params['deployment_proposal']
     @deployment_proposal = DeploymentProposal.find(request.params[:id])
     @deployment_proposal.tenant_name = form_params['tenant_name']
@@ -122,11 +121,11 @@ class DeploymentProposalsController < InheritedResources::Base
     end
 
     @tool = Tool.find(:first)
-    tool_proxy = create_tool_proxy @deployment_proposal.tc_profile_url, get_tool_consumer_profile(session),
+    tool_proxy = create_tool_proxy @deployment_proposal.tc_profile_url, get_tool_consumer_profile(Lti2ContextHolder.get(session)),
                                   @tool.get_tool_profile(@tool_options), UUID.generate
     if tool_proxy
-      service_offered = get_tool_consumer_profile(session)['service_offered'].select { |entry| entry['@id'] == 'ltitcp:ToolProxy.collection'}[0]
-      tool_proxy_response = register_tool_proxy get_tool_consumer_profile(session), tool_proxy, service_offered, "post"
+      service_offered = get_tool_consumer_profile(Lti2ContextHolder.get(session))['service_offered'].select { |entry| entry['@id'] == 'ltitcp:ToolProxy.collection'}[0]
+      tool_proxy_response = register_tool_proxy get_tool_consumer_profile(Lti2ContextHolder.get(session)), tool_proxy, service_offered, "post"
       
       # get guid from the response returned by the TC
       tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
@@ -162,16 +161,16 @@ class DeploymentProposalsController < InheritedResources::Base
   
   def show_reregistration
     tenant = Tenant.where(:tenant_name=>@deployment_proposal.tenant_name).first
-    @tool = Tool.find(:first)
+    @tool = Tool.first
     tool_deployment = ToolDeployment.where(:tenant_id => tenant.id, :tool_id => @tool.id).first
-    tool_proxy = create_tool_proxy @deployment_proposal.tc_profile_url, get_tool_consumer_profile(session),
+    tool_proxy = create_tool_proxy @deployment_proposal.tc_profile_url, get_tool_consumer_profile(Lti2ContextHolder.get(session)),
                                   @tool.get_tool_profile(@tool_options), tool_deployment.key
     if tool_proxy
-      service_offered = get_tool_consumer_profile(session)['service_offered'].select { |entry| entry['@id'] == 'ltitcp:ToolProxy.item'}[0]
+      service_offered = get_tool_consumer_profile(Lti2ContextHolder.get(session))['service_offered'].select { |entry| entry['@id'] == 'ltitcp:ToolProxy.item'}[0]
       service_offered_wrapper = JsonWrapper.new service_offered
       service_offered_wrapper.substitute_text_in_all_nodes('{', '}', {'tool_proxy_guid'=> tool_deployment.key})
 
-      register_tool_proxy get_tool_consumer_profile(session), tool_proxy, service_offered, "put"
+      register_tool_proxy get_tool_consumer_profile(Lti2ContextHolder.get(session)), tool_proxy, service_offered, "put"
       
       @deployment_proposal.status = "reregistered"
       @deployment_proposal.save!
@@ -217,13 +216,13 @@ class DeploymentProposalsController < InheritedResources::Base
     tool_proxy_wrapper.root
   end
  
-  def get_tool_consumer_profile(session, tc_profile_url=nil, key=nil, secret=nil, response=nil)
+  def get_tool_consumer_profile(lti2_context_holder, tc_profile_url=nil, key=nil, secret=nil, response=nil)
     unless tc_profile_url
-      @tool_consumer_profile = session[SESSION_TC_PROFILE_KEY]
+      @tool_consumer_profile = lti2_context_holder[SESSION_TC_PROFILE_KEY]
     else
       tcp_response = invoke_unsigned_service(tc_profile_url, 'get', {}, {}, nil, Rails.application.config.wire_log, "Get Tool Consumer Profile")     
       @tool_consumer_profile = JSON.load tcp_response.body
-      session[SESSION_TC_PROFILE_KEY] = @tool_consumer_profile
+      lti2_context_holder[SESSION_TC_PROFILE_KEY] = @tool_consumer_profile
       response.header = {}
     end
   
