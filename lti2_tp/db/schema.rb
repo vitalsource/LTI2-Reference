@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231164847) do
+ActiveRecord::Schema.define(:version => 20131011162458) do
 
   create_table "deployment_proposals", :force => true do |t|
     t.string   "tenant_name"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(:version => 20121231164847) do
     t.string   "userid"
     t.string   "contextid"
     t.float    "score"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "lti2_contexts", :force => true do |t|
+    t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
