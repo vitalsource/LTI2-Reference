@@ -7,7 +7,7 @@ development:
   adapter: mysql2
   host: localhost
   encoding: utf8
-  database: Fabericious
+  database: fabericious
   username: ltiuser
   password: ltipswd
   pool: 5
@@ -26,7 +26,7 @@ test:
   adapter: mysql2
   host: localhost
   encoding: utf8
-  database: Fabericious
+  database: fabericious
   username: ltiuser
   password: ltipswd
   pool: 5

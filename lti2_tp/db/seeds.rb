@@ -4,4 +4,4 @@ DeploymentProposal.delete_all
 ToolDeployment.delete_all
 Tenant.delete_all
 Iresource.delete_all
-Lti2Context.delete_all
+Lti2TpContext.delete_all

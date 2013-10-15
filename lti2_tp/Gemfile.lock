@@ -15,6 +15,14 @@ GIT
       rails (>= 3.0.0)
       sass (>= 3.1.0)
 
+PATH
+  remote: ../lti2_commons
+  specs:
+    lti2_commons (1.4)
+      httparty
+      lrucache
+      oauth (~> 0.4.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -100,10 +108,6 @@ GEM
       activesupport (>= 3.0.0)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
-    lti2_commons (1.4)
-      httparty
-      lrucache
-      oauth (~> 0.4.5)
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     mail (2.4.4)
@@ -190,7 +194,7 @@ DEPENDENCIES
   json
   jsonpath
   lrucache
-  lti2_commons (~> 1.4)
+  lti2_commons!
   mysql2
   rack (< 1.4.2)
   rails (= 3.2.6)

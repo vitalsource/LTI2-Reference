@@ -1,16 +1,8 @@
-require File.expand_path('../../../test/test_helper', __FILE__)
+#TODO This test always rollsback commit but only in TestCase env.  Something about fixtures
 
-class Lti2ContextTester < ActiveSupport::TestCase
+ENV["RAILS_ENV"] = "development"
+require File.expand_path('../../../config/environment', __FILE__)
 
-  def setup
-    @session = {}
-  end
-
-  def test_blank_holder
-    lti2_context = LtiContextHolder.new()
-    puts lti2_context.inspect
-  end
-
-  #ARGV = ['', "--name", "test_expired_timestamp"]
-  #Test::Unit::AutoRunner.run(false, nil, ARGV)
-end
+holder = ::Lti2TpContext.get_holder({})
+holder['test'] = 'one'
+puts holder['test']

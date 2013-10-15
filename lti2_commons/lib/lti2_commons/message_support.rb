@@ -1,4 +1,4 @@
- 
+
 require "rubygems"
 require "httparty"
 
@@ -39,7 +39,7 @@ module Lti2Commons
       result = create_message_header(launch_url)
       result += create_message_body parameters
       result += create_message_footer
-      
+
       if wire_log
         wire_log.timestamp
         wire_log.raw_log((title.nil?) ? "LtiMessage" : "LtiMessage: #{title}")
@@ -50,7 +50,7 @@ module Lti2Commons
       end
       result
     end
-    
+
     # Creates an LTI Message (POST body) ready for redirecting to the launch_url.
     # Note that the is_include_oauth_params option specifies that 'oauth_' params are 
     # included in the body.  This option should be false when sender is putting them in the
@@ -70,7 +70,6 @@ module Lti2Commons
     #
     # @param request [Request] Signed Request encapsulates everything needed for service.
     def invoke_service(request, wire_log=nil, title=nil)
-      uri = request.uri.to_s
       method = request.method.downcase
       headers = {}
       headers['Authorization'] = request.oauth_header
@@ -82,32 +81,33 @@ module Lti2Commons
 
       parameters = request.parameters
       # need filtered params here
-        
-      output_parameters = {}
-      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, output_parameters) if wire_log
-      
-      full_uri = uri
-      full_uri += '?' unless uri.include? "?"
-      full_uri += '&' unless full_uri =~ /[?&]$/
-      output_parameters.each_pair do |key, value|
-        full_uri << '&' unless key == output_parameters.keys.first
-        full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key])}"
-      end
 
+      uri = request.uri.to_s
+      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, {}) if wire_log
+      output_parameters = {}
+
+      #full_uri += '?' unless uri.include? "?"
+      #full_uri += '&' unless full_uri =~ /[?&]$/
+      #output_parameters.each_pair do |key, value|
+      #  full_uri << '&' unless key == output_parameters.keys.first
+      #  full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key])}"
+      #end
+
+      final_uri = request.final_uri.to_s
       case request.method.downcase
-      when "get"
-        response = HTTParty.get full_uri, :headers => headers
-      when "post"
-        response = HTTParty.post full_uri, :body => request.body, :headers => headers
-      when "put"
-        response = HTTParty.put full_uri, :body => request.body, :headers => headers
-      when "delete"
-        response = HTTParty.delete full_uri, :headers => headers
+        when "get"
+          response = HTTParty.get final_uri, :headers => headers
+        when "post"
+          response = HTTParty.post final_uri, :body => request.body, :headers => headers
+        when "put"
+          response = HTTParty.put final_uri, :body => request.body, :headers => headers
+        when "delete"
+          response = HTTParty.delete final_uri, :headers => headers
       end
       wire_log.log_response response, title if wire_log
       response
     end
-    
+
     def invoke_unsigned_service uri, method, params={}, headers={}, data=nil, wire_log=nil, title=nil
       full_uri = uri
       full_uri += '?' unless uri.include? "?"
@@ -118,24 +118,24 @@ module Lti2Commons
       end
 
       (write_wirelog_header wire_log, title, method, uri, headers, params, data, {}) if wire_log
-      
+
       case method
-      when "get"
-        response = HTTParty.get full_uri, :headers => headers, :timeout => 120
-      when "post"
-        response = HTTParty.post full_uri, :body => data, :headers => headers, :timeout => 120
-      when "put"
-        response = HTTParty.put full_uri, :body => data, :headers => headers, :timeout => 120
-      when "delete"
-        response = HTTParty.delete full_uri, :headers => headers, :timeout => 120
-      end     
+        when "get"
+          response = HTTParty.get full_uri, :headers => headers, :timeout => 120
+        when "post"
+          response = HTTParty.post full_uri, :body => data, :headers => headers, :timeout => 120
+        when "put"
+          response = HTTParty.put full_uri, :body => data, :headers => headers, :timeout => 120
+        when "delete"
+          response = HTTParty.delete full_uri, :headers => headers, :timeout => 120
+      end
       wire_log.log_response response, title if wire_log
       response
-    end    
-    
+    end
+
     private
 
-    
+
     def create_message_header(launch_url)
       %Q{
 <div id="ltiLaunchFormSubmitArea">
@@ -145,18 +145,18 @@ module Lti2Commons
     target="_blank">
 }
     end
-    
+
     def create_message_body(params, is_include_oauth_params=true)
       result = ""
       params.each_pair do |k,v|
         if is_include_oauth_params || ! (k =~ /^oauth_/)
-          result += 
-            %Q{      <input type="hidden" name="#{k}" value="#{v}"/>\n}          
+          result +=
+              %Q{      <input type="hidden" name="#{k}" value="#{v}"/>\n}
         end
       end
       result
     end
-    
+
     def create_message_footer
       %Q{  </form>
 </div>
@@ -171,7 +171,7 @@ module Lti2Commons
       http.headers['Content-Type'] = request.content_type if request.content_type
       http.headers['Content-Length'] = request.body.length if request.body
     end
-    
+
     def write_wirelog_header wire_log, title, method, uri, headers={}, parameters={}, body=nil, output_parameters={}
       wire_log.timestamp
       wire_log.raw_log((title.nil?) ? "LtiService" : "LtiService: #{title}")
@@ -193,6 +193,6 @@ module Lti2Commons
       wire_log.newline
       wire_log.flush
     end
-            
+
   end
 end
