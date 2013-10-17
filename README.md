@@ -8,6 +8,16 @@ For all the details, see the full [LTI2 online docs](http://www.imsglobal.org/lt
 
 This reference implementation is written in the Ruby language under the Rails web framework. 
 
+__NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
+sqlite3 is built in and the data is prebuilt in github.  This means that the TC and TP can be checked out and immediately run with no database prep.
+
+If you'd prefer to use MySQL it's easy to switch.  
+
+* To change the TC to MySQL, edit lti_tc/config/database.yml. To change the TP to MySQL, edit lti_tp/config/database.yml.  These are entirely independent.  There is no requirement that they use the same database configuration.
+
+* Follow the TC- or TP-appropriate instructions in the sections below.  For a MySQL database you'll need to load the database from the /backups directory.
+
+
 Prerequisites
 -------------
 * Ruby/Rails.
@@ -36,6 +46,10 @@ The repository structure is as follows:
 		--lti2_commons		(library used by both TC and TP)
 
 
+Setting up your database (unless default sqlite3 is used)
+---------------------------------------------------------
+
+
 
 LTI2 -- Tool Consumer
 =====================
@@ -55,11 +69,11 @@ Install lti2_tc
 4. bundle install
 5. rails s -p 4000
 
-MySQL Database Initialization 
+If you choose a MySQL Database  
 ---------------------
 1. Create the 'Lumos' database.
 2. Allow Lumos access to user: 'ltiuser' with password 'ltipswd'.
-3. mysql Lumus -u ltiuser -p < data/lti2_tc.sql
+3. Initialize the database: mysql Lumos -u ltiuser -p < backup/lti2_tc.sql
 
 Running lti2_tc
 ---------------
@@ -72,6 +86,7 @@ http://localhost:5000/deployment_proposals
 Resetting the data
 ------------------
 [in directory lti2_tc]
+
 1. Terminate (ctrl-C) the process if it's running
 2. rake db:load
 3. restart (i.e., 'rails s -p 4000)
@@ -93,16 +108,17 @@ Install lti2_tp
 4. bundle install
 5. rails s -p 5000
 
-MySQL Database Initialization (only used if MySQL replaces Sqlite)
+If you choose a MySQL Database 
 ---------------------
-1. Create the 'Fabericious' database.
-2. Allow Lumos access to user: 'ltiuser' with password 'ltipswd'.
-3. mysql Lumus -u ltiuser -p < data/lti2_tp.sql
+1. Create the 'fabericious' database.
+2. Allow fabericious access to user: 'ltiuser' with password 'ltipswd'.
+3. mysql fabericious -u ltiuser -p < backup/lti2_tp.sql
 
 
 Resetting the data
 ------------------
 [in directory lti2_tp]
+
 1. Terminate (ctrl-C) the process if it's running
 2. rake db:load
 3. restart (i.e., 'rails s -p 5000)

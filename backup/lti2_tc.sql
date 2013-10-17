@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 3408
+# Version 4004
 #
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.5.29)
-# Database: lumos
-# Generation Time: 2013-01-13 20:21:48 +0000
+# Host: 127.0.0.1 (MySQL 5.6.13)
+# Database: Lumos
+# Generation Time: 2013-10-17 15:22:33 +0000
 # ************************************************************
 
 
@@ -76,7 +76,7 @@ LOCK TABLES `admin_users` WRITE;
 
 INSERT INTO `admin_users` (`id`, `email`, `role`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `sign_in_count`, `current_sign_in_at`, `last_sign_in_at`, `current_sign_in_ip`, `last_sign_in_ip`, `created_at`, `updated_at`, `user_id`, `first_name`, `last_name`)
 VALUES
-	(2,'admin@lumos.org','Administrator','$2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC',NULL,'2012-07-31 22:37:10',NULL,94,'2013-01-13 19:19:40','2013-01-06 17:23:48','127.0.0.1','127.0.0.1','2012-07-09 23:37:35','2013-01-13 19:19:40','admin','John','Tibbetts'),
+	(2,'admin@lumos.org','Administrator','$2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC',NULL,'2012-07-31 22:37:10',NULL,105,'2013-10-13 21:11:39','2013-10-12 15:52:53','127.0.0.1','127.0.0.1','2012-07-09 23:37:35','2013-10-13 21:11:39','admin','John','Tibbetts'),
 	(6,'jadams@lumos.org','Instructor','$2a$10$fcq0XejjaJ30GSyE34wzxO5pMXh1EV75BfI3t76YQ7IEW4/9qdzYq',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'2012-07-31 22:47:32','2012-07-31 22:47:32','john.adams','John','Adams'),
 	(7,'tarne@lumos.org','Learner','$2a$10$KrvXKBGBCYH6idjDE3Ctpe1fUmvbkRFISyJBpriHtPCrTHkt.UPV6',NULL,NULL,NULL,6,'2012-10-09 14:49:01','2012-10-09 14:45:45','127.0.0.1','127.0.0.1','2012-07-31 22:48:15','2012-10-09 14:49:01','tom.arne','Tom','Arne'),
 	(8,'hbingen@lumos.org','Instructor','$2a$10$IVQh8q/2t38cF2wuVO6Ec.GQF3RVKNy45W1tr.vqX2F4QxT3nzMwG',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'2012-07-31 22:48:57','2012-07-31 22:48:57','hildy.bingen','Hildy','Bingen'),
@@ -247,10 +247,10 @@ LOCK TABLES `registries` WRITE;
 
 INSERT INTO `registries` (`id`, `name`, `content`, `created_at`, `updated_at`)
 VALUES
-	(1,'tool_consumer_profile_template','{\n  \"@context\" : [\n    \"http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile\",\n    {\n      \"ltitcp\" : \"{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#\"\n    }\n  ],\n  \"@type\" : \"ToolConsumerProfile\",\n  \"@id\" : \"{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b\",\n  \"lti_version\" : \"LTI-2p0\",\n  \"guid\" : \"4d469a076541-fcc9-9454-d1ec-106aff6b\",\n  \"product_instance\" : {\n    \"guid\" : \"dcddf9808107-81ea-eaa4-1edf-5d24568c\",\n    \"product_info\" : {\n      \"product_name\" : {\n        \"default_value\" : \"Elan/{tool_consumer_name}\",\n        \"key\" : \"product.name\"\n      },\n      \"product_version\" : \"3.1\",\n      \"description\" : {\n        \"default_value\" : \"Elan University/{tool_consumer_name} Learning Platform\",\n        \"key\" : \"product.version\"\n      },\n      \"technical_description\" : {\n        \"default_value\" : \"LTI 1, 1.1 and 2.0 compliant\",\n        \"key\" : \"product.technicalDescription\"\n      },\n      \"product_family\" : {\n        \"code\" : \"{tool_consumer_name}\",\n        \"vendor\" : {\n          \"code\" : \"lms.{tool_consumer_name}.org\",\n          \"name\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation\",\n            \"key\" : \"product.vendor.name\"\n          },\n          \"description\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System\",\n            \"key\" : \"product.vendor.description\"\n          },\n          \"website\" : \"http://lms.{tool_consumer_name}.org/products/omega\",\n          \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n          \"contact\" : {\n            \"email\" : \"support@lms.{tool_consumer_name}.org\"\n          }\n        }\n      }\n    },\n    \"support\" : {\n      \"email\" : \"john.tibbetts@kinexis.com\"\n    },\n    \"service_provider\" : {\n      \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceProvider\",\n      \"guid\" : \"ec2.{tool_consumer_name}.org\",\n      \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n      \"provider_name\" : {\n        \"default_value\" : \"Elan University\",\n        \"key\" : \"service_provider.name\"\n      },\n      \"description\" : {\n        \"default_value\" : \"Elan University EC2 Cloud\",\n        \"key\" : \"service_provider.description\"\n      },\n      \"support\" : {\n        \"email\" : \"support@yasp.{tool_consumer_name}.org\"\n      }\n    }\n  },\n  \"capability_enabled\" : [\n     \"basic-lti-launch-request\",\n     \"Result.autocreate\",\n     \"Result.sourcedGUID\"\n  ],\n  \"service_offered\" : [\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.collection\",\n      \"endpoint\" : \"{tc_deployment_url}/tools\",\n      \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n      \"action\" : \"POST\"\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.item\",\n      \"endpoint\" : \"{tc_deployment_url}/tools/{tool_proxy_guid}\",\n      \"format\" : \"application/vnd.ims.lti.v2.ToolProxy+json\",\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:Result.item\",\n      \"endpoint\" : \"{tc_deployment_url}/resources/Result/{sourcedId}\",\n      \"format\" : \"application/vnd.ims.lis.v2.Result+json\",\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    }\n  ]\n}','2012-07-09 23:45:10','2012-07-09 23:45:10'),
+	(1,'tool_consumer_profile_template','{\n  \"@context\" : [\n    \"http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile\",\n    {\n      \"ltitcp\" : \"{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}#\"\n    }\n  ],\n  \"@type\" : \"ToolConsumerProfile\",\n  \"@id\" : \"{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}\",\n  \"lti_version\" : \"LTI-2p0\",\n  \"guid\" : \"{tc_profile_guid}\",\n  \"product_instance\" : {\n    \"guid\" : \"dcddf9808107-81ea-eaa4-1edf-5d24568c\",\n    \"product_info\" : {\n      \"product_name\" : {\n        \"default_value\" : \"Elan/{tool_consumer_name}\",\n        \"key\" : \"product.name\"\n      },\n      \"product_version\" : \"3.1\",\n      \"description\" : {\n        \"default_value\" : \"Elan University/{tool_consumer_name} Learning Platform\",\n        \"key\" : \"product.version\"\n      },\n      \"technical_description\" : {\n        \"default_value\" : \"LTI 1, 1.1 and 2.0 compliant\",\n        \"key\" : \"product.technicalDescription\"\n      },\n      \"product_family\" : {\n        \"code\" : \"{tool_consumer_name}\",\n        \"vendor\" : {\n          \"code\" : \"lms.{tool_consumer_name}.org\",\n          \"vendor_name\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation\",\n            \"key\" : \"product.vendor.name\"\n          },\n          \"description\" : {\n            \"default_value\" : \"{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System\",\n            \"key\" : \"product.vendor.description\"\n          },\n          \"website\" : \"http://lms.{tool_consumer_name}.org/products/omega\",\n          \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n          \"contact\" : {\n            \"email\" : \"support@lms.{tool_consumer_name}.org\"\n          }\n        }\n      }\n    },\n    \"support\" : {\n      \"email\" : \"john.tibbetts@kinexis.com\"\n    },\n	\"service_owner\" : {\n	   \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceOwner\",\n	   \"timestamp\" : \"2012-03-28T09:08:16-04:00\",\n	   \"service_owner_name\" : {\n	     \"default_value\" : \"Elan University\",\n	     \"key\" : \"service_owner.name\"\n	   },\n	   \"description\" : {\n	     \"default_value\" : \"Elan University EC2 Cloud\",\n	     \"key\" : \"service_owner.description\"\n	   },\n	   \"support\" : {\n	     \"email\" : \"techsupport@elan.edu\"\n	   }\n	 },\n    \"service_provider\" : {\n      \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceProvider\",\n      \"guid\" : \"ec2.{tool_consumer_name}.org\",\n      \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n      \"service_provider_name\" : {\n        \"default_value\" : \"Elan University\",\n        \"key\" : \"service_provider.name\"\n      },\n      \"description\" : {\n        \"default_value\" : \"Elan University EC2 Cloud\",\n        \"key\" : \"service_provider.description\"\n      },\n      \"support\" : {\n        \"email\" : \"support@yasp.{tool_consumer_name}.org\"\n      }\n    }\n  },\n  \"capability_offered\" : [\n     \"basic-lti-launch-request\",\n     \"Result.autocreate\",\n     \"Result.sourcedId\",\n	 \"User.id\",\n	 \"User.username\",\n	 \"CourseSection.sourcedId\",\n	 \"Person.sourcedId\",\n	 \"Person.email.primary\",\n	 \"Person.name.given\",\n	 \"Person.name.family\",\n	 \"Person.name.full\",\n	 \"Membership.role\",\n	 \"ToolProxy.custom.url\",\n     \"ToolProxyBinding.custom.url\",\n     \"LtiLink.custom.url\"\n  ],\n  \"service_offered\" : [\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.collection\",\n      \"endpoint\" : \"{tc_deployment_url}/tools\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\" : [\"POST\"]\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.item\",\n      \"endpoint\" : \"{tc_deployment_url}/tools/{tool_proxy_guid}\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:Result.item\",\n      \"endpoint\" : \"{tc_deployment_url}/resources/Result/{sourcedId}\",\n      \"format\" : [\"application/vnd.ims.lis.v2.result+json\"],\n      \"action\" : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    {\n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:LtiLinkSettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/links/{link_id}/custom\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n      \"action\" : [\"GET\", \"PUT\"]\n    },\n    {\n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxyBindingSettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/lis/{context_type}/{context_id}/bindings/{vendor_code}/{product_code}/custom\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n      \"action\" : [\"GET\", \"PUT\"]\n    },\n    {\n      \"@type\":\"RestService\",\n      \"@id\" : \"ltitcp:ToolProxySettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/ToolProxy/{tool_proxy_guid}/custom\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n      \"action\" : [\"GET\", \"PUT\"]\n	}\n  ]\n}','2012-07-09 23:45:10','2012-07-09 23:45:10'),
 	(3,'tc_deployment_url','http://localhost:4000','0000-00-00 00:00:00','2012-07-29 17:58:18'),
 	(5,'relaxed_oauth_check','false','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-	(6,'result_template','{\n  \"@context\" : \"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result\",\n  \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"  : {value}\n  }\n}\n','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+	(6,'result_template','{\n  \"@context\" : \"http://purl.imsglobal.org/ctx/lis/v2/Result\",\n  \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"  : {value}\n  }\n}\n','0000-00-00 00:00:00','0000-00-00 00:00:00'),
 	(7,'tool_consumer_name','LuMoS','0000-00-00 00:00:00','0000-00-00 00:00:00'),
 	(8,'tool_consumer_path','/Users/johntibbetts/git/lumos','0000-00-00 00:00:00','0000-00-00 00:00:00'),
 	(9,'tool_provider_path','/Users/johntibbetts/git/fabericious','0000-00-00 00:00:00','0000-00-00 00:00:00'),
@@ -291,7 +291,8 @@ LOCK TABLES `schema_migrations` WRITE;
 
 INSERT INTO `schema_migrations` (`version`)
 VALUES
-	('20121231165540');
+	('20121231165540'),
+	('20130801221129');
 
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -311,6 +312,23 @@ CREATE TABLE `tool_consumer_profiles` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_tool_consumer_profiles_on_tc_profile_guid` (`tc_profile_guid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tool_settings
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tool_settings`;
+
+CREATE TABLE `tool_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tool_id` int(11) DEFAULT NULL,
+  `scopeable_id` int(11) DEFAULT NULL,
+  `scopeable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

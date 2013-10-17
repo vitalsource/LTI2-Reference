@@ -11,13 +11,12 @@ class ToolsController < ApplicationController
 
     message_type = "registration"
     secret = @deployment_request.reg_password
-    
-    oauth_validation_using_secret secret
-    
-    body_str = request.body.read
-    json_str = CGI::unescape body_str
-    tool_proxy = JsonWrapper.new(json_str)
-    
+
+    (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
+    if error_msg.present?
+      (render :json => {:errors => [error_msg]}, :status => status) and return
+    end
+
     # generate guid for tool_proxy
     tool_proxy_guid = UUID.generate
     tool_proxy.root['tool_proxy_guid'] = tool_proxy_guid
@@ -127,13 +126,13 @@ class ToolsController < ApplicationController
       tool_settings_custom[tool_setting.name] = tool_setting.value
     end
     if tool_settings_custom.length > 0
-      tool_proxy_custom['@id'] = ""
+      tool_settings_custom['@id'] = ""
       tool_proxy[:custom] = tool_settings_custom
 
     end
 
     tool_proxy_pretty_str = JSON.pretty_generate(tool_proxy)
-    render :text => "<pre>#{tool_proxy_pretty_str}</pre>"
+    render :text => "<pre>#{tool_proxy_pretty_str}</pre>", :content_type => "application/vnd.ims.lti.v2.ToolProxy+json"
   end
 
   def update 
@@ -144,12 +143,11 @@ class ToolsController < ApplicationController
     @tool = Tool.where(:key => key).first
     secret = @tool.secret
 
-    oauth_validation_using_secret secret
-    
-    body_str = request.body.read
-    json_str = CGI::unescape body_str
-    tool_proxy = JsonWrapper.new(json_str)
-    
+    (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
+    if error_msg.present?
+      (render :status => status, :errors => [error_msg]) and return
+    end
+
     product_name = tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
 
     @tool.tool_proxy = JSON.pretty_generate tool_proxy.root
@@ -193,5 +191,56 @@ class ToolsController < ApplicationController
       tool_proxy.delete('custom')
 
     end
+  end
+
+  def check_for_validity(tool_proxy)
+    if tool_proxy.first_at('security_contract.shared_secret').blank?
+      return 'Missing shared_secret'
+    end
+
+    # check that services are a subset of those offered
+    # first, grab guid from tc_profile_url
+    tc_profile_guid = tool_proxy.root['tool_consumer_profile'].split('/').last
+    tcp_obj = ToolConsumerProfile.where(:tc_profile_guid => tc_profile_guid).first
+    tcp_str = tcp_obj.tc_profile
+    tcp = JsonWrapper.new(tcp_str).root
+    tcp_service_hash = {}
+    tcp['service_offered'].each {|service| tcp_service_hash[service['endpoint']] = service['action']}
+    tool_proxy.root['security_contract']['tool_service'].each do |tp_service_item|
+      if tcp_service_hash.keys.include?(tp_service_item['service'])
+        tp_service_item['action'].each do |action|
+          unless tcp_service_hash[tp_service_item['service']].include?(action)
+            return "Service #{tp_service_item['service']} does not support #{action}"
+          end
+        end
+      else
+        return "Service mismatch on #{tp_service_item['service']}"
+      end
+    end
+    nil
+  end
+
+  def process_tool_proxy(request, secret)
+    begin
+      oauth_validation_using_secret secret
+    rescue
+      return [nil, 401, 'Invalid signature']
+    end
+
+    body_str = request.body.read
+    json_str = CGI::unescape body_str
+
+    begin
+      tool_proxy = JsonWrapper.new(json_str)
+    rescue
+      return [nil, 400, 'JSON validation failure']
+    end
+
+    error_msg = check_for_validity(tool_proxy)
+    if error_msg.present?
+      return [nil, 400, error_msg]
+    end
+
+    [tool_proxy, nil, nil]
   end
 end

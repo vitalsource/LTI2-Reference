@@ -2,13 +2,13 @@
   "@context" : [
     "http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile",
     {
-      "ltitcp" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+      "ltitcp" : "{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}#"
     }
   ],
   "@type" : "ToolConsumerProfile",
-  "@id" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id" : "{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}",
   "lti_version" : "LTI-2p0",
-  "guid" : "4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "guid" : "{tc_profile_guid}",
   "product_instance" : {
     "guid" : "dcddf9808107-81ea-eaa4-1edf-5d24568c",
     "product_info" : {

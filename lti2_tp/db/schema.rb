@@ -11,9 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231164847) do
+ActiveRecord::Schema.define(:version => 20131012140551) do
 
   create_table "deployment_proposals", :force => true do |t|
+    t.string   "tenant_key"
     t.string   "tenant_name"
     t.string   "user_id"
     t.string   "reg_key"
@@ -36,6 +37,12 @@ ActiveRecord::Schema.define(:version => 20121231164847) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "lti2_tp_contexts", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "registries", :force => true do |t|
     t.string   "name"
     t.text     "content"
@@ -54,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20121231164847) do
   end
 
   create_table "tenants", :force => true do |t|
+    t.string   "tenant_key"
     t.string   "tenant_name"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false

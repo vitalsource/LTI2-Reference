@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def pre_process_tenant
+    # no way home
+    unless params.has_key?('launch_presentation_return_url')
+      render :inline => "<br><br><h2>LTI launch parameters are incomplete and no return URL has been provided</h2>" and return
+    end
+
     # OAuth check here
     tool_provider_registry = Rails.application.config.tool_provider_registry 
 
@@ -17,16 +22,18 @@ class ApplicationController < ActionController::Base
         # no oauth_consumer_key but but flash has been saved from *last* request
         return
       else
-        raise "Improper LTI context"
+        (redirect_to redirect_url("Improper LTI context")) and return
       end
     end
     @tool_deployment = ToolDeployment.where(:key => key).first
     unless @tool_deployment
-      raise "No existing tools for this partner"
+      (redirect_to redirect_url("No existing tools for this partner")) and return
     end
     
     @tenant = @tool_deployment.tenant
-    raise "Could not locate tenant" unless @tenant
+    if @tenant.blank?
+      (redirect_to redirect_url("Could not locate tenant")) and return
+    end
     request.parameters['_tenant_id'] = @tenant.id
 
     @tool_deployment = ToolDeployment.where(:key => key).first
@@ -38,10 +45,35 @@ class ApplicationController < ActionController::Base
       unless request_wrapper.verify_signature? secret, Rails.application.config.nonce_cache
         # puts "Secret: #{secret}"
         puts "TP Signed Request: #{request_wrapper.signature_base_string}"
-        raise "Invalid signature"
+        (redirect_to redirect_url("Invalid signature")) and return
       end
       request[:lti_context] = request.parameters
     end
+
+    # LTI conformance
+    request.request_parameters['normalized_role'] = normalize_role(params['roles'])
+    unless params.has_key?('resource_link_id')
+      (redirect_to redirect_url("Missing resource link id")) and return
+    end
+
+    if params.has_key?('lti_version')
+      lti_version = params['lti_version']
+      unless ['LTI-1p0', 'LTI-2p0'].include?(lti_version)
+        (redirect_to redirect_url("Invalid lti_version: #{lti_version}")) and return
+      end
+    else
+      (redirect_to redirect_url("Missing lti_version")) and return
+    end
+
+    if params.has_key?('lti_message_type')
+      lti_message_type = params['lti_message_type']
+      unless ['basic-lti-launch-request', 'ToolProxyRegistrationRequest', 'ToolProxyReregistrationRequest'].include?(lti_message_type)
+        (redirect_to redirect_url("Invalid lti_message_type: #{lti_message_type}")) and return
+      end
+    else
+      (redirect_to redirect_url("Missing lti_message_type")) and return
+    end
+
   end
   
   protected 
@@ -65,7 +97,31 @@ class ApplicationController < ActionController::Base
     # puts "TC Signed Request: #{signed_request.signature_base_string}"    # parameters['oauth_signature'] = Base64.encode64( OpenSSL::HMAC.digest( OpenSSL::Digest::Digest.new( 'sha1' ), secret+"&", "#{signed_request.signature_base_string}" ) ).chomp.gsub( /\n/, '' )
     MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Launch to external tool")
   end
-  
+
+  def normalize_role(roles_string)
+    roles_string ||= 'learner'
+    roles = roles_string.downcase.split(',')
+    regex = /[\/#](\w+)$/
+    roles.each do |full_role|
+      # allow old urn form or new uri form
+      m = regex.match(full_role)
+      if m.nil?
+        role = full_role
+      else
+        role = m[1]
+      end
+      if ['learner','instructor'].include?(role)
+        return role
+      end
+    end
+    'learner'
+  end
+
+  def redirect_url(msg)
+    msg = Rack::Utils.escape(msg)
+    "#{params['launch_presentation_return_url']}?status=failure&lti_errormsg=#{msg}&lti_errorlog=#{msg}"
+  end
+
   def is_parameters_in_flash
     not flash[:lti_context].nil?
   end
