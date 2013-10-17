@@ -107,6 +107,7 @@ Login credentials: admin@lumos.org / password		(literally: 'password')
 Resetting the data
 ------------------
 [in directory lti2_tp]
+
 1. Terminate (ctrl-C) the process if it's running
 2. rake db:load
 3. restart (i.e., 'rails s -p 5000)

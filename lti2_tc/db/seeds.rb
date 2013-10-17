@@ -7,4 +7,6 @@ Tool.delete_all
 Link.delete_all
 GradeItem.delete_all
 GradeResult.delete_all
+ToolSettings.delete_all
+
 

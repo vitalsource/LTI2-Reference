@@ -1,9 +1,10 @@
 
---- 
-admin_users: 
-  columns: 
+---
+admin_users:
+  columns:
   - id
   - email
+  - role
   - encrypted_password
   - reset_password_token
   - reset_password_sent_at
@@ -18,27 +19,27 @@ admin_users:
   - user_id
   - first_name
   - last_name
-  - role
   records: 
   - - 2
     - admin@lumos.org
+    - Administrator
     - $2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC
     - 
-    - 2012-07-31 22:37:10.000000
+    - 2012-07-31 22:37:10.000000000 Z
     - 
-    - 94
-    - 2013-01-13 19:19:40.000000
-    - 2013-01-06 17:23:48.000000
+    - 105
+    - 2013-10-13 21:11:39.000000000 Z
+    - 2013-10-12 15:52:53.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
-    - 2012-07-09 23:37:35.000000
-    - 2013-01-13 19:19:40.000000
+    - 2012-07-09 23:37:35.000000000 Z
+    - 2013-10-13 21:11:39.000000000 Z
     - admin
-    - Cis
-    - Admn
-    - Administrator
+    - John
+    - Tibbetts
   - - 6
-    - cadmin@lumos.org
+    - jadams@lumos.org
+    - Instructor
     - $2a$10$fcq0XejjaJ30GSyE34wzxO5pMXh1EV75BfI3t76YQ7IEW4/9qdzYq
     - 
     - 
@@ -48,31 +49,31 @@ admin_users:
     - 
     - 
     - 
-    - 2012-07-31 22:47:32.000000
-    - 2012-07-31 22:47:32.000000
+    - 2012-07-31 22:47:32.000000000 Z
+    - 2012-07-31 22:47:32.000000000 Z
     - john.adams
     - John
     - Adams
-    - Instructor
   - - 7
     - tarne@lumos.org
+    - Learner
     - $2a$10$KrvXKBGBCYH6idjDE3Ctpe1fUmvbkRFISyJBpriHtPCrTHkt.UPV6
     - 
     - 
     - 
     - 6
-    - 2012-10-09 14:49:01.000000
-    - 2012-10-09 14:45:45.000000
+    - 2012-10-09 14:49:01.000000000 Z
+    - 2012-10-09 14:45:45.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
-    - 2012-07-31 22:48:15.000000
-    - 2012-10-09 14:49:01.000000
+    - 2012-07-31 22:48:15.000000000 Z
+    - 2012-10-09 14:49:01.000000000 Z
     - tom.arne
     - Tom
     - Arne
-    - Learner
   - - 8
     - hbingen@lumos.org
+    - Instructor
     - $2a$10$IVQh8q/2t38cF2wuVO6Ec.GQF3RVKNy45W1tr.vqX2F4QxT3nzMwG
     - 
     - 
@@ -82,14 +83,14 @@ admin_users:
     - 
     - 
     - 
-    - 2012-07-31 22:48:57.000000
-    - 2012-07-31 22:48:57.000000
+    - 2012-07-31 22:48:57.000000000 Z
+    - 2012-07-31 22:48:57.000000000 Z
     - hildy.bingen
     - Hildy
     - Bingen
-    - Instructor
   - - 9
     - wbach@lumos.org
+    - Learner
     - $2a$10$QcjasSRFSesjvBodh5A0zOd6aux..zHhZ7znkOzDaeIxrIj/Gyu32
     - 
     - 
@@ -99,14 +100,14 @@ admin_users:
     - 
     - 
     - 
-    - 2012-07-31 22:49:39.000000
-    - 2012-07-31 22:49:39.000000
+    - 2012-07-31 22:49:39.000000000 Z
+    - 2012-07-31 22:49:39.000000000 Z
     - willie.bach
     - Willie
     - Bach
-    - Learner
   - - 10
     - bdev@lumos.org
+    - Learner
     - $2a$10$Y99OkiogEHrTW8G96Dhty.84RSgCcbFOqevTfEyUgY8qtATbLLQGa
     - 
     - 
@@ -116,16 +117,15 @@ admin_users:
     - 
     - 
     - 
-    - 2012-07-31 22:50:27.000000
-    - 2012-07-31 22:50:27.000000
+    - 2012-07-31 22:50:27.000000000 Z
+    - 2012-07-31 22:50:27.000000000 Z
     - bcdev
     - BC
     - Dev
-    - Learner
 
---- 
-courses: 
-  columns: 
+---
+courses:
+  columns:
   - id
   - course_label
   - course_title
@@ -135,27 +135,27 @@ courses:
   - - 1
     - ENG110A
     - English Masters
-    - 2012-07-31 23:09:13.000000
-    - 2012-07-31 23:09:13.000000
+    - 2012-07-31 23:09:13.000000000 Z
+    - 2012-07-31 23:09:13.000000000 Z
   - - 2
     - SMPL101A
     - Nursing Compendium
-    - 2012-07-31 23:09:54.000000
-    - 2012-07-31 23:09:54.000000
+    - 2012-07-31 23:09:54.000000000 Z
+    - 2012-07-31 23:09:54.000000000 Z
   - - 3
     - NURS200A
     - Nursing Operations
-    - 2012-07-31 23:10:31.000000
-    - 2012-07-31 23:10:31.000000
+    - 2012-07-31 23:10:31.000000000 Z
+    - 2012-07-31 23:10:31.000000000 Z
   - - 4
     - DEV400A
     - Developer Seminar
-    - 2012-07-31 23:12:28.000000
-    - 2012-07-31 23:12:28.000000
+    - 2012-07-31 23:12:28.000000000 Z
+    - 2012-07-31 23:12:28.000000000 Z
 
---- 
-enrollments: 
-  columns: 
+---
+enrollments:
+  columns:
   - id
   - admin_user_id
   - course_id
@@ -167,90 +167,90 @@ enrollments:
     - 6
     - 1
     - instructor
-    - 2012-07-31 23:18:59.000000
-    - 2012-07-31 23:18:59.000000
+    - 2012-07-31 23:18:59.000000000 Z
+    - 2012-07-31 23:18:59.000000000 Z
   - - 2
     - 6
     - 3
     - instructor
-    - 2012-07-31 23:19:45.000000
-    - 2012-07-31 23:19:45.000000
+    - 2012-07-31 23:19:45.000000000 Z
+    - 2012-07-31 23:19:45.000000000 Z
   - - 3
     - 6
     - 2
     - instructor
-    - 2012-07-31 23:20:07.000000
-    - 2012-07-31 23:20:07.000000
+    - 2012-07-31 23:20:07.000000000 Z
+    - 2012-07-31 23:20:07.000000000 Z
   - - 4
     - 7
     - 1
     - student
-    - 2012-07-31 23:20:24.000000
-    - 2012-07-31 23:20:24.000000
+    - 2012-07-31 23:20:24.000000000 Z
+    - 2012-07-31 23:20:24.000000000 Z
   - - 5
     - 7
     - 3
     - student
-    - 2012-07-31 23:20:39.000000
-    - 2012-07-31 23:20:39.000000
+    - 2012-07-31 23:20:39.000000000 Z
+    - 2012-07-31 23:20:39.000000000 Z
   - - 6
     - 7
     - 2
     - student
-    - 2012-07-31 23:21:01.000000
-    - 2012-07-31 23:21:01.000000
+    - 2012-07-31 23:21:01.000000000 Z
+    - 2012-07-31 23:21:01.000000000 Z
   - - 7
     - 8
     - 1
     - instructor
-    - 2012-07-31 23:23:56.000000
-    - 2012-07-31 23:23:56.000000
+    - 2012-07-31 23:23:56.000000000 Z
+    - 2012-07-31 23:23:56.000000000 Z
   - - 8
     - 8
     - 3
     - instructor
-    - 2012-07-31 23:24:15.000000
-    - 2012-07-31 23:24:15.000000
+    - 2012-07-31 23:24:15.000000000 Z
+    - 2012-07-31 23:24:15.000000000 Z
   - - 9
     - 8
     - 2
     - instructor
-    - 2012-07-31 23:24:30.000000
-    - 2012-07-31 23:24:30.000000
+    - 2012-07-31 23:24:30.000000000 Z
+    - 2012-07-31 23:24:30.000000000 Z
   - - 10
     - 9
     - 1
     - student
-    - 2012-07-31 23:24:45.000000
-    - 2012-07-31 23:24:45.000000
+    - 2012-07-31 23:24:45.000000000 Z
+    - 2012-07-31 23:24:45.000000000 Z
   - - 11
     - 9
     - 3
     - student
-    - 2012-07-31 23:24:53.000000
-    - 2012-07-31 23:24:53.000000
+    - 2012-07-31 23:24:53.000000000 Z
+    - 2012-07-31 23:24:53.000000000 Z
   - - 12
     - 9
     - 2
     - student
-    - 2012-07-31 23:25:00.000000
-    - 2012-07-31 23:25:00.000000
+    - 2012-07-31 23:25:00.000000000 Z
+    - 2012-07-31 23:25:00.000000000 Z
   - - 13
     - 10
     - 4
     - student
-    - 2012-07-31 23:25:15.000000
-    - 2012-07-31 23:25:15.000000
+    - 2012-07-31 23:25:15.000000000 Z
+    - 2012-07-31 23:25:15.000000000 Z
   - - 14
     - 2
     - 4
     - instructor
-    - 2012-07-31 23:25:28.000000
-    - 2012-07-31 23:25:28.000000
+    - 2012-07-31 23:25:28.000000000 Z
+    - 2012-07-31 23:25:28.000000000 Z
 
---- 
-registries: 
-  columns: 
+---
+registries:
+  columns:
   - id
   - name
   - content
@@ -259,137 +259,100 @@ registries:
   records: 
   - - 1
     - tool_consumer_profile_template
-    - |-
-      {
-        "@context" : [
-          "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
-          {
-            "ltitcp" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
-          }
-        ],
-        "@type" : "ToolConsumerProfile",
-        "@id" : "{tc_deployment_url}/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
-        "lti_version" : "LTI-2p0",
-        "guid" : "4d469a076541-fcc9-9454-d1ec-106aff6b",
-        "product_instance" : {
-          "guid" : "dcddf9808107-81ea-eaa4-1edf-5d24568c",
-          "product_info" : {
-            "product_name" : {
-              "default_value" : "Elan/{tool_consumer_name}",
-              "key" : "product.name"
-            },
-            "product_version" : "3.1",
-            "description" : {
-              "default_value" : "Elan University/{tool_consumer_name} Learning Platform",
-              "key" : "product.version"
-            },
-            "technical_description" : {
-              "default_value" : "LTI 1, 1.1 and 2.0 compliant",
-              "key" : "product.technicalDescription"
-            },
-            "product_family" : {
-              "code" : "{tool_consumer_name}",
-              "vendor" : {
-                "code" : "lms.{tool_consumer_name}.org",
-                "name" : {
-                  "default_value" : "{tool_consumer_name} Corporation",
-                  "key" : "product.vendor.name"
-                },
-                "description" : {
-                  "default_value" : "{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management System",
-                  "key" : "product.vendor.description"
-                },
-                "website" : "http://lms.{tool_consumer_name}.org/products/omega",
-                "timestamp" : "2012-07-09T012:08:16-04:00",
-                "contact" : {
-                  "email" : "support@lms.{tool_consumer_name}.org"
-                }
-              }
-            }
-          },
-          "support" : {
-            "email" : "john.tibbetts@kinexis.com"
-          },
-          "service_provider" : {
-            "@id" : "http://ec2.{tool_consumer_name}.org/ServiceProvider",
-            "guid" : "ec2.{tool_consumer_name}.org",
-            "timestamp" : "2012-07-09T012:08:16-04:00",
-            "provider_name" : {
-              "default_value" : "Elan University",
-              "key" : "service_provider.name"
-            },
-            "description" : {
-              "default_value" : "Elan University EC2 Cloud",
-              "key" : "service_provider.description"
-            },
-            "support" : {
-              "email" : "support@yasp.{tool_consumer_name}.org"
-            }
-          }
-        },
-        "capability_enabled" : [
-           "basic-lti-launch-request",
-           "Result.autocreate",
-           "Result.sourcedGUID"
-        ],
-        "service_offered" : [
-          { 
-            "@type" : "RestService",
-            "@id" : "ltitcp:ToolProxy.collection",
-            "endpoint" : "{tc_deployment_url}/tools",
-            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
-            "action" : "POST"
-          },
-          { 
-            "@type" : "RestService",
-            "@id" : "ltitcp:ToolProxy.item",
-            "endpoint" : "{tc_deployment_url}/tools/{tool_proxy_guid}",
-            "format" : "application/vnd.ims.lti.v2.ToolProxy+json",
-            "action" : [
-              "GET",
-              "PUT"
-            ]
-          },
-          { 
-            "@type" : "RestService",
-            "@id" : "ltitcp:Result.item",
-            "endpoint" : "{tc_deployment_url}/resources/Result/{sourcedId}",
-            "format" : "application/vnd.ims.lis.v2.Result+json",
-            "action" : [
-              "GET",
-              "PUT"
-            ]
-          }
-        ]
-      }
-    - 2012-07-09 23:45:10.000000
-    - 2012-07-09 23:45:10.000000
+    - ! "{\n  \"@context\" : [\n    \"http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile\",\n
+      \   {\n      \"ltitcp\" : \"{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}#\"\n
+      \   }\n  ],\n  \"@type\" : \"ToolConsumerProfile\",\n  \"@id\" : \"{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}\",\n
+      \ \"lti_version\" : \"LTI-2p0\",\n  \"guid\" : \"{tc_profile_guid}\",\n  \"product_instance\"
+      : {\n    \"guid\" : \"dcddf9808107-81ea-eaa4-1edf-5d24568c\",\n    \"product_info\"
+      : {\n      \"product_name\" : {\n        \"default_value\" : \"Elan/{tool_consumer_name}\",\n
+      \       \"key\" : \"product.name\"\n      },\n      \"product_version\" : \"3.1\",\n
+      \     \"description\" : {\n        \"default_value\" : \"Elan University/{tool_consumer_name}
+      Learning Platform\",\n        \"key\" : \"product.version\"\n      },\n      \"technical_description\"
+      : {\n        \"default_value\" : \"LTI 1, 1.1 and 2.0 compliant\",\n        \"key\"
+      : \"product.technicalDescription\"\n      },\n      \"product_family\" : {\n
+      \       \"code\" : \"{tool_consumer_name}\",\n        \"vendor\" : {\n          \"code\"
+      : \"lms.{tool_consumer_name}.org\",\n          \"vendor_name\" : {\n            \"default_value\"
+      : \"{tool_consumer_name} Corporation\",\n            \"key\" : \"product.vendor.name\"\n
+      \         },\n          \"description\" : {\n            \"default_value\" :
+      \"{tool_consumer_name} Corporation is a fictitious vendor of a Learning Management
+      System\",\n            \"key\" : \"product.vendor.description\"\n          },\n
+      \         \"website\" : \"http://lms.{tool_consumer_name}.org/products/omega\",\n
+      \         \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n          \"contact\"
+      : {\n            \"email\" : \"support@lms.{tool_consumer_name}.org\"\n          }\n
+      \       }\n      }\n    },\n    \"support\" : {\n      \"email\" : \"john.tibbetts@kinexis.com\"\n
+      \   },\n\t\"service_owner\" : {\n\t   \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceOwner\",\n\t
+      \  \"timestamp\" : \"2012-03-28T09:08:16-04:00\",\n\t   \"service_owner_name\"
+      : {\n\t     \"default_value\" : \"Elan University\",\n\t     \"key\" : \"service_owner.name\"\n\t
+      \  },\n\t   \"description\" : {\n\t     \"default_value\" : \"Elan University
+      EC2 Cloud\",\n\t     \"key\" : \"service_owner.description\"\n\t   },\n\t   \"support\"
+      : {\n\t     \"email\" : \"techsupport@elan.edu\"\n\t   }\n\t },\n    \"service_provider\"
+      : {\n      \"@id\" : \"http://ec2.{tool_consumer_name}.org/ServiceProvider\",\n
+      \     \"guid\" : \"ec2.{tool_consumer_name}.org\",\n      \"timestamp\" : \"2012-07-09T012:08:16-04:00\",\n
+      \     \"service_provider_name\" : {\n        \"default_value\" : \"Elan University\",\n
+      \       \"key\" : \"service_provider.name\"\n      },\n      \"description\"
+      : {\n        \"default_value\" : \"Elan University EC2 Cloud\",\n        \"key\"
+      : \"service_provider.description\"\n      },\n      \"support\" : {\n        \"email\"
+      : \"support@yasp.{tool_consumer_name}.org\"\n      }\n    }\n  },\n  \"capability_offered\"
+      : [\n     \"basic-lti-launch-request\",\n     \"Result.autocreate\",\n     \"Result.sourcedId\",\n\t
+      \"User.id\",\n\t \"User.username\",\n\t \"CourseSection.sourcedId\",\n\t \"Person.sourcedId\",\n\t
+      \"Person.email.primary\",\n\t \"Person.name.given\",\n\t \"Person.name.family\",\n\t
+      \"Person.name.full\",\n\t \"Membership.role\",\n\t \"ToolProxy.custom.url\",\n
+      \    \"ToolProxyBinding.custom.url\",\n     \"LtiLink.custom.url\"\n  ],\n  \"service_offered\"
+      : [\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.collection\",\n
+      \     \"endpoint\" : \"{tc_deployment_url}/tools\",\n      \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n
+      \     \"action\" : [\"POST\"]\n    },\n    { \n      \"@type\" : \"RestService\",\n
+      \     \"@id\" : \"ltitcp:ToolProxy.item\",\n      \"endpoint\" : \"{tc_deployment_url}/tools/{tool_proxy_guid}\",\n
+      \     \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\"
+      : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    { \n      \"@type\"
+      : \"RestService\",\n      \"@id\" : \"ltitcp:Result.item\",\n      \"endpoint\"
+      : \"{tc_deployment_url}/resources/Result/{sourcedId}\",\n      \"format\" :
+      [\"application/vnd.ims.lis.v2.result+json\"],\n      \"action\" : [\n        \"GET\",\n
+      \       \"PUT\"\n      ]\n    },\n    {\n      \"@type\" : \"RestService\",\n
+      \     \"@id\" : \"ltitcp:LtiLinkSettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/links/{link_id}/custom\",\n
+      \     \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n
+      \     \"action\" : [\"GET\", \"PUT\"]\n    },\n    {\n      \"@type\" : \"RestService\",\n
+      \     \"@id\" : \"ltitcp:ToolProxyBindingSettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/lis/{context_type}/{context_id}/bindings/{vendor_code}/{product_code}/custom\",\n
+      \     \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n
+      \     \"action\" : [\"GET\", \"PUT\"]\n    },\n    {\n      \"@type\":\"RestService\",\n
+      \     \"@id\" : \"ltitcp:ToolProxySettings\",\n      \"endpoint\" : \"http://lms.example.com/resources/ToolProxy/{tool_proxy_guid}/custom\",\n
+      \     \"format\" : [\"application/vnd.ims.lti.v2.toolsettings+json\", \"application/vnd.ims.lti.v2.toolsettings.simple+json\"],\n
+      \     \"action\" : [\"GET\", \"PUT\"]\n\t}\n  ]\n}"
+    - 2012-07-09 23:45:10.000000000 Z
+    - 2012-07-09 23:45:10.000000000 Z
   - - 3
     - tc_deployment_url
     - http://localhost:4000
     - 2012-07-29 17:58:18.000000
-    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000000 Z
   - - 5
     - relaxed_oauth_check
-    - "false"
+    - 'false'
     - 2012-07-29 17:58:18.000000
     - 2012-07-29 17:58:18.000000
   - - 6
     - result_template
-    - |
-      {
-        "@context" : "http://www.imsglobal.org/imspurl/lis/v2/ctx/Result",
-        "@type" : "Result",
-        "resultScore" : {
-          "@type" : "decimal",
-          "@value"  : {value}
-        }
-      }
-
+    - ! "{\n  \"@context\" : \"http://purl.imsglobal.org/ctx/lis/v2/Result\",\n  \"@type\"
+      : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"
+      \ : {value}\n  }\n}\n"
     - 2012-07-29 17:58:18.000000
     - 2012-07-29 17:58:18.000000
   - - 7
     - tool_consumer_name
     - LuMoS
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 8
+    - tool_consumer_path
+    - /Users/johntibbetts/git/lumos
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 9
+    - tool_provider_path
+    - /Users/johntibbetts/git/fabericious
+    - 2012-07-29 17:58:18.000000
+    - 2012-07-29 17:58:18.000000
+  - - 11
+    - docs_path
+    - /Users/johntibbetts/git/lumos/lti_docs
     - 2012-07-29 17:58:18.000000
     - 2012-07-29 17:58:18.000000

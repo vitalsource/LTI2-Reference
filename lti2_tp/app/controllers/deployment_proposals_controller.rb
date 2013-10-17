@@ -144,7 +144,7 @@ class DeploymentProposalsController < InheritedResources::Base
       end
 
       (tool_proxy_response, err_code, err_msg) = register_tool_proxy get_tool_consumer_profile(Lti2TpContext.get_holder(session)), tool_proxy, service_offered, "post"
-      unless err_code == 200
+      unless err_code == 201
         disposition = create_disposition(false, nil, "#{err_code}-#{err_msg}")
         return_url = @deployment_proposal.launch_presentation_return_url + disposition
         (redirect_to return_url) and return
@@ -249,8 +249,7 @@ class DeploymentProposalsController < InheritedResources::Base
     tool_provider_registry = Rails.application.config.tool_provider_registry 
     tool_proxy = {
       '@context' => [
-        "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
-        "http://purl.org/blackboard/ctx/v1/iconStyle"
+          "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
       ],
       '@type' => "ToolProxy",
       '@id' => "ToolProxyProposal_at_#{Time.now.utc.iso8601}",
@@ -310,7 +309,7 @@ class DeploymentProposalsController < InheritedResources::Base
     puts "Register request: #{signed_request.signature_base_string}"
     puts "Register secret: #{@deployment_proposal.reg_password}"
     response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer")
-    if response.code == 200
+    if response.code.between?(200, 202)
       response_body = response.body
       response_content = JSON.load(response_body) unless response_body.strip.empty?
     else
@@ -346,8 +345,7 @@ class DeploymentProposalsController < InheritedResources::Base
     services_offered = tool_consumer_profile['service_offered']
     services_offered.each { |service_offered|
       tool_service = {}
-      tool_service['@type'] = service_offered['@type']
-      tool_service['@id'] = service_offered['@id']
+      tool_service['@type'] = "RestServiceProfile"
       tool_service['service'] = service_offered['endpoint']
       tool_service['action'] = service_offered['action']
       

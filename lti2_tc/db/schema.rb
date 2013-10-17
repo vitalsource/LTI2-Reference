@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130801221129) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
+    t.string   "role"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -44,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20130801221129) do
     t.string   "user_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "role"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
