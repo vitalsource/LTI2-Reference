@@ -3,8 +3,8 @@ class ToolSettingsController < ApplicationController
   #before_filter :oauth_validation   # look in ApplicationController
 
   def initialize
-    @acceptable_headers = ['application/vnd.ims.lti.v2.ToolSettings+json',
-                           'application/vnd.ims.lti.v2.ToolSettings.simple+json']
+    @acceptable_headers = ['application/vnd.ims.lti.v2.toolsettings+json',
+                           'application/vnd.ims.lti.v2.toolsettings.simple+json']
     @tool_setting_binding_map = {:Tool => :ToolProxy, :Context => :ToolProxyBinding, :Ltilink => :LtiLink}
   end
 
@@ -37,7 +37,7 @@ class ToolSettingsController < ApplicationController
           result[:@graph] << graph_element
           graph_element['@type'] = @tool_setting_binding_map[match.scopeable_type.to_sym]
           graph_element['@id'] = match.to_uri
-          graph_element['custom_uri'] = graph_element['@id']
+          graph_element['custom_url'] = graph_element['@id']
           @match_dict = {}
           graph_element['custom'] = @match_dict
           current_match_type = match.scopeable_type

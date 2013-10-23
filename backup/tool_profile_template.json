@@ -71,6 +71,35 @@
         {
             "message": [
                 {
+                    "path": "/settings",
+                    "parameter": [
+                        {
+                            "variable": "ToolProxy.custom.url",
+                            "name": "tool_proxy_custom_url"
+                        }, {
+                            "variable": "ToolProxyBinding.custom.url",
+                            "name": "tool_proxy_binding_custom_url"
+                        }, {
+                            "variable": "LtiLink.custom.url",
+                            "name": "lti_link_custom_url"
+                        }
+                    ],
+                    "message_type": "basic-lti-launch-request"
+                }
+            ],
+            "name": {
+                "default_value": "Settings",
+                "key": "resource.name"
+            },
+            "resource_type": "setting",
+            "description": {
+                "default_value": "Settings service",
+                "key": "resource.description"
+            }
+        },
+        {
+            "message": [
+                {
                     "path": "/echoes",
                     "parameter": [
                         {
@@ -97,35 +126,6 @@
             "resource_type": "echo",
             "description": {
                 "default_value": "Echo service",
-                "key": "resource.description"
-            }
-        },
-        {
-            "message": [
-                {
-                    "path": "/settings",
-                    "parameter": [
-                        {
-                            "variable": "ToolProxy.custom.uri",
-                            "name": "tool_proxy_custom_uri"
-                        }, {
-                            "variable": "ToolProxyBinding.custom.uri",
-                            "name": "tool_proxy_binding_custom_uri"
-                        }, {
-                            "variable": "LtiLink.custom.uri",
-                            "name": "lti_link_custom_uri"
-                        }
-                    ],
-                    "message_type": "basic-lti-launch-request"
-                }
-            ],
-            "name": {
-                "default_value": "Settings",
-                "key": "resource.name"
-            },
-            "resource_type": "setting",
-            "description": {
-                "default_value": "Settings service",
                 "key": "resource.description"
             }
         },

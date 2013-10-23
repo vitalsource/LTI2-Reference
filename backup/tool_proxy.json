@@ -1,0 +1,326 @@
+{
+  "@context": [
+    "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
+  ],
+  "@type": "ToolProxy",
+  "@id": "ToolProxyProposal_at_2013-10-20T22:56:30Z",
+  "custom": {
+    "tenant_id": "fab23",
+    "tenant_name": "Lumos1"
+  },
+  "lti_version": "LTI-2p0",
+  "tool_proxy_guid": "52645f9d1ca4c",
+  "tool_consumer_profile": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_tcprofile.php?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+  "tool_profile": {
+    "product_instance": {
+      "product_info": {
+        "product_version": "10.3",
+        "technical_description": {
+          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
+          "key": "tool.technical"
+        },
+        "product_name": {
+          "default_value": "LTI2 BookTools",
+          "key": "tool.name"
+        },
+        "product_family": {
+          "code": "assessment-tool",
+          "vendor": {
+            "website": "{http://localhost:5000}",
+            "code": "fabericious.org",
+            "name": {
+              "default_value": "Fab",
+              "key": "tool.vendor.name"
+            },
+            "timestamp": "2012-04-05T09:08:16-04:00",
+            "contact": {
+              "email": "info@fabericious.com"
+            },
+            "description": {
+              "default_value": "Fabericious is a leading provider of interactive tools for education",
+              "key": "tool.vendor.description"
+            }
+          }
+        },
+        "description": {
+          "default_value": "Fabericious reflowable ePub3 Textbook",
+          "key": "tool.description"
+        }
+      },
+      "support": {
+        "email": "helpdesk@fabericious.com"
+      },
+      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
+      "service_provider": {
+        "support": {
+          "email": "support@ec2.fabericious.com"
+        },
+        "service_provider_name": {
+          "default_value": "Amazon Cloud",
+          "key": "service_provider.name"
+        },
+        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+        "description": {
+          "default_value": "Provider of high performance managed hosting environments",
+          "key": "service_provider.description"
+        },
+        "timestamp": "2012-04-05T09:08:16-04:00"
+      }
+    },
+    "lti_version": "LTI-2p0",
+    "message": [
+      {
+        "message_type": [
+          "ToolProxyRegistrationRequest",
+          "ToolProxyReregistrationRequest"
+        ],
+        "path": "http://localhost:5000/reregistrations",
+        "parameter": [
+          {
+            "variable": "ToolConsumerProfile.url",
+            "name": "tc_profile_url"
+          }
+        ]
+      }
+    ],
+    "resource_handler": [
+      {
+        "message": [
+          {
+            "path": "/settings",
+            "parameter": [
+              {
+                "variable": "ToolProxy.custom.url",
+                "name": "tool_proxy_custom_url"
+              },
+              {
+                "variable": "ToolProxyBinding.custom.url",
+                "name": "tool_proxy_binding_custom_url"
+              },
+              {
+                "variable": "LtiLink.custom.url",
+                "name": "lti_link_custom_url"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Settings",
+          "key": "resource.name"
+        },
+        "resource_type": "setting",
+        "description": {
+          "default_value": "Settings service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/echoes",
+            "parameter": [
+              {
+                "fixed": "Narcissus",
+                "name": "referrer"
+              },
+              {
+                "fixed": "3.14159",
+                "name": "pi"
+              },
+              {
+                "variable": "Person.email.primary",
+                "name": "user_primary_email"
+              },
+              {
+                "variable": "CourseOffering.label",
+                "name": "discipline"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Echo",
+          "key": "resource.name"
+        },
+        "resource_type": "echo",
+        "description": {
+          "default_value": "Echo service",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/books",
+            "parameter": [
+              {
+                "name": "vbid"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Book",
+          "key": "resource.name"
+        },
+        "resource_type": "book",
+        "description": {
+          "default_value": "VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookselections",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "book_location"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "BookSelection",
+          "key": "resource.name"
+        },
+        "resource_type": "bookselection",
+        "description": {
+          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/iresources",
+            "enabled_capability": [
+              "Result.autocreate"
+            ],
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "variable": "Result.uri",
+                "name": "result_uri"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "InteractiveResource",
+          "key": "resource.name"
+        },
+        "resource_type": "iresource",
+        "description": {
+          "default_value": "Interactive resource",
+          "key": "resource.description"
+        }
+      },
+      {
+        "message": [
+          {
+            "path": "/bookshelves",
+            "parameter": [
+              {
+                "variable": "CourseOffering.label",
+                "name": "course_label"
+              }
+            ],
+            "message_type": "basic-lti-launch-request"
+          }
+        ],
+        "name": {
+          "default_value": "Bookshelf",
+          "key": "resource.name"
+        },
+        "resource_type": "bookshelf",
+        "description": {
+          "default_value": "VitalSource Bookshelf",
+          "key": "resource.description"
+        }
+      }
+    ],
+    "base_url_choice": [
+      {
+        "selector": {
+          "applies_to": [
+            "IconEndpoint",
+            "MessageHandler"
+          ]
+        },
+        "default_base_url": "http://localhost:5000"
+      }
+    ]
+  },
+  "security_contract": {
+    "shared_secret": "a6b40b6652b264c6e4baa073085b8ca9",
+    "tool_service": [
+      {
+        "@type": "RestServiceProfile",
+        "service": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_toolproxy.php?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+        "action": [
+          "POST"
+        ],
+        "format": [
+          "application/vnd.ims.lti.v2.toolproxy+json"
+        ]
+      },
+      {
+        "@type": "RestServiceProfile",
+        "service": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_outcome.php?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+        "action": [
+          "POST"
+        ],
+        "format": [
+          "application/vnd.ims.lti.v1.outcome+xml"
+        ]
+      },
+      {
+        "@type": "RestServiceProfile",
+        "service": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/links/{link_id}/custom?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": [
+          "application/vnd.ims.lti.v2.toolsettings+json",
+          "application/vnd.ims.lti.v2.toolsettings.simple+json"
+        ]
+      },
+      {
+        "@type": "RestServiceProfile",
+        "service": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/lis/{context_type}/{context_id}/bindings/{vendor_code}/{product_code}/custom?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": [
+          "application/vnd.ims.lti.v2.toolsettings+json",
+          "application/vnd.ims.lti.v2.toolsettings.simple+json"
+        ]
+      },
+      {
+        "@type": "RestServiceProfile",
+        "service": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/ToolProxy/52645f9d1ca4c/custom?b64=Y3Z1OGlncHIzbGpob2oxajFkMWRvMXZtYTc=",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "format": [
+          "application/vnd.ims.lti.v2.toolsettings+json",
+          "application/vnd.ims.lti.v2.toolsettings.simple+json"
+        ]
+      }
+    ]
+  }
+}

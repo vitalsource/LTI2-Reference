@@ -6,19 +6,34 @@ class SettingsController < ApplicationController
       logger.info "PrePreProcessTenant"
       (status, message, message_key) = pre_process_tenant
 
-      output = "<h2>Settings Tool</h2><br>\n"
+      output = "<h2>Diagnostics Tool</h2>\n"
       return_url = request.request_parameters['launch_presentation_return_url']
       output += "<form method=\"POST\">"
       output += "<input type='hidden' name='tool_deployment_id' value='" + @tool_deployment.id.to_s + "'/>"
-      output += "<input type='hidden' name='custom_tool_proxy_custom_uri' value='" + params['custom_tool_proxy_custom_uri'] + "'/>"
-      output += "<input type='hidden' name='custom_tool_proxy_binding_custom_uri' value='" + params['custom_tool_proxy_binding_custom_uri'] + "'/>"
-      output += "<input type='hidden' name='custom_lti_link_custom_uri' value='" + params['custom_lti_link_custom_uri']   + "'/>"
-      output += "<h3>ToolProxy Settings</h3>"
-      output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxy\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_custom_uri']) + "</textarea>"
-      output += "<h3>ToolProxyBinding Settings</h3>"
-      output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxybinding\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_binding_custom_uri']) + "</textarea>"
-       output += "<h3>LtiLink Settings</h3>"
-      output += "<textarea cols=\"40\" rows=\"5\" name=\"ltilink\">" + fetch_settings('ToolProxy', params['custom_lti_link_custom_uri']) + "</textarea>"
+
+      present_settings = ['custom_tool_proxy_custom_url', 'custom_tool_proxy_binding_custom_url', 'custom_lti_link_custom_url'] & params.keys
+
+      if present_settings.length > 0
+        output += "<input type='hidden' name='custom_tool_proxy_custom_url' value='" + params['custom_tool_proxy_custom_url'] + "'/>" if present_settings.include?('custom_tool_proxy_custom_url')
+        output += "<input type='hidden' name='custom_tool_proxy_binding_custom_url' value='" + params['custom_tool_proxy_binding_custom_url'] + "'/>" if present_settings.include?('custom_tool_proxy_binding_custom_url')
+        output += "<input type='hidden' name='custom_lti_link_custom_url' value='" + params['custom_lti_link_custom_url']   + "'/>" if present_settings.include?('custom_lti_link_custom_url')
+
+        if present_settings.include?('custom_tool_proxy_custom_url')
+          output += "<h3>ToolProxy Settings</h3>"
+          output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxy\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_custom_url']) + "</textarea>"
+        end
+
+        if present_settings.include?('custom_tool_proxy_binding_custom_url')
+          output += "<h3>ToolProxyBinding Settings</h3>"
+          output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxybinding\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_binding_custom_url']) + "</textarea>"
+        end
+
+        if present_settings.include?('custom_lti_link_custom_url')
+          output += "<h3>LtiLink Settings</h3>"
+          output += "<textarea cols=\"40\" rows=\"5\" name=\"ltilink\">" + fetch_settings('ToolProxy', params['custom_lti_link_custom_url']) + "</textarea>"
+        end
+      end
+
       output += "<br><br>"
       # already filtered
       parameters = request.request_parameters.reject { |k,v| k =~ /^oauth_/ }
@@ -34,13 +49,13 @@ class SettingsController < ApplicationController
       @tool_deployment = ToolDeployment.find(params['tool_deployment_id'])
 
       tool_proxy_hash = gather_params('ToolProxy', params['toolproxy'])
-      send_put_request('ToolProxy', params['custom_tool_proxy_custom_uri'], tool_proxy_hash)
+      send_put_request('ToolProxy', params['custom_tool_proxy_custom_url'], tool_proxy_hash)
 
       tool_proxy_binding_hash = gather_params('ToolProxyBinding', params['toolproxybinding'])
-      send_put_request('ToolProxy', params['custom_tool_proxy_binding_custom_uri'], tool_proxy_binding_hash)
+      send_put_request('ToolProxy', params['custom_tool_proxy_binding_custom_url'], tool_proxy_binding_hash)
 
       lti_link_hash = gather_params('LtiLink', params['ltilink'])
-      send_put_request('ToolProxy', params['custom_lti_link_custom_uri'], lti_link_hash)
+      send_put_request('ToolProxy', params['custom_lti_link_custom_url'], lti_link_hash)
 
       num_updates = tool_proxy_hash.length + tool_proxy_binding_hash.length + lti_link_hash.length
       render :text => "#{num_updates} properties updated"
@@ -79,7 +94,7 @@ class SettingsController < ApplicationController
       @tool_deployment.secret,
       {},
       "", "",
-      'application/vnd.ims.lti.v2.ToolSettings.simple+json'
+      'application/vnd.ims.lti.v2.toolsettings.simple+json'
 
     puts "Get settings request: #{signed_request.signature_base_string}"
     response = invoke_service(signed_request, Rails.application.config.wire_log, "Get settings for #{setting_name}")
@@ -92,12 +107,14 @@ class SettingsController < ApplicationController
     # data = CGI::escape(data)
     signed_request = create_signed_request \
       endpoint,
-      "PUT",
+      #"PUT",
+      #TODO until PUT is fixed on ims server
+      "POSt",
       @tool_deployment.key,
       @tool_deployment.secret,
       {},
       data,
-      "application/vnd.ims.lti.v2.ToolSettings.simple+json"
+      "application/vnd.ims.lti.v2.toolsettings.simple+json"
 
     puts "Put settings request: #{signed_request.signature_base_string}"
     response = invoke_service(signed_request, Rails.application.config.wire_log, "Put settings for #{setting_name}")

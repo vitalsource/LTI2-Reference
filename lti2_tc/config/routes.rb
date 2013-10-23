@@ -3,8 +3,11 @@ Lumos::Application.routes.draw do
   resources :registries
   resources :deployment_requests
   resources :tool_consumer_profiles
-  resources :tools
   resources :results
+
+  resources :tools
+  #match 'tools', :to => 'tools#create', :via => :post
+  #match 'tools', :to => 'tools#show', :via => :get
 
   get 'tool_settings/:tool_guid', :to => 'tool_settings#show'
   get 'tool_settings/:tool_guid/context/:node_id', :to => 'tool_settings#show'
