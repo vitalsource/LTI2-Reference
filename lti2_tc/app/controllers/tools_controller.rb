@@ -95,7 +95,7 @@ class ToolsController < ApplicationController
     @tool.save
 
     tool_proxy_response = {
-      "@context" => "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
+      "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
       "@type" => "ToolProxy",
       "@id" => tool_proxy_id,
       "tool_proxy_guid" => tool_proxy_guid
@@ -105,7 +105,7 @@ class ToolsController < ApplicationController
     logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
     logger.info(JSON.dump(tool_proxy_response))
 
-    render :json => tool_proxy_response, :location => tool_proxy_id, :content_type => content_type, :status => '201'
+    render :json => tool_proxy_response, :content_type => content_type, :status => '201'
   end
 
   def show
@@ -145,23 +145,7 @@ class ToolsController < ApplicationController
     logger.info("Exit from Tool/show(GET)--status: 200  content-type: #{content_type}")
     logger.info(JSON.dump(tool_proxy_pretty_str))
 
-    #render :text => "<pre>#{tool_proxy_pretty_str}</pre>", :content_type => content_type
-
-    # TESTER ONLY
-    #puts "timestamp: #{request['env']['oauth_timestamp']}"
-    tool_proxy_wrapper = JsonWrapper.new(tool_proxy)
-    tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-    tool_proxy_id = "#{Rails.application.config.tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
-
-    tool_proxy_response = {
-        "@context" => "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
-        "@type" => "ToolProxy",
-        "@id" => tool_proxy_id,
-        "tool_proxy_guid" => tool_proxy_guid
-    }
-
-    render :json => tool_proxy_response, :location => tool_proxy_id, :content_type => 'application/vnd.ims.lti.v2.toolproxy.id+json', :status => '201'
-    # END OF TESTER
+    render :text => "<pre>#{tool_proxy_pretty_str}</pre>", :content_type => content_type
   end
 
   def update 

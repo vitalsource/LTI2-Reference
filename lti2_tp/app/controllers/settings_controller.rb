@@ -109,7 +109,7 @@ class SettingsController < ApplicationController
       endpoint,
       #"PUT",
       #TODO until PUT is fixed on ims server
-      "POSt",
+      "POST",
       @tool_deployment.key,
       @tool_deployment.secret,
       {},

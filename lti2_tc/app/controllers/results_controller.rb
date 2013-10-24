@@ -7,7 +7,7 @@ class ResultsController < ApplicationController
     begin
       grade_result = GradeResult.find(params['id'])
       result_json_object = {
-        '@context' => "http://www.imsglobal.org/imspurl/lis/v2/ctx/Result",
+        '@context' => "http://purl.imsglobal.org/ctx/lti/v2/Result",
         '@type' => "Result",
         'resourceScore' => { '@type' => 'decimal', '@value' => "#{grade_result.result}" }
       }
