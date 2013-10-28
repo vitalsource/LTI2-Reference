@@ -14,21 +14,36 @@ class Link < ActiveRecord::Base
   end
 
   def lti_launch user, return_url
-    tool_proxy = self.resource.tool.get_tool_proxy
+    @tool_proxy = self.resource.tool.get_tool_proxy
 
     tool = self.resource.tool
-    tool_name = tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
+    tool_name = @tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
     raise "Tool #{tool_name} is currently disabled" unless tool.is_enabled
     
-    base_url = tool_proxy.select('tool_profile.base_url_choice', 
+    base_url = @tool_proxy.select('tool_profile.base_url_choice', 
             "selector.applies_to", "MessageHandler", 'default_base_url')
     resource_type = self.resource.resource_type
-    resource_handler_node = tool_proxy.search("tool_profile.resource_handler", {'resource_type' => resource_type}, "@")
+    resource_handler_node = @tool_proxy.search("tool_profile.resource_handler", {'resource_type' => {'code' => resource_type}}, "@")
     resource_handler = JsonWrapper.new resource_handler_node
     message = resource_handler.search("@..message", {'message_type' => 'basic-lti-launch-request'}, '@')
     path = message['path']
+    m = /(.*)\?(.*)/.match(path)
+    if m.present?
+      final_qs = '?'
+      parmstr = CGI.unescapeHTML(m[2])
+      parm_hash = Rack::Utils::parse_query(parmstr)
+      parm_hash.each_pair do |k,v|
+        final_qs += "#{k}="
+        final_qs += Rack::Utils.escape(v)
+        final_qs += '&'
+      end
+      final_path = m[1] + final_qs
+    else
+      final_path = path
+    end
+
     tp_parameters = message['parameter']
-    service_endpoint = base_url + path
+    service_endpoint = base_url + final_path
     
     enrollment = Enrollment.where(:admin_user_id => user.id, :course_id => self.course.id).first
     if enrollment
@@ -39,7 +54,7 @@ class Link < ActiveRecord::Base
 
     tool_consumer_registry = Rails.application.config.tool_consumer_registry    
     parameters = {
-      'lti_version' => tool_proxy.first_at('lti_version'),
+      'lti_version' => @tool_proxy.first_at('lti_version'),
       'lti_message_type' => 'basic-lti-launch-request',
       'resource_link_id' => self.id.to_s,
       'user_id' => user.id.to_s,
@@ -113,6 +128,9 @@ class Link < ActiveRecord::Base
     resolver.add_resolver("CourseOffering", course.method(:course_resolver))
     resolver.add_resolver("Result", grade_result.method(:grade_result_resolver)) if grade_result
 
+    # this one is a bit deceptive.  a TCP is usually associated with a @tool_proxy
+    resolver.add_resolver("ToolConsumerProfile", self.method(:tool_consumer_profile_resolver))
+
     # Settings resolvers
     resolver.add_resolver("ToolProxy", self.method(:tool_proxy_resolver))
     resolver.add_resolver("ToolProxyBinding", self.method(:tool_proxy_binding_resolver))
@@ -123,7 +141,7 @@ class Link < ActiveRecord::Base
     parameters.each { |k,v|
       resolved_value = resolver.resolve(v)
       if known_lti2_parameters.include? k or deprecated_lti_parameters.include? k
-        final_parameters[k] = v
+        final_parameters[k] = resolved_value
       else 
         name = 'custom_' + k
         lti1_name = slugify(name)
@@ -146,6 +164,12 @@ class Link < ActiveRecord::Base
     body = MessageSupport::create_lti_message_body(service_endpoint, final_parameters, Rails.application.config.wire_log, "Lti Launch")
     puts body
     body
+  end
+
+  def tool_consumer_profile_resolver(fieldname)
+    if fieldname == "url"
+        @tool_proxy.first_at('tool_consumer_profile')
+    end
   end
 
   def tool_proxy_resolver(fieldname)

@@ -107,9 +107,7 @@ class SettingsController < ApplicationController
     # data = CGI::escape(data)
     signed_request = create_signed_request \
       endpoint,
-      #"PUT",
-      #TODO until PUT is fixed on ims server
-      "POST",
+      "PUT",
       @tool_deployment.key,
       @tool_deployment.secret,
       {},

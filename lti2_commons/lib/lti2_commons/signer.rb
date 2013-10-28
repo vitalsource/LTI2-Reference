@@ -35,9 +35,12 @@ module Lti2Commons
       params['oauth_signature_method'] = "HMAC-SHA1" unless params.has_key? 'oauth_signature_method'
       params['oauth_timestamp'] = Time.now.to_i.to_s unless params.has_key? 'oauth_timestamp'
       params['oauth_version'] = '1.0' unless params.has_key? 'oauth_version'
+      params['oauth_callback'] = 'about:blank'
 
       content_type = "application/x-www-form-urlencoded" unless content_type
 
+
+      launch_url = URI.unescape(launch_url)
       uri = URI.parse(launch_url)
 
       # prepare path

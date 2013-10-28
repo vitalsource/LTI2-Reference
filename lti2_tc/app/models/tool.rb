@@ -7,4 +7,5 @@ class Tool < ActiveRecord::Base
   def get_tool_proxy
     (Lti2Commons::JsonWrapper.new self.tool_proxy)
   end
+
 end

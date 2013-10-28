@@ -41,44 +41,52 @@ class ToolsController < ApplicationController
     @tool.save
     
     resource_nodes = tool_proxy.first_at('tool_profile.resource_handler')
+
+    # course 2(SMPL101), 11 & 12 DEP from conformance test
+    target_courses = [2, 5, 6]
     for resource_node in resource_nodes
-      # create resource-relative jsonpath
-      resource_json_obj = JsonWrapper.new resource_node
-      resource = Resource.new
-      resource.tool = @tool
-      resource.resource_type = resource_json_obj.first_at('resource_type')
-      resource.name = resource_json_obj.first_at('name.default_value')
-      resource.description = resource_json_obj.first_at('description.default_value')
-      resource.save
-      
-      # TEMPORARY: auto-create one link for SMPL101 (#2)
-      link = Link.new
-      link.course_id = 2  # SMPL101
-      link.resource = resource
-      link.resource_link_label = resource.name
-      link_parameter_str = "{"
-      if ["Book", "BookSelection", "InteractiveResource"].include? resource.name
-        link_parameter_str += "\"vbid\":\"L-999-74180\""
+      target_courses.each do |course_id|
+        # create resource-relative jsonpath
+        resource_json_obj = JsonWrapper.new resource_node
+        resource = Resource.new
+        resource.tool = @tool
+        resource.resource_type = resource_json_obj.first_at('resource_type.code')
+        resource.name = resource_json_obj.first_at('name.default_value')
+        resource.description = resource_json_obj.first_at('description.default_value')
+        resource.save
+
+        # TEMPORARY: auto-create one link for SMPL101 (#2)
+        link = Link.new
+        link.course_id = course_id
+        link.resource = resource
+        link.resource_link_label = resource.name
+        link_parameter_str = "{"
+        if ["Book", "BookSelection", "InteractiveResource"].include? resource.name
+          link_parameter_str += "\"vbid\":\"L-999-74180\""
+        end
+        if resource.name == "BookSelection"
+          link_parameter_str += ",\"book_location\":\"outline\/3\""
+        end
+        link_parameter_str += "}"
+        link.link_parameters = link_parameter_str
+
+        # and a grade_item for resource iResource only
+        if resource.name == "InteractiveResource"
+          grade_item = GradeItem.new
+          grade_item.course_id = link.course_id
+          grade_item.label = "IRTestGrade"
+          grade_item.save
+
+          link.grade_item_id = grade_item.id
+        end
+
+        link.is_enabled = true
+        link.save
       end
-      if resource.name == "BookSelection"
-        link_parameter_str += ",\"book_location\":\"outline\/3\""
-      end
-      link_parameter_str += "}"
-      link.link_parameters = link_parameter_str
-      
-      # and a grade_item for resource iResource only
-      if resource.name == "InteractiveResource"
-        grade_item = GradeItem.new
-        grade_item.course_id = link.course_id
-        grade_item.label = "IRTestGrade"
-        grade_item.save
-        
-        link.grade_item_id = grade_item.id
-      end
-      
-      link.is_enabled = true
-      link.save
     end
+
+    # create links for conformance test
+
 
     tc_profile_url = tool_proxy.first_at('tool_consumer_profile')
     tc_profile_guid = tc_profile_url.split('/').last if tc_profile_url =~ /\//
@@ -253,6 +261,9 @@ class ToolsController < ApplicationController
     if error_msg.present?
       return [nil, 400, error_msg]
     end
+
+    logger.info("ToolProxy as received: ")
+    logger.info(JSON.pretty_generate(tool_proxy.root))
 
     [tool_proxy, nil, nil]
   end
