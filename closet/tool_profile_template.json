@@ -91,7 +91,7 @@
                 "default_value": "Settings",
                 "key": "resource.name"
             },
-            "resource_type": "setting",
+            "resource_type": {"code": "setting"},
             "description": {
                 "default_value": "Settings service",
                 "key": "resource.description"
@@ -123,7 +123,7 @@
                 "default_value": "Echo",
                 "key": "resource.name"
             },
-            "resource_type": "echo",
+            "resource_type": {"code": "echo"},
             "description": {
                 "default_value": "Echo service",
                 "key": "resource.description"
@@ -145,7 +145,7 @@
 				"default_value": "Book",
 				"key": "resource.name"
 			},
-			"resource_type": "book",
+			"resource_type": {"code": "book"},
 			"description": {
 				"default_value": "VitalSource reader for XML, PDF, and ePub content",
 				"key": "resource.description"
@@ -169,7 +169,7 @@
 				"default_value": "BookSelection",
 				"key": "resource.name"
 			},
-			"resource_type": "bookselection",
+			"resource_type": {"code": "bookselection"},
 			"description": {
 				"default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
 				"key": "resource.description"
@@ -197,7 +197,7 @@
 				"default_value": "InteractiveResource",
 				"key": "resource.name"
 			},
-			"resource_type": "iresource",
+			"resource_type": {"code": "iresource"},
 			"description": {
 				"default_value": "Interactive resource",
 				"key": "resource.description"
@@ -220,7 +220,7 @@
 				"default_value": "Bookshelf",
 				"key": "resource.name"
 			},
-			"resource_type": "bookshelf",
+			"resource_type": {"code": "bookshelf"},
 			"description": {
 				"default_value": "VitalSource Bookshelf",
 				"key": "resource.description"

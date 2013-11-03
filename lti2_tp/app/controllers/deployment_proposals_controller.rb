@@ -247,22 +247,19 @@ class DeploymentProposalsController < InheritedResources::Base
 
   def create_tool_proxy tool_consumer_profile_url, tool_consumer_profile, tool_profile, tool_proxy_guid
     tool_provider_registry = Rails.application.config.tool_provider_registry 
-    tool_proxy = {
-      '@context' => [
+    tool_proxy = { }
+    tool_proxy['@context'] = [
           "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
-      ],
-      '@type' => "ToolProxy",
-      '@id' => "ToolProxyProposal_at_#{Time.now.utc.iso8601}",
-      
-      #for testing initial tool settings
-      'custom' => {'tenant_id' => 'fab23', 'tenant_name' => 'Lumos1'},
-      
-      'lti_version' => 'LTI-2p0',
-      'tool_proxy_guid' => tool_proxy_guid,
-      'tool_consumer_profile' => tool_consumer_profile_url,
-      'tool_profile' => tool_profile,
-      'security_contract' => resolve_security_contract(tool_consumer_profile, tool_provider_registry)
-    }
+      ]
+    tool_proxy['@type'] = "ToolProxy"
+    tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
+
+    tool_proxy['lti_version'] = 'LTI-2p0'
+    tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+    tool_proxy['tool_consumer_profile'] = tool_consumer_profile_url
+    tool_proxy['tool_profile'] = tool_profile
+    tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile, tool_provider_registry)
+
     tool_proxy_wrapper = JsonWrapper.new tool_proxy
     tool_proxy_wrapper.root
   end
@@ -350,7 +347,7 @@ class DeploymentProposalsController < InheritedResources::Base
       tool_service['action'] = service_offered['action']
       
       # following may be wrong...check on proper construction of RestService
-      tool_service['format'] = service_offered['format']
+      # tool_service['format'] = service_offered['format']
       security_contract['tool_service'] << tool_service
     }
     
