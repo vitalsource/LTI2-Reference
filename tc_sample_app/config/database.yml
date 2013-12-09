@@ -1,0 +1,39 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   If you want MySQL uncomment the following
+#   backups/Lumos*.sql can be imported to initialize the database
+development:
+ adapter: mysql2
+ host: localhost
+ encoding: utf8
+ database: tcsampleapp
+ username: ltiuser
+ password: ltipswd
+ pool: 5
+ timeout: 5000
+
+#  If you want sqllite3, uncomment the following
+# development:
+#   adapter: sqlite3
+#   database: db/development.sqlite3
+#   pool: 5
+#   timeout: 5000
+  
+
+test:
+   adapter: sqlite3
+   database: db/development.sqlite3
+   pool: 5
+   timeout: 5000
+
+
+production:
+ adapter: mysql2
+ host: localhost
+ encoding: utf8
+ database: tcsampleapp
+ username: ltiuser
+ password: ltipswd
+ pool: 5
+ timeout: 5000
