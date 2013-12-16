@@ -89,13 +89,13 @@ module Lti2Tc
       end
 
       # add parameters from Settings levels
-      settings = ToolSetting.where(:tool_id => tool.id, :scopeable_type => 'Tool')
+      settings = Lti2Tc::ToolSetting.where(:tool_id => tool.id, :scopeable_type => 'Tool')
       settings.each {|setting| parameters[setting.name] = setting.value}
 
-      settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.course.id, :scopeable_type => 'Context')
+      settings = Lti2Tc::ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.course.id, :scopeable_type => 'Context')
       settings.each {|setting| parameters[setting.name] = setting.value}
 
-      settings = ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.id, :scopeable_type => 'Ltilink')
+      settings = Lti2Tc::ToolSetting.where(:tool_id => tool.id, :scopeable_id => self.id, :scopeable_type => 'Ltilink')
       settings.each {|setting| parameters[setting.name] = setting.value}
 
       # auto-create result (if required) and add to reference to parameters

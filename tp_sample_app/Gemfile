@@ -11,9 +11,13 @@ gem 'rack', '< 1.4.2'
 gem 'sqlite3'
 
 
+gem 'lti2_tp', :path => '../lti2_tp'
+
 gem 'json'
 # gem 'json-ld'
 gem 'jsonpath'
+
+gem "haml-rails"
 
 #gem 'lti2_commons',   '~> 1.4'
 gem 'lti2_commons', :path => '../lti2_commons'

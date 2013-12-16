@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: 388ed07e477af5f5644d0c30cd45b4377c886dd7
+  revision: 2c1a16368fd5fb8122329eb61c848bbd0e516870
   specs:
     activeadmin (1.0.0.pre)
       arbre (~> 1.0)
@@ -23,6 +23,13 @@ PATH
       httparty
       lrucache
       oauth (~> 0.4.5)
+
+PATH
+  remote: ../lti2_tp
+  specs:
+    lti2_tp (0.0.1)
+      mysql2
+      rails (= 3.2.6)
 
 GEM
   remote: https://rubygems.org/
@@ -179,7 +186,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
-    uglifier (2.3.2)
+    uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuid (2.3.7)
@@ -202,6 +209,7 @@ DEPENDENCIES
   jsonpath
   lrucache
   lti2_commons!
+  lti2_tp!
   mysql2 (= 0.3.13)
   rack (< 1.4.2)
   rails (= 3.2.6)

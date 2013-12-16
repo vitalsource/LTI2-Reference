@@ -1,6 +1,6 @@
 Fabericious::Application.routes.draw do
 
-  resources :deployment_proposals
+  mount Lti2Tp::Engine, at: '/lti2_tp'
 
   resources :echoes
   resources :settings
@@ -9,8 +9,8 @@ Fabericious::Application.routes.draw do
   resources :bookselections
   resources :iresources
   
-  match 'reregistrations' => 'deployment_proposals#reregister', :via => :post
-
+  post 'lti_registrations', to: 'lti_registrations#create', as: 'lti_registration'
+  
   root :to => "home#index"
 
 end

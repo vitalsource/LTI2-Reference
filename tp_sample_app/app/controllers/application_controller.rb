@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
         (redirect_to redirect_url("Improper LTI context")) and return
       end
     end
-    @tool_deployment = ToolDeployment.where(:key => key).first
+    @tool_deployment = Lti2Tp::ToolDeployment.where(:key => key).first
     unless @tool_deployment
       (redirect_to redirect_url("No existing tools for this partner")) and return
     end
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     end
     request.parameters['_tenant_id'] = @tenant.id
 
-    @tool_deployment = ToolDeployment.where(:key => key).first
+    @tool_deployment = Lti2Tp::ToolDeployment.where(:key => key).first
     tool_proxy = JsonWrapper.new(@tool_deployment.tool_proxy)
     secret = @tool_deployment.secret
     

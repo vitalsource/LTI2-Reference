@@ -1,3 +1,4 @@
+
 class SettingsController < ApplicationController
 
   def create
@@ -46,7 +47,7 @@ class SettingsController < ApplicationController
       output += "</form>"
       render :inline => output
     else
-      @tool_deployment = ToolDeployment.find(params['tool_deployment_id'])
+      @tool_deployment = Lti2Tp::ToolDeployment.find(params['tool_deployment_id'])
 
       tool_proxy_hash = gather_params('ToolProxy', params['toolproxy'])
       send_put_request('ToolProxy', params['custom_tool_proxy_custom_url'], tool_proxy_hash)

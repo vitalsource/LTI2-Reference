@@ -1,14 +1,14 @@
 require_dependency "lti2_tc/application_controller"
 
 module Lti2Tc
-  include OAuth::OAuthProxy
-  class ToolsControllerController < ApplicationController
+  class ToolsController < Lti2Tc::ApplicationController
+    include OAuth::OAuthProxy
     include Lti2Commons::Utils
 
     def create
       rack_parameters = OAuthRequest.collect_rack_parameters request
       key = rack_parameters[:oauth_consumer_key]
-      @deployment_request = DeploymentRequest.where(:reg_key => key).first
+      @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => key).first
 
       message_type = "registration"
       secret = @deployment_request.reg_password
@@ -123,9 +123,9 @@ module Lti2Tc
       match = /^id=(\d+)/.match(id_parm)
       if match.present?
         id = match[1]
-        @tool = Tool.find_by_id(id)
+        @tool = Lti2Tc::Tool.find_by_id(id)
       else
-        @tool = Tool.where(:key => id_parm).first
+        @tool = Lti2Tc::Tool.where(:key => id_parm).first
       end
       (render :text => "Unauthorized", :status => 401 unless @tool.present?) and return
       secret = @tool.secret
@@ -135,7 +135,7 @@ module Lti2Tc
       tool_proxy = JSON.load(tool_proxy_str)
 
       # merge in Tool Settings for ToolProxy level
-      tool_settings = ToolSetting.where(:scopeable_id => @tool.id)
+      tool_settings = Lti2Tc::ToolSetting.where(:scopeable_id => @tool.id)
       tool_settings_custom = {}
       tool_settings.each do |tool_setting|
         tool_settings_custom[tool_setting.name] = tool_setting.value
@@ -160,7 +160,7 @@ module Lti2Tc
       key = rack_parameters[:oauth_consumer_key]
 
       message_type = "reregistration"
-      @tool = Tool.where(:key => key).first
+      @tool = Lti2Tc::Tool.where(:key => key).first
       secret = @tool.secret
 
       (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
@@ -200,10 +200,10 @@ module Lti2Tc
     def capture_and_excise_settings(tool_proxy, tool)
       settings = tool_proxy['custom']
       if settings.present?
-        ToolSetting.where(:scopeable_type => 'Tool', :tool_id => tool.id).delete_all
+        Lti2Tc::ToolSetting.where(:scopeable_type => 'Tool', :tool_id => tool.id).delete_all
 
         settings.each_pair do |k,v|
-          ts = ToolSetting.create(:scopeable_type => 'Tool', :tool_id => tool.id, :scopeable_id => tool.id,
+          ts = Lti2Tc::ToolSetting.create(:scopeable_type => 'Tool', :tool_id => tool.id, :scopeable_id => tool.id,
                                   :name => k, :value => v)
           ts.save
         end

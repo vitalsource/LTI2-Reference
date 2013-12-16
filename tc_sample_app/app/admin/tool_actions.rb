@@ -21,7 +21,7 @@ ActiveAdmin.register_page "Tool Actions" do
       end   
     elsif method == "reregister"
       deployment_request = Lti2Tc::DeploymentRequest.new
-      tool = Tool.find(tool_id)
+      tool = Lti2Tc::Tool.find(tool_id)
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
       tool_consumer_profile = Lti2Tc::ToolConsumerProfile.new
       tool_consumer_profile_wrapper = tool_consumer_registry.tool_consumer_profile_wrapper

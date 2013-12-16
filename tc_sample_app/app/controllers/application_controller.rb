@@ -1,16 +1,14 @@
 
-include OAuth::RequestProxy
-
 class ApplicationController < ActionController::Base
-  
+
   def oauth_validation
     rack_parameters = OAuthRequest.collect_rack_parameters request
     key = rack_parameters[:oauth_consumer_key]
-    @tool = Tool.where(:key => key).first
+    @tool = Lti2Tc::Tool.where(:key => key).first
     secret = @tool.secret
     oauth_validation_using_secret secret
   end
-  
+
   def oauth_validation_using_secret secret
     # OAuth check here
     tool_consumer_registry = Rails.application.config.tool_consumer_registry
@@ -23,5 +21,7 @@ class ApplicationController < ActionController::Base
       end
       puts "request_wrapper: #{request_wrapper.request['parameters'].inspect}"
     end
-  end  
+  end
+
 end
+
