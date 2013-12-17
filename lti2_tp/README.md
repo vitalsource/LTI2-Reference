@@ -23,23 +23,49 @@ rake lti2_tc:install:migrations
 3. Implement a application-specific LtiRegistrationsController class in the application (not in Lti2_Tp).
 
 The LtiRegistrationsController is needed to implement the specific user interface, models or other behavior to register
-a new LTI2 ToolConsumer.
+a new LTI2 ToolConsumer.  It must implement the following paths:
 
-It must implement the following incoming REST service:
+a. Register action
 
+The register action gives this controller the ingredients needed to do tool-specific validation, customization and
+creation of the ToolProxy.
+
+POST /lti_register_wip?action=register
+request content-type: application/json
 ```javascript
-POST /lti_register_wip
-content-type: application/json
 {
     "service_owner_name": <string>,
     "lti_version": <string>,
     "tool_consumer_profile", <text>,
     "tool_profile", <text>,
-    "tenant_name", <string>,
-    "tool_proxy", <text>,
-    "state", <string>,
-    "result_status", <integer>,
-    "result_message", <string>,
+    "registration_return_url", <url>
 }
 ```
+
+Use the tool_consumer_profile and tool_profile to generate a tool_proxy (or to reject it).  When this action is
+complete do one of the following:
+
+On success: redirect_to <registration_return_url>, action: 'accept_tool_proxy', id: <a_lti_register_wip_id>
+
+On failure: redirect_to <registration_return_url>, action: 'reject_registration', status: <integer>,
+                                    message: <string>
+
+
+b. Get ToolProxy
+
+Gets the currently computed tool_proxy (or empty if not computed).
+
+GET /lti_register_wip/:id
+response content-type: application/json
+<tool_proxy>
+
+
+c. Update secret
+
+Do whatever is necessary to update the shared secret.  This is typically used at the last phase of registration.
+
+PUT /lti_register_wip/:id/secret
+request content-type: application/json
+{"secret": <string}
+
 
