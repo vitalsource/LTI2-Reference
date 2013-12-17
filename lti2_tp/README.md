@@ -31,6 +31,7 @@ The register action gives this controller the ingredients needed to do tool-spec
 creation of the ToolProxy.
 
 POST /lti_register_wip?action=register
+
 request content-type: application/json
 ```javascript
 {
@@ -56,7 +57,9 @@ b. Get ToolProxy
 Gets the currently computed tool_proxy (or empty if not computed).
 
 GET /lti_register_wip/:id
+
 response content-type: application/json
+
 <tool_proxy>
 
 
@@ -65,7 +68,10 @@ c. Update secret
 Do whatever is necessary to update the shared secret.  This is typically used at the last phase of registration.
 
 PUT /lti_register_wip/:id/secret
-request content-type: application/json
-{"secret": <string}
 
+request content-type: application/json
+
+```javascript
+{"secret": <string}
+```
 
