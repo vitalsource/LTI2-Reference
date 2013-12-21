@@ -23,29 +23,46 @@ module Lti2Tp
     TCP_HOLDER_NAME = 'tool_consumer_profile'
 
     def create
-      if params.has_key? 'Lti_message_type' or params.has_key? 'lti_message_type'
-        # this signals initial POST from TC
-        Lti2Tp::Context.get_holder(session).clear(TCP_HOLDER_NAME)
-
-        @registration = Lti2Tp::Registration.new
-        @registration.user_id = params['user_id']
-        @registration.tc_profile_url = params['tc_profile_url']
-        @registration.reg_key = params['reg_key']
-        @registration.reg_password = params['reg_password']
-        @registration.launch_presentation_return_url = params['launch_presentation_return_url']
-        @registration.message_type = "registration"
-        @registration.status = "received"
-
-        get_tool_consumer_profile Lti2Tp::Context.get_holder(session), params['tc_profile_url'], params['reg_key'], params['reg_password'], response
-        tcp_wrapper = JsonWrapper.new @tool_consumer_profile
-        @registration.tenant_name = tcp_wrapper.first_at('product_instance.product_info.service_owner.service_owner_name.default_value')
-        @registration.save
-
-        return render_view
-      else
-        # reentry from form
-        puts request.inspect
+      # this signals initial POST from TC
+      tool = params[:tool]
+      if tool.present?
+        tools = Tool.where(:id => tool)
+        if tools.present?
+          @tool = tools.first
+        else
+          tools = Tool.where(:tool_name => tool)
+          if tools.present?
+            @tool = tools.first
+          end
+        end
       end
+      if @tool.nil?
+        @tool = Tool.first
+      end
+
+      @registration = Lti2Tp::Registration.new
+      @registration.user_id = params['user_id']
+      @registration.tc_profile_url = params['tc_profile_url']
+      @registration.reg_key = params['reg_key']
+      @registration.reg_password = params['reg_password']
+      @registration.launch_presentation_return_url = params['launch_presentation_return_url']
+      @registration.message_type = "registration"
+      @registration.status = "received"
+
+      get_tool_consumer_profile Lti2Tp::Context.get_holder(session), params['tc_profile_url'], params['reg_key'], params['reg_password'], response
+      @tool_consumer_profile = @registration.get_tool_consumer_profile()
+      tcp_wrapper = JsonWrapper.new @tool_consumer_profile
+
+      @registration.tool_consumer_profile = @tool_consumer_profile.to_json
+      @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_id = nil
+      @registration.tool_id = @tool.id
+      @registration.tool_profile = @tool.get_tool_profile.to_json
+      @registration.lti_version = @tool_consumer_profile['lti_version']
+
+      @registration.save
+
+      redirect_to "/lti_registration_wips?action=create&registration_id=#{@registration.id}&return_url=/registrations"
     end
 
     def reregister
@@ -233,38 +250,6 @@ module Lti2Tp
 
     private
 
-    def create_disposition(is_success, tool_guid=nil, message=nil)
-      disposition = "?"
-      if is_success
-        disposition += 'status=success&'
-        disposition += "tool_guid=#{tool_guid}&" if tool_guid.present?
-      else
-        disposition += 'status=failure&'
-        encoded_message = Rack::Utils.escape(message)
-        disposition += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
-      end
-      disposition
-    end
-
-    def create_tool_proxy tool_consumer_profile_url, tool_consumer_profile, tool_profile, tool_proxy_guid
-      tool_provider_registry = Rails.application.config.tool_provider_registry
-      tool_proxy = { }
-      tool_proxy['@context'] = [
-            "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
-        ]
-      tool_proxy['@type'] = "ToolProxy"
-      tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
-
-      tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
-      tool_proxy['tool_consumer_profile'] = tool_consumer_profile_url
-      tool_proxy['tool_profile'] = tool_profile
-      tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile, tool_provider_registry)
-
-      tool_proxy_wrapper = JsonWrapper.new tool_proxy
-      tool_proxy_wrapper.root
-    end
-
     def get_tool_consumer_profile(lti2_context_holder, tc_profile_url=nil, key=nil, secret=nil, response=nil)
       unless tc_profile_url
         @tool_consumer_profile = lti2_context_holder[TCP_HOLDER_NAME]
@@ -332,27 +317,6 @@ module Lti2Tp
       }
 
       render
-    end
-
-    def resolve_security_contract tool_consumer_profile, tool_provider_registry
-      security_contract = {}
-
-      security_contract['shared_secret'] = SecureRandom.hex
-      security_contract['tool_service'] = []
-
-      services_offered = tool_consumer_profile['service_offered']
-      services_offered.each { |service_offered|
-        tool_service = {}
-        tool_service['@type'] = "RestServiceProfile"
-        tool_service['service'] = service_offered['endpoint']
-        tool_service['action'] = service_offered['action']
-
-        # following may be wrong...check on proper construction of RestService
-        # tool_service['format'] = service_offered['format']
-        security_contract['tool_service'] << tool_service
-      }
-
-      security_contract
     end
   end
 end

@@ -1,8 +1,9 @@
 class CreateLti2TpRegistries < ActiveRecord::Migration
   def change
-    create_table :lti2_tp_deployment_proposals do |t|
+    create_table :lti2_registrations do |t|
       t.string   "tenant_key"
       t.string   "tenant_name"
+      t.integer  "tenant_id"
       t.string   "user_id"
       t.string   "reg_key"
       t.string   "reg_password"
@@ -10,12 +11,11 @@ class CreateLti2TpRegistries < ActiveRecord::Migration
       t.string   "launch_presentation_return_url"
       t.string   "status"
       t.string   "message_type"
-
-      t.timestamps
-    end
-
-    create_table "lti2_tp_contexts", :force => true do |t|
-      t.text     "content"
+      t.text     "tool_consumer_profile"
+      t.text     "tool_profile"
+      t.text     "tool_proxy"
+      t.integer  "tool_id"
+      t.string   "lti_version"
 
       t.timestamps
     end
@@ -26,18 +26,6 @@ class CreateLti2TpRegistries < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    create_table "lti2_tp_tool_deployments", :force => true do |t|
-      t.integer  "tenant_id"
-      t.integer  "tool_id"
-      t.string   "product_name"
-      t.text     "tool_proxy"
-      t.string   "key"
-      t.string   "secret"
-
-      t.timestamps
-    end
-    add_index "lti2_tp_tool_deployments", ["key"], :name => "index_tool_deployments_on_key", :unique => true
 
     create_table "lti2_tp_tools", :force => true do |t|
       t.string   "tool_name"

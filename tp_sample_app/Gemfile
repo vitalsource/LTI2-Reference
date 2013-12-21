@@ -10,6 +10,7 @@ gem 'rack', '< 1.4.2'
 
 gem 'sqlite3'
 
+gem 'redis'
 
 gem 'lti2_tp', :path => '../lti2_tp'
 

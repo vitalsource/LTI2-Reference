@@ -9,27 +9,27 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212193905) do
+ActiveRecord::Schema.define(:version => 20131217192847) do
 
-  create_table "iresources", force: true do |t|
+  create_table "iresources", :force => true do |t|
     t.integer  "tenant_id"
     t.string   "result_uri"
     t.string   "userid"
     t.string   "contextid"
     t.float    "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "lti2_tp_contexts", force: true do |t|
+  create_table "lti2_tp_contexts", :force => true do |t|
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "lti2_tp_deployment_proposals", force: true do |t|
+  create_table "lti2_tp_deployment_proposals", :force => true do |t|
     t.string   "tenant_key"
     t.string   "tenant_name"
     t.string   "user_id"
@@ -38,53 +38,67 @@ ActiveRecord::Schema.define(version: 20131212193905) do
     t.string   "tc_profile_url"
     t.string   "launch_presentation_return_url"
     t.string   "status"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "message_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
-  create_table "lti2_tp_registries", force: true do |t|
+  create_table "lti2_tp_registries", :force => true do |t|
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "lti2_tp_tool_deployments", force: true do |t|
+  create_table "lti2_tp_tool_deployments", :force => true do |t|
     t.integer  "tenant_id"
     t.integer  "tool_id"
     t.string   "product_name"
     t.text     "tool_proxy"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "key"
     t.string   "secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
-  add_index "lti2_tp_tool_deployments", ["key"], name: "index_tool_deployments_on_key", unique: true, using: :btree
+  add_index "lti2_tp_tool_deployments", ["key"], :name => "index_tool_deployments_on_key", :unique => true
 
-  create_table "lti2_tp_tools", force: true do |t|
+  create_table "lti2_tp_tools", :force => true do |t|
     t.string   "tool_name"
     t.text     "tool_profile_template"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
-  create_table "tenant_users", force: true do |t|
+  create_table "lti_registration_wips", :force => true do |t|
+    t.string   "service_owner_name"
+    t.string   "lti_version"
+    t.text     "tool_consumer_profile"
+    t.text     "tool_profile"
+    t.string   "registration_return_url"
+    t.text     "tool_proxy"
+    t.string   "state"
+    t.integer  "result_status"
+    t.string   "result_message"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  create_table "tenant_users", :force => true do |t|
     t.integer  "tenant_id"
     t.string   "user_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "tenants", force: true do |t|
+  create_table "tenants", :force => true do |t|
     t.string   "tenant_key"
     t.string   "tenant_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end

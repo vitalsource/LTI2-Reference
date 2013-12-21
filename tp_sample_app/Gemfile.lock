@@ -165,6 +165,7 @@ GEM
       polyamorous (~> 0.6.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.6)
     responders (1.0.0)
       railties (>= 3.2, < 5)
     sass (3.2.12)
@@ -213,6 +214,7 @@ DEPENDENCIES
   mysql2 (= 0.3.13)
   rack (< 1.4.2)
   rails (= 3.2.6)
+  redis
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)
