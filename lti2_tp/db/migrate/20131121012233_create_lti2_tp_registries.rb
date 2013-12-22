@@ -11,9 +11,9 @@ class CreateLti2TpRegistries < ActiveRecord::Migration
       t.string   "launch_presentation_return_url"
       t.string   "status"
       t.string   "message_type"
-      t.text     "tool_consumer_profile"
-      t.text     "tool_profile"
-      t.text     "tool_proxy"
+      t.text     "tool_consumer_profile_json"
+      t.text     "tool_profile_json"
+      t.text     "tool_proxy_json"
       t.integer  "tool_id"
       t.string   "lti_version"
 

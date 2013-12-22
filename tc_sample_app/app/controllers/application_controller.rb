@@ -1,3 +1,7 @@
+include Lti2Commons
+include Signer
+include MessageSupport
+include OAuth::OAuthProxy
 
 class ApplicationController < ActionController::Base
 

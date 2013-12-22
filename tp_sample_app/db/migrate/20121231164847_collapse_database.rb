@@ -42,6 +42,8 @@ class CollapseDatabase < ActiveRecord::Migration
     end
   
     create_table "tenants", :force => true do |t|
+      t.string   "tenant_key",
+      t.string   "secret",
       t.string   "tenant_name"
       t.datetime "created_at",  :null => false
       t.datetime "updated_at",  :null => false

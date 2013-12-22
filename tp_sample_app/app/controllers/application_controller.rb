@@ -25,20 +25,16 @@ class ApplicationController < ActionController::Base
         (redirect_to redirect_url("Improper LTI context")) and return
       end
     end
-    @tool_deployment = Lti2Tp::ToolDeployment.where(:key => key).first
-    unless @tool_deployment
+    @tenant = Tenant.where(:tenant_key => key).first
+    @registration = Lti2Tp::Registration.where(:tenant_id => @tenant.id).first
+    unless @registration
       (redirect_to redirect_url("No existing tools for this partner")) and return
     end
-    
-    @tenant = @tool_deployment.tenant
-    if @tenant.blank?
-      (redirect_to redirect_url("Could not locate tenant")) and return
-    end
+
     request.parameters['_tenant_id'] = @tenant.id
 
-    @tool_deployment = Lti2Tp::ToolDeployment.where(:key => key).first
-    tool_proxy = JsonWrapper.new(@tool_deployment.tool_proxy)
-    secret = @tool_deployment.secret
+    tool_proxy = JsonWrapper.new(@registration.tool_proxy_json)
+    secret = @tenant.secret
     
     unless tool_provider_registry.relaxed_oauth_check == 'true'
       request_wrapper = OAuthRequest.create_from_rack_request request

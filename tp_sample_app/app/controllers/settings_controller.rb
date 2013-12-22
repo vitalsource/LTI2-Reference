@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
       output = "<h2>Diagnostics Tool</h2>\n"
       return_url = request.request_parameters['launch_presentation_return_url']
       output += "<form method=\"POST\">"
-      output += "<input type='hidden' name='tool_deployment_id' value='" + @tool_deployment.id.to_s + "'/>"
+      output += "<input type='hidden' name='registration_id' value='" + @registration.id.to_s + "'/>"
 
       present_settings = ['custom_tool_proxy_custom_url', 'custom_tool_proxy_binding_custom_url', 'custom_lti_link_custom_url'] & params.keys
 
@@ -47,7 +47,8 @@ class SettingsController < ApplicationController
       output += "</form>"
       render :inline => output
     else
-      @tool_deployment = Lti2Tp::ToolDeployment.find(params['tool_deployment_id'])
+      @registration = Lti2Tp::Registration.find(params['registration_id'])
+      @tenant = Tenant.find(@registration.tenant_id)
 
       tool_proxy_hash = gather_params('ToolProxy', params['toolproxy'])
       send_put_request('ToolProxy', params['custom_tool_proxy_custom_url'], tool_proxy_hash)
@@ -91,8 +92,8 @@ class SettingsController < ApplicationController
     signed_request = create_signed_request \
       endpoint,
       'GET',
-      @tool_deployment.key,
-      @tool_deployment.secret,
+      @tenant.tenant_key,
+      @tenant.secret,
       {},
       "", "",
       'application/vnd.ims.lti.v2.toolsettings.simple+json'
@@ -109,8 +110,8 @@ class SettingsController < ApplicationController
     signed_request = create_signed_request \
       endpoint,
       "PUT",
-      @tool_deployment.key,
-      @tool_deployment.secret,
+      @tenant.tenant_key,
+      @tenant.secret,
       {},
       data,
       "application/vnd.ims.lti.v2.toolsettings.simple+json"

@@ -3,12 +3,37 @@ module Lti2Tp
     attr_accessible :launch_presentation_return_url, :reg_key, :reg_password, :status,
                     :tc_profile_url, :tenant_name, :user_id
 
+    def create_tool_proxy tool_consumer_profile, tool_proxy_guid
+      tool_provider_registry = Rails.application.config.tool_provider_registry
+      tool_proxy = { }
+      tool_proxy['@context'] = [
+          "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
+      ]
+      tool_proxy['@type'] = "ToolProxy"
+      tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
+
+      tool_proxy['lti_version'] = 'LTI-2p0'
+      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['tool_consumer_profile'] = self.tc_profile_url
+      tool_proxy['tool_profile'] = JSON.load(tool_profile_json)
+      tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile)
+
+      tool_proxy_wrapper = JsonWrapper.new tool_proxy
+      tool_proxy_wrapper.root
+    end
+
+    def get_tool_consumer_profile()
+      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {}, {}, nil, nil, "Get Tool Consumer Profile")
+      JSON.load tcp_response.body
+    end
+
     def prepare_tool_proxy
-      tool_proxy_wrapper = create_tool_proxy(self.tc_profile_ur, self.tool_consumer_profile,
-                        self.tool_profile, UUID.generate)
-      if tool_proxy_wrapper
+      tool_consumer_profile = JSON.load(self.tool_consumer_profile_json)
+      tool_proxy = create_tool_proxy(tool_consumer_profile, UUID.generate)
+      if tool_proxy
+        self.tool_proxy_json = tool_proxy.to_json
         service_offered = nil
-        self.tool_consumer_profile['service_offered'].select do |entry|
+        tool_consumer_profile['service_offered'].select do |entry|
           if match_services(entry['@id'] , ':ToolProxy.collection')
             service_offered = entry
             break
@@ -20,7 +45,7 @@ module Lti2Tp
           (redirect_to return_url) and return
         end
 
-        (tool_proxy_response, err_code, err_msg) = register_tool_proxy get_tool_consumer_profile(Lti2Tp::Context.get_holder(session)), tool_proxy, service_offered, "post"
+        (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post"
         unless err_code == 201
           disposition = create_disposition(false, nil, "#{err_code}-#{err_msg}")
           return_url = @registration.launch_presentation_return_url + disposition
@@ -29,14 +54,13 @@ module Lti2Tp
         # get guid from the response returned by the TC
         tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
 
-        @registration.tool_proxy = tool_proxy_wrapper.root
-        @registration.status = "registered"
-        @registration.save!
-
-        tool_proxy_wrapper = JsonWrapper.new tool_proxy
-
         # substitute tool_proxy_guid now in the Proxy where needed
+        tool_proxy_wrapper = JsonWrapper.new tool_proxy
         tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
+
+        self.tool_proxy_json = tool_proxy.to_json
+        self.status = "registered"
+        self.save!
 
         disposition = create_disposition(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
       else
@@ -59,32 +83,22 @@ module Lti2Tp
       disposition
     end
 
-    def create_tool_proxy tool_consumer_profile_url, tool_consumer_profile, tool_profile, tool_proxy_guid
-      tool_provider_registry = Rails.application.config.tool_provider_registry
-      tool_proxy = { }
-      tool_proxy['@context'] = [
-          "http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"
-      ]
-      tool_proxy['@type'] = "ToolProxy"
-      tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
-
-      tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
-      tool_proxy['tool_consumer_profile'] = tool_consumer_profile_url
-      tool_proxy['tool_profile'] = tool_profile
-      tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile, tool_provider_registry)
-
-      tool_proxy_wrapper = JsonWrapper.new tool_proxy
-      tool_proxy_wrapper.root
-    end
-
-    def get_tool_consumer_profile()
-      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {}, {}, nil, nil, "Get Tool Consumer Profile")
-      JSON.load tcp_response.body
+    def match_services(test_service, model_service)
+      service_name_pattern = /.*\W(\w+?\.\w+)$/
+      m = service_name_pattern.match(test_service)
+      if m.present?
+        test_word = m[1]
+        m = service_name_pattern.match(model_service)
+        if m.present?
+          model_word = m[1]
+          return test_word == model_word
+        end
+      end
+      return false
     end
 
     def register_tool_proxy service_offered, method
-      data = JSON.pretty_generate self.tool_proxy
+      data = self.tool_proxy_json
       # data = CGI::escape(data)
       signed_request = create_signed_request \
         service_offered['endpoint'],
@@ -96,7 +110,7 @@ module Lti2Tp
         "application/vnd.ims.lti.v2.toolproxy+json"
 
       puts "Register request: #{signed_request.signature_base_string}"
-      puts "Register secret: #{@registration.reg_password}"
+      puts "Register secret: #{self.reg_password}"
       response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer")
       if response.code.between?(200, 202)
         response_body = response.body
@@ -108,13 +122,13 @@ module Lti2Tp
     end
 
 
-    def resolve_security_contract
+    def resolve_security_contract tool_consumer_profile
       security_contract = {}
 
       security_contract['shared_secret'] = SecureRandom.hex
       security_contract['tool_service'] = []
 
-      services_offered = self.tool_consumer_profile['service_offered']
+      services_offered = tool_consumer_profile['service_offered']
       services_offered.each { |service_offered|
         tool_service = {}
         tool_service['@type'] = "RestServiceProfile"

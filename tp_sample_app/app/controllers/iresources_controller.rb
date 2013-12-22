@@ -1,7 +1,7 @@
 class IresourcesController < ApplicationController
-  before_filter :pre_process_tenant
     
   def create
+    pre_process_tenant
     parameters = request.parameters
     unless is_parameters_in_flash
       @iresource = Iresource.new
@@ -26,14 +26,12 @@ class IresourcesController < ApplicationController
         @iresource.errors[:score] << "Score must be in the range 0.0 to 1.0"
       else
         @iresource.save
-        
-        @tool_deployment = ToolDeployment.where(:key => lti_context['oauth_consumer_key']).first
 
         signed_request = create_signed_request \
           lti_context['custom_result_uri'],
           "put",
-          @tool_deployment.key,
-          @tool_deployment.secret,
+          @tenant.tenant_key,
+          @tenant.secret,
           {}, 
           create_result_payload(@iresource.score),
           'application/vnd.ims.lis.v2.Result+json'

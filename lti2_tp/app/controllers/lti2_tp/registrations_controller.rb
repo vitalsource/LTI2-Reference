@@ -49,20 +49,24 @@ module Lti2Tp
       @registration.message_type = "registration"
       @registration.status = "received"
 
-      get_tool_consumer_profile Lti2Tp::Context.get_holder(session), params['tc_profile_url'], params['reg_key'], params['reg_password'], response
       @tool_consumer_profile = @registration.get_tool_consumer_profile()
       tcp_wrapper = JsonWrapper.new @tool_consumer_profile
 
-      @registration.tool_consumer_profile = @tool_consumer_profile.to_json
+      @registration.tool_consumer_profile_json = @tool_consumer_profile.to_json
       @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
       @registration.tenant_id = nil
       @registration.tool_id = @tool.id
-      @registration.tool_profile = @tool.get_tool_profile.to_json
+      @registration.tool_profile_json = @tool.get_tool_profile.to_json
       @registration.lti_version = @tool_consumer_profile['lti_version']
 
       @registration.save
 
-      redirect_to "/lti_registration_wips?action=create&registration_id=#{@registration.id}&return_url=/registrations"
+      redirect_to "/lti_registration_wips?action=create&registration_id=#{@registration.id}&return_url=/lti2_tp/registrations"
+    end
+
+    def index
+      registration = Lti2Tp::Registration.find(params[:id])
+      redirect_to registration.launch_presentation_return_url
     end
 
     def reregister
@@ -246,77 +250,6 @@ module Lti2Tp
       return_url = @registration.launch_presentation_return_url + disposition
 
       redirect_to return_url
-    end
-
-    private
-
-    def get_tool_consumer_profile(lti2_context_holder, tc_profile_url=nil, key=nil, secret=nil, response=nil)
-      unless tc_profile_url
-        @tool_consumer_profile = lti2_context_holder[TCP_HOLDER_NAME]
-      else
-        tcp_response = invoke_unsigned_service(tc_profile_url, 'get', {}, {}, nil, nil, "Get Tool Consumer Profile")
-        @tool_consumer_profile = JSON.load tcp_response.body
-        lti2_context_holder[TCP_HOLDER_NAME] = @tool_consumer_profile
-        response.header = {}
-      end
-
-      @tool_consumer_profile
-    end
-
-    def match_services(test_service, model_service)
-      service_name_pattern = /.*\W(\w+?\.\w+)$/
-      m = service_name_pattern.match(test_service)
-      if m.present?
-        test_word = m[1]
-        m = service_name_pattern.match(model_service)
-        if m.present?
-          model_word = m[1]
-          return test_word == model_word
-        end
-      end
-      return false
-    end
-
-    def register_tool_proxy tool_consumer_profile, tool_proxy, service_offered, method
-      data = JSON.pretty_generate tool_proxy
-      # data = CGI::escape(data)
-      signed_request = create_signed_request \
-        service_offered['endpoint'],
-        method,
-        @registration.reg_key,
-        @registration.reg_password,
-        {},
-        data,
-        "application/vnd.ims.lti.v2.toolproxy+json"
-
-      puts "Register request: #{signed_request.signature_base_string}"
-      puts "Register secret: #{@registration.reg_password}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer")
-      if response.code.between?(200, 202)
-        response_body = response.body
-        response_content = JSON.load(response_body) unless response_body.strip.empty?
-      else
-        response_content = nil
-      end
-      [response_content, response.code, response.message]
-     end
-
-    def render_view
-      tcp_wrapper = JsonWrapper.new @tool_consumer_profile
-      params['support_email'] = tcp_wrapper.first_at('product_instance.support.email')
-      params['product_name'] = @registration.tenant_name
-
-      @tool = Tool.first
-      tool_profile = @tool.get_tool_profile
-
-      @tool_resources = []
-      resources = tool_profile['resource_handler']
-      resources.each { |resource|
-        resource_wrapper = JsonWrapper.new resource
-        @tool_resources << resource_wrapper.first_at('name.default_value')
-      }
-
-      render
     end
   end
 end
