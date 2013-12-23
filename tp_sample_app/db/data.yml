@@ -1,6 +1,6 @@
 
 ---
-registries:
+lti2_tp_registries:
   columns:
   - id
   - name
@@ -13,6 +13,20 @@ registries:
     - http://localhost:5000
     - 2013-01-13 20:12:10.000000000 Z
     - 2013-01-13 20:12:10.000000000 Z
+  - - 2
+    - security_contract_template
+    - ! "{ \"shared_secret\" : \"{aSecret}\",\n  \"tool_service\" : [ { \n\t\"@id\":
+      \":ToolProxy.collection\",\n\t\"@type\" : \"RestServiceProfile\",\n        \"action\"
+      : \"POST\",\n        \"service\" : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.collection\"\n
+      \     },\n      { \n\t\"@id\": \":ToolProxy.item\",\n\t\"@type\" : \"RestServiceProfile\",\n
+      \       \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\"
+      : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.item\"\n
+      \     },\n      { \n\t\"@id\": \":ToolProxy.collection\",\n\t\"@type\" : \"RestService\",\n
+      \       \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\"
+      : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#Result.item\"\n
+      \     }\n    ]\n}"
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
   - - 3
     - relaxed_oauth_check
     - 'false'
@@ -20,7 +34,7 @@ registries:
     - 2013-01-13 20:12:10.000000000 Z
   - - 4
     - result_template
-    - ! "{\n  \"@context\" : \"http://imspurl.imsglobal.org/lis/v2/ctx/Result\",\n
+    - ! "{\n  \"@context\" : \"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result\",\n
       \ \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n
       \   \"@value\"  : {value}\n  }\n}\n"
     - 2013-01-13 20:12:10.000000000 Z
@@ -32,7 +46,7 @@ registries:
     - 2013-01-13 20:12:10.000000000 Z
 
 ---
-tools:
+lti2_tp_tools:
   columns:
   - id
   - tool_name
@@ -66,58 +80,58 @@ tools:
       [\n\t\t\t\t{\n\t\t\t\t\t\"variable\": \"ToolConsumerProfile.url\",\n\t\t\t\t\t\"name\":
       \"tc_profile_url\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t],\n\t\"resource_handler\":
       [\n        {\n            \"message\": [\n                {\n                    \"path\":
-      \"/echoes\",\n                    \"parameter\": [\n                        {\n
-      \                           \"fixed\": \"Narcissus\",\n                            \"name\":
-      \"referrer\"\n                        }, {\n                            \"fixed\":
-      \"3.14159\",\n                            \"name\": \"pi\"\n                        },
-      {\n                            \"variable\": \"Person.email.primary\",\n                            \"name\":
-      \"user_primary_email\"\n                        }, {\n                            \"variable\":
-      \"CourseOffering.label\",\n                            \"name\": \"discipline\"\n
-      \                       }\n                    ],\n                    \"message_type\":
-      \"basic-lti-launch-request\"\n                }\n            ],\n            \"name\":
-      {\n                \"default_value\": \"Echo\",\n                \"key\": \"resource.name\"\n
-      \           },\n            \"resource_type\": \"echo\",\n            \"description\":
-      {\n                \"default_value\": \"Echo service\",\n                \"key\":
-      \"resource.description\"\n            }\n        },\n        {\n            \"message\":
-      [\n                {\n                    \"path\": \"/settings\",\n                    \"parameter\":
-      [\n                        {\n                            \"variable\": \"ToolProxy.custom.uri\",\n
-      \                           \"name\": \"tool_proxy_custom_uri\"\n                        },
-      {\n                            \"variable\": \"ToolProxyBinding.custom.uri\",\n
-      \                           \"name\": \"tool_proxy_binding_custom_uri\"\n                        },
-      {\n                            \"variable\": \"LtiLink.custom.uri\",\n                            \"name\":
-      \"lti_link_custom_uri\"\n                        }\n                    ],\n
-      \                   \"message_type\": \"basic-lti-launch-request\"\n                }\n
-      \           ],\n            \"name\": {\n                \"default_value\":
+      \"/settings\",\n                    \"parameter\": [\n                        {\n
+      \                           \"variable\": \"ToolProxy.custom.url\",\n                            \"name\":
+      \"tool_proxy_custom_url\"\n                        }, {\n                            \"variable\":
+      \"ToolProxyBinding.custom.url\",\n                            \"name\": \"tool_proxy_binding_custom_url\"\n
+      \                       }, {\n                            \"variable\": \"LtiLink.custom.url\",\n
+      \                           \"name\": \"lti_link_custom_url\"\n                        }\n
+      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
+      \               }\n            ],\n            \"name\": {\n                \"default_value\":
       \"Settings\",\n                \"key\": \"resource.name\"\n            },\n
-      \           \"resource_type\": \"setting\",\n            \"description\": {\n
-      \               \"default_value\": \"Settings service\",\n                \"key\":
-      \"resource.description\"\n            }\n        },\n        {\n\t\t\t\"message\":
-      [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/books\",\n\t\t\t\t\t\"parameter\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\":
+      \           \"resource_type\": {\"code\": \"setting\"},\n            \"description\":
+      {\n                \"default_value\": \"Settings service\",\n                \"key\":
+      \"resource.description\"\n            }\n        },\n        {\n            \"message\":
+      [\n                {\n                    \"path\": \"/echoes\",\n                    \"parameter\":
+      [\n                        {\n                            \"fixed\": \"Narcissus\",\n
+      \                           \"name\": \"referrer\"\n                        },
+      {\n                            \"fixed\": \"3.14159\",\n                            \"name\":
+      \"pi\"\n                        }, {\n                            \"variable\":
+      \"Person.email.primary\",\n                            \"name\": \"user_primary_email\"\n
+      \                       }, {\n                            \"variable\": \"CourseOffering.label\",\n
+      \                           \"name\": \"discipline\"\n                        }\n
+      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
+      \               }\n            ],\n            \"name\": {\n                \"default_value\":
+      \"Echo\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\":
+      {\"code\": \"echo\"},\n            \"description\": {\n                \"default_value\":
+      \"Echo service\",\n                \"key\": \"resource.description\"\n            }\n
+      \       },\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
+      \"/books\",\n\t\t\t\t\t\"parameter\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\":
       \"vbid\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
       {\n\t\t\t\t\"default_value\": \"Book\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      \"book\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\": \"VitalSource
-      reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
+      {\"code\": \"book\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
       \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookselections\",\n\t\t\t\t\t\"parameter\":
       [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"name\":
       \"book_location\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
       \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
       \"BookSelection\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      \"bookselection\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\": \"Deep-linked
-      VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
-      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/iresources\",\n\t\t\t\t\t\"enabled_capability\":
-      [\n\t\t\t\t\t\t\"Result.autocreate\"\n\t\t\t\t\t],\n\t\t\t\t\t\"parameter\":
+      {\"code\": \"bookselection\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"Deep-linked VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\":
+      \"resource.description\"\n\t\t\t}\n\t\t},\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
+      \"/iresources\",\n\t\t\t\t\t\"enabled_capability\": [\n\t\t\t\t\t\t\"Result.autocreate\"\n\t\t\t\t\t],\n\t\t\t\t\t\"parameter\":
       [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"variable\":
       \"Result.uri\",\n\t\t\t\t\t\t\t\"name\": \"result_uri\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
       \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
       \"InteractiveResource\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      \"iresource\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\": \"Interactive
-      resource\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n        {\n\t\t\t\"message\":
-      [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookshelves\",\n\t\t\t\t\t\"parameter\":
+      {\"code\": \"iresource\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"Interactive resource\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
+      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookshelves\",\n\t\t\t\t\t\"parameter\":
       [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"variable\": \"CourseOffering.label\",\n\t\t\t\t\t\t\t\"name\":
       \"course_label\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
       {\n\t\t\t\t\"default_value\": \"Bookshelf\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      \"bookshelf\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\": \"VitalSource
-      Bookshelf\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t}\n\t],\n\t\"base_url_choice\":
+      {\"code\": \"bookshelf\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"VitalSource Bookshelf\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t}\n\t],\n\t\"base_url_choice\":
       [\n\t\t{\n\t\t\t\"selector\": {\n\t\t\t\t\"applies_to\": [\"IconEndpoint\",
       \"MessageHandler\"]\n\t\t\t},\n\t\t\t\"default_base_url\": \"{tp_deployment_url}\"\n\t\t}\n\t]\n}\n"
     - 2013-01-13 20:12:10.000000000 Z
