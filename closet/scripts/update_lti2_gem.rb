@@ -6,12 +6,16 @@ gems = [:lti2_commons, :lti2_tc, :lti2_tp]
 
 def update_gem(gem)
   puts "Updating #{gem}"
+  system("pushd")
+  system("cd /tmp")
   system("rm -rf /tmp/#{gem}")
   system("git clone git@github.com:jtibbetts/#{gem}.git")
+  system("cd /tmp/#{gem}")
   system("cp -R ~/git/lti2_reference/#{gem} /tmp/#{gem}")
   system("git add .")
   system("git commit -am 'update gem'")
   system("git push")
+  system("popd")
 end
 
 args = ARGV.map {|elmt| elmt.to_sym}
