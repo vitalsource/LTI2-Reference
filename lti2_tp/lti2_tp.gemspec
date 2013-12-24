@@ -7,16 +7,16 @@ require "lti2_tp/version"
 Gem::Specification.new do |s|
   s.name        = "lti2_tp"
   s.version     = Lti2Tp::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Lti2Tp."
-  s.description = "TODO: Description of Lti2Tp."
+  s.authors     = ["John Tibbetts"]
+  s.email       = ["john.tibbetts@ingramcontent.com"]
+  s.homepage    = "http://vitalsource.com"
+  s.summary     = "Lti2 Tool Provider"
+  s.description = "Lti2 Tool Provider"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
   
-  s.add_dependency "rails", '3.2.6'
+  s.add_dependency "rails"
 
   s.add_dependency "mysql2"
 

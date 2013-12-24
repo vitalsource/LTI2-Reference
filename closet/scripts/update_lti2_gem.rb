@@ -8,12 +8,13 @@ def update_gem(gem)
   puts "Updating #{gem}"
   system <<STR
 rm -rf /tmp/#{gem}
+cd /tmp
 git clone git@github.com:jtibbetts/#{gem}.git
+cd /tmp/#{gem}
 cp -R ~/git/lti2_reference/#{gem} /tmp/#{gem}
 git add .
 git commit -am 'update gem'
 git push
-popd
 STR
 end
 
