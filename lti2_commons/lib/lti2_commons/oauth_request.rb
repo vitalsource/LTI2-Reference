@@ -74,6 +74,10 @@ module OAuth
         @request['final_uri']
       end
 
+      def log(msg)
+        Rails.logger.info(msg)
+      end
+
       def parameters
         @request["parameters"]
       end
