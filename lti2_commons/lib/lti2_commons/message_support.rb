@@ -29,16 +29,20 @@ module Lti2Commons
   #     LTI 2.x will add Tool Consumer --> Tool Provider services using the same machinery.
   #
   module MessageSupport
+    TIMEOUT = 300
+
+    SUBMIT_LABEL = "basiclti_submit"
+    SUBMIT_MESSAGE = "Press to continue to external tool."
 
     # Convenience method signs and then invokes create_lti_message_from_signed_request
     #
     # @params launch_url [String] Launch url
     # @params parameters [Hash] Full set of params for message 
     # @return [String] Post body ready for use
-    def create_lti_message_body(launch_url, parameters, wire_log=nil, title=nil)
-      result = create_message_header(launch_url)
+    def create_lti_message_body(launch_url, parameters, wire_log=nil, title=nil, is_open_in_external_window=false)
+      result = create_message_header(launch_url, is_open_in_external_window)
       result += create_message_body parameters
-      result += create_message_footer
+      result += create_message_footer(is_open_in_external_window)
 
       if wire_log
         wire_log.timestamp
@@ -58,10 +62,11 @@ module Lti2Commons
     #
     # @param params [Hash] Full set of params for message (including OAuth provided params)
     # @return [String] Post body ready for use
-    def create_lti_message_body_from_signed_request(signed_request, is_include_oauth_params=true)
-      result = create_message_header(signed_request.uri)
+    def create_lti_message_body_from_signed_request(signed_request, is_include_oauth_params=true,
+        is_open_in_external_window=false)
+      result = create_message_header(signed_request.uri, is_open_in_external_window)
       result += create_message_body signed_request.parameters, is_include_oauth_params
-      result += create_message_footer
+      result += create_message_footer(is_open_in_external_window)
       result
     end
 
@@ -70,39 +75,44 @@ module Lti2Commons
     #
     # @param request [Request] Signed Request encapsulates everything needed for service.
     def invoke_service(request, wire_log=nil, title=nil)
+      uri = request.uri.to_s
+      # set_headers_proc = lambda { |http|
+      # http.headers['Authorization'] = request.oauth_header
+      # http.headers['Content-Type'] = request.content_type if request.content_type
+      # http.headers['Accept'] = request.content_type if request.content_type
+      # # http.headers['Content-Length'] = request.body.length if request.body
+      # }
       method = request.method.downcase
+
       headers = {}
       headers['Authorization'] = request.oauth_header
-      headers['ACCEPT'] = request.accept if request.accept.present?
-      if ['post','put'].include? method
-        headers['Content-Type'] = request.content_type if request.content_type
-        headers['Content-Length'] = request.body.length.to_s if request.body
-      end
+      headers['Content-Type'] = request.content_type if request.content_type
+      headers['Accept'] = request.content_type if request.content_type and (method == 'put' or method == 'post')
+      headers['Content-Length'] = request.body.length.to_s if request.body
 
       parameters = request.parameters
-      # need filtered params here
-
-      uri = request.uri.to_s
-      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, {}) if wire_log
       output_parameters = {}
+      request.parameters.each { |k,v| output_parameters[k] = v unless k =~ /^oauth_/ }
 
-      #full_uri += '?' unless uri.include? "?"
-      #full_uri += '&' unless full_uri =~ /[?&]$/
-      #output_parameters.each_pair do |key, value|
-      #  full_uri << '&' unless key == output_parameters.keys.first
-      #  full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key])}"
-      #end
+      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, output_parameters) if wire_log
 
-      final_uri = request.final_uri.to_s
-      case request.method.downcase
+      full_uri = uri
+      full_uri += '?' unless uri.include? "?"
+      full_uri += '&' unless full_uri =~ /[?&]$/
+      output_parameters.each_pair do |key, value|
+        full_uri << '&' unless key == output_parameters.keys.first
+        full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key] || '')}"
+      end
+
+      case method
         when "get"
-          response = HTTParty.get final_uri, :headers => headers
+          response = HTTParty.get full_uri, :headers => headers, :timeout => TIMEOUT
         when "post"
-          response = HTTParty.post final_uri, :body => request.body, :headers => headers
+          response = HTTParty.post full_uri, :body => request.body, :headers => headers, :timeout => TIMEOUT
         when "put"
-          response = HTTParty.put final_uri, :body => request.body, :headers => headers
+          response = HTTParty.put full_uri, :body => request.body, :headers => headers, :timeout => TIMEOUT
         when "delete"
-          response = HTTParty.delete final_uri, :headers => headers
+          response = HTTParty.delete full_uri, :headers => headers, :timeout => TIMEOUT
       end
       wire_log.log_response response, title if wire_log
       response
@@ -136,13 +146,13 @@ module Lti2Commons
     private
 
 
-    def create_message_header(launch_url)
+    def create_message_header(launch_url, is_open_in_external_window=false)
+      attribute_for_external_window = is_open_in_external_window ? 'target="_blank"' : ''
       %Q{
 <div id="ltiLaunchFormSubmitArea">
-  <form action="#{launch_url}"
+  <form action="#{launch_url}" #{attribute_for_external_window}
     name="ltiLaunchForm" id="ltiLaunchForm" method="post"
-    encType="application/x-www-form-urlencoded"
-    target="_blank">
+    encType="application/x-www-form-urlencoded">
 }
     end
 
@@ -154,16 +164,26 @@ module Lti2Commons
               %Q{      <input type="hidden" name="#{k}" value="#{v}"/>\n}
         end
       end
+      result +=
+          %Q{      <input type="hidden" name="#{SUBMIT_LABEL}" value="#{SUBMIT_MESSAGE}"/>\n}
       result
     end
 
-    def create_message_footer
-      %Q{  </form>
+    def create_message_footer(is_open_in_external_window=false)
+      footer = ""
+      if is_open_in_external_window
+        footer += %Q{
+      <a href="/admin/launches" target="_self">Return to Admin</a>\n
+        }
+      end
+      footer += %Q{
+</form>
 </div>
 <script language="javascript">
-  document.ltiLaunchForm.submit(); 
+  document.ltiLaunchForm.submit();
 </script>        
       }
+      footer
     end
 
     def set_http_headers(http, request)
