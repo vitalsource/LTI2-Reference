@@ -18,6 +18,14 @@ module OAuth
     #     :consumer_secret => oauth_consumer_secret,
     #     :token_secret    => oauth_token_secret,
 
+
+    # allow a certain amount of clock skew between servers
+    CLOCK_SKEW_ALLOWANCE_IN_SECS = 300
+
+    # nonce must be unique for some period of time
+    NONCE_REPLAY_UNIQUE_WITHIN_SECS = CLOCK_SKEW_ALLOWANCE_IN_SECS
+
+
     class OAuthRequest < OAuth::RequestProxy::Base
       proxies Hash
 
@@ -55,9 +63,10 @@ module OAuth
             name = parts[0].strip.intern
             value = parts[1..-1].join('=').strip
             value.gsub!(/\A['"]+|['"]+\Z/, "")
-            result[name] = Rack::Utils.unescape(value)
+            result[name] = Rack::Utils.unescape(value) unless name == :realm
           end
         end
+        Rails.logger.info "AuthHdr_Parms: #{result.inspect}"
         result
       end
 
@@ -106,20 +115,22 @@ module OAuth
       def is_timestamp_expired?(timestampString)
         timestamp = Time.at(timestampString.to_i)
         now = Time::now
-        (now - timestamp).abs > 300.seconds
+        (now - timestamp).abs > CLOCK_SKEW_ALLOWANCE_IN_SECS
       end
 
       # Validates and OAuth request using the OAuth Gem - https://github.com/oauth/oauth-ruby
       #
       # @return [Bool] Whether the request was valid
       def verify_signature?(secret, nonce_cache, is_handle_error_not_raise_exception=true, ignore_timestamp_and_nonce=false)
+        log "in verify_signature"
         test_request = self.copy
         test_signature = test_request.sign :consumer_secret => secret
+        # log "DEBUG: signed"
         begin
           unless self.oauth_signature == test_signature
-            # puts "Secret: #{secret}"
-            puts "Verify_signature--send_signature: #{self.oauth_signature}  test_signature: #{test_signature}"
-            puts "Verify signature_base_string: #{self.signature_base_string}"
+            log "Secret: #{secret}"
+            log "Verify_signature--send_signature: #{self.oauth_signature}  test_signature: #{test_signature}"
+            log "Verify signature_base_string: #{self.signature_base_string}"
             raise 'Invalid signature'
           end
           unless ignore_timestamp_and_nonce
@@ -132,17 +143,29 @@ module OAuth
           if self.body and self.parameters.has_key? 'oauth_body_hash'
             raise 'Invalid signature of message body' unless compute_oauth_body_hash(self.body) == self.parameters['oauth_body_hash']
           end
-          true
+          [true, test_request.signature_base_string]
         rescue Exception => e
-          # Utils::log(e.message)
+          log(e.message)
           if is_handle_error_not_raise_exception
-            false
+            [false, test_request.signature_base_string]
           else
             raise e.message
           end
         end
       end
 
+      # Runs validation logic but always returns true
+      #
+      # @return [Bool] Whether the request was valid
+      def verify_signature_always?(secret, nonce_cache, is_handle_error_not_raise_exception=true, ignore_timestamp_and_nonce=false)
+        test_request = self.copy
+        test_signature = test_request.sign :consumer_secret => secret
+        Rails.logger.info "TC Signature: #{test_signature}"
+        Rails.logger.info "TP Signature: #{self.oauth_signature}"
+        Rails.logger.info "Signature_Base_String: #{test_request.signature_base_string}"
+        # Rails.logger.info "Authorization_Header: #{request.headers['Authorization']}"
+        [self.oauth_signature == test_signature, test_request.signature_base_string]
+      end
     end
   end
 end
