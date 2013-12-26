@@ -19,6 +19,7 @@ gem 'jsonpath'
 # gem 'lti2_commons', '~> 1.4'
 gem 'lti2_commons', :path => '../lti2_commons'
 
+gem "haml", '4.0.4'
 gem "haml-rails"
 gem "haml-contrib"
 
