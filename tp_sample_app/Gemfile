@@ -12,7 +12,11 @@ gem 'sqlite3'
 
 gem 'redis'
 
+# gem 'lti2_tp', :github => 'jtibbetts/lti2_tp'
 gem 'lti2_tp', :path => '../lti2_tp'
+
+# gem 'lti2_commons', :github => 'jtibbetts/lti2_commons'
+gem 'lti2_commons', :path => '../lti2_commons'
 
 gem 'json'
 # gem 'json-ld'
@@ -21,7 +25,6 @@ gem 'jsonpath'
 gem "haml-rails"
 
 #gem 'lti2_commons',   '~> 1.4'
-gem 'lti2_commons', :path => '../lti2_commons'
 gem "haml-rails"
 gem 'RedCloth'
 gem "activeadmin" , :git  =>  'git://github.com/gregbell/active_admin.git'

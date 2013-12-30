@@ -5,7 +5,8 @@ class SettingsController < ApplicationController
     oauth_consumer_key = params['oauth_consumer_key']
     if oauth_consumer_key.present?
       logger.info "PrePreProcessTenant"
-      (status, message, message_key) = pre_process_tenant
+      response = pre_process_tenant
+      return unless response
 
       output = "<h2>Diagnostics Tool</h2>\n"
       return_url = request.request_parameters['launch_presentation_return_url']
@@ -24,12 +25,12 @@ class SettingsController < ApplicationController
           output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxy\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_custom_url']) + "</textarea>"
         end
 
-        if present_settings.include?('custom_tool_proxy_binding_custom_url')
+        if present_settings.include?('custom_tool_proxy_binding_custom_url') and params.has_key? 'context_id'
           output += "<h3>ToolProxyBinding Settings</h3>"
           output += "<textarea cols=\"40\" rows=\"5\" name=\"toolproxybinding\">" + fetch_settings('ToolProxy', params['custom_tool_proxy_binding_custom_url']) + "</textarea>"
         end
 
-        if present_settings.include?('custom_lti_link_custom_url')
+        if present_settings.include?('custom_lti_link_custom_url') and params.has_key? 'resource_link_id'
           output += "<h3>LtiLink Settings</h3>"
           output += "<textarea cols=\"40\" rows=\"5\" name=\"ltilink\">" + fetch_settings('ToolProxy', params['custom_lti_link_custom_url']) + "</textarea>"
         end
@@ -53,11 +54,19 @@ class SettingsController < ApplicationController
       tool_proxy_hash = gather_params('ToolProxy', params['toolproxy'])
       send_put_request('ToolProxy', params['custom_tool_proxy_custom_url'], tool_proxy_hash)
 
-      tool_proxy_binding_hash = gather_params('ToolProxyBinding', params['toolproxybinding'])
-      send_put_request('ToolProxy', params['custom_tool_proxy_binding_custom_url'], tool_proxy_binding_hash)
+      if params.has_key? 'toolproxybinding'
+        tool_proxy_binding_hash = gather_params('ToolProxyBinding', params['toolproxybinding'])
+        send_put_request('ToolProxy', params['custom_tool_proxy_binding_custom_url'], tool_proxy_binding_hash)
+      else
+        tool_proxy_binding_hash = {}
+      end
 
-      lti_link_hash = gather_params('LtiLink', params['ltilink'])
-      send_put_request('ToolProxy', params['custom_lti_link_custom_url'], lti_link_hash)
+      if params.has_key? 'resource_link_id'
+        lti_link_hash = gather_params('LtiLink', params['ltilink'])
+        send_put_request('ToolProxy', params['custom_lti_link_custom_url'], lti_link_hash)
+      else
+        lti_link_hash = {}
+      end
 
       num_updates = tool_proxy_hash.length + tool_proxy_binding_hash.length + lti_link_hash.length
       render :text => "#{num_updates} properties updated"

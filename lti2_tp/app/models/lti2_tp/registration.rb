@@ -41,15 +41,14 @@ module Lti2Tp
         end
         if service_offered.nil?
           disposition = create_disposition(false, nil, "No matching service definition")
-          return_url = @registration.launch_presentation_return_url + "?status=failure"
+          return_url = self.launch_presentation_return_url + "?status=failure"
           (redirect_to return_url) and return
         end
 
         (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post"
         unless err_code == 201
           disposition = create_disposition(false, nil, "#{err_code}-#{err_msg}")
-          return_url = @registration.launch_presentation_return_url + disposition
-          (redirect_to return_url) and return
+          return disposition
         end
         # get guid from the response returned by the TC
         tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
@@ -66,9 +65,9 @@ module Lti2Tp
       else
         disposition = create_disposition(false, nil, "Can't access ToolProxy")
       end
-    end
 
-    private
+      disposition
+    end
 
     def create_disposition(is_success, tool_guid=nil, message=nil)
       disposition = "?"
@@ -82,6 +81,12 @@ module Lti2Tp
       end
       disposition
     end
+
+    def is_disposition_failure? disposition
+      disposition.include? "status=failure&"
+    end
+
+    private
 
     def match_services(test_service, model_service)
       service_name_pattern = /.*\W(\w+?\.\w+)$/

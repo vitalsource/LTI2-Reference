@@ -8,6 +8,7 @@ gem 'rack', '< 1.4.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+#gem 'lti2_tc', :github => 'jtibbetts/lti2_tc'
 gem 'lti2_tc', :path => '../lti2_tc'
 
 gem 'sqlite3'
@@ -16,7 +17,7 @@ gem 'json'
 gem 'json-ld'
 gem 'jsonpath'
 
-# gem 'lti2_commons', '~> 1.4'
+#gem 'lti2_commons', :github => 'jtibbetts/lti2_commons'
 gem 'lti2_commons', :path => '../lti2_commons'
 
 gem "haml", '4.0.4'

@@ -66,7 +66,10 @@ module Lti2Tp
 
     def index
       registration = Lti2Tp::Registration.find(params[:id])
-      redirect_to registration.launch_presentation_return_url
+      final_hash = params.select {|k,v| [:status, :tool_guid, :lti_errormsg, :lti_errorlog].include? k.to_sym}
+      final_qs = final_hash.to_query
+      final_url = "#{registration.launch_presentation_return_url}?#{final_qs}"
+      redirect_to final_url
     end
 
     def reregister
@@ -88,7 +91,7 @@ module Lti2Tp
       @registration.reg_key = @tool_deployment.key
       @registration.reg_password = @tool_deployment.secret
 
-      get_tool_consumer_profile Lti2Tp::LContext.get_holder(session), @registration.tc_profile_url, @tool_deployment.key, @tool_deployment.secret, response
+      get_tool_consumer_profile Lti2Tp::Context.get_holder(session), @registration.tc_profile_url, @tool_deployment.key, @tool_deployment.secret, response
       tcp_wrapper = JsonWrapper.new @tool_consumer_profile
       #@deployment_proposal.tenant_name = tcp_wrapper.first_at('product_instance.product_info.product_name.default_value')
       @registration.save

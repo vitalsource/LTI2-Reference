@@ -41,7 +41,9 @@ class LtiRegistrationWipsController < InheritedResources::Base
     end
 
     disposition = registration.prepare_tool_proxy()
-
+    if registration.is_disposition_failure? disposition
+      redirect_to_registration(registration, disposition) and return
+    end
     tool_proxy_wrapper = JsonWrapper.new(registration.tool_proxy_json)
 
     tenant.tenant_key = tool_proxy_wrapper.first_at('tool_proxy_guid')
@@ -51,7 +53,7 @@ class LtiRegistrationWipsController < InheritedResources::Base
     registration.tenant_id = tenant.id
     registration.save
 
-    redirect_to "#{@lti_registration_wip.registration_return_url}#{disposition}&id=#{registration.id}"
+    redirect_to_registration registration, disposition
   end
 
 
@@ -61,5 +63,11 @@ class LtiRegistrationWipsController < InheritedResources::Base
     @lti_registration_wip.save
 
     show
+  end
+
+  private
+
+  def redirect_to_registration registration, disposition
+    redirect_to "#{@lti_registration_wip.registration_return_url}#{disposition}&id=#{registration.id}"
   end
 end

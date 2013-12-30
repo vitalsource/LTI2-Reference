@@ -38,7 +38,8 @@ class ApplicationController < ActionController::Base
     
     unless tool_provider_registry.relaxed_oauth_check == 'true'
       request_wrapper = OAuthRequest.create_from_rack_request request
-      unless request_wrapper.verify_signature? secret, Rails.application.config.nonce_cache
+      (is_success, signature_base_string) = request_wrapper.verify_signature? secret, Rails.application.config.nonce_cache
+      unless is_success
         # puts "Secret: #{secret}"
         puts "TP Signed Request: #{request_wrapper.signature_base_string}"
         (redirect_to redirect_url("Invalid signature")) and return
@@ -70,6 +71,7 @@ class ApplicationController < ActionController::Base
       (redirect_to redirect_url("Missing lti_message_type")) and return
     end
 
+    return true
   end
   
   protected 
