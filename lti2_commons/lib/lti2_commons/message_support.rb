@@ -161,8 +161,6 @@ module Lti2Commons
               %Q{      <input type="hidden" name="#{k}" value="#{v}"/>\n}
         end
       end
-      result +=
-          %Q{      <input type="hidden" name="#{SUBMIT_LABEL}" value="#{SUBMIT_MESSAGE}"/>\n}
       result
     end
 
