@@ -84139,3 +84139,584 @@ content-type: application/vnd.ims.lti.v2.toolsettings.simple+json
 
 
 </div></pre>
+<div class="ToolProvider"><pre>
+2013-12-30 16:10:43 -0800
+LtiService: Register ToolProxy with ToolConsumer
+POST http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_toolproxy.php
+Headers:
+Authorization: OAuth oauth_consumer_key="52c20a738a3ae", oauth_nonce="4416570782655", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1388448643", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="8k2XDCP8sZxHJhEU3LbCbpznV5E%3D", oauth_signature="RuiEwhnwAtCPqEYNxinPsGc1guk%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5428
+Parameters:
+b64: aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=
+x: 1
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2013-12-31T00:10:43Z","lti_version":"LTI-2p0","tool_proxy_guid":"ea202550-53dd-0131-7494-20c9d07c6451","tool_consumer_profile":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_tcprofile.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=&x=1","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://rails.kinexis.com:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://rails.kinexis.com:5000/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://rails.kinexis.com:5000"}]},"security_contract":{"shared_secret":"5b5b974c2d205051b2db7dc7a390a4f1","tool_service":[{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_toolproxy.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=&x=1","action":["POST"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_outcome.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["POST"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/links/{link_id}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/lis/{context_type}/{context_id}/bindings/{vendor_code}/{product_code}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/ToolProxy/{tool_proxy_guid}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-12-30 16:10:45 -0800
+Response: Register ToolProxy with ToolConsumer
+Status: 400 Bad Request
+Headers:
+content-length: 11071
+content-type: text/html
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"&gt;
+&lt;head&gt;
+
+&lt;title&gt;IMS GLC: File Not Found&lt;/title&gt;
+
+&lt;meta http-equiv="Content-type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="alternate" type="application/rss+xml" title="Subscribe to IMS/GLC News Updates - RSS" href="http://www.imsglobal.org/community/forum/rss.cfm?forumid=11&amp;catid=46"/&gt;
+&lt;link rel="stylesheet" href="http://www.imsglobal.org/styles/stylenew2.css" type="text/css" media="all" /&gt;
+
+	&lt;!--[if IE 6]&gt;
+		&lt;link rel="stylesheet" href="styles/ie6.css" type="text/css" media="all" /&gt;
+	&lt;![endif]--&gt;
+	
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" &gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js" &gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	    $(document).ready(function(){  
+    $("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 9000, true);  
+    $("#featured").hover(  
+    function() {  
+    $("#featured").tabs("rotate",0,true);  
+    },  
+    function() {  
+    $("#featured").tabs("rotate",9000,true);  
+    }  
+    );  
+    });  
+&lt;/script&gt;
+   
+    
+&lt;script type="text/javascript" src="http://www.imsglobal.org/styles/ADxMenu.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25297781-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+
+&lt;div id="header"&gt;
+
+&lt;div class="shell"&gt;
+	
+		&lt;a href="http://www.imsglobal.org"&gt;&lt;img src="http://www.imsglobal.org/images/header1.png" alt="IMS GLC Header" border="0" /&gt;&lt;/a&gt;  &lt;span class="alignright"&gt;&lt;form id="searchbox" id="searchbox_001825206171094674096:lgetezj_sxi" action="http://www.imsglobal.org/search.html"&gt; 
+  &lt;input value="XXXXXXXXXXXXXXXXXXXXX:YYYYYYYYYYY" name="cx" type="hidden"/&gt; 
+  &lt;input value="FORID:11" name="cof" type="hidden"/&gt; 
+  &lt;input id="q" style="width:95px;" name="q" size="70" type="text" id="search" placeholder="Search.."  /&gt; 
+  &lt;input name="sa" type="image" id="submit" value="Search" src="http://www.imsglobal.org/images/searcharrow.png" alt="Search" /&gt; 
+&lt;/form&gt; &lt;/span&gt;    &lt;/div&gt;&lt;/div&gt;
+        
+&lt;div id ="header2"&gt;
+&lt;div class="shell"&gt;
+&lt;ul class="adxm menu"&gt;
+       &lt;li&gt;
+         &lt;a href="http://www.imsglobal.org/index.html"&gt;Home&lt;/a&gt;        &lt;/li&gt;
+        &lt;li&gt;
+&lt;a href="http://www.imsglobal.org/learn.html"&gt;Initiatives&lt;/a&gt;
+           &lt;ul&gt;     &lt;li&gt;&lt;a href="http://www.imsglobal.org/isng.html"&gt;Next Gen Academic Enterprise &lt;/a&gt;   &lt;/li&gt;
+              &lt;li&gt;&lt;a href=" http://www.imsglobal.org/lat.html"&gt;Integration of Learning Tools &lt;/a&gt;   &lt;/li&gt;
+&lt;li&gt;&lt;a href=" http://www.imsglobal.org/leadingchange/index.html"&gt;Connected Learning Innovation Challenge &lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="http://www.imsglobal.org/eca.html"&gt;Educational Content and Assessment &lt;/a&gt;   &lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/iipe.html"&gt;K-12  &lt;/a&gt; &lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/imsrevolution.html"&gt;Digital Revolution  &lt;/a&gt; &lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/thesis/index.html"&gt;Higher Education   &lt;/a&gt; &lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/ro.html"&gt;Creating the Future&lt;/a&gt;  &lt;/li&gt;   &lt;/ul&gt;
+&lt;/li&gt;&lt;li&gt;
+          &lt;a href="http://www.imsglobal.org/leadership.html"&gt;Leadership&lt;/a&gt;
+           &lt;ul&gt;
+             &lt;li&gt;&lt;a href="http://www.imsglobal.org/membersandaffiliates.html"&gt;Members &lt;/a&gt;  &lt;/li&gt;   
+             &lt;li&gt;&lt;a href="http://www.imsglobal.org/boardofdirectors.html"&gt;Board of Directors &lt;/a&gt; &lt;/li&gt;   
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/esc/index.html"&gt;Executive Strategic Council &lt;/a&gt; &lt;/li&gt;   
+              &lt;li&gt;&lt;a href="http://www.imsglobal.org/cio/index.html"&gt;CIO Advisory Council &lt;/a&gt; &lt;/li&gt;   
+               &lt;li&gt;&lt;a href="http://www.imsglobal.org/I3lc.html"&gt;I3LC Advisory Council &lt;/a&gt; &lt;/li&gt;   
+               &lt;li&gt;&lt;a href="http://www.imsglobal.org/connectedlearningcouncil.html"&gt;Connected Learning Advisory Council &lt;/a&gt; &lt;/li&gt;   
+               &lt;li&gt;&lt;a href="http://www.imsglobal.org/executiveCommittee.html"&gt;TAB Executive Committeel &lt;/a&gt; &lt;/li&gt;   
+               &lt;li&gt;&lt;a href="http://www.imsglobal.org/technicalboard.html"&gt;Technical Advisory Board&lt;/a&gt; &lt;/li&gt;    &lt;/ul&gt; &lt;/li&gt;  &lt;li&gt;
+         &lt;a href="http://www.imsglobal.org/learningimpact/li.html"&gt;Learning Impact&lt;/a&gt;  &lt;ul&gt; &lt;li&gt;&lt;a href="http://www.imsglobal.org/learningimpact/li.html"&gt;Learning Impact Program &lt;/a&gt;  
+                &lt;li&gt;&lt;a href="http://www.imsglobal.org/learningimpact2014/index.html"&gt;Learning Impact Leadership Institute &lt;/a&gt;  &lt;/li&gt;   
+                &lt;li&gt;&lt;a href="http://www.imsglobal.org/learningimpact2014/awards.html"&gt;Learning Impact Awards &lt;/a&gt; &lt;/li&gt;  
+&lt;li&gt;&lt;a href="http://www.imsglobal.org/blog/"&gt;Learning Impact Blog &lt;/a&gt; &lt;/li&gt;    
+                &lt;li&gt;&lt;a href="http://www.imsglobal.org/LIA/index.html"&gt;Learning Impact Report&lt;/a&gt; &lt;/li&gt; &lt;/ul&gt;&lt;/li&gt;&lt;li&gt;
+        &lt;a href="http://www.imsglobal.org/community/index.html"&gt;Public Resources&lt;/a&gt;
+         &lt;ul&gt;
+                &lt;li&gt;&lt;a href="http://www.imsglobal.org/cc/statuschart.cfm"&gt;IMS Conformant Products Listing &lt;/a&gt;  &lt;/li&gt;   
+                  &lt;li&gt;&lt;a href="http://developers.imsglobal.org/catalog.html"&gt;LTI Certified Supplier Catalog  &lt;/a&gt;  &lt;/li&gt;   
+                   &lt;li&gt;&lt;a href="http://developers.imsglobal.org"&gt;LTI Developer Website  &lt;/a&gt;  &lt;/li&gt;   
+                 &lt;li&gt;&lt;a href="http://www.imsglobal.org/community/forum/latesttopics.cfm?forumid=11"&gt;Public Forums &lt;/a&gt;  &lt;/li&gt;   
+                  &lt;li&gt;&lt;a href="http://www.imsglobal.org/specifications.html"&gt;Download IMS Standards &lt;/a&gt;  &lt;/li&gt;   
+                   &lt;li&gt;&lt;a href="http://www.imsglobal.org/interoperabilitygroups.html"&gt;Work in Progress &lt;/a&gt;  &lt;/li&gt;   
+                   &lt;li&gt;&lt;a href="http://www.imsglobal.org/meetings.html"&gt;Meetings&lt;/a&gt; &lt;/li&gt;    &lt;/ul&gt; &lt;/li&gt;
+&lt;li&gt;
+ &lt;a href="http://www.imsglobal.org/membersonly.html"&gt;Members Only&lt;/a&gt; 
+        &lt;ul&gt;
+                 &lt;li&gt;&lt;a href="http://members.imsglobal.org/forum/ims/dispatch.cgi/_admin"&gt;Contributing Member Website &lt;/a&gt;  &lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://www.imsglobal.org/developers/index.cfm"&gt;Affiliate Website &lt;/a&gt;  &lt;/li&gt;
+                   &lt;li&gt;&lt;a href=" http://www.imsglobal.org/developers/alliance/welcome.cfm"&gt;CC/ LTI Alliance &lt;/a&gt;  &lt;/li&gt;
+                    &lt;li&gt;&lt;a href=" http://www.imsglobal.org/developers/lisalliance/index.cfm"&gt;LIS Alliance &lt;/a&gt;  &lt;/li&gt;
+                   &lt;li&gt;&lt;a href=" http://www.imsglobal.org/developers/apipalliance/index.cfm"&gt;QTI/APIP Alliance &lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href=" http://www.imsglobal.org/developers/iwbcffalliance/index.cfm"&gt;IWB/CFF Alliance &lt;/a&gt;  &lt;/li&gt;
+                   &lt;li&gt;&lt;a href="http://www.imsglobal.org/community/forum/index.cfm?forumid=12"&gt;THESIS Forums &lt;/a&gt;  &lt;/li&gt;
+                   &lt;li&gt;&lt;a href="http://www.imsglobal.org/community/forum/index.cfm?forumid=15"&gt;I3LC Forums &lt;/a&gt;
+&lt;li&gt;&lt;a href="http://www.imsglobal.org/community/forum/index.cfm?forumid=18"&gt;Leadership Group Forums &lt;/a&gt;    &lt;/li&gt;&lt;/ul&gt;
+&lt;/li&gt;
+        
+          &lt;li&gt;
+           &lt;a href="http://www.imsglobal.org/joinims.html"&gt;Join IMS&lt;/a&gt;
+              
+              &lt;ul&gt;       &lt;li&gt;&lt;a href="http://www.imsglobal.org/joinims.html"&gt;Why Organizations Join IMS &lt;/a&gt;  &lt;/li&gt;
+                   &lt;li&gt; &lt;a href="http://www.imsglobal.org/joincm.html"&gt;Contributing Membership &lt;/a&gt;  &lt;/li&gt;
+                       &lt;li&gt;&lt;a href="http://www.imsglobal.org/joinaffiliate.html"&gt;Affiliate Membership &lt;/a&gt;  &lt;/li&gt;
+                    &lt;li&gt;&lt;a href="http://www.imsglobal.org/joinalliances.html"&gt;Alliances Membership &lt;/a&gt;  &lt;/li&gt;
+                  &lt;/ul&gt;&lt;/li&gt;
+    
+          &lt;li&gt; &lt;a href="http://www.imsglobal.org/aboutims.html"&gt;About Us&lt;/a&gt;
+              
+             &lt;ul&gt;
+                &lt;li&gt; &lt;a href="http://www.imsglobal.org/background.html"&gt;Background and History &lt;/a&gt; &lt;/li&gt;
+                     &lt;li&gt;    &lt;a href="http://www.imsglobal.org/collaborations.html"&gt;Collaborations &lt;/a&gt; &lt;/li&gt;
+                   &lt;li&gt;   &lt;a href="http://www.imsglobal.org/imsstaff.html"&gt;IMS Staff &lt;/a&gt;  &lt;/li&gt;
+                     &lt;li&gt;  &lt;a href="http://www.imsglobal.org/news.html"&gt;News and Press Releases &lt;/a&gt;  &lt;/li&gt;
+                      &lt;li&gt; &lt;a href="http://www.imsglobal.org/contactus.cfm"&gt;Contact Us &lt;/a&gt; &lt;/li&gt; &lt;/ul&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+		
+	&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="header3"&gt;
+	&lt;div class="shell"&gt;
+     &lt;div class="bodywrap"&gt;
+  
+
+		&lt;!-- main content starts here --&gt;
+   
+
+    
+   
+         &lt;h1&gt;  File Not Found
+         &lt;/p&gt;
+         &lt;/h1&gt;
+         &lt;p&gt;&nbsp;&lt;/p&gt;
+       &lt;p&gt;We're sorry.&lt;/p&gt;
+       &lt;p&gt;       We've done a bit of reorganizing and refining, and the file you have requested has been moved or is no longer available.&lt;/p&gt;
+       &lt;p&gt;To see if what you are looking for is still available, Search below or please go back to the&lt;a href="http://www.imsglobal.org"&gt; homepage.&lt;/a&gt;&lt;/p&gt;
+       &lt;p&gt;&nbsp;&lt;/p&gt;
+   &lt;div id="cse" style="width: 100%;"&gt;Loading&lt;/div&gt;
+&lt;script src="//www.google.com/jsapi" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt; 
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('001825206171094674096:lgetezj_sxi');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+&lt;/script&gt;
+      
+            
+	   &lt;div class="cl"&gt;&nbsp;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footer-push"&gt;&nbsp;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="footer"&gt;
+	&lt;div class="shell"&gt;
+		&lt;div class="nav left"&gt;
+			&lt;a href="http://www.imsglobal.org/copyright.html"&gt;&copy; 2001-2014 IMS Global Learning Consortium, Inc.&lt;/a&gt; All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href="http://www.imsglobal.org/privacystatement.html" class="footerlink"&gt;Privacy 
+            Policy&lt;/a&gt; / &lt;a href=http://www.imsglobal.org/"access.html"&gt; Accessibility&lt;/a&gt; /&lt;a href="http://www.imsglobal.org/search.html"&gt; Search&lt;/a&gt; / &lt;a href="http://twitter.com/learningimpact" title="Follow Us on Twitter"&gt; &lt;img src="http://www.imsglobal.org/images/twittersquare.png" alt="Follow Us onTwitter" width="25" height="24" border="0" align="top" /&gt;&lt;/a&gt; / &lt;a href="http://www.imsglobal.org/community/forum/rss.cfm?forumid=11&amp;catid=46" title="Subscribe to our RSS Feed"&gt;&lt;img src="http://www.imsglobal.org/images/rsssquare.png" alt=" Subscribe to Our Rss Feed" border="0" align="top" /&gt;&lt;/a&gt; ---
+          &lt;script type="text/javascript"&gt;
+document.write(document.lastModified);
+            &lt;/script&gt;
+		&lt;div class="cl"&gt;&nbsp;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2013-12-30 16:11:02 -0800
+LtiService: Register ToolProxy with ToolConsumer
+POST http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_toolproxy.php
+Headers:
+Authorization: OAuth oauth_consumer_key="52c20a738a3ae", oauth_nonce="6338126313194", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1388448662", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="r6QTEMCFLpolbbicWRAisfi4Hpc%3D", oauth_signature="Fpl0iLQXp9doyLYdB8hEV%2BTCjSQ%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5420
+Parameters:
+b64: aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2013-12-31T00:11:02Z","lti_version":"LTI-2p0","tool_proxy_guid":"f532a2b0-53dd-0131-7494-20c9d07c6451","tool_consumer_profile":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_tcprofile.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://rails.kinexis.com:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://rails.kinexis.com:5000/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://rails.kinexis.com:5000"}]},"security_contract":{"shared_secret":"39af84785a5e02b5c90bf80ec134fff6","tool_service":[{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_toolproxy.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["POST"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_outcome.php?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["POST"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/links/{link_id}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/lis/{context_type}/{context_id}/bindings/{vendor_code}/{product_code}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tp_settings.php/ToolProxy/{tool_proxy_guid}/custom?b64=aDE3MHR0M2lodGVxbTdtZ3VucXZ0cXNrbTQ=","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2013-12-30 16:11:03 -0800
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.toolproxy.id+json
+{
+  "@context": "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/ToolProxy/52c20b972a7b3",
+  "tool_proxy_guid": "52c20b972a7b3",
+  "custom_uri": "http://www.imsglobal.org/developers/alliance/LTI/cert-v2/ToolProxy/52c20b972a7b3/custom"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 07:41:05 -0800
+LtiMessage: Request Tool Registration
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php 
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php " 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/07a65680-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="07a64ee0-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="03a213a90ee88234ca941a5e81a926a5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 07:44:20 -0800
+LtiMessage: Request Tool Registration
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/7e3739f0-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="7e373730-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="76ff0939b28bef6244a340fa71be9f61"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 07:56:37 -0800
+LtiMessage: Lti Launch
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&" target="_blank"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="146"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="5"/&gt;
+      &lt;input type="hidden" name="custom_system_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_context_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451/context/5"/&gt;
+      &lt;input type="hidden" name="custom_link_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451/ltilink/146"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/7e3739f0-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_simple_key" value="custom_simple_value"/&gt;
+      &lt;input type="hidden" name="custom_complex____________key" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_Complex!@#$^*(){}[]KEY" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_cert_userid" value="2"/&gt;
+      &lt;input type="hidden" name="custom_cert_username" value="User.username"/&gt;
+      &lt;input type="hidden" name="custom_id" value="id52c438efcfd72"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="379d30a0-552a-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="232201633487"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1388591797"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="x" value="With Space"/&gt;
+      &lt;input type="hidden" name="y" value="yes"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="QD92nTfSOiwUO3V8rww8aMbbjt4="/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+      &lt;a href="/admin/launches" target="_self"&gt;Return to Admin&lt;/a&gt;
+
+        
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 07:58:43 -0800
+LtiMessage: Lti Launch
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&" target="_blank"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="147"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=6"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="6"/&gt;
+      &lt;input type="hidden" name="custom_system_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_context_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451/context/6"/&gt;
+      &lt;input type="hidden" name="custom_link_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/379d30a0-552a-0131-96a5-20c9d07c6451/ltilink/147"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/7e3739f0-5529-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_simple_key" value="custom_simple_value"/&gt;
+      &lt;input type="hidden" name="custom_complex____________key" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_Complex!@#$^*(){}[]KEY" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_cert_userid" value="2"/&gt;
+      &lt;input type="hidden" name="custom_cert_username" value="User.username"/&gt;
+      &lt;input type="hidden" name="custom_id" value="id52c438efcfd72"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="379d30a0-552a-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1387876328525"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1388591923"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="x" value="With Space"/&gt;
+      &lt;input type="hidden" name="y" value="yes"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="TeYlUvJw8bUhECe9EsJ8elfaorU="/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+      &lt;a href="/admin/launches" target="_self"&gt;Return to Admin&lt;/a&gt;
+
+        
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 08:00:30 -0800
+LtiMessage: Request Tool Registration
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/c0478120-552b-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="c0477e50-552b-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="b35397d11e52b834e515fc7f5c7e3935"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 08:01:33 -0800
+LtiMessage: Request Tool Registration
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/e5a118f0-552b-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="e5a11600-552b-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="8cc24de8aeadf160fc76021244c3ef11"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-01 08:03:10 -0800
+LtiMessage: Lti Launch
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&" target="_blank"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="149"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="5"/&gt;
+      &lt;input type="hidden" name="custom_system_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/0856fba0-552c-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_context_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/0856fba0-552c-0131-96a5-20c9d07c6451/context/5"/&gt;
+      &lt;input type="hidden" name="custom_link_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/0856fba0-552c-0131-96a5-20c9d07c6451/ltilink/149"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/e5a118f0-552b-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_simple_key" value="custom_simple_value"/&gt;
+      &lt;input type="hidden" name="custom_complex____________key" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_Complex!@#$^*(){}[]KEY" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_cert_userid" value="2"/&gt;
+      &lt;input type="hidden" name="custom_cert_username" value="User.username"/&gt;
+      &lt;input type="hidden" name="custom_id" value="id52c43bdd1ac0b"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="0856fba0-552c-0131-96a5-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5499101994958"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1388592190"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="x" value="With Space"/&gt;
+      &lt;input type="hidden" name="y" value="yes"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="vk+ESxuxOQnyuQCbKqLQohkSHF0="/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+      &lt;a href="/admin/launches" target="_self"&gt;Return to Admin&lt;/a&gt;
+
+        
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-02 09:46:55 -0800
+LtiMessage: Request Tool Registration
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/ab2f5e50-5603-0131-96a6-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="ab2f55e0-5603-0131-96a6-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="b10304c00fc901cd8535a7644c6a6af3"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-01-02 09:49:16 -0800
+LtiMessage: Lti Launch
+LaunchUrl: http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://www.imsglobal.org/developers/alliance/LTI/cert-v2/tc_tool.php?x=With+Space&y=yes&" target="_blank"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="152"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://rails.kinexis.com:4000/admin/course_page?method=show&course_id=5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="5"/&gt;
+      &lt;input type="hidden" name="custom_system_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/01a24480-5604-0131-96a6-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_context_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/01a24480-5604-0131-96a6-20c9d07c6451/context/5"/&gt;
+      &lt;input type="hidden" name="custom_link_setting_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_settings/01a24480-5604-0131-96a6-20c9d07c6451/ltilink/152"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://rails.kinexis.com:4000/lti2_tc/tool_consumer_profiles/ab2f5e50-5603-0131-96a6-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_simple_key" value="custom_simple_value"/&gt;
+      &lt;input type="hidden" name="custom_complex____________key" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_Complex!@#$^*(){}[]KEY" value="Complex!@#$^*(){}[]½Value"/&gt;
+      &lt;input type="hidden" name="custom_cert_userid" value="2"/&gt;
+      &lt;input type="hidden" name="custom_cert_username" value="User.username"/&gt;
+      &lt;input type="hidden" name="custom_id" value="id52c5a60f79613"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="01a24480-5604-0131-96a6-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5769420557635"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1388684956"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="x" value="With Space"/&gt;
+      &lt;input type="hidden" name="y" value="yes"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="tkxygLtLWkcnrqtlY3dvNGtuL0o="/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+
+      &lt;a href="/admin/launches" target="_self"&gt;Return to Admin&lt;/a&gt;
+
+        
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>

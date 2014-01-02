@@ -15,9 +15,6 @@ module Lti2Commons
 
   module Signer
 
-    SUBMIT_LABEL = "basiclti_submit"
-    SUBMIT_MESSAGE = "Press to continue to external tool."
-
     # Creates an OAuth signed request using the OAuth Gem - https://github.com/oauth/oauth-ruby
     #
     # @param launch_url [String]  Endpoint of service to be launched
@@ -42,11 +39,6 @@ module Lti2Commons
 
       content_type = "application/x-www-form-urlencoded" unless content_type
 
-      if http_method == 'post' and content_type == "application/x-www-form-urlencoded"
-        params[SUBMIT_LABEL] = SUBMIT_MESSAGE unless params.has_key? SUBMIT_LABEL
-      else
-        params.delete SUBMIT_LABEL
-      end
 
       launch_url = URI.unescape(launch_url)
       uri = URI.parse(launch_url)
