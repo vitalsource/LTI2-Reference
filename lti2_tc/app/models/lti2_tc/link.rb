@@ -55,6 +55,7 @@ module Lti2Tc
       end
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
+      tcp_wrapper = tool_consumer_registry.tool_consumer_profile_wrapper
       parameters = {
           'lti_version' => @tool_proxy.first_at('lti_version'),
           'lti_message_type' => 'basic-lti-launch-request',
@@ -66,6 +67,10 @@ module Lti2Tc
 
           # optional
           'context_id' => self.course.id.to_s,
+
+          # for conformance
+          'tool_consumer_info_product_family_code' => "#{tcp_wrapper.first_at("product_instance.product_info.product_family.code")}",
+          'tool_consumer_info_version' => "#{tcp_wrapper.first_at("product_instance.product_info.product_version")}"
       }
 
       # add parameters from ToolProxy
