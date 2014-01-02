@@ -206,6 +206,7 @@ module Lti2Tc
       ["context_title", "context_label", "resource_link_title", "resource_link_description",
        "lis_person_name_given", "lis_person_name_family", "lis_person_name_full", "lis_person_contact_email_primary",
        "user_image", "lis_person_sourcedid", "lis_course_offering_sourcedid", "lis_course_section_sourcedid",
+       "tool_consumer_info_product_family_code", "tool_consumer_info_version",
        "tool_consumer_instance_name", "tool_consumer_instance_description", "tool_consumer_instance_url", "tool_consumer_instance_contact_email"]
     end
 
