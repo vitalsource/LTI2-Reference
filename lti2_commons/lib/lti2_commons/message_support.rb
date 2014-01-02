@@ -31,9 +31,6 @@ module Lti2Commons
   module MessageSupport
     TIMEOUT = 300
 
-    SUBMIT_LABEL = "basiclti_submit"
-    SUBMIT_MESSAGE = "Press to continue to external tool."
-
     # Convenience method signs and then invokes create_lti_message_from_signed_request
     #
     # @params launch_url [String] Launch url
