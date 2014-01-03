@@ -39,6 +39,9 @@ module Lti2Tc
           final_qs += Rack::Utils.escape(v)
           final_qs += '&'
         end
+        # conformance issue: remove trailing ampersand
+        final_qs = final_qs[0..final_qs.length-2] if final_qs[-1] == '&'
+
         final_path = m[1] + final_qs
       else
         final_path = path
