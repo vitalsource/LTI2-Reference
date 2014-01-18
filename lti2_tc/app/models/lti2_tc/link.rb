@@ -41,7 +41,6 @@ module Lti2Tc
         end
         # conformance issue: remove trailing ampersand
         final_qs = final_qs[0..final_qs.length-2] if final_qs[-1] == '&'
-
         final_path = m[1] + final_qs
       else
         final_path = path
@@ -70,11 +69,30 @@ module Lti2Tc
 
           # optional
           'context_id' => self.course.id.to_s,
+          'launch_presentation_locale' => 'en_US',
 
           # for conformance
+          'context_label' => self.course.course_label,
+          'context_title' => self.course.course_title,
+          'lis_course_section_sourcedid' => self.course.id.to_s,
           'tool_consumer_info_product_family_code' => "#{tcp_wrapper.first_at("product_instance.product_info.product_family.code")}",
-          'tool_consumer_info_version' => "#{tcp_wrapper.first_at("product_instance.product_info.product_version")}"
+          'tool_consumer_info_version' => "#{tcp_wrapper.first_at("product_instance.product_info.product_version")}",
       }
+
+      if self.is_name_permission
+        parameters['lis_person_sourcedid'] = user.id.to_s
+        parameters['lis_person_name_given'] = user.first_name
+        parameters['lis_person_name_family'] = user.last_name
+        parameters['lis_person_name_full'] = "#{user.first_name} #{user.last_name}"
+      end
+
+      if self.is_email_permission
+        parameters['lis_person_contact_email_primary'] = user.email
+      end
+
+      if role =~ /Mentor$/
+        parameters['role_scope_mentor'] = url_encode_users(user.mentor)
+      end
 
       # add parameters from ToolProxy
       for parameter in tp_parameters
@@ -218,7 +236,7 @@ module Lti2Tc
        "context_id", "context_type",
        "launch_presentation_locale", "launch_presentation_document_target", "launch_presentation_css_url",
        "launch_presentation_width", "launch_presentation_height", "launch_presentation_return_url",
-       "reg_key", "reg_password", "tc_profile_url"]
+       "role_scope_mentor"]
     end
 
     def slugify name
@@ -229,5 +247,14 @@ module Lti2Tc
       result
     end
 
+    def url_encode_users(user_list_str)
+      user_list = []
+      unless user_list_str.nil?
+        users = user_list_str.split(',')
+        users.each {
+            |user| user_list << URI.encode(user)}
+      end
+      user_list.join(',')
+    end
   end
 end

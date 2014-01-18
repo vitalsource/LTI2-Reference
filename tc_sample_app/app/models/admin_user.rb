@@ -18,6 +18,8 @@ class AdminUser < ActiveRecord::Base
     case fieldname
     when "id"
       self.id
+    when "username"
+      self.email
     end
   end
   

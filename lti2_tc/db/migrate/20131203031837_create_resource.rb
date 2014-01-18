@@ -16,8 +16,9 @@ class CreateResource < ActiveRecord::Migration
       t.integer  "course_id"
       t.integer  "resource_id"
       t.string   "link_parameters"
+      t.boolean  "is_name_permission"
+      t.boolean  "is_email_permissions"
     end
-
 
   end
 end

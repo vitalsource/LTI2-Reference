@@ -28,10 +28,11 @@ class CollapseLumosDb < ActiveRecord::Migration
       t.string   "last_sign_in_ip"
       t.datetime "created_at",                             :null => false
       t.datetime "updated_at",                             :null => false
-      t.string   "user_id"
-      t.string   "first_name"
-      t.string   "last_name"
-      t.string   "role"
+      t.string   "user_id",
+      t.string   "first_name",
+      t.string   "last_name",
+      t.string   "role",
+      t.string   "mentor"
     end
   
     add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true

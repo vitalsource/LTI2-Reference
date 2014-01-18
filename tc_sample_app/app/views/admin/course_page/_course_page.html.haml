@@ -105,9 +105,19 @@
                 
         %li
           %label
+          %input{:name => "is_name_permission", :type => "checkbox", :checked => true}
+            Allow sending of name information
+
+        %li
+          %label
+          %input{:name => "is_email_permission", :type => "checkbox", :checked => true}
+            Allow sending the email address
+
+        %li
+          %label
           %input{:name => "is_enabled", :type => "checkbox", :checked => true}
             Create Link as Enabled
-      
+
         %li
           %label
           %input{:type => "submit", :value => "Create Link"}

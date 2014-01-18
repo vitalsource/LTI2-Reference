@@ -3,6 +3,12 @@ module Lti2Tc
     belongs_to :scopeable, :polymorphic => true
     attr_accessible :scopeable_id, :scopeable_type, :tool_id, :name, :value
 
+    COLLECTION_TYPES = [:Tool, :Context, :Ltilink]
+
+    def self.collection_index(collection_type)
+      COLLECTION_TYPES.find_index(collection_type.to_sym)
+    end
+
     def self.create_uri(tool_id, scopeable_type, scopeable_id=nil)
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
       result = "#{tool_consumer_registry.tc_deployment_url}/lti2_tc/tool_settings/#{tool_id}"
@@ -10,6 +16,25 @@ module Lti2Tc
         result << "/context/#{scopeable_id}"
       elsif scopeable_type == 'Ltilink'
         result << "/ltilink/#{scopeable_id}"
+      end
+      result
+    end
+
+    def self.create_reachable_uris(tool_id, scopeable_type, scopeable_id=nil)
+      result = {}
+      start_index = self.collection_index(scopeable_type)
+      (start_index...0).each do |index|
+        case index
+          when 0
+            result[:Tool] = self.create_uri(tool_id, 'Tool')
+          when 1
+            result[:Context] = self.create_uri(tool_id, 'Context', scopeable_id)
+          when 2
+            result[:Ltilink] = self.create_uri(tool_id, 'Ltilink', scopeable_id)
+            link = Link.find(scopeable_id)
+            # for next iteration
+            scopeable_id = link.course.id
+        end
       end
       result
     end

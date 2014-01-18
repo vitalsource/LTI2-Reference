@@ -25,6 +25,6 @@ ActiveAdmin.register AdminUser do
       f.input :password, :required => false              
       f.input :password_confirmation, :required => false
     end                               
-    f.buttons                         
+    f.actions
   end                                 
 end                                   
