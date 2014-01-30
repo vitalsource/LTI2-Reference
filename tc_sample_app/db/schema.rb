@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20131203170941) do
     t.string   "user_id"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "mentor"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -102,6 +103,8 @@ ActiveRecord::Schema.define(:version => 20131203170941) do
     t.integer  "course_id"
     t.integer  "resource_id"
     t.string   "link_parameters"
+    t.boolean  "is_name_permission"
+    t.boolean  "is_email_permission"
   end
 
   create_table "lti2_tc_registries", :force => true do |t|

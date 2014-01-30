@@ -10,7 +10,7 @@ lti2_tp_registries:
   records: 
   - - 1
     - tp_deployment_url
-    - http://localhost:5000
+    - http://rails.kinexis.com:5000
     - 2013-01-13 20:12:10.000000000 Z
     - 2013-01-13 20:12:10.000000000 Z
   - - 2

@@ -19,6 +19,7 @@ admin_users:
   - user_id
   - first_name
   - last_name
+  - mentor
   records: 
   - - 2
     - admin@lumos.org
@@ -26,17 +27,18 @@ admin_users:
     - $2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC
     - 
     - 2012-07-31 22:37:10.000000000 Z
-    - 2013-12-21 23:30:54.000000000 Z
-    - 141
-    - 2013-12-21 23:30:54.000000000 Z
-    - 2013-12-21 14:27:32.000000000 Z
+    - 
+    - 152
+    - 2014-01-17 23:36:52.000000000 Z
+    - 2014-01-16 14:02:52.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
     - 2012-07-09 23:37:35.000000000 Z
-    - 2013-12-21 23:30:54.000000000 Z
+    - 2014-01-17 23:36:52.000000000 Z
     - admin
     - John
     - Tibbetts
+    - 
   - - 6
     - jadams@lumos.org
     - Instructor
@@ -54,6 +56,7 @@ admin_users:
     - john.adams
     - John
     - Adams
+    - 
   - - 7
     - tarne@lumos.org
     - Learner
@@ -71,6 +74,7 @@ admin_users:
     - tom.arne
     - Tom
     - Arne
+    - 
   - - 8
     - hbingen@lumos.org
     - Instructor
@@ -88,6 +92,7 @@ admin_users:
     - hildy.bingen
     - Hildy
     - Bingen
+    - 
   - - 9
     - wbach@lumos.org
     - Learner
@@ -105,6 +110,7 @@ admin_users:
     - willie.bach
     - Willie
     - Bach
+    - 
   - - 10
     - bdev@lumos.org
     - Learner
@@ -122,40 +128,61 @@ admin_users:
     - bcdev
     - BC
     - Dev
+    - 
   - - 11
     - sian@imscert.org
     - Instructor
-    - ''
+    - $2a$10$FN4zFj0iPu8ZHa0jSVF5MucJu68gjjpQdrG.zlDlgHDydI/i9XgsK
     - 
     - 
     - 
-    - 0
-    - 
-    - 
-    - 
-    - 
+    - 8
+    - 2014-01-17 23:38:34.000000000 Z
+    - 2014-01-16 14:06:20.000000000 Z
+    - 127.0.0.1
+    - 127.0.0.1
     - 2013-10-25 00:00:00.000000000 Z
-    - 2013-10-25 00:00:00.000000000 Z
+    - 2014-01-17 23:38:34.000000000 Z
     - sian.instructor
     - Siân
     - Instructor
+    - 
   - - 12
     - john@imscert.org
-    - Student
-    - ''
+    - Learner
+    - $2a$10$BZiiR4/Iuy1lgV..afB6t.mIlwcBUCcLs1uNIybca0L/kkGkky7Fa
     - 
     - 
     - 
-    - 0
-    - 
-    - 
-    - 
-    - 
+    - 5
+    - 2014-01-17 23:42:18.000000000 Z
+    - 2014-01-16 14:04:48.000000000 Z
+    - 127.0.0.1
+    - 127.0.0.1
     - 2013-10-25 00:00:00.000000000 Z
-    - 2013-10-25 00:00:00.000000000 Z
+    - 2014-01-17 23:42:18.000000000 Z
     - john.student
     - John
     - Student
+    - 
+  - - 14
+    - jean@imscert.org
+    - administrator
+    - $2a$10$.cfJBb9t.alfAS/pAz7gb.6FlSuUysgSEySHMdW6Z6fCvrzBv3sQC
+    - 
+    - 
+    - 
+    - 5
+    - 2014-01-17 23:43:02.000000000 Z
+    - 2014-01-16 14:05:46.000000000 Z
+    - 127.0.0.1
+    - 127.0.0.1
+    - 2014-01-15 23:37:48.000000000 Z
+    - 2014-01-17 23:43:02.000000000 Z
+    - jean.mentor
+    - Jean
+    - Mentor
+    - '12'
 
 ---
 courses:
@@ -210,111 +237,117 @@ enrollments:
   - - 1
     - 6
     - 1
-    - instructor
+    - Instructor
     - 2012-07-31 23:18:59.000000000 Z
     - 2012-07-31 23:18:59.000000000 Z
   - - 2
     - 6
     - 3
-    - instructor
+    - Instructor
     - 2012-07-31 23:19:45.000000000 Z
     - 2012-07-31 23:19:45.000000000 Z
   - - 3
     - 6
     - 2
-    - instructor
+    - Instructor
     - 2012-07-31 23:20:07.000000000 Z
     - 2012-07-31 23:20:07.000000000 Z
   - - 4
     - 7
     - 1
-    - student
+    - Learner
     - 2012-07-31 23:20:24.000000000 Z
     - 2012-07-31 23:20:24.000000000 Z
   - - 5
     - 7
     - 3
-    - student
+    - Learner
     - 2012-07-31 23:20:39.000000000 Z
     - 2012-07-31 23:20:39.000000000 Z
   - - 6
     - 7
     - 2
-    - student
+    - Learner
     - 2012-07-31 23:21:01.000000000 Z
     - 2012-07-31 23:21:01.000000000 Z
   - - 7
     - 8
     - 1
-    - instructor
+    - Instructor
     - 2012-07-31 23:23:56.000000000 Z
     - 2012-07-31 23:23:56.000000000 Z
   - - 8
     - 8
     - 3
-    - instructor
+    - Instructor
     - 2012-07-31 23:24:15.000000000 Z
     - 2012-07-31 23:24:15.000000000 Z
   - - 9
     - 8
     - 2
-    - instructor
+    - Instructor
     - 2012-07-31 23:24:30.000000000 Z
     - 2012-07-31 23:24:30.000000000 Z
   - - 10
     - 9
     - 1
-    - student
+    - Learner
     - 2012-07-31 23:24:45.000000000 Z
     - 2012-07-31 23:24:45.000000000 Z
   - - 11
     - 9
     - 3
-    - student
+    - Learner
     - 2012-07-31 23:24:53.000000000 Z
     - 2012-07-31 23:24:53.000000000 Z
   - - 12
     - 9
     - 2
-    - student
+    - Learner
     - 2012-07-31 23:25:00.000000000 Z
     - 2012-07-31 23:25:00.000000000 Z
   - - 13
     - 10
     - 4
-    - student
+    - Learner
     - 2012-07-31 23:25:15.000000000 Z
     - 2012-07-31 23:25:15.000000000 Z
   - - 14
     - 2
     - 4
-    - instructor
+    - Instructor
     - 2012-07-31 23:25:28.000000000 Z
     - 2012-07-31 23:25:28.000000000 Z
   - - 15
     - 11
     - 5
-    - instructor
+    - Instructor
     - 2013-10-25 00:00:00.000000000 Z
     - 2013-10-25 00:00:00.000000000 Z
   - - 16
     - 12
     - 5
-    - student
+    - Learner
     - 2013-10-25 00:00:00.000000000 Z
     - 2013-10-25 00:00:00.000000000 Z
   - - 17
     - 11
     - 6
-    - instructor
+    - Instructor
     - 2013-10-25 00:00:00.000000000 Z
     - 2013-10-25 00:00:00.000000000 Z
   - - 18
     - 12
     - 6
-    - student
+    - Learner
     - 2013-10-25 00:00:00.000000000 Z
     - 2013-10-25 00:00:00.000000000 Z
+  - - 19
+    - 14
+    - 5
+    - urn:lti:role:ims/lis/Mentor
+    - 2014-01-15 23:41:02.000000000 Z
+    - 2014-01-15 23:41:02.000000000 Z
 
 ---
 lti2_tc_registries:
@@ -365,12 +398,13 @@ lti2_tc_registries:
       \"User.id\",\n\t \"User.username\",\n\t \"CourseSection.sourcedId\",\n\t \"Person.sourcedId\",\n\t
       \"Person.email.primary\",\n\t \"Person.name.given\",\n\t \"Person.name.family\",\n\t
       \"Person.name.full\",\n\t \"Membership.role\",\n\t \"ToolProxy.custom.url\",\n
-      \        \"ToolProxyBinding.custom.url\",\n          \"LtiLink.custom.url\"\n
-      \ ],\n  \"service_offered\" : [\n    { \n      \"@type\" : \"RestService\",\n
-      \     \"@id\" : \"ltitcp:ToolProxy.collection\",\n      \"endpoint\" : \"{tc_deployment_url}/lti2_tc/tools\",\n
-      \     \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\"
-      : [\"POST\"]\n    },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\"
-      : \"ltitcp:ToolProxy.item\",\n      \"endpoint\" : \"{tc_deployment_url}/lti2_tc/tools/{tool_proxy_guid}\",\n
+      \        \"ToolProxyBinding.custom.url\",\n          \"LtiLink.custom.url\",\n
+      \ \t  \"ToolConsumerProfile.url\"\n  ],\n  \"service_offered\" : [\n    { \n
+      \     \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.collection\",\n
+      \     \"endpoint\" : \"{tc_deployment_url}/lti2_tc/tools\",\n      \"format\"
+      : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\" : [\"POST\"]\n
+      \   },\n    { \n      \"@type\" : \"RestService\",\n      \"@id\" : \"ltitcp:ToolProxy.item\",\n
+      \     \"endpoint\" : \"{tc_deployment_url}/lti2_tc/tools/{tool_proxy_guid}\",\n
       \     \"format\" : [\"application/vnd.ims.lti.v2.toolproxy+json\"],\n      \"action\"
       : [\n        \"GET\",\n        \"PUT\"\n      ]\n    },\n    { \n      \"@type\"
       : \"RestService\",\n      \"@id\" : \"ltitcp:Result.item\",\n      \"endpoint\"

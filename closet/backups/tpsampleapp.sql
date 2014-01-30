@@ -1592,3 +1592,268 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2013-12-23  6:49:19
+-- MySQL dump 10.13  Distrib 5.6.13, for osx10.8 (x86_64)
+--
+-- Host: localhost    Database: tpsampleapp
+-- ------------------------------------------------------
+-- Server version	5.6.13
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `iresources`
+--
+
+DROP TABLE IF EXISTS `iresources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `iresources` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_id` int(11) DEFAULT NULL,
+  `result_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contextid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `score` float DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `iresources`
+--
+
+LOCK TABLES `iresources` WRITE;
+/*!40000 ALTER TABLE `iresources` DISABLE KEYS */;
+/*!40000 ALTER TABLE `iresources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lti2_tp_registrations`
+--
+
+DROP TABLE IF EXISTS `lti2_tp_registrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lti2_tp_registrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_id` int(11) DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reg_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reg_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tc_profile_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `launch_presentation_return_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tool_consumer_profile_json` text COLLATE utf8_unicode_ci,
+  `tool_profile_json` text COLLATE utf8_unicode_ci,
+  `tool_proxy_json` text COLLATE utf8_unicode_ci,
+  `tool_id` int(11) DEFAULT NULL,
+  `lti_version` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lti2_tp_registrations`
+--
+
+LOCK TABLES `lti2_tp_registrations` WRITE;
+/*!40000 ALTER TABLE `lti2_tp_registrations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lti2_tp_registrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lti2_tp_registries`
+--
+
+DROP TABLE IF EXISTS `lti2_tp_registries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lti2_tp_registries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lti2_tp_registries`
+--
+
+LOCK TABLES `lti2_tp_registries` WRITE;
+/*!40000 ALTER TABLE `lti2_tp_registries` DISABLE KEYS */;
+INSERT INTO `lti2_tp_registries` VALUES (1,'tp_deployment_url','http://rails.kinexis.com:5000','2013-01-13 20:12:10','2013-01-13 20:12:10'),(2,'security_contract_template','{ \"shared_secret\" : \"{aSecret}\",\n  \"tool_service\" : [ { \n	\"@id\": \":ToolProxy.collection\",\n	\"@type\" : \"RestServiceProfile\",\n        \"action\" : \"POST\",\n        \"service\" : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.collection\"\n      },\n      { \n	\"@id\": \":ToolProxy.item\",\n	\"@type\" : \"RestServiceProfile\",\n        \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\" : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.item\"\n      },\n      { \n	\"@id\": \":ToolProxy.collection\",\n	\"@type\" : \"RestService\",\n        \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\" : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#Result.item\"\n      }\n    ]\n}','2013-01-13 20:12:10','2013-01-13 20:12:10'),(3,'relaxed_oauth_check','false','2013-01-13 20:12:10','2013-01-13 20:12:10'),(4,'result_template','{\n  \"@context\" : \"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result\",\n  \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"  : {value}\n  }\n}\n','2013-01-13 20:12:10','2013-01-13 20:12:10'),(5,'tool_provider_name','Fabericious','2013-01-13 20:12:10','2013-01-13 20:12:10');
+/*!40000 ALTER TABLE `lti2_tp_registries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lti2_tp_tools`
+--
+
+DROP TABLE IF EXISTS `lti2_tp_tools`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lti2_tp_tools` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tool_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tool_profile_template` text COLLATE utf8_unicode_ci,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lti2_tp_tools`
+--
+
+LOCK TABLES `lti2_tp_tools` WRITE;
+/*!40000 ALTER TABLE `lti2_tp_tools` DISABLE KEYS */;
+INSERT INTO `lti2_tp_tools` VALUES (1,'LTI2 BookTools','{\n	\"product_instance\": {\n		\"product_info\": {\n			\"product_version\": \"10.3\",\n			\"technical_description\": {\n				\"default_value\": \"Support provided for all LTI 1 extensions as well as LTI 2\",\n				\"key\": \"tool.technical\"\n			},\n			\"product_name\": {\n				\"default_value\": \"LTI2 BookTools\",\n				\"key\": \"tool.name\"\n			},\n			\"product_family\": {\n				\"code\": \"assessment-tool\",\n				\"vendor\": {\n					\"website\": \"{{tp_deployment_url}}\",\n					\"code\": \"fabericious.org\",\n					\"name\": {\n						\"default_value\": \"Fab\",\n						\"key\": \"tool.vendor.name\"\n					},\n					\"timestamp\": \"2012-04-05T09:08:16-04:00\",\n					\"contact\": {\n						\"email\": \"info@fabericious.com\"\n					},\n					\"description\": {\n						\"default_value\": \"Fabericious is a leading provider of interactive tools for education\",\n						\"key\": \"tool.vendor.description\"\n					}\n				}\n			},\n			\"description\": {\n				\"default_value\": \"Fabericious reflowable ePub3 Textbook\",\n				\"key\": \"tool.description\"\n			}\n		},\n		\"support\": {\n			\"email\": \"helpdesk@fabericious.com\"\n		},\n		\"guid\": \"fd75124a-140e-470f-944c-114d2d92bb40\",\n		\"service_provider\": {\n			\"support\": {\n				\"email\": \"support@ec2.fabericious.com\"\n			},\n			\"service_provider_name\": {\n				\"default_value\": \"Amazon Cloud\",\n				\"key\": \"service_provider.name\"\n			},\n			\"guid\": \"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c\",\n			\"description\": {\n				\"default_value\": \"Provider of high performance managed hosting environments\",\n				\"key\": \"service_provider.description\"\n			},\n			\"timestamp\": \"2012-04-05T09:08:16-04:00\"\n		}\n	},\n	\"lti_version\": \"LTI-2p0\",\n	\"message\": [\n		{\n			\"message_type\": [\"ToolProxyRegistrationRequest\", \"ToolProxyReregistrationRequest\"],\n			\"path\": \"{tp_deployment_url}/reregistrations\",\n			\"parameter\": [\n				{\n					\"variable\": \"ToolConsumerProfile.url\",\n					\"name\": \"tc_profile_url\"\n				}\n			]\n		}\n	],\n	\"resource_handler\": [\n        {\n            \"message\": [\n                {\n                    \"path\": \"/settings\",\n                    \"parameter\": [\n                        {\n                            \"variable\": \"ToolProxy.custom.url\",\n                            \"name\": \"tool_proxy_custom_url\"\n                        }, {\n                            \"variable\": \"ToolProxyBinding.custom.url\",\n                            \"name\": \"tool_proxy_binding_custom_url\"\n                        }, {\n                            \"variable\": \"LtiLink.custom.url\",\n                            \"name\": \"lti_link_custom_url\"\n                        }\n                    ],\n                    \"message_type\": \"basic-lti-launch-request\"\n                }\n            ],\n            \"name\": {\n                \"default_value\": \"Settings\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\": {\"code\": \"setting\"},\n            \"description\": {\n                \"default_value\": \"Settings service\",\n                \"key\": \"resource.description\"\n            }\n        },\n        {\n            \"message\": [\n                {\n                    \"path\": \"/echoes\",\n                    \"parameter\": [\n                        {\n                            \"fixed\": \"Narcissus\",\n                            \"name\": \"referrer\"\n                        }, {\n                            \"fixed\": \"3.14159\",\n                            \"name\": \"pi\"\n                        }, {\n                            \"variable\": \"Person.email.primary\",\n                            \"name\": \"user_primary_email\"\n                        }, {\n                            \"variable\": \"CourseOffering.label\",\n                            \"name\": \"discipline\"\n                        }\n                    ],\n                    \"message_type\": \"basic-lti-launch-request\"\n                }\n            ],\n            \"name\": {\n                \"default_value\": \"Echo\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\": {\"code\": \"echo\"},\n            \"description\": {\n                \"default_value\": \"Echo service\",\n                \"key\": \"resource.description\"\n            }\n        },\n        {\n			\"message\": [\n				{\n					\"path\": \"/books\",\n					\"parameter\": [\n						{\n							\"name\": \"vbid\"\n						}\n					],\n					\"message_type\": \"basic-lti-launch-request\"\n				}\n			],\n			\"name\": {\n				\"default_value\": \"Book\",\n				\"key\": \"resource.name\"\n			},\n			\"resource_type\": {\"code\": \"book\"},\n			\"description\": {\n				\"default_value\": \"VitalSource reader for XML, PDF, and ePub content\",\n				\"key\": \"resource.description\"\n			}\n		},\n        {\n			\"message\": [\n				{\n					\"path\": \"/bookselections\",\n					\"parameter\": [\n						{\n							\"name\": \"vbid\"\n						}, {\n							\"name\": \"book_location\"\n						}\n					],\n					\"message_type\": \"basic-lti-launch-request\"\n				}\n			],\n			\"name\": {\n				\"default_value\": \"BookSelection\",\n				\"key\": \"resource.name\"\n			},\n			\"resource_type\": {\"code\": \"bookselection\"},\n			\"description\": {\n				\"default_value\": \"Deep-linked VitalSource reader for XML, PDF, and ePub content\",\n				\"key\": \"resource.description\"\n			}\n		},\n        {\n			\"message\": [\n				{\n					\"path\": \"/iresources\",\n					\"enabled_capability\": [\n						\"Result.autocreate\"\n					],\n					\"parameter\": [\n						{\n							\"name\": \"vbid\"\n						}, {\n							\"variable\": \"Result.uri\",\n							\"name\": \"result_uri\"\n						}\n					],\n					\"message_type\": \"basic-lti-launch-request\"\n				}\n			],\n			\"name\": {\n				\"default_value\": \"InteractiveResource\",\n				\"key\": \"resource.name\"\n			},\n			\"resource_type\": {\"code\": \"iresource\"},\n			\"description\": {\n				\"default_value\": \"Interactive resource\",\n				\"key\": \"resource.description\"\n			}\n		},\n        {\n			\"message\": [\n				{\n					\"path\": \"/bookshelves\",\n					\"parameter\": [\n						{\n							\"variable\": \"CourseOffering.label\",\n							\"name\": \"course_label\"\n						}\n					],\n					\"message_type\": \"basic-lti-launch-request\"\n				}\n			],\n			\"name\": {\n				\"default_value\": \"Bookshelf\",\n				\"key\": \"resource.name\"\n			},\n			\"resource_type\": {\"code\": \"bookshelf\"},\n			\"description\": {\n				\"default_value\": \"VitalSource Bookshelf\",\n				\"key\": \"resource.description\"\n			}\n		}\n	],\n	\"base_url_choice\": [\n		{\n			\"selector\": {\n				\"applies_to\": [\"IconEndpoint\", \"MessageHandler\"]\n			},\n			\"default_base_url\": \"{tp_deployment_url}\"\n		}\n	]\n}\n','2013-01-13 20:12:10','2013-01-13 20:12:10');
+/*!40000 ALTER TABLE `lti2_tp_tools` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lti_registration_wips`
+--
+
+DROP TABLE IF EXISTS `lti_registration_wips`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lti_registration_wips` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `registration_id` int(11) DEFAULT NULL,
+  `lti_version` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tool_consumer_profile` text COLLATE utf8_unicode_ci,
+  `tool_profile` text COLLATE utf8_unicode_ci,
+  `registration_return_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tool_proxy` text COLLATE utf8_unicode_ci,
+  `state` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `result_status` int(11) DEFAULT NULL,
+  `result_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `support_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `product_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lti_registration_wips`
+--
+
+LOCK TABLES `lti_registration_wips` WRITE;
+/*!40000 ALTER TABLE `lti_registration_wips` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lti_registration_wips` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schema_migrations`
+--
+
+DROP TABLE IF EXISTS `schema_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schema_migrations` (
+  `version` varchar(255) NOT NULL,
+  UNIQUE KEY `unique_schema_migrations` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schema_migrations`
+--
+
+LOCK TABLES `schema_migrations` WRITE;
+/*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
+INSERT INTO `schema_migrations` VALUES ('20121231164847'),('20131011162458'),('20131011193733'),('20131012140551'),('20131212163915'),('20131217192847');
+/*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tenant_users`
+--
+
+DROP TABLE IF EXISTS `tenant_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tenant_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_id` int(11) DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tenant_users`
+--
+
+LOCK TABLES `tenant_users` WRITE;
+/*!40000 ALTER TABLE `tenant_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tenant_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tenants`
+--
+
+DROP TABLE IF EXISTS `tenants`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tenants` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tenant_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `secret` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tenant_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tenants`
+--
+
+LOCK TABLES `tenants` WRITE;
+/*!40000 ALTER TABLE `tenants` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tenants` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-01-17 16:17:15
