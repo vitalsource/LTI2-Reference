@@ -40,7 +40,9 @@ module Lti2Commons
       end
       
       def resolve(full_name)
+        full_name ||= ''
         zones = full_name.split('.')
+        return full_name if zones[0].blank?
         category = zones[0].to_sym
         name = zones[1..-1].join('.')
         
