@@ -186,7 +186,7 @@ module Lti2Tc
       puts "before"
       puts Rails.application.config.wire_log.inspect
       puts "after"
-      body = MessageSupport::create_lti_message_body(service_endpoint, final_parameters, Rails.application.config.wire_log, "Lti Launch", true)
+      body = MessageSupport::create_lti_message_body(service_endpoint, subst_final_map, Rails.application.config.wire_log, "Lti Launch", true)
       puts body
       body
 
