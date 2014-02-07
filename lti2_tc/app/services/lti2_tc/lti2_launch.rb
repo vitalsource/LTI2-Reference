@@ -176,12 +176,12 @@ module Lti2Tc
 
       }
 
-      @substitute_final.call(final_parameters) unless @substitute_final.nil?
+      subst_final_map = @substitute_final.call(final_parameters) unless @substitute_final.nil?
 
       key = @resource.tool.key
       secret = @resource.tool.secret
 
-      signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, final_parameters
+      signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, subst_final_map
       puts "TC Signed Request: #{signed_request.signature_base_string}"
       puts "before"
       puts Rails.application.config.wire_log.inspect
