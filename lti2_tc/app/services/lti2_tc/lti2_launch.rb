@@ -12,7 +12,7 @@ module Lti2Tc
       @substitute_final = substitute_final
     end
 
-    def launch()
+    def launch(open_in_external_window=true)
       tool = @resource.tool
       tool_name = @tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
       raise "Tool #{tool_name} is currently disabled" unless tool.is_enabled
@@ -186,7 +186,8 @@ module Lti2Tc
       puts "before"
       puts Rails.application.config.wire_log.inspect
       puts "after"
-      body = MessageSupport::create_lti_message_body(service_endpoint, subst_final_map, Rails.application.config.wire_log, "Lti Launch", true)
+      body = MessageSupport::create_lti_message_body(service_endpoint, subst_final_map,
+                             Rails.application.config.wire_log, "Lti Launch", open_in_external_window)
       puts body
       body
 
