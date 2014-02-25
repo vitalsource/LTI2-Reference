@@ -1,12 +1,18 @@
 
-LTI2 -- Reference Implementation
+LTI2 -- Ruby/Rails reference implementation
 ==============
+__John Tibbetts, Integration Architect, Vital Source Technologies__
 
-This is the LTI2 reference implementation.  To be able to show full working LTI2 interactions this reference implementation needs to create both ends of an LTI2 conversation.  Therefore, this implementation provides both an LTI2 Tool Consumer and an LTI2 Tool Provider.
+This is an LTI2 reference implementation.  A reference implementation is one that is intended to demonstrate working code based on an emerging standard.  However implementation provides than just exemplary code.  In 
+addition, it fulfills the following responsibilities:
 
-For all the details, see the full [LTI2 online docs](http://www.imsglobal.org/lti/index.html).
+* It implements both sides of the LTI convesation; that is, Tool Consumer (often an LMS) and Tool Provider.  These two components will work (out-of-the-box) with one another.  Or the Tool Consumer can be aimed at an external Tool Provider (possibly in development) to test it.  Or the Tool Provider can be addressed by an external Tool Consumer (possibly in development) to test it.
 
-This reference implementation is written in the Ruby language under the Rails web framework. 
+* As new facilities, messages, or services are added to LTI2 they will be added to this reference model.  The intent is to add them in while they are still in development so that the LTI Services Task Force can see them in early operation.
+
+* The actual LTI-specific TC and TP functionality are implemented as Rails moountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
+
+* The reference implementation contains sample applications that can either be run under sqlite3 or MySQL.  Sample data is provided for each type of database.
 
 __NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
 sqlite3 is built in and the data is prebuilt in github.  This means that the TC and TP can be checked out and immediately run with no database prep.
@@ -16,6 +22,9 @@ If you'd prefer to use MySQL it's easy to switch.
 * To change the TC to MySQL, edit lti_tc/config/database.yml. To change the TP to MySQL, edit lti_tp/config/database.yml.  These are entirely independent.  There is no requirement that they use the same database configuration.
 
 * Follow the TC- or TP-appropriate instructions in the sections below.  For a MySQL database you'll need to load the database from the /backups directory.
+
+For all the details of LTI, see the full [LTI2 online docs](http://www.imsglobal.org/lti/index.html).
+
 
 
 Prerequisites
