@@ -51,11 +51,48 @@ The repository structure is as follows:
 		|
 		--tc_sample_app		(lightweight TC host based on active_admin gem)
 		|
-		|
+		|˙
 		--tp_sample_app		(lightweight TP and tool)
+		
+
+Getting it running
+==================
+
+1. Clone the repo onto your machine.  
+
+2. Create a command prompt for the tool consumer.  chdir into <lti_repo>/tc_sample_app.  
+
+3. [FIRST-TIME ONLY after clone of TC] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
+
+4. Start a rails server for the Tool Consumer on port 4000: 'rails s -p 4000'.
+
+5. Create a command prompt for the tool provider.  chdir into <lti_repo>/tp_sample_app.
+
+6. [FIRST-TIME ONLY after clone of TP] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
+
+7. Start a rails server for the Tool Provider on port 5000: 'rails s -p 5000'.
+
+8. Open a browser and go to: 'http://localhost:4000/admin'.  If you're prompted for a login, username is 'admin@lumos.org', password is 'password'.
+
+9. Note: from here on you can see this tool used at: [LTI2 webcast](https://www.youtube.com/watch?v=3zTbtTldeiA "LTI2 webcast").
+
+10. Dashboard: 'Admin Functions' -> 'Register New Tool'.  Enter: 'http://localhost:5000/lti2_tp/registrations'.
+
+11. This will invoke an LTI2 Registration request to the Tool Provider.  The screen with title Fabericious is the Tool Provider's dialog to gather information.  The only action is to add some unique string to the end of the 'Institution name'.  For example, put in the time 1113.  Doing this ensures it can be run repeatedly, since duplicate subsequent entries would be rejected if the value didn't change.  Click the "Update" button.
+
+12. This should return you to the Tool Actions page of the Tool Consumer.  Click on the "[enable now]" link in the column 'Enabled?'.  This will activate the newly registered tool.
+
+13. Return to admin menu.  Click 'My Courses'.  Pick SMPL101A.  Links to a number of resources (within the single tool) are available.  Try 'Echo' to see the Tool Provider's log of the LTI parameters.  Try other resources as you like.
+
+14. Return to Admin.  'Admin Functions' --> 'Show Wirelog'.  This will display a structured log with messages emanating from the Tool Consumer left-adjusted and messages emanating from the Tool Provider center-adjusted.
 
 
-Setting up your database
+
+
+
+
+
+Changing your database configuration
 ------------------------
 
 __NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
