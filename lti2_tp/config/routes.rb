@@ -1,16 +1,7 @@
-Fabericious::Application.routes.draw do
+Lti2Tp::Engine.routes.draw do
 
-  resources :deployment_proposals
+  resources :registrations
 
-  resources :echoes
-  resources :settings
-  resources :books
-  resources :bookshelves
-  resources :bookselections
-  resources :iresources
-  
-  match 'reregistrations' => 'deployment_proposals#reregister', :via => :post
-
-  root :to => "home#index"
+  #match 'reregistrations' => 'deployment_proposals#reregister', :via => :post
 
 end

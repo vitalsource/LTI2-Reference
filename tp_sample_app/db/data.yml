@@ -1,0 +1,138 @@
+
+---
+lti2_tp_registries:
+  columns:
+  - id
+  - name
+  - content
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - tp_deployment_url
+    - http://rails.kinexis.com:5000
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
+  - - 2
+    - security_contract_template
+    - ! "{ \"shared_secret\" : \"{aSecret}\",\n  \"tool_service\" : [ { \n\t\"@id\":
+      \":ToolProxy.collection\",\n\t\"@type\" : \"RestServiceProfile\",\n        \"action\"
+      : \"POST\",\n        \"service\" : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.collection\"\n
+      \     },\n      { \n\t\"@id\": \":ToolProxy.item\",\n\t\"@type\" : \"RestServiceProfile\",\n
+      \       \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\"
+      : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.item\"\n
+      \     },\n      { \n\t\"@id\": \":ToolProxy.collection\",\n\t\"@type\" : \"RestService\",\n
+      \       \"action\" : [ \"GET\",\n            \"PUT\"\n          ],\n        \"service\"
+      : \"http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#Result.item\"\n
+      \     }\n    ]\n}"
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
+  - - 3
+    - relaxed_oauth_check
+    - 'false'
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
+  - - 4
+    - result_template
+    - ! "{\n  \"@context\" : \"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result\",\n
+      \ \"@type\" : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n
+      \   \"@value\"  : {value}\n  }\n}\n"
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
+  - - 5
+    - tool_provider_name
+    - Fabericious
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
+
+---
+lti2_tp_tools:
+  columns:
+  - id
+  - tool_name
+  - tool_profile_template
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - LTI2 BookTools
+    - ! "{\n\t\"product_instance\": {\n\t\t\"product_info\": {\n\t\t\t\"product_version\":
+      \"10.3\",\n\t\t\t\"technical_description\": {\n\t\t\t\t\"default_value\": \"Support
+      provided for all LTI 1 extensions as well as LTI 2\",\n\t\t\t\t\"key\": \"tool.technical\"\n\t\t\t},\n\t\t\t\"product_name\":
+      {\n\t\t\t\t\"default_value\": \"LTI2 BookTools\",\n\t\t\t\t\"key\": \"tool.name\"\n\t\t\t},\n\t\t\t\"product_family\":
+      {\n\t\t\t\t\"code\": \"assessment-tool\",\n\t\t\t\t\"vendor\": {\n\t\t\t\t\t\"website\":
+      \"{{tp_deployment_url}}\",\n\t\t\t\t\t\"code\": \"fabericious.org\",\n\t\t\t\t\t\"name\":
+      {\n\t\t\t\t\t\t\"default_value\": \"Fab\",\n\t\t\t\t\t\t\"key\": \"tool.vendor.name\"\n\t\t\t\t\t},\n\t\t\t\t\t\"timestamp\":
+      \"2012-04-05T09:08:16-04:00\",\n\t\t\t\t\t\"contact\": {\n\t\t\t\t\t\t\"email\":
+      \"info@fabericious.com\"\n\t\t\t\t\t},\n\t\t\t\t\t\"description\": {\n\t\t\t\t\t\t\"default_value\":
+      \"Fabericious is a leading provider of interactive tools for education\",\n\t\t\t\t\t\t\"key\":
+      \"tool.vendor.description\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"description\":
+      {\n\t\t\t\t\"default_value\": \"Fabericious reflowable ePub3 Textbook\",\n\t\t\t\t\"key\":
+      \"tool.description\"\n\t\t\t}\n\t\t},\n\t\t\"support\": {\n\t\t\t\"email\":
+      \"helpdesk@fabericious.com\"\n\t\t},\n\t\t\"guid\": \"fd75124a-140e-470f-944c-114d2d92bb40\",\n\t\t\"service_provider\":
+      {\n\t\t\t\"support\": {\n\t\t\t\t\"email\": \"support@ec2.fabericious.com\"\n\t\t\t},\n\t\t\t\"service_provider_name\":
+      {\n\t\t\t\t\"default_value\": \"Amazon Cloud\",\n\t\t\t\t\"key\": \"service_provider.name\"\n\t\t\t},\n\t\t\t\"guid\":
+      \"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"Provider of high performance managed hosting environments\",\n\t\t\t\t\"key\":
+      \"service_provider.description\"\n\t\t\t},\n\t\t\t\"timestamp\": \"2012-04-05T09:08:16-04:00\"\n\t\t}\n\t},\n\t\"lti_version\":
+      \"LTI-2p0\",\n\t\"message\": [\n\t\t{\n\t\t\t\"message_type\": [\"ToolProxyRegistrationRequest\",
+      \"ToolProxyReregistrationRequest\"],\n\t\t\t\"path\": \"{tp_deployment_url}/reregistrations\",\n\t\t\t\"parameter\":
+      [\n\t\t\t\t{\n\t\t\t\t\t\"variable\": \"ToolConsumerProfile.url\",\n\t\t\t\t\t\"name\":
+      \"tc_profile_url\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t],\n\t\"resource_handler\":
+      [\n        {\n            \"message\": [\n                {\n                    \"path\":
+      \"/settings\",\n                    \"parameter\": [\n                        {\n
+      \                           \"variable\": \"ToolProxy.custom.url\",\n                            \"name\":
+      \"tool_proxy_custom_url\"\n                        }, {\n                            \"variable\":
+      \"ToolProxyBinding.custom.url\",\n                            \"name\": \"tool_proxy_binding_custom_url\"\n
+      \                       }, {\n                            \"variable\": \"LtiLink.custom.url\",\n
+      \                           \"name\": \"lti_link_custom_url\"\n                        }\n
+      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
+      \               }\n            ],\n            \"name\": {\n                \"default_value\":
+      \"Settings\",\n                \"key\": \"resource.name\"\n            },\n
+      \           \"resource_type\": {\"code\": \"setting\"},\n            \"description\":
+      {\n                \"default_value\": \"Settings service\",\n                \"key\":
+      \"resource.description\"\n            }\n        },\n        {\n            \"message\":
+      [\n                {\n                    \"path\": \"/echoes\",\n                    \"parameter\":
+      [\n                        {\n                            \"fixed\": \"Narcissus\",\n
+      \                           \"name\": \"referrer\"\n                        },
+      {\n                            \"fixed\": \"3.14159\",\n                            \"name\":
+      \"pi\"\n                        }, {\n                            \"variable\":
+      \"Person.email.primary\",\n                            \"name\": \"user_primary_email\"\n
+      \                       }, {\n                            \"variable\": \"CourseOffering.label\",\n
+      \                           \"name\": \"discipline\"\n                        }\n
+      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
+      \               }\n            ],\n            \"name\": {\n                \"default_value\":
+      \"Echo\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\":
+      {\"code\": \"echo\"},\n            \"description\": {\n                \"default_value\":
+      \"Echo service\",\n                \"key\": \"resource.description\"\n            }\n
+      \       },\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
+      \"/books\",\n\t\t\t\t\t\"parameter\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\":
+      \"vbid\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
+      {\n\t\t\t\t\"default_value\": \"Book\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
+      {\"code\": \"book\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
+      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookselections\",\n\t\t\t\t\t\"parameter\":
+      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"name\":
+      \"book_location\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
+      \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
+      \"BookSelection\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
+      {\"code\": \"bookselection\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"Deep-linked VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\":
+      \"resource.description\"\n\t\t\t}\n\t\t},\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
+      \"/iresources\",\n\t\t\t\t\t\"enabled_capability\": [\n\t\t\t\t\t\t\"Result.autocreate\"\n\t\t\t\t\t],\n\t\t\t\t\t\"parameter\":
+      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"variable\":
+      \"Result.uri\",\n\t\t\t\t\t\t\t\"name\": \"result_uri\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
+      \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
+      \"InteractiveResource\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
+      {\"code\": \"iresource\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"Interactive resource\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
+      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookshelves\",\n\t\t\t\t\t\"parameter\":
+      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"variable\": \"CourseOffering.label\",\n\t\t\t\t\t\t\t\"name\":
+      \"course_label\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
+      {\n\t\t\t\t\"default_value\": \"Bookshelf\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
+      {\"code\": \"bookshelf\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
+      \"VitalSource Bookshelf\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t}\n\t],\n\t\"base_url_choice\":
+      [\n\t\t{\n\t\t\t\"selector\": {\n\t\t\t\t\"applies_to\": [\"IconEndpoint\",
+      \"MessageHandler\"]\n\t\t\t},\n\t\t\t\"default_base_url\": \"{tp_deployment_url}\"\n\t\t}\n\t]\n}\n"
+    - 2013-01-13 20:12:10.000000000 Z
+    - 2013-01-13 20:12:10.000000000 Z
