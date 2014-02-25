@@ -14,15 +14,6 @@ addition, it fulfills the following responsibilities:
 
 * The reference implementation contains sample applications that can either be run under sqlite3 or MySQL.  Sample data is provided for each type of database.
 
-__NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
-sqlite3 is built in and the data is prebuilt in github.  This means that the TC and TP can be checked out and immediately run with no database prep.
-
-If you'd prefer to use MySQL it's easy to switch.  
-
-* To change the TC to MySQL, edit lti_tc/config/database.yml. To change the TP to MySQL, edit lti_tp/config/database.yml.  These are entirely independent.  There is no requirement that they use the same database configuration.
-
-* Follow the TC- or TP-appropriate instructions in the sections below.  For a MySQL database you'll need to load the database from the /backups directory.
-
 For all the details of LTI, see the full [LTI2 online docs](http://www.imsglobal.org/lti/index.html).
 
 
@@ -34,7 +25,7 @@ Follow online docs to install Ruby/Rails for your development platform.  This co
 
 * Github identity.  During the prototype period (pre-conformance test) this must be sent to Lisa Mattson )Lisa Mattson (lisa@imsglobal.org) all access to the repos.
 
-* With a valid Github identity, 'git clone git@github.com:IMSGlobal/lti2_reference.git'.
+* With a valid Github identity, clone this repo.
 
 * This code has been tested with either MySQL or sqlite.  The default database load instructions will work for either of these databases. They would likely work with virtually any other Rails-compatible database.
 
@@ -43,20 +34,39 @@ Structure of this repository
 -----------------------------
 The repository structure is as follows:
 
-	lti2_repository
+	LTI2--
 		|
 		|
-		--lti2_tc   		(tool consumer)
+		--closet			(database backups, common scripts, metadata artifacts)
 		|
 		|
-		--lti2_tp			(tool provider)
+		--lti2_tc   		(tool consumer engine)
+		|
+		|
+		--lti2_tp			(tool provider engine)
 		|
 		|
 		--lti2_commons		(library used by both TC and TP)
+		|
+		|
+		--tc_sample_app		(lightweight TC host based on active_admin gem)
+		|
+		|
+		--tp_sample_app		(lightweight TP and tool)
 
 
-Setting up your database (unless default sqlite3 is used)
----------------------------------------------------------
+Setting up your database
+------------------------
+
+__NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
+
+sqlite3 is built in and the data is prebuilt in github.  This means that the TC and TP can be checked out and immediately run with no database prep.
+
+If you'd prefer to use MySQL it's easy to switch.  
+
+* To change the TC to MySQL, edit lti_tc/config/database.yml. To change the TP to MySQL, edit lti_tp/config/database.yml.  These are entirely independent.  There is no requirement that they use the same database configuration.
+
+* Follow the TC- or TP-appropriate instructions in the sections below.  For a MySQL database you'll need to load the database from the /backups directory.
 
 
 
