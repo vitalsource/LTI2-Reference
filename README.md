@@ -20,12 +20,14 @@ For all the details of LTI, see the full [LTI2 online docs](http://www.imsglobal
 
 Prerequisites
 -------------
-* Ruby/Rails.
-Follow online docs to install Ruby/Rails for your development platform.  This code should run on any Ruby/Rails version written in recent years.
+
+* Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 1.9.3.
 
 * Github identity.  During the prototype period (pre-conformance test) this must be sent to Lisa Mattson )Lisa Mattson (lisa@imsglobal.org) all access to the repos.
 
 * With a valid Github identity, clone this repo.
+
+* Run bundler in subsdirectories tc_sample_app (the TC directory) and tp_sample_app (the TP directory).
 
 * This code has been tested with either MySQL or sqlite.  The default database load instructions will work for either of these databases. They would likely work with virtually any other Rails-compatible database.
 
@@ -86,14 +88,19 @@ Getting it running
 
 14. Return to Admin.  'Admin Functions' --> 'Show Wirelog'.  This will display a structured log with messages emanating from the Tool Consumer left-adjusted and messages emanating from the Tool Provider center-adjusted.
 
+Resetting the data
+------------------
 
+After running the demo, the data can be reset to its base state (eliminating any current registrations, links, etc.).  To reset the data for the Tool Consumer:
 
+1. Stop the server in the TC directory. 
+2. rake db:seed
+3. Restart the server
 
-
-
+The procedure is identical for the Tool Provider, except perform the operations in the TP directory.
 
 Changing your database configuration
-------------------------
+=============================
 
 __NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
 
@@ -105,78 +112,75 @@ If you'd prefer to use MySQL it's easy to switch.
 
 * Follow the TC- or TP-appropriate instructions in the sections below.  For a MySQL database you'll need to load the database from the /backups directory.
 
+* There is no requirement that the TC and the TP need to use the same database configuration.  e.g. The TC might be using sqlite3 and the TP mysql.
+
+It's also possible to switch database configurations with a command line option rather than hard-wiring the choice using database.yml.  To accomplish this use the -e option on the relevant rails command.
+
+For example:
+
+* Start the TC server with mysql: rails s -p 4000 -e mysql
+
+* Start the TP server with sqlite: rails s -p 5000 -e sqlite3
+
+If using this method remember to apply these same environments to rake tasks:
+
+For example:
+
+* Reseed the mysql database: RAILS_ENV=mysql rake db:seed
+
+* Reseed the sqlite3 database: RAILS_ENV=sqlite3 rake db:seed
 
 
-LTI2 -- Tool Consumer
-=====================
+Setting up MySQL databases
+-----------------------
 
-lti2_tc implements Lumos, a skeletal Learning Management System with LTI2 capability.  Lumos capabilities include:
+_If you choose a MySQL Database for TC_  
 
-lti2-tc uses LTI to invoke various resources in a tool provided by the lti2_tp.
-
-lti2_commons implements functions common to both tool consumer and tool provider.
-
-
-Install lti2_tc
----------------
-1. git clone git@github.com:IMSGlobal/lti2_tc.git
-2. gem install bundler
-3. cd lti2_tc
-4. bundle install
-5. rails s -p 4000
-
-If you choose a MySQL Database  
----------------------
 1. Create the 'Lumos' database.
 2. Allow Lumos access to user: 'ltiuser' with password 'ltipswd'.
 3. Initialize the database: mysql Lumos -u ltiuser -p < backup/lti2_tc.sql
 
-Running lti2_tc
----------------
-http://localhost:4000/admin
-Login credentials: admin@lumos.org / password		(literally: 'password')
+_If you choose a MySQL Database for TP__ 
 
-To Register a new Tool Provider, use the following Registration URL:
-http://localhost:5000/deployment_proposals
-
-Resetting the data
-------------------
-[in directory lti2_tc]
-
-1. Terminate (ctrl-C) the process if it's running
-2. rake db:load
-3. restart (i.e., 'rails s -p 4000)
-
-
-LTI2 -- Tool Provider
-=====================
-
-lti2_tp implements Fabericious, a skeletal an LTI2-compatible tool provider.  
-
-lti2_commons implements functions common to both tool consumer and tool provider.
-
-
-Install lti2_tp
----------------
-1. git clone git@github.com:IMSGlobal/lti2_tp.git
-2. gem install bundler
-3. cd lti2_tp
-4. bundle install
-5. rails s -p 5000
-
-If you choose a MySQL Database 
----------------------
 1. Create the 'fabericious' database.
 2. Allow fabericious access to user: 'ltiuser' with password 'ltipswd'.
 3. mysql fabericious -u ltiuser -p < backup/lti2_tp.sql
 
+Using the Tool Consumer Engine with another host application
+=========================================
+As described above, this distribution uses tc_sample_app as a pseudo LMS.  All of the LTI-specific behavior is mounted into this app using the Rails mountable engine capability.  To use this same engine in another host application the following steps need to be followed.
 
-Resetting the data
-------------------
-[in directory lti2_tp]
+1. The Gemfile of the host application should access the gem from VST github by including the line:
+	* gem 'lti2_tc', :github => 'vitalsource/lti2_tc'
 
-1. Terminate (ctrl-C) the process if it's running
-2. rake db:load
-3. restart (i.e., 'rails s -p 5000)
+2. At a rails command-line in the host, import the TC engine migrations into the db migrations of the host:
+	* rake lti_tc:install:migrations
+	
+3. In the host application's routes.rb, specify the mount point of the TC engine:
+	* mount Lti2Tc::Engine, :at => '/lti2_tc'
+	
+4. Implement the host responsibilities of the engine:
+	* [to be added]
+	
+Using the Tool Provider Engine with another host application
+=========================================
+As described above, this distribution uses tp_sample_app as a pseudo tool provider.  All of the LTI-specific behavior is mounted into this app using the Rails mountable engine capability.  To use this same engine in another host application the following steps need to be followed.
 
+1. The Gemfile of the host application should access the gem from VST github by including the line:
+	* gem 'lti2_tp', :github => 'vitalsource/lti2_tp'
+
+2. At a rails command-line in the host, import the TP engine migrations into the db migrations of the host:
+	* rake lti_tp:install:migrations
+	
+3. In the host application's routes.rb, specify the mount point of the TP engine:
+	* mount Lti2Tp::Engine, :at => '/lti2_tp'
+	
+4. Implement the host responsibilities of the engine:
+	* [to be added]
+	
+
+
+
+
+  
 
