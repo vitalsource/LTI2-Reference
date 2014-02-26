@@ -131,7 +131,7 @@ module Lti2Tc
           unless grade_result
             grade_result = GradeResult.new
             grade_result.link_id = @link.id
-            grade_result.admin_user_id = user.id
+            grade_result.admin_user_id = @user.id
             grade_result.save
           else
             # note that a nil grade_result still let's us through
@@ -176,7 +176,7 @@ module Lti2Tc
 
       }
 
-      subst_final_map = @substitute_final.call(final_parameters) unless @substitute_final.nil?
+      subst_final_map = @substitute_final.nil? ? final_parameters : @substitute_final.call(final_parameters)
 
       key = @resource.tool.key
       secret = @resource.tool.secret

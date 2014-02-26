@@ -1,9 +1,12 @@
 
 
 class ResultsController < ApplicationController
-  before_filter :oauth_validation   # look in ApplicationController
-  
+  def pre_process
+    Lti2Tc::Authorizer::pre_process_tenant(request)
+  end
+
   def show
+    pre_process
     begin
       grade_result = GradeResult.find(params['id'])
       result_json_object = {
@@ -19,6 +22,7 @@ class ResultsController < ApplicationController
   end
   
   def update
+    pre_process
     begin
       grade_result = GradeResult.find(params['id'])
       body_str = request.body.read

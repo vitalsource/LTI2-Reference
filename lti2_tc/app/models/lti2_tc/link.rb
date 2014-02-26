@@ -12,7 +12,7 @@ module Lti2Tc
     attr_accessible :enrollment_id, :resource_link_label, :tool_id, :link_parameters, :grade_item_id
 
     def lti_launch(user, return_url)
-      enrollment = Enrollment.where(:admin_user_id => @user.id, :course_id => @course.id).first
+      enrollment = Enrollment.where(:admin_user_id => user.id, :course_id => course.id).first
       Lti2Tc::Lti2Launch.new(user, self, self.resource, self.course, enrollment, return_url).launch()
     end
 
