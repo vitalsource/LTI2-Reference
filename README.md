@@ -159,8 +159,10 @@ As described above, this distribution uses tc_sample_app as a pseudo LMS.  All o
 3. In the host application's routes.rb, specify the mount point of the TC engine:
 	* mount Lti2Tc::Engine, :at => '/lti2_tc'
 	
-4. Implement the host responsibilities of the engine:
-	* [to be added]
+4. Implement the host responsibilities of the engine.  The can be seen in exemplary code in the tc_sample_app.
+	* Implement user experience to gather a Tool Provider ToolRegistration.  cf. tc_sample_app/app/admin/deployment_requests.rb in member_action :request_product.
+	* Once the tool is registered it needs to be enabled.  Set up a UX to display tools and tool status.  Cf. tc_sample_app/app/admin/tool_actions.rb.  Enabling (or disabling) the tool is performed by changing is_enabled.  cf. 'toggle' behavior in tool_actions.
+	* Set up 'resolver' methods (Visitor pattern) in course, user, grade_result.  These are invoked by the callbacks in app/services/LtiLaunch.
 	
 Using the Tool Provider Engine with another host application
 =========================================
