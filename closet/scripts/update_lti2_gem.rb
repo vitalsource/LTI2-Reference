@@ -9,9 +9,9 @@ def update_gem(gem)
   system <<STR
 rm -rf /tmp/#{gem}
 cd /tmp
-git clone git@github.com:vitalsource/#{gem}.git
+git clone git@github.com:jtibbetts/#{gem}.git
 cd /tmp/#{gem}
-cp -R ~/git/lti2_reference/#{gem} /tmp/#{gem}
+cp -R ~/git/LTI2/#{gem} /tmp/#{gem}
 git add .
 git commit -am 'update gem'
 git push
