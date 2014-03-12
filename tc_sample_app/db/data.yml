@@ -442,7 +442,7 @@ lti2_tc_registries:
     - 2012-07-09 23:45:10.000000000 Z
   - - 3
     - tc_deployment_url
-    - http://rails.kinexis.com:4000
+    - http://localhost:4000
     - 2013-12-24 00:00:00.000000000 Z
     - 2012-07-29 17:58:18.000000000 Z
   - - 5

@@ -2705,3 +2705,29 @@ Successfully updated 1 values
 
 
 </div></pre>
+<div class="ToolConsumer"><pre>
+2014-03-12 10:55:43 -0700
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/71fdc2b0-8c3d-0131-16c0-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="71fdb7c0-8c3d-0131-16c0-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="6643c0e472f7c7f2d7ccb516511a6cd1"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>

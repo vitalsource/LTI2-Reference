@@ -154,7 +154,7 @@ As described above, this distribution uses tc_sample_app as a pseudo LMS.  All o
 	* gem 'lti2_tc', :github => 'vitalsource/lti2_tc'
 
 2. At a rails command-line in the host, import the TC engine migrations into the db migrations of the host:
-	* rake lti_tc:install:migrations
+	* rake lti2_tc:install:migrations
 	
 3. In the host application's routes.rb, specify the mount point of the TC engine:
 	* mount Lti2Tc::Engine, :at => '/lti2_tc'
@@ -170,7 +170,7 @@ As described above, this distribution uses tp_sample_app as a pseudo tool provid
 	* gem 'lti2_tp', :github => 'vitalsource/lti2_tp'
 
 2. At a rails command-line in the host, import the TP engine migrations into the db migrations of the host:
-	* rake lti_tp:install:migrations
+	* rake lti2_tp:install:migrations
 	
 3. In the host application's routes.rb, specify the mount point of the TP engine:
 	* mount Lti2Tp::Engine, :at => '/lti2_tp'
