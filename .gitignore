@@ -15,21 +15,19 @@
 /tmp
 log
 
-.idea/
 .project
 .powrc
 .rspec
 .rvmrc
+.rbenv-version
+.tags
+.tags_sorted_by_file
+.gemtags
+build_ruby_tags.rb
 
-public/files
-
-.rvmrc
-.powrc
-=======
-public/files
-
-.powrc
-.rvmrc
 .idea
-public/wirelog.html
+atlassian-ide-plugin.xml
+
+/public/files
+/public/wirelog.html
 

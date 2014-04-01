@@ -8,13 +8,12 @@ Gem::Specification.new do |gem|
   gem.description   = %q{LTI common utilities}
   gem.summary       = %q{LTI common utilities}
 
-  gem.add_dependency 'oauth', '~> 0.4.5'
-  
   gem.files         = Dir['{lib/**/*,[A-Z]*}']
-  
+
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency    'httparty'
-  gem.add_runtime_dependency    'lrucache'
+  gem.add_runtime_dependency 'oauth', '~> 0.4.7'
+  gem.add_runtime_dependency 'httparty', '~> 0.8.1'
+  gem.add_runtime_dependency 'lrucache'
 
 end

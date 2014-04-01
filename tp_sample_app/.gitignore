@@ -1,4 +1,21 @@
-log/development.log
-tmp
+/.bundle
+
+/log/*.log
+/tmp
 log
 
+.project
+.powrc
+.rspec
+.rvmrc
+.rbenv-version
+.tags
+.tags_sorted_by_file
+.gemtags
+build_ruby_tags.rb
+
+.idea
+atlassian-ide-plugin.xml
+
+/public/files
+/public/wirelog.html

@@ -10,15 +10,16 @@ Gem::Specification.new do |s|
   s.authors     = ["John Tibbetts"]
   s.email       = ["john.tibbetts@ingramcontent.com"]
   s.homepage    = "http://vitalsource.com"
-  s.summary     = "Lti2 Tool Provider"
-  s.description = "Lti2 Tool Provider"
+  s.summary     = "LTI2 Tool Provider"
+  s.description = "LTI2 Tool Provider"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
-  
-  s.add_dependency "rails"
 
-  s.add_dependency "mysql2"
+  s.required_ruby_version = '~> 2.0.0'
+
+  s.add_dependency 'rails', '~> 4.0.0'
+  s.add_dependency 'mysql2', '~> 0.3.13'
 
   s.add_development_dependency "sqlite3"
 end

@@ -1,63 +1,44 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+ruby '2.0.0'
 
-# until spurious security warning disappears
-gem 'rack', '< 1.4.2'
+gem 'rails', '~> 4.0.0'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'lti2_tc', :github => 'jtibbetts/lti2_tc'
-gem 'lti2_tc', :path => '../lti2_tc'
-
+gem 'mysql2', '~> 0.3.13'
 gem 'sqlite3'
 
-gem 'json'
-gem 'json-ld'
-gem 'jsonpath'
-
-#gem 'lti2_commons', :github => 'jtibbetts/lti2_commons'
+gem 'lti2_tc', :path => '../lti2_tc'
 gem 'lti2_commons', :path => '../lti2_commons'
 
-gem "haml", '4.0.4'
-gem "haml-rails"
-gem "haml-contrib"
+gem 'activeadmin', github: 'gregbell/active_admin'
+#Active admin dependencies
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
+gem 'inherited_resources', github: 'josevalim/inherited_resources'
 
-gem 'RedCloth'
-gem "activeadmin" , :git  =>  'git://github.com/gregbell/active_admin.git'
-gem 'lrucache'
+gem 'haml-rails', '~> 0.4'
 gem 'httparty', '~> 0.8.1'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'json', '~> 1.8.0'
+gem 'jsonpath', '0.5.1'
+gem 'lrucache'
+gem 'RedCloth', '~> 4.2.9'
+gem 'sass-rails', '~> 4.0.0'
 gem 'yaml_db'
-gem 'mysql2','0.3.13'
-gem 'uuid'
-# gem 'haml-contrib'
+gem 'uuid', '~> 2.3.7'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+group :development do
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'uglifier', '~> 2.4.0'
+  gem 'execjs'
+  gem 'therubyracer', '~> 0.12.0'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
-gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
+group :development, :test do
+  gem 'ruby-core-docs', '~> 2.0.0'
+  gem 'pry'
+  gem 'pry-plus'
+  gem 'pry-rails'
+end
