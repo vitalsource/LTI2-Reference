@@ -1,5 +1,7 @@
 module Lti2Tc
+
   class ToolRegistration
+
     def self.remap_tool_consumer_profile(tool_consumer_profile_wrapper, tc_profile_guid)
       tool_consumer_profile_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_consumer_profile_guid' => tc_profile_guid}
       tool_consumer_profile_wrapper.root['guid'] = tc_profile_guid
@@ -72,5 +74,7 @@ module Lti2Tc
       body = MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Reregister Tool")
       body
     end
+
   end
+
 end

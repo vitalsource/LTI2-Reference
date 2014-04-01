@@ -1,9 +1,9 @@
-
-
 ActiveAdmin.register_page "Course Page" do
+
   menu :label => "Course Page", :parent => "LMS..."
-  
-    content :title => proc{ I18n.t("active_admin.dashboard") } do
+
+  content :title => proc{ I18n.t("active_admin.dashboard") } do
+
     if params.has_key? "lti_errormsg"
       div :style => "color: red" do
         span params['lti_errormsg']
@@ -14,7 +14,7 @@ ActiveAdmin.register_page "Course Page" do
     course_id = params['course_id']
     link_id = params['link_id']
     toggle = params['toggle']
-    
+
     # special cases first
     if method == "toggle"
       link = Lti2Tc::Link.find(link_id)
@@ -56,13 +56,13 @@ ActiveAdmin.register_page "Course Page" do
       new_link.grade_item_id = grade_item_id
       new_link.save
     end
-      
-    # show the courses  
+
+    # show the courses
     unless method == "link"
       course = Course.find(course_id)
       request['course'] = course
       is_non_student = current_admin_user.role != 'student'
-      
+
       links = Lti2Tc::Link.where(:course_id => course.id)
       links.each { |link| 
         link['is_link_visible'] = is_non_student || link.is_ready_for_use
@@ -80,9 +80,9 @@ ActiveAdmin.register_page "Course Page" do
         else
           link['grade_item_label'] = ''
         end
-        
+
       }
-      
+
       # prepare resource key and list
       resources = Lti2Tc::Resource.order('name').all
       resource_list = []
@@ -106,10 +106,10 @@ ActiveAdmin.register_page "Course Page" do
       end
       request['grade_item_list'] = grade_item_list
       request['grade_item_map'] = grade_item_map
-                  
+
       request['is_non_student'] = is_non_student
       request['links'] = links
-      
+
       render "course_page"
     else  # launch a link
       if link_id
@@ -121,4 +121,5 @@ ActiveAdmin.register_page "Course Page" do
     end
 
   end # content
+
 end

@@ -1,7 +1,9 @@
 require_dependency "lti2_tc/application_controller"
 
 module Lti2Tc
+
   class ToolsController < Lti2Tc::ApplicationController
+
     include OAuth::OAuthProxy
     include Lti2Commons::Utils
 
@@ -86,7 +88,6 @@ module Lti2Tc
       end
 
       # create links for conformance test
-
 
       tc_profile_url = tool_proxy.first_at('tool_consumer_profile')
       tc_profile_guid = tc_profile_url.split('/').last if tc_profile_url =~ /\//
@@ -266,5 +267,7 @@ module Lti2Tc
 
       [tool_proxy, nil, nil]
     end
+
   end
+
 end

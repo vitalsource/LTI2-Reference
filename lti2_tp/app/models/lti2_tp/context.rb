@@ -1,6 +1,7 @@
 module Lti2Tp
+
   class Context < ActiveRecord::Base
-    attr_accessible :content
+
     SESSION_LTI2_CONTEXT_ID = 'lti2_tc_profile.key'
 
     class Holder
@@ -52,4 +53,5 @@ module Lti2Tp
     end
 
   end
+
 end

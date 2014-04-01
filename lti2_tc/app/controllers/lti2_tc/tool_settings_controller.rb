@@ -1,7 +1,9 @@
 require_dependency "lti2_tc/application_controller"
 
 module Lti2Tc
+
   class ToolSettingsController < ApplicationController
+
     before_filter :pre_process_tenant   # look in ApplicationController
 
     def initialize
@@ -197,6 +199,7 @@ module Lti2Tc
 
       render :json => "Successfully updated #{settings.length} values"
     end
+
   end
 
 end

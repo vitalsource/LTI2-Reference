@@ -1,10 +1,10 @@
-  
 include Lti2Commons
 include Signer
 include MessageSupport
 include OAuth::OAuthProxy
 
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
 
   def pre_process_tenant
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
 
     # OAuth check here
-    tool_provider_registry = Rails.application.config.tool_provider_registry 
+    tool_provider_registry = Rails.application.config.tool_provider_registry
 
     key = request.parameters['oauth_consumer_key']
     unless key
@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
     tool_proxy = JsonWrapper.new(@registration.tool_proxy_json)
     secret = @tenant.secret
-    
+
     unless tool_provider_registry.relaxed_oauth_check == 'true'
       request_wrapper = OAuthRequest.create_from_rack_request request
       (is_success, signature_base_string) = request_wrapper.verify_signature? secret, Rails.application.config.nonce_cache
@@ -73,9 +73,9 @@ class ApplicationController < ActionController::Base
 
     return true
   end
-  
-  protected 
-  
+
+  protected
+
   def lti_link_to(path, parameters)
     parameter_addends = {
       'lti_version' => 'LTI-1p0',
@@ -84,13 +84,13 @@ class ApplicationController < ActionController::Base
       'user_id' => 'lti2.user',
       'roles' => 'student',
     }
-    
+
     parameters.merge! parameter_addends
-    
+
     service_endpoint = "http://bc.vitalsource.com" + path
     key = '640e19b0-5ff8-11e2-bcfd-0800200c9a66'
     secret = 'A83C3F8E864CA11A'
-    
+
     signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, parameters
     # puts "TC Signed Request: #{signed_request.signature_base_string}"    # parameters['oauth_signature'] = Base64.encode64( OpenSSL::HMAC.digest( OpenSSL::Digest::Digest.new( 'sha1' ), secret+"&", "#{signed_request.signature_base_string}" ) ).chomp.gsub( /\n/, '' )
     MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Launch to external tool")
@@ -140,4 +140,5 @@ class ApplicationController < ActionController::Base
   def save_request_parameters_to_session
     session[:lti_context] = request.parameters.dup
   end
+
 end

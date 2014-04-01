@@ -13,7 +13,9 @@
 # it to a first-class object for traceability and didactic purposes.
 #
 module Lti2Tp
+
   class RegistrationsController < InheritedResources::Base
+
     protect_from_forgery :except => :create
 
     include Lti2Commons
@@ -254,5 +256,7 @@ module Lti2Tp
 
       redirect_to return_url
     end
+
   end
+
 end

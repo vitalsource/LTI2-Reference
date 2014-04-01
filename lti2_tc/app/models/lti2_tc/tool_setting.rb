@@ -1,7 +1,8 @@
 module Lti2Tc
+
   class ToolSetting < ActiveRecord::Base
+
     belongs_to :scopeable, :polymorphic => true
-    attr_accessible :scopeable_id, :scopeable_type, :tool_id, :name, :value
 
     COLLECTION_TYPES = [:Tool, :Context, :Ltilink]
 
@@ -58,5 +59,7 @@ module Lti2Tc
     def to_uri
       ToolSetting.create_uri(self.tool_id, self.scopeable_type, self.scopeable_id)
     end
+
   end
+
 end

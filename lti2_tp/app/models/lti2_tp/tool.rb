@@ -1,7 +1,6 @@
 module Lti2Tp
-  class Tool < ActiveRecord::Base
 
-    attr_accessible :tool_name, :tool_profile, :tool_profile
+  class Tool < ActiveRecord::Base
 
     def get_tool_profile tool_options=nil
       tool_provider_registry = Rails.application.config.tool_provider_registry
@@ -26,4 +25,5 @@ module Lti2Tp
     end
 
   end
+
 end

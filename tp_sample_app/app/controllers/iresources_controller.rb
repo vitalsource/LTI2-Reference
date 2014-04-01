@@ -1,5 +1,5 @@
 class IresourcesController < ApplicationController
-    
+
   def create
     pre_process_tenant
     parameters = request.parameters
@@ -14,7 +14,7 @@ class IresourcesController < ApplicationController
       puts "form: #{@iresource}"
     end
   end
-  
+
   def update
     restore_request_parameters_from_flash
     lti_context = params['lti_context']
@@ -32,22 +32,22 @@ class IresourcesController < ApplicationController
           "put",
           @tenant.tenant_key,
           @tenant.secret,
-          {}, 
+          {},
           create_result_payload(@iresource.score),
           'application/vnd.ims.lis.v2.Result+json'
-                       
-        response = invoke_service(signed_request, Rails.application.config.wire_log, "Submit Result to ToolConsumer")
-        
-        redirect_to lti_context['launch_presentation_return_url']        
+
+        response = invoke_service( signed_request, Rails.application.config.wire_log, 'Submit Result to ToolConsumer' )
+
+        redirect_to lti_context['launch_presentation_return_url']
       end
     rescue Exception => e
       @iresource.errors[:score] << "Score must be a real number from 0.0 to 1.0"
     end
     save_request_parameters_to_flash
   end
-  
+
   private
-  
+
   def create_result_payload score
     JSON.dump({
       "@context" => "http://www.imsglobal.org/imspurl/lis/v2/ctx/Result",
@@ -55,4 +55,5 @@ class IresourcesController < ApplicationController
       "resultScore" => {"@type" => "decimal", "@value" => "#{score.to_s}"}
     })
   end
+
 end

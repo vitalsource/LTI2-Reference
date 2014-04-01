@@ -1,4 +1,5 @@
 class LtiRegistrationWipsController < InheritedResources::Base
+
   def index
     action = params[:action]
     registration_id = params[:registration_id]
@@ -16,7 +17,6 @@ class LtiRegistrationWipsController < InheritedResources::Base
     @lti_registration_state = 'check_tenant'
 
     @lti_registration_wip.save
-
   end
 
   def show
@@ -56,7 +56,6 @@ class LtiRegistrationWipsController < InheritedResources::Base
     redirect_to_registration registration, disposition
   end
 
-
   def update
     @lti_registration_wip = LtiRegistrationWip.find(params[:id])
     @lti_registration_wip.tenant_name = params[:lti_registration_wip][:tenant_name]
@@ -70,4 +69,5 @@ class LtiRegistrationWipsController < InheritedResources::Base
   def redirect_to_registration registration, disposition
     redirect_to "#{@lti_registration_wip.registration_return_url}#{disposition}&id=#{registration.id}"
   end
+
 end

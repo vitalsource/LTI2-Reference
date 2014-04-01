@@ -1,5 +1,5 @@
 class DocsController < ApplicationController
-  
+
   def show
     filename = params['filename'] 
     if filename =~ /.pdf$/

@@ -1,7 +1,6 @@
 module Lti2Tp
+
   class Registration < ActiveRecord::Base
-    attr_accessible :launch_presentation_return_url, :reg_key, :reg_password, :status,
-                    :tc_profile_url, :tenant_name, :user_id
 
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid
       tool_provider_registry = Rails.application.config.tool_provider_registry
@@ -126,7 +125,6 @@ module Lti2Tp
       [response_content, response.code, response.message]
     end
 
-
     def resolve_security_contract tool_consumer_profile
       security_contract = {}
 
@@ -149,4 +147,5 @@ module Lti2Tp
     end
 
   end
+
 end

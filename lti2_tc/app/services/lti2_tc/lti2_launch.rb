@@ -1,4 +1,5 @@
 module Lti2Tc
+
   class Lti2Launch
 
     def initialize(user, link, resource, course, enrollment, return_url, &substitute_final)
@@ -194,8 +195,6 @@ module Lti2Tc
 
     end
 
-
-
     def deprecated_lti_parameters
       ["context_title", "context_label", "resource_link_title", "resource_link_description",
        "lis_person_name_given", "lis_person_name_family", "lis_person_name_full", "lis_person_contact_email_primary",
@@ -259,4 +258,5 @@ module Lti2Tc
     end
 
   end
+
 end

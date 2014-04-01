@@ -1,4 +1,5 @@
 module Lti2Tc
+
   class ToolConsumerRegistry
 
     attr_reader :tool_consumer_profile, :tc_deployment_url, :relaxed_oauth_check, :result_template,
@@ -20,5 +21,7 @@ module Lti2Tc
       @tool_consumer_profile_wrapper = tcp
       @tool_consumer_profile = tcp.root
     end
+
   end
+
 end

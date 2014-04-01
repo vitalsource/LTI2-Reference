@@ -1,19 +1,19 @@
 module Lti2Tc
-  class DeploymentRequest < ActiveRecord::Base
-    after_initialize :initialize_fields
 
-    attr_accessible :partner_url, :reg_password, :reg_key, :status, :tc_profile_guid
+  class DeploymentRequest < ActiveRecord::Base
+
+    after_initialize :initialize_fields
 
     include Lti2Commons
     include MessageSupport
     include Signer
 
-    def create_lti_message base_url, current_user
-      parameters = create_request_tool_deployment base_url, current_user.to_s
-      create_lti_message_body(partner_url, parameters, Rails.application.config.wire_log, "Request Tool Registration")
+    def create_lti_message( base_url, current_user )
+      parameters = create_request_tool_deployment( base_url, current_user.to_s )
+      create_lti_message_body( partner_url, parameters, Rails.application.config.wire_log, "Request Tool Registration" )
     end
 
-    def create_request_tool_deployment base_url, user_id, lti_message_type = 'ToolProxyRegistrationRequest'
+    def create_request_tool_deployment( base_url, user_id, lti_message_type = 'ToolProxyRegistrationRequest' )
       parameters = {
           'lti_message_type' => lti_message_type,
           'lti_version' => 'LTI-2p0',
@@ -38,5 +38,7 @@ module Lti2Tc
         self.status = "prepared"
       end
     end
+
   end
+
 end

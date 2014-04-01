@@ -14,7 +14,8 @@ module Lti2Tp
       @relaxed_oauth_check = registry['relaxed_oauth_check']
       @result_template = registry['result_template']
       @tool_provider_name = registry['tool_provider_name']
-
     end
+
   end
+
 end

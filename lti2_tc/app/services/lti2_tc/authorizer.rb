@@ -1,11 +1,12 @@
-
 include Lti2Commons
 include Signer
 include MessageSupport
 include OAuth::OAuthProxy
 
 module Lti2Tc
+
   class Authorizer
+
     def self.pre_process_tenant request
       rack_parameters = OAuthRequest.collect_rack_parameters request
       key = rack_parameters[:oauth_consumer_key]
@@ -13,7 +14,7 @@ module Lti2Tc
       secret = @tool.secret
       self.validate request, secret
     end
-    
+
     def self.validate request, secret
       # OAuth check here
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
@@ -32,6 +33,7 @@ module Lti2Tc
         puts "request_wrapper: #{request_wrapper.request['parameters'].inspect}"
       end
     end
-    
+
   end
+
 end
