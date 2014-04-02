@@ -5,10 +5,12 @@ module Lti2Tp
     SESSION_LTI2_CONTEXT_ID = 'lti2_tc_profile.key'
 
     class Holder
+
       attr_accessor :lti2_context
+
       def initialize(id=nil)
         unless id.nil?
-          @lti2_context = Lti2Tp::Context.find_all_by_id([id]).first
+          @lti2_context = Lti2Tp::Context.find(id)
         end
         if id.nil? || @lti2_context.blank?
           @lti2_context = Lti2Tp::Context.create()
@@ -37,6 +39,7 @@ module Lti2Tp
         @lti2_context.content = JSON.dump(@context_hash)
         @lti2_context.save
       end
+
     end
 
     def self.get_holder(session)
