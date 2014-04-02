@@ -1,6 +1,7 @@
 class BookselectionsController < ApplicationController
+
   before_filter :pre_process_tenant
-  
+
   def create_echo
     output = "<h2>Bookselection Tool</h2><br><br>"
     # already filtered
@@ -11,9 +12,10 @@ class BookselectionsController < ApplicationController
     end
     render :inline => output
   end
-  
+
   def create
     parameters = request.request_parameters.reject { |k,v| k =~ /^oauth_/ }
     render :inline => (lti_link_to "/books/book", parameters)
   end
+
 end

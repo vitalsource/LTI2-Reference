@@ -13,18 +13,20 @@ ActiveAdmin.register_page "Register New Tool" do
     method = request.method
     if method == "GET"
       deployment_request = Lti2Tc::DeploymentRequest.new
-      session['deployment_request'] = deployment_request
+      deployment_request.save
+      session['deployment_request'] = deployment_request.id
       render "register_new_tool"
     else
-      deployment_request = session['deployment_request']
+      id = session['deployment_request']
+      deployment_request = Lti2Tc::DeploymentRequest.find( id )
       deployment_request.partner_url = params['registration_url']
       deployment_request.save
       # session.delete 'deployment_request'
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
 
-      html_body = Lti2Tc::ToolRegistration.register_tool current_admin_user, deployment_request,
-                          tool_consumer_registry.tool_consumer_profile_wrapper, tool_consumer_registry.tc_deployment_url
+      html_body = Lti2Tc::ToolRegistration.register_tool( current_admin_user, deployment_request,
+        tool_consumer_registry.tool_consumer_profile_wrapper, tool_consumer_registry.tc_deployment_url )
 
       render :inline => html_body
 

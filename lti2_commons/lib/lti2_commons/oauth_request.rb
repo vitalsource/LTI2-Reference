@@ -125,7 +125,7 @@ module OAuth
       # Validates and OAuth request using the OAuth Gem - https://github.com/oauth/oauth-ruby
       #
       # @return [Bool] Whether the request was valid
-      def verify_signature?(secret, nonce_cache, is_handle_error_not_raise_exception=true, ignore_timestamp_and_nonce=false)
+      def verify_signature?( secret, nonce_cache, is_handle_error_not_raise_exception=true, ignore_timestamp_and_nonce=false )
         log "in verify_signature"
         test_request = self.copy
         test_signature = test_request.sign :consumer_secret => secret

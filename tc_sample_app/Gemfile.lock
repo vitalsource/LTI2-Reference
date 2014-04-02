@@ -123,6 +123,8 @@ GEM
       actionpack (>= 3.0)
     haml (4.0.5)
       tilt
+    haml-contrib (1.0.0.1)
+      haml (>= 3.2.0.alpha.13)
     haml-rails (0.5.3)
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
@@ -272,6 +274,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 4.0.0)
   execjs
+  haml-contrib
   haml-rails (~> 0.4)
   httparty (~> 0.8.1)
   inherited_resources!

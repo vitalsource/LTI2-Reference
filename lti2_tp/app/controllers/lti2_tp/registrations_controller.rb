@@ -9,7 +9,7 @@
 #   Register tool_proxy with TC
 #   Clean up
 #
-# While it's possible to hold this proposal state in session, this design elevates 
+# While it's possible to hold this proposal state in session, this design elevates
 # it to a first-class object for traceability and didactic purposes.
 #
 module Lti2Tp

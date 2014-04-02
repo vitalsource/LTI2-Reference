@@ -6,7 +6,7 @@ ActiveAdmin.register_page "Admin Actions" do
 
   content :title => proc{ I18n.t("active_admin.dashboard") } do
 
-    if params.has_key? "lti_errormsg"
+    if params.has_key? 'lti_errormsg'
       div :style => "color: red" do
         span params['lti_errormsg']
       end
@@ -19,7 +19,7 @@ ActiveAdmin.register_page "Admin Actions" do
       Rails.application.config.wire_log.clear_log
     end
 
-    render "admin_actions"
+    render 'admin_actions'
 
   end # content
 

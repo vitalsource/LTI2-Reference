@@ -11,6 +11,8 @@ module Lti2Tc
 
     has_many :tool_settings, :as => :scopeable
 
+    attr_accessor :is_link_visible, :url, :toggle_label, :grade_item_label, :grade_result
+
     def lti_launch(user, return_url)
       enrollment = Enrollment.where(:admin_user_id => user.id, :course_id => course.id).first
       Lti2Tc::Lti2Launch.new(user, self, self.resource, self.course, enrollment, return_url).launch()

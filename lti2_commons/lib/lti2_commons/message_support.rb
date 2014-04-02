@@ -36,10 +36,10 @@ module Lti2Commons
     # @params launch_url [String] Launch url
     # @params parameters [Hash] Full set of params for message 
     # @return [String] Post body ready for use
-    def create_lti_message_body(launch_url, parameters, wire_log=nil, title=nil, is_open_in_external_window=false)
-      result = create_message_header(launch_url, is_open_in_external_window)
+    def create_lti_message_body( launch_url, parameters, wire_log=nil, title=nil, is_open_in_external_window=false )
+      result = create_message_header( launch_url, is_open_in_external_window )
       result += create_message_body parameters
-      result += create_message_footer(is_open_in_external_window)
+      result += create_message_footer( is_open_in_external_window )
 
       if wire_log
         wire_log.timestamp
@@ -59,8 +59,8 @@ module Lti2Commons
     #
     # @param params [Hash] Full set of params for message (including OAuth provided params)
     # @return [String] Post body ready for use
-    def create_lti_message_body_from_signed_request(signed_request, is_include_oauth_params=true,
-        is_open_in_external_window=false)
+    def create_lti_message_body_from_signed_request( signed_request, is_include_oauth_params=true,
+        is_open_in_external_window=false )
       result = create_message_header(signed_request.uri, is_open_in_external_window)
       result += create_message_body signed_request.parameters, is_include_oauth_params
       result += create_message_footer(is_open_in_external_window)
@@ -71,7 +71,7 @@ module Lti2Commons
     # This is fully-compliant REST request suitable for LTI server-to-server services.
     #
     # @param request [Request] Signed Request encapsulates everything needed for service.
-    def invoke_service(request, wire_log=nil, title=nil)
+    def invoke_service( request, wire_log=nil, title=nil )
       uri = request.uri.to_s
       # set_headers_proc = lambda { |http|
       # http.headers['Authorization'] = request.oauth_header
@@ -91,7 +91,8 @@ module Lti2Commons
       output_parameters = {}
       request.parameters.each { |k,v| output_parameters[k] = v unless k =~ /^oauth_/ }
 
-      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, output_parameters) if wire_log
+      write_wirelog_header( wire_log, title, request.method, uri, headers,
+        request.parameters, request.body, output_parameters ) if wire_log
 
       full_uri = uri
       full_uri += '?' unless uri.include? "?"

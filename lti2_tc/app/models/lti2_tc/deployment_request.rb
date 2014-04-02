@@ -10,7 +10,8 @@ module Lti2Tc
 
     def create_lti_message( base_url, current_user )
       parameters = create_request_tool_deployment( base_url, current_user.to_s )
-      create_lti_message_body( partner_url, parameters, Rails.application.config.wire_log, "Request Tool Registration" )
+      create_lti_message_body( partner_url, parameters,
+        Rails.application.config.wire_log, "Request Tool Registration" )
     end
 
     def create_request_tool_deployment( base_url, user_id, lti_message_type = 'ToolProxyRegistrationRequest' )

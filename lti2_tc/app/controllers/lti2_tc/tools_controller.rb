@@ -8,9 +8,9 @@ module Lti2Tc
     include Lti2Commons::Utils
 
     def create
-      rack_parameters = OAuthRequest.collect_rack_parameters request
+      rack_parameters = OAuthRequest.collect_rack_parameters( request )
       key = rack_parameters[:oauth_consumer_key]
-      @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => key).first
+      @deployment_request = Lti2Tc::DeploymentRequest.where( :reg_key => key ).first
 
       message_type = "registration"
       secret = @deployment_request.reg_password

@@ -1,5 +1,5 @@
-
 namespace :init_task do
+
   desc "Do all initialization tasks"
   task :all => :environment do
     Rake::Task["init_task:re_seed"].execute
@@ -33,4 +33,5 @@ namespace :init_task do
   task :truncate_wirelog => :environment do
     wire_log_file = File.truncate(Rails.application.config.wire_log.output_file_name, 0)
   end
+
 end

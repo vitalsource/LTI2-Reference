@@ -8,6 +8,8 @@ class Course < ActiveRecord::Base
 
   alias_attribute :name, :course_label
 
+  attr_accessor :url
+
   def course_resolver(fieldname)
     case fieldname
     when 'label'

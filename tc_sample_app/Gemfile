@@ -15,6 +15,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 
+gem 'haml-contrib'
 gem 'haml-rails', '~> 0.4'
 gem 'httparty', '~> 0.8.1'
 gem 'jquery-rails', '~> 3.0.4'
