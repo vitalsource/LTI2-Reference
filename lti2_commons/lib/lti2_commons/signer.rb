@@ -1,9 +1,8 @@
-
-require "rubygems"
 require "uri"
 require "oauth"
-require File.expand_path('../../../lib/lti2_commons/oauth_request', __FILE__)
+require 'lti2_commons/oauth_request'
 
+# TODO: still needed in Ruby 2?
 class Symbol
   # monkey patch needed for OAuth library running in Ruby 1.8.7
   def downcase
@@ -28,20 +27,20 @@ module Lti2Commons
     # @param body [String] Body content.  Usually would include this for body-signing of non form-encoded data.
     # @param content_type [String] HTTP CONTENT-TYPE header; defaults: 'application/x-www-form-urlencoded'
     # @return [Request] Signed request
-    def create_signed_request(launch_url, http_method, consumer_key, consumer_secret, params={},
-        body=nil, content_type=nil, accept=nil)
+    #
+    def create_signed_request( launch_url, http_method, consumer_key, consumer_secret, params={},
+        body=nil, content_type=nil, accept=nil )
       params['oauth_consumer_key'] = consumer_key
       params['oauth_nonce'] = (rand*10E12).to_i.to_s unless params.has_key? 'oauth_nonce'
-      params['oauth_signature_method'] = "HMAC-SHA1" unless params.has_key? 'oauth_signature_method'
+      params['oauth_signature_method'] = 'HMAC-SHA1' unless params.has_key? 'oauth_signature_method'
       params['oauth_timestamp'] = Time.now.to_i.to_s unless params.has_key? 'oauth_timestamp'
       params['oauth_version'] = '1.0' unless params.has_key? 'oauth_version'
       params['oauth_callback'] = 'about:blank'
 
       content_type = "application/x-www-form-urlencoded" unless content_type
 
-
-      launch_url = URI.unescape(launch_url)
-      uri = URI.parse(launch_url)
+      launch_url = URI.unescape( launch_url )
+      uri = URI.parse( launch_url )
 
       # prepare path
       path = uri.path
@@ -49,7 +48,7 @@ module Lti2Commons
 
       # flatten in query string arrays
       if uri.query && uri.query != ''
-        CGI.parse(uri.query).each do |query_key, query_values|
+        CGI.parse( uri.query ).each do |query_key, query_values|
           unless params[query_key]
             params[query_key] = query_values.first
           end
@@ -57,23 +56,24 @@ module Lti2Commons
       end
 
       final_uri = uri
-      uri = URI.parse(launch_url.split('?').first)
+      uri = URI.parse( launch_url.split('?').first )
 
       unless content_type == 'application/x-www-form-urlencoded'
         params['oauth_body_hash'] = compute_oauth_body_hash body if body
       end
 
-      request = OAuth::OAuthProxy::OAuthRequest.new \
-                      "method" => http_method.to_s.upcase,
-                      "uri" => uri,
-                      "parameters" => params,
-                      "final_uri" => final_uri
+      request = OAuth::OAuthProxy::OAuthRequest.new(
+        'method' => http_method.to_s.upcase,
+        'uri' => uri,
+        'parameters' => params,
+        'final_uri' => final_uri
+      )
 
       request.body = body
       request.content_type = content_type
       request.accept = accept
 
-      request.sign! :consumer_secret => consumer_secret
+      request.sign!( :consumer_secret => consumer_secret )
 
       # puts "Sender secret: #{consumer_secret}"
       request
@@ -84,9 +84,10 @@ module Lti2Commons
     # Creates the value of an OAuth body hash
     #
     # @param launch_url [String] Content to be body signed
-    # @return [String] Signature base string (useful for debugging signature problems)    
+    # @return [String] Signature base string (useful for debugging signature problems)
+    #
     def compute_oauth_body_hash content
-      Base64.encode64(Digest::SHA1.digest content.chomp).gsub(/\n/,'')
+      Base64.encode64( Digest::SHA1.digest( content.chomp ) ).gsub( /\n/, '' )
     end
 
   end

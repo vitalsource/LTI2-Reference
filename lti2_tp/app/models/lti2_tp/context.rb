@@ -8,15 +8,15 @@ module Lti2Tp
 
       attr_accessor :lti2_context
 
-      def initialize(id=nil)
+      def initialize( id=nil )
         unless id.nil?
-          @lti2_context = Lti2Tp::Context.find(id)
+          @lti2_context = Lti2Tp::Context.find( id )
         end
         if id.nil? || @lti2_context.blank?
           @lti2_context = Lti2Tp::Context.create()
         end
         begin
-          @context_hash = JSON.load(@lti2_context.content)
+          @context_hash = JSON.load( @lti2_context.content )
         rescue
           @context_hash = nil
         end
@@ -30,22 +30,22 @@ module Lti2Tp
 
       def []= name, value
         @context_hash[name] = value
-        @lti2_context.content = JSON.dump(@context_hash)
+        @lti2_context.content = JSON.dump( @context_hash )
         @lti2_context.save
       end
 
       def clear name
-        @context_hash.delete(name)
-        @lti2_context.content = JSON.dump(@context_hash)
+        @context_hash.delete( name )
+        @lti2_context.content = JSON.dump( @context_hash )
         @lti2_context.save
       end
 
     end
 
-    def self.get_holder(session)
+    def self.get_holder( session )
       # lazy create for holder
-      if session.has_key?(SESSION_LTI2_CONTEXT_ID)
-        result = Lti2Tp::Context::Holder.new(session[SESSION_LTI2_CONTEXT_ID])
+      if session.has_key?( SESSION_LTI2_CONTEXT_ID )
+        result = Lti2Tp::Context::Holder.new( session[SESSION_LTI2_CONTEXT_ID] )
       end
       if result.blank?
         result = Lti2Tp::Context::Holder.new()

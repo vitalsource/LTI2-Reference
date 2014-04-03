@@ -1,4 +1,3 @@
-
 require 'lti2_commons/cache'
 require 'lti2_commons/json_wrapper'
 require 'lti2_commons/message_support'

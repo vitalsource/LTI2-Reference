@@ -10,7 +10,7 @@ module Lti2Tc
     def self.pre_process_tenant( request )
       rack_parameters = OAuthRequest.collect_rack_parameters( request )
       key = rack_parameters[:oauth_consumer_key]
-      @tool = Lti2Tc::Tool.where(:key => key).first
+      @tool = Lti2Tc::Tool.where( :key => key ).first
       secret = @tool.secret
       self.validate( request, secret )
     end

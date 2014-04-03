@@ -1,4 +1,4 @@
-require_dependency "lti2_tc/application_controller"
+require_dependency 'lti2_tc/application_controller'
 
 module Lti2Tc
 

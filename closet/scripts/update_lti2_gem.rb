@@ -11,7 +11,7 @@ rm -rf /tmp/#{gem}
 cd /tmp
 git clone git@github.com:vitalsource/#{gem}.git
 cd /tmp/#{gem}
-cp -R ~/git/lti2_reference/#{gem} /tmp/#{gem}
+cp -R #{PROJECT_PATH}/#{gem} /tmp/#{gem}
 git add .
 git commit -am 'update gem'
 git push
@@ -31,10 +31,3 @@ else
     end
   end
 end
-
-
-
-
-
-
-

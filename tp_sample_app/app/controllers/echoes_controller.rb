@@ -1,4 +1,5 @@
 class EchoesController < ApplicationController
+
   before_filter :pre_process_tenant
 
   def create
@@ -17,4 +18,5 @@ class EchoesController < ApplicationController
     save_request_parameters_to_flash
     render :inline => output
   end
+
 end

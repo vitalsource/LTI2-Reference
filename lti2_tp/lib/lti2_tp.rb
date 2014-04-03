@@ -1,4 +1,4 @@
-require "lti2_tp/engine"
+require 'lti2_tp/engine'
 
 module Lti2Tp
 end
