@@ -27,6 +27,8 @@ class AdminUser < ActiveRecord::Base
     case fieldname
     when "name.family"
       self.last_name
+    when "name.full"
+      "#{self.first_name} #{self.last_name}"
     when "name.given"
       self.first_name
     when "email.primary"

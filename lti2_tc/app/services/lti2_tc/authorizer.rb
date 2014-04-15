@@ -31,7 +31,7 @@ module Lti2Tc
 
         puts "request_wrapper: #{request_wrapper.request['parameters'].inspect}"
       end
+      @oauth_error
     end
-    
   end
 end

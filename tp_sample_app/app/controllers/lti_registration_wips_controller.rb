@@ -1,11 +1,12 @@
 class LtiRegistrationWipsController < InheritedResources::Base
   def index
-    action = params[:action]
     registration_id = params[:registration_id]
     registration = Lti2Tp::Registration.find(registration_id)
     @lti_registration_wip = LtiRegistrationWip.new
 
-    @lti_registration_wip.tenant_name = registration.tenant_name
+    # On orig registration, first assume tenant_name == name
+    @lti_registration_wip.tenant_name = registration.message_type == 'registration' ? registration.tenant_name : registration.tenant_key
+
     @lti_registration_wip.registration_id = registration_id
     @lti_registration_wip.registration_return_url = params[:return_url]
 
@@ -21,17 +22,15 @@ class LtiRegistrationWipsController < InheritedResources::Base
 
   def show
     @lti_registration_wip = LtiRegistrationWip.find(request.params[:id])
-    registration = Lti2Tp::Registration.find(@lti_registration_wip.registration_id)
-    if registration.message_type == "registration"
+    @registration = Lti2Tp::Registration.find(@lti_registration_wip.registration_id)
+    if @registration.message_type == "registration"
       show_registration
     else
-      raise "reregistration not yet supported"
+      show_reregistration
     end
   end
 
   def show_registration
-    registration = Lti2Tp::Registration.find(@lti_registration_wip.registration_id)
-
     tenant = Tenant.new
     tenant.tenant_name = @lti_registration_wip.tenant_name
     begin
@@ -40,27 +39,40 @@ class LtiRegistrationWipsController < InheritedResources::Base
       (@lti_registration_wip.errors[:tenant_name] << "Institution name is already in database") and return
     end
 
-    disposition = registration.prepare_tool_proxy()
-    if registration.is_disposition_failure? disposition
-      redirect_to_registration(registration, disposition) and return
+    disposition = @registration.prepare_tool_proxy()
+    if @registration.is_disposition_failure? disposition
+      redirect_to_registration(@registration, disposition) and return
     end
-    tool_proxy_wrapper = JsonWrapper.new(registration.tool_proxy_json)
+    tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
 
     tenant.tenant_key = tool_proxy_wrapper.first_at('tool_proxy_guid')
     tenant.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
     tenant.save
 
-    registration.tenant_id = tenant.id
-    registration.save
+    @registration.tenant_id = tenant.id
+    @registration.save
 
-    redirect_to_registration registration, disposition
+    redirect_to_registration @registration, disposition
   end
 
+  def show_reregistration
+    tenant = Tenant.where(:tenant_name=>@registration.tenant_key).first
+    disposition = @registration.prepare_tool_proxy()
+    @registration.status = "reregistered"
+    @registration.save!
+    return_url = @registration.launch_presentation_return_url + disposition
+
+    redirect_to_registration @registration, disposition
+  end
 
   def update
     @lti_registration_wip = LtiRegistrationWip.find(params[:id])
     @lti_registration_wip.tenant_name = params[:lti_registration_wip][:tenant_name]
     @lti_registration_wip.save
+
+    registration = Lti2Tp::Registration.find(@lti_registration_wip.registration_id)
+    registration.tenant_key = @lti_registration_wip.tenant_name
+    registration.save
 
     show
   end

@@ -2,7 +2,6 @@ require_dependency "lti2_tc/application_controller"
 
 module Lti2Tc
   class ToolSettingsController < ApplicationController
-    before_filter :pre_process_tenant   # look in ApplicationController
 
     def initialize
       @acceptable_headers = ['application/vnd.ims.lti.v2.toolsettings+json',
@@ -72,8 +71,13 @@ module Lti2Tc
       !@acceptable_headers.include?(header)
     end
 
+    def pre_process
+      Lti2Tc::Authorizer::pre_process_tenant(request)
+    end
+
     def show
-      (render :text => "Authentication error", :status => 401 if @oauth_error) and return
+      oauth_error = pre_process
+      (render :text => "Authentication error", :status => 401 if oauth_error) and return
 
       tool_guid = params[:tool_guid]
       collection_type = ToolSettingsController.get_collection_type(request.path)
@@ -156,7 +160,8 @@ module Lti2Tc
     end
 
     def update
-      (render :text => "Authentication error", :status => 401 if @oauth_error) and return
+      oauth_error = pre_process
+      (render :text => "Authentication error", :status => 401 if oauth_error) and return
 
       tool_guid = params[:tool_guid]
       collection_type = ToolSettingsController.get_collection_type(request.path)
