@@ -48,20 +48,7 @@ class ApplicationController < ActionController::Base
     end
 
     # LTI conformance
-    request.request_parameters['normalized_role'] = normalize_role(params['roles'])
-    unless params.has_key?('resource_link_id')
-      (redirect_to redirect_url("Missing resource link id")) and return
-    end
-
-    if params.has_key?('lti_version')
-      lti_version = params['lti_version']
-      unless ['LTI-1p0', 'LTI-2p0'].include?(lti_version)
-        (redirect_to redirect_url("Invalid lti_version: #{lti_version}")) and return
-      end
-    else
-      (redirect_to redirect_url("Missing lti_version")) and return
-    end
-
+    # Perform extra LTI type checks only for launch
     if params.has_key?('lti_message_type')
       lti_message_type = params['lti_message_type']
       unless ['basic-lti-launch-request', 'ToolProxyRegistrationRequest', 'ToolProxyReregistrationRequest'].include?(lti_message_type)
@@ -71,7 +58,23 @@ class ApplicationController < ActionController::Base
       (redirect_to redirect_url("Missing lti_message_type")) and return
     end
 
-    return true
+    if params['lti_message_type'] == 'basic-lti-launch-request'
+      request.request_parameters['normalized_role'] = normalize_role(params['roles'])
+      unless params.has_key?('resource_link_id')
+        (redirect_to redirect_url("Missing resource link id")) and return
+      end
+
+      if params.has_key?('lti_version')
+        lti_version = params['lti_version']
+        unless ['LTI-1p0', 'LTI-2p0'].include?(lti_version)
+          (redirect_to redirect_url("Invalid lti_version: #{lti_version}")) and return
+        end
+      else
+        (redirect_to redirect_url("Missing lti_version")) and return
+      end
+    end
+
+    return [200, nil, nil]
   end
   
   protected 

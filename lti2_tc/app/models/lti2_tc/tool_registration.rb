@@ -61,8 +61,9 @@ module Lti2Tc
       # convert parameters
       parameters = {}
       tc_base_url = tc_deployment_url
-      parameters['tc_profile_url'] = "#{tc_base_url}/tool_consumer_profiles/#{tool_consumer_profile.tc_profile_guid}"
+      parameters['tc_profile_url'] = "#{tc_base_url}/lti2_tc/tool_consumer_profiles/#{tool_consumer_profile.tc_profile_guid}"
       parameters['launch_presentation_return_url'] = launch_presentation_return_url
+      parameters['lti_message_type'] = 'ToolProxyReregistrationRequest'
 
       key = tool_proxy.first_at('tool_proxy_guid')
       secret = tool_proxy.first_at('security_contract.shared_secret')
