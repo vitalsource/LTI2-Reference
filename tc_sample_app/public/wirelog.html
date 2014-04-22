@@ -9306,3 +9306,1145 @@ content-type: application/vnd.ims.lti.v2.toolsettings.simple+json
 
 
 </div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 06:51:41 -0500
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/36a55f50-ab79-0131-7c6a-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="36a55390-ab79-0131-7c6a-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="078244f322b1daca5c9731203d082680"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 06:51:48 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="36a55390-ab79-0131-7c6a-20c9d07c6451", oauth_nonce="4629366370191", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398081108", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="gJL46wz8A7%2F7yxEcfSc4agtx9mU%3D", oauth_signature="E5ETiBHv%2FWDR7c6fnPAVdKFOSh0%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5144
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T11:51:48Z","lti_version":"LTI-2p0","tool_proxy_guid":"3e1bc580-ab79-0131-7c6b-20c9d07c6451","disposition":"register","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/36a55f50-ab79-0131-7c6a-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"1ef51ccd91b55069842137660510b6b0","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 06:51:48 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 356
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `[]' for #&lt;Lti2Commons::JsonWrapper:0x007fc9ec542a50&gt;
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 06:58:10 -0500
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/1f5d08a0-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="1f5d0540-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="920494c67cd18a9adc4d95b3ea0413e6"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 06:58:17 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="1f5d0540-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="9940823334011", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398081497", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="8XUap7Fc%2FYg4wlGgNi8cofI2IzY%3D", oauth_signature="v8r23MRbazePRF2kEq3YsOEz5R0%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5144
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T11:58:17Z","lti_version":"LTI-2p0","tool_proxy_guid":"261215a0-ab7a-0131-7c6d-20c9d07c6451","disposition":"register","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/1f5d08a0-ab7a-0131-7c6c-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"70ee3e6a470945f000c4518a04a4a5ea","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 06:58:17 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.toolproxy.id+json; charset=utf-8
+content-length: 213
+{
+  "@context": "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://localhost:4000/tools/2615b880-ab7a-0131-7c6c-20c9d07c6451",
+  "tool_proxy_guid": "2615b880-ab7a-0131-7c6c-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 06:58:23 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/29c230a0-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5528833860641"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398081503"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="h+e/9e/uqB1B9sMokIoPPbAUaaU="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 06:58:27 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="8563853990184", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398081507", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="khQU2E%2BeBF0qxQYKr0O9G5tSvYk%3D", oauth_signature="o3Kj7zq0FHn3yWBpSALe5S4BB18%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T11:58:27Z","lti_version":"LTI-2p0","tool_proxy_guid":"2c64ce80-ab7a-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/29c230a0-ab7a-0131-7c6c-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"c7569fe53caa998c9b8b8a1b69962c49","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 06:58:27 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:04:06 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/f67b4580-ab7a-0131-7c6e-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5478831731005"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398081846"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="0gTUJQrSM1dL9rQwZT0/M28LLxQ="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 07:04:09 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="358019795532", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398081849", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="M4XeJhdpFcKQjdzz5GAXfsvi6zA%3D", oauth_signature="q4mOQZtkSst5kwi8Iv4hA7DTbug%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T12:04:09Z","lti_version":"LTI-2p0","tool_proxy_guid":"f7eaf150-ab7a-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/f67b4580-ab7a-0131-7c6e-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"7f8a9ca3ca15cb423e7d8e46c743d1f1","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 07:04:32 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:04:39 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/0a267580-ab7b-0131-7c6e-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="4429115531491"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398081879"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="TNmT65/gB9k+YodSyzdcmHfmVPY="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 07:04:41 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="2328389588321", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398081881", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="AqHlHOOd7S8eQs4%2BWklaUOYMSrw%3D", oauth_signature="tjTayBJenC5dgny3VZ%2FKDGYMXPM%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T12:04:41Z","lti_version":"LTI-2p0","tool_proxy_guid":"0b5d5720-ab7b-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/0a267580-ab7b-0131-7c6e-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"14ae048c4c3d0cdae8c0a4ff8a6e5a54","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:15:34 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/3a43c130-ab7c-0131-7c6e-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="3208416390586"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398082534"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="Anxd+JA9nYH5OuaHE12oCs3X2Ss="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:16:26 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/993d1f60-ab7c-0131-7c6e-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="8424258220755"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398082586"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="yfYxYNQrMY4EAR5w14ab50MARvk="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 07:16:32 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="1543025583279", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398082592", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="XDDfJcqFGJmtb5misncfczBRjI4%3D", oauth_signature="7ASRJR6Nl%2B1QoqxqcYmz1W%2FiyL8%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T12:16:32Z","lti_version":"LTI-2p0","tool_proxy_guid":"b3193a10-ab7c-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/993d1f60-ab7c-0131-7c6e-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"4a6e91b72b52fbeac35e388ab03fc0ee","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 07:17:02 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:19:33 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/18005a00-ab7d-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="4460852050479"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398082773"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="6apWWV7Tj03BTdQ27KRmJ0xEJVs="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 07:19:46 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="6257238518118", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398082786", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="ynkNQqcKTYPmqFb2fTDB7rDuB9w%3D", oauth_signature="hOqYYVqC%2Fu4yiPJcfEM%2FrYaEBFI%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T12:19:46Z","lti_version":"LTI-2p0","tool_proxy_guid":"26b8b3c0-ab7d-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/18005a00-ab7d-0131-7c6f-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"b2c3b8c14fdc49e93acc1c88aa08ac9c","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 07:19:56 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 07:20:12 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/33db6d90-ab7d-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="2615b880-ab7a-0131-7c6c-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6865929426813"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398082812"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="6PXc16orYdkyfW2VB9RRk4khSTo="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 07:20:25 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="2615b880-ab7a-0131-7c6c-20c9d07c6451", oauth_nonce="7220301911403", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398082825", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="jGglX1oLZDvAMzF4MamqzqwsbzM%3D", oauth_signature="c8pC%2FWCGCp2%2F%2FEhDaQ5CKuvy8kM%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T12:20:25Z","lti_version":"LTI-2p0","tool_proxy_guid":"3d906190-ab7d-0131-7c6d-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/33db6d90-ab7d-0131-7c6f-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"8b2c3e3178c7038ab25c6219a1150c7e","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:31:33 -0500
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/75bc3e60-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="75bbf370-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="a0fbbb40afa7d0b02b269e178c6b819c"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:31:56 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="75bbf370-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="9089100986641", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398108716", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="40e9c0z3OJ%2FQx3wqRx1eJ3fq0NA%3D", oauth_signature="HoEuhe98NXiNbVO2BHmdfxFGRn4%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5144
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:31:56Z","lti_version":"LTI-2p0","tool_proxy_guid":"860c8140-abb9-0131-7c70-20c9d07c6451","disposition":"register","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/75bc3e60-abb9-0131-7c6f-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"86d90d8c61b0215b5304432e72626425","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:31:56 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.toolproxy.id+json; charset=utf-8
+content-length: 213
+{
+  "@context": "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://localhost:4000/tools/86105940-abb9-0131-7c6f-20c9d07c6451",
+  "tool_proxy_guid": "86105940-abb9-0131-7c6f-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:32:24 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/88e4cb10-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="86105940-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="1645784448387"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398108744"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="6Du++6Amj7uoPMx4e7KP7FN79zg="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:32:32 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="86105940-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="1980384860865", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398108752", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="GpBa4FE%2BNVPJxG3NjmNB5X7AfMY%3D", oauth_signature="lfK9LyKasFCLCkPnCK3qvbe7pB8%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:32:32Z","lti_version":"LTI-2p0","tool_proxy_guid":"9b426e80-abb9-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/88e4cb10-abb9-0131-7c6f-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"e495e63e045820fd3c3ced3651574a46","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:32:32 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:34:56 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/f11746b0-abb9-0131-7c71-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="86105940-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5564420919993"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398108896"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="bWNYDkMfT2lthx/fTWs9e7twvCU="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:34:58 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="86105940-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="5019742945198", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398108898", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="uwQryWtJmVco%2Bf0bMlRCOTzOQU4%3D", oauth_signature="3Ngfw6Wv7IQw6eSO99GvvLKyRzw%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:34:58Z","lti_version":"LTI-2p0","tool_proxy_guid":"f2678d80-abb9-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/f11746b0-abb9-0131-7c71-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"3e2baa2e1cb2f8416e72314f772e77d8","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:34:58 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:35:17 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/fe180f70-abb9-0131-7c71-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="86105940-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7508553039462"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398108917"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="iitLOwfVgegyUYG/xCymxujyzm8="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:35:19 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="86105940-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="2452239922490", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398108919", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="B66R7PgHGpGp03U7hw8Ihe9xGBM%3D", oauth_signature="%2B5QM0qyUEzj94tS2QUTr2Ebvmhg%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:35:19Z","lti_version":"LTI-2p0","tool_proxy_guid":"ff4e2510-abb9-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/fe180f70-abb9-0131-7c71-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"3dbec294a93c6d0acdc86f143ac8eb29","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:47:39 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/b7e170e0-abbb-0131-7c71-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="86105940-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="2085835656425"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398109659"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="D7nvQsP+dgBXlISEj60pQW0h/qo="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:47:41 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="86105940-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="1881282202733", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398109661", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="FufzdJfNh3HmzCrtCj9osUr1xfw%3D", oauth_signature="drhFnblOZnA0K%2FNtUPhzSOSh9r0%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:47:41Z","lti_version":"LTI-2p0","tool_proxy_guid":"b9113e20-abbb-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/b7e170e0-abbb-0131-7c71-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"046013a8aacc6c4fc4ad7967a93ff75b","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:47:53 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 328
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `reg_password' for nil:NilClass
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:48:08 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/c96dc760-abbb-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="86105940-abb9-0131-7c6f-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="6624338400651"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398109688"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="D3X6lG5swpI1ntAZLAjbsh9PcmM="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:48:10 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="86105940-abb9-0131-7c6f-20c9d07c6451", oauth_nonce="8214491934261", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398109690", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="N1%2FQrZ3RdImmjbt8mPcGKub%2BuR0%3D", oauth_signature="l%2BOIU0g4c8iUNNLLJ47ONDdtA0U%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:48:10Z","lti_version":"LTI-2p0","tool_proxy_guid":"caac4e50-abbb-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/c96dc760-abbb-0131-7c72-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"d8d3b46da4d409a1a777ea938d57ec4d","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:48:26 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 365
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `message_type' for #&lt;Lti2Tc::ToolsController:0x007fde7066e440&gt;
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:53:56 -0500
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/94661240-abbc-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="94660970-abbc-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="5bb7405f729220e1657925ab08e2c75e"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:54:03 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="94660970-abbc-0131-7c72-20c9d07c6451", oauth_nonce="2018963594427", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398110043", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="dckuF4rZwB66xm%2F%2BS8W5Vtm4ZOQ%3D", oauth_signature="iXuwGSOJ2tgqNHoZENYHfqAgzKI%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5144
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:54:03Z","lti_version":"LTI-2p0","tool_proxy_guid":"9d0ad5a0-abbc-0131-7c70-20c9d07c6451","disposition":"register","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/94661240-abbc-0131-7c72-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"444fdcba5d38dad7f39629a73b6dce37","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:54:37 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.toolproxy.id+json; charset=utf-8
+content-length: 213
+{
+  "@context": "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://localhost:4000/tools/b039af00-abbc-0131-7c72-20c9d07c6451",
+  "tool_proxy_guid": "b039af00-abbc-0131-7c72-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:54:43 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/b4d08f90-abbc-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="b039af00-abbc-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="3152520212340"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398110083"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="uc7/SoPtubOfewqzbH6hR5/h84g="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:54:45 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="b039af00-abbc-0131-7c72-20c9d07c6451", oauth_nonce="2535906721080", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398110085", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="gRr8vxbGiS0OjvnShwBJIU%2FZOy0%3D", oauth_signature="S7p5ZKYq3g0Dh%2BzOV56YPtjEtL8%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:54:45Z","lti_version":"LTI-2p0","tool_proxy_guid":"b607f8b0-abbc-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/b4d08f90-abbc-0131-7c72-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"6362ff59d200390b528e4e95bf00cba6","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:54:59 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 500 Internal Server Error
+Headers:
+content-type: text/html; charset=ISO-8859-1
+content-length: 365
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"&gt;
+&lt;HTML&gt;
+  &lt;HEAD&gt;&lt;TITLE&gt;Internal Server Error&lt;/TITLE&gt;&lt;/HEAD&gt;
+  &lt;BODY&gt;
+    &lt;H1&gt;Internal Server Error&lt;/H1&gt;
+    undefined method `message_type' for #&lt;Lti2Tc::ToolsController:0x007fde6b96acc0&gt;
+    &lt;HR&gt;
+    &lt;ADDRESS&gt;
+     WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27) at
+     localhost:4000
+    &lt;/ADDRESS&gt;
+  &lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 14:55:18 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/c960e930-abbc-0131-7c73-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="b039af00-abbc-0131-7c72-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7663037421151"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398110118"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="kRTrV1ioOPgofoYlom3yIBs9ZoY="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 14:55:20 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="b039af00-abbc-0131-7c72-20c9d07c6451", oauth_nonce="2550506124014", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398110120", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="GeNrd77XkH9G3S4iFp5zjoccOP0%3D", oauth_signature="E9XJAujYONGkGDRDUHDgfLlsANo%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T19:55:20Z","lti_version":"LTI-2p0","tool_proxy_guid":"ca9b6960-abbc-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/c960e930-abbc-0131-7c73-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"d82b0f80d2f23127b7c47c183e52e4cc","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 14:55:48 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 202 Accepted
+Headers:
+content-type: text/html; charset=utf-8
+content-length: 1
+ 
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 15:45:35 -0500
+LtiMessage: Lti Launch
+LaunchUrl: http://localhost:5000/settings
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/settings" target="_blank"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="38"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="Administrator"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/course_page?method=show&course_id=5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+      &lt;input type="hidden" name="context_id" value="5"/&gt;
+      &lt;input type="hidden" name="launch_presentation_locale" value="en_US"/&gt;
+      &lt;input type="hidden" name="context_label" value="DPE001"/&gt;
+      &lt;input type="hidden" name="context_title" value="Design of Personal Environments 1"/&gt;
+      &lt;input type="hidden" name="lis_course_section_sourcedid" value="5"/&gt;
+      &lt;input type="hidden" name="tool_consumer_info_product_family_code" value="LuMoS"/&gt;
+      &lt;input type="hidden" name="tool_consumer_info_version" value="3.1"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_custom_url" value="http://localhost:4000/lti2_tc/tool_settings/ca9b6960-abbc-0131-7c70-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="custom_tool_proxy_binding_custom_url" value="http://localhost:4000/lti2_tc/tool_settings/ca9b6960-abbc-0131-7c70-20c9d07c6451/context/5"/&gt;
+      &lt;input type="hidden" name="custom_lti_link_custom_url" value="http://localhost:4000/lti2_tc/tool_settings/ca9b6960-abbc-0131-7c70-20c9d07c6451/ltilink/38"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="ca9b6960-abbc-0131-7c70-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="2391217157281"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398113135"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="VLAQFqdrzP1jc94OrmjIyx+ZKmc="/&gt;
+
+      &lt;a href="/admin/launches" target="_self"&gt;Return to Admin&lt;/a&gt;
+
+        
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 17:06:26 -0500
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/lti2_tp/registrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/registrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lis/SysAdmin"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/179a4b20-abcf-0131-7c73-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_key" value="179a4670-abcf-0131-7c73-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="reg_password" value="5382d92ad2fadb2d63258f7ff65c9eca"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="launch_presentation_document_target" value="window"/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 17:06:32 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="179a4670-abcf-0131-7c73-20c9d07c6451", oauth_nonce="7292018688996", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398117992", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="C9P1xXZlTFFu9KAqWEiw%2FAkH%2F1w%3D", oauth_signature="NLwe6EQtIKgaqFguhkg552ePQZ8%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5144
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T22:06:32Z","lti_version":"LTI-2p0","tool_proxy_guid":"1ebd4680-abcf-0131-7c70-20c9d07c6451","disposition":"register","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/179a4b20-abcf-0131-7c73-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"86a0c84f3ca836e3220dcf620e26e58d","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 17:06:32 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 201 Created
+Headers:
+content-type: application/vnd.ims.lti.v2.toolproxy.id+json; charset=utf-8
+content-length: 213
+{
+  "@context": "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+  "@type": "ToolProxy",
+  "@id": "http://localhost:4000/tools/1ec721b0-abcf-0131-7c73-20c9d07c6451",
+  "tool_proxy_guid": "1ec721b0-abcf-0131-7c73-20c9d07c6451"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+2014-04-21 17:19:53 -0500
+LtiMessage: Reregister Tool
+LaunchUrl: http://localhost:5000/lti2_tp/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/lti2_tp/reregistrations" 
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://localhost:4000/lti2_tc/tool_consumer_profiles/fc761340-abd0-0131-7c73-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://localhost:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyReregistrationRequest"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="1ec721b0-abcf-0131-7c73-20c9d07c6451"/&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="5429009201122"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1398118793"/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="oauth_callback" value="about:blank"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="Y3DFyqVRI4bIANcn1VbCrIlJPLY="/&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.ltiLaunchForm.submit();
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+2014-04-21 17:19:55 -0500
+LtiService: Register ToolProxy with ToolConsumer
+POST http://localhost:4000/lti2_tc/tools
+Headers:
+Authorization: OAuth oauth_consumer_key="1ec721b0-abcf-0131-7c73-20c9d07c6451", oauth_nonce="4315552669910", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1398118795", oauth_version="1.0", oauth_callback="about%3Ablank", oauth_body_hash="B7uqG5wUUqHF%2F9gQNRBNL0Uy0pc%3D", oauth_signature="w130rocaoKnf%2BDZCxk7KVUKjj5M%3D"
+Content-Type: application/vnd.ims.lti.v2.toolproxy+json
+Content-Length: 5146
+Body:
+{"@context":["http://purl.imsglobal.org/ctx/lti/v2/ToolProxy"],"@type":"ToolProxy","@id":"ToolProxyProposal_at_2014-04-21T22:19:55Z","lti_version":"LTI-2p0","tool_proxy_guid":"fdc1f1b0-abd0-0131-7c70-20c9d07c6451","disposition":"reregister","tool_consumer_profile":"http://localhost:4000/lti2_tc/tool_consumer_profiles/fc761340-abd0-0131-7c73-20c9d07c6451","tool_profile":{"product_instance":{"product_info":{"product_version":"10.3","technical_description":{"default_value":"Support provided for all LTI 1 extensions as well as LTI 2","key":"tool.technical"},"product_name":{"default_value":"LTI2 BookTools","key":"tool.name"},"product_family":{"code":"assessment-tool","vendor":{"website":"{http://localhost:5000}","code":"fabericious.org","name":{"default_value":"Fab","key":"tool.vendor.name"},"timestamp":"2012-04-05T09:08:16-04:00","contact":{"email":"info@fabericious.com"},"description":{"default_value":"Fabericious is a leading provider of interactive tools for education","key":"tool.vendor.description"}}},"description":{"default_value":"Fabericious reflowable ePub3 Textbook","key":"tool.description"}},"support":{"email":"helpdesk@fabericious.com"},"guid":"fd75124a-140e-470f-944c-114d2d92bb40","service_provider":{"support":{"email":"support@ec2.fabericious.com"},"service_provider_name":{"default_value":"Amazon Cloud","key":"service_provider.name"},"guid":"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c","description":{"default_value":"Provider of high performance managed hosting environments","key":"service_provider.description"},"timestamp":"2012-04-05T09:08:16-04:00"}},"lti_version":"LTI-2p0","message":[{"message_type":["ToolProxyRegistrationRequest","ToolProxyReregistrationRequest"],"path":"http://localhost:5000/lti2_tp/reregistrations","parameter":[{"variable":"ToolConsumerProfile.url","name":"tc_profile_url"}]}],"resource_handler":[{"message":[{"path":"/settings","parameter":[{"variable":"ToolProxy.custom.url","name":"tool_proxy_custom_url"},{"variable":"ToolProxyBinding.custom.url","name":"tool_proxy_binding_custom_url"},{"variable":"LtiLink.custom.url","name":"lti_link_custom_url"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Settings","key":"resource.name"},"resource_type":{"code":"setting"},"description":{"default_value":"Settings service","key":"resource.description"}},{"message":[{"path":"/echoes","parameter":[{"fixed":"Narcissus","name":"referrer"},{"fixed":"3.14159","name":"pi"},{"variable":"Person.email.primary","name":"user_primary_email"},{"variable":"CourseOffering.label","name":"discipline"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Echo","key":"resource.name"},"resource_type":{"code":"echo"},"description":{"default_value":"Echo service","key":"resource.description"}},{"message":[{"path":"/books","parameter":[{"name":"vbid"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Book","key":"resource.name"},"resource_type":{"code":"book"},"description":{"default_value":"VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/bookselections","parameter":[{"name":"vbid"},{"name":"book_location"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"BookSelection","key":"resource.name"},"resource_type":{"code":"bookselection"},"description":{"default_value":"Deep-linked VitalSource reader for XML, PDF, and ePub content","key":"resource.description"}},{"message":[{"path":"/iresources","enabled_capability":["Result.autocreate"],"parameter":[{"name":"vbid"},{"variable":"Result.uri","name":"result_uri"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"InteractiveResource","key":"resource.name"},"resource_type":{"code":"iresource"},"description":{"default_value":"Interactive resource","key":"resource.description"}},{"message":[{"path":"/bookshelves","parameter":[{"variable":"CourseOffering.label","name":"course_label"}],"message_type":"basic-lti-launch-request"}],"name":{"default_value":"Bookshelf","key":"resource.name"},"resource_type":{"code":"bookshelf"},"description":{"default_value":"VitalSource Bookshelf","key":"resource.description"}}],"base_url_choice":[{"selector":{"applies_to":["IconEndpoint","MessageHandler"]},"default_base_url":"http://localhost:5000"}]},"security_contract":{"shared_secret":"cb07da77472d27c704c22fa93cd18a24","tool_service":[{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools","action":["POST"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tools/{tool_proxy_guid}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/resources/Result/{sourcedId}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/ltilink/{link_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}/context/{context_id}","action":["GET","PUT"]},{"@type":"RestServiceProfile","service":"http://localhost:4000/lti2_tc/tool_settings/{tool_proxy_guid}","action":["GET","PUT"]}]}}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+2014-04-21 17:20:48 -0500
+Response: Register ToolProxy with ToolConsumer
+Status: 202 Accepted
+Headers:
+content-type: text/html; charset=utf-8
+content-length: 1
+ 
+
+
+</div></pre>

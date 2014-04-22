@@ -3,7 +3,7 @@ module Lti2Tp
     attr_accessible :launch_presentation_return_url, :reg_key, :reg_password, :status,
                     :tc_profile_url, :tenant_name, :user_id
 
-    def create_tool_proxy tool_consumer_profile, tool_proxy_guid
+    def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = { }
       tool_proxy['@context'] = [
@@ -14,6 +14,7 @@ module Lti2Tp
 
       tool_proxy['lti_version'] = 'LTI-2p0'
       tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['disposition'] = disposition
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
       tool_proxy['tool_profile'] = JSON.load(tool_profile_json)
       tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile)
@@ -27,9 +28,9 @@ module Lti2Tp
       JSON.load tcp_response.body
     end
 
-    def prepare_tool_proxy
+    def prepare_tool_proxy disposition='register'
       tool_consumer_profile = JSON.load(self.tool_consumer_profile_json)
-      tool_proxy = create_tool_proxy(tool_consumer_profile, UUID.generate)
+      tool_proxy = create_tool_proxy(tool_consumer_profile, UUID.generate, disposition)
       if tool_proxy
         self.tool_proxy_json = tool_proxy.to_json
         service_offered = nil
@@ -40,15 +41,15 @@ module Lti2Tp
           end
         end
         if service_offered.nil?
-          disposition = create_disposition(false, nil, "No matching service definition")
+          status = create_status(false, nil, "No matching service definition")
           return_url = self.launch_presentation_return_url + "?status=failure"
           (redirect_to return_url) and return
         end
 
         (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post"
         unless err_code == 201
-          disposition = create_disposition(false, nil, "#{err_code}-#{err_msg}")
-          return disposition
+          status = create_status(false, nil, "#{err_code}-#{err_msg}")
+          return status
         end
         # get guid from the response returned by the TC
         tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
@@ -61,29 +62,29 @@ module Lti2Tp
         self.status = "registered"
         self.save!
 
-        disposition = create_disposition(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
+        status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
       else
-        disposition = create_disposition(false, nil, "Can't access ToolProxy")
+        status = create_status(false, nil, "Can't access ToolProxy")
       end
 
-      disposition
+      status
     end
 
-    def create_disposition(is_success, tool_guid=nil, message=nil)
-      disposition = "?"
+    def create_status(is_success, tool_guid=nil, message=nil)
+      status = "?"
       if is_success
-        disposition += 'status=success&'
-        disposition += "tool_guid=#{tool_guid}&" if tool_guid.present?
+        status += 'status=success&'
+        status += "tool_guid=#{tool_guid}&" if tool_guid.present?
       else
-        disposition += 'status=failure&'
+        status += 'status=failure&'
         encoded_message = Rack::Utils.escape(message)
-        disposition += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
+        status += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
       end
-      disposition
+      status
     end
 
-    def is_disposition_failure? disposition
-      disposition.include? "status=failure&"
+    def is_status_failure? status
+      status.include? "status=failure&"
     end
 
     private

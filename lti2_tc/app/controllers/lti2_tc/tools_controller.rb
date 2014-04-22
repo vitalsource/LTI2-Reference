@@ -10,13 +10,23 @@ module Lti2Tc
       key = rack_parameters[:oauth_consumer_key]
       @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => key).first
 
-      message_type = "registration"
-      secret = @deployment_request.reg_password
-
-      (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
+      (tool_proxy, status, error_msg) = process_tool_proxy(request)
       if error_msg.present?
         (render :json => {:errors => [error_msg]}, :status => status) and return
       end
+
+      disposition = tool_proxy.root['disposition']
+      if disposition == 'reregister'
+        return reregister(key, tool_proxy)
+      end
+
+      secret = @deployment_request.reg_password
+      begin
+        oauth_validation_using_secret secret
+      rescue
+        return [nil, 401, 'Invalid signature']
+      end
+
 
       # generate guid for tool_proxy
       tool_proxy_guid = UUID.generate
@@ -155,18 +165,9 @@ module Lti2Tc
       render :text => "<pre>#{tool_proxy_pretty_str}</pre>", :content_type => content_type
     end
 
-    def update
-      rack_parameters = OAuthRequest.collect_rack_parameters request
-      key = rack_parameters[:oauth_consumer_key]
-
+    def reregister(key, tool_proxy)
       message_type = "reregistration"
       @tool = Lti2Tc::Tool.where(:key => key).first
-      secret = @tool.secret
-
-      (tool_proxy, status, error_msg) = process_tool_proxy(request, secret)
-      if error_msg.present?
-        (render :status => status, :errors => [error_msg]) and return
-      end
 
       product_name = tool_proxy.first_at('tool_profile.product_instance.product_info.product_name.default_value')
 
@@ -240,13 +241,7 @@ module Lti2Tc
       nil
     end
 
-    def process_tool_proxy(request, secret)
-      begin
-        oauth_validation_using_secret secret
-      rescue
-        return [nil, 401, 'Invalid signature']
-      end
-
+    def process_tool_proxy(request)
       body_str = request.body.read
       json_str = CGI::unescape body_str
 

@@ -48,8 +48,6 @@ module Lti2Tc
 
       # deployment_request = DeploymentRequest.new
       deployment_request.status = "reregistering"
-      deployment_request.reg_key = nil
-      deployment_request.reg_password = nil
       deployment_request.save
 
       # tool_consumer_profile = ToolConsumerProfile.new
