@@ -3,6 +3,9 @@ module Lti2Tp
     attr_accessible :launch_presentation_return_url, :reg_key, :reg_password, :status,
                     :tc_profile_url, :tenant_name, :user_id
 
+
+    END_REGISTRATION_ID_NAME = 'X-IMS-EndRegistration-ID'
+
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = { }
@@ -32,7 +35,13 @@ module Lti2Tp
       tool_consumer_profile = JSON.load(self.tool_consumer_profile_json)
       tool_proxy = create_tool_proxy(tool_consumer_profile, tool_proxy_guid, disposition)
       if tool_proxy
-        self.tool_proxy_json = tool_proxy.to_json
+        self.end_registration_id = UUID.generate
+        if disposition == 'register'
+          self.tool_proxy_json = tool_proxy.to_json
+        else
+          self.proposed_tool_proxy_json = tool_proxy.to_json
+        end
+
         service_offered = nil
         tool_consumer_profile['service_offered'].select do |entry|
           if match_services(entry['@id'] , ':ToolProxy.collection')
@@ -46,7 +55,7 @@ module Lti2Tp
           (redirect_to return_url) and return
         end
 
-        (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post"
+        (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post", disposition
         unless err_code == 201
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
@@ -59,7 +68,7 @@ module Lti2Tp
         tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
 
         self.tool_proxy_json = tool_proxy.to_json
-        self.status = "registered"
+        self.status = disposition
         self.save!
 
         status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
@@ -103,8 +112,13 @@ module Lti2Tp
       return false
     end
 
-    def register_tool_proxy service_offered, method
-      data = self.tool_proxy_json
+    def register_tool_proxy service_offered, method, disposition
+      if disposition == 'register'
+        data = self.tool_proxy_json
+      else
+        data = self.proposed_tool_proxy_json
+      end
+
       # data = CGI::escape(data)
       signed_request = create_signed_request \
         service_offered['endpoint'],
@@ -117,7 +131,8 @@ module Lti2Tp
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer")
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer",
+          END_REGISTRATION_ID_NAME => self.end_registration_id)
       if response.code.between?(200, 202)
         response_body = response.body
         response_content = JSON.load(response_body) unless response_body.strip.empty?

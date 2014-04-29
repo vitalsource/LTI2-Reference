@@ -71,7 +71,7 @@ module Lti2Commons
     # This is fully-compliant REST request suitable for LTI server-to-server services.
     #
     # @param request [Request] Signed Request encapsulates everything needed for service.
-    def invoke_service(request, wire_log=nil, title=nil)
+    def invoke_service(request, wire_log=nil, title=nil, other_headers={})
       uri = request.uri.to_s
       # set_headers_proc = lambda { |http|
       # http.headers['Authorization'] = request.oauth_header
@@ -86,6 +86,7 @@ module Lti2Commons
       headers['Content-Type'] = request.content_type if request.content_type
       headers['Accept'] = request.accept if request.accept
       headers['Content-Length'] = request.body.length.to_s if request.body
+      headers.merge!(other_headers)
 
       parameters = request.parameters
       output_parameters = {}

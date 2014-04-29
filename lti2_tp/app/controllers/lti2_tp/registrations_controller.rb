@@ -49,6 +49,52 @@ module Lti2Tp
       redirect_to "/lti_registration_wips?registration_id=#{@registration.id}&return_url=/lti2_tp/registrations"
     end
 
+    def end_registration
+      body_str = request.body.read
+      json_str = CGI::unescape body_str
+
+      end_registration_id = request.headers[Registration::END_REGISTRATION_ID_NAME]
+      (abort_registration("Missing #{Registration::END_REGISTRATION_ID_NAME} header") and return) if end_registration_id.nil?
+      (abort_registration("Out of sequence #{Registration::END_REGISTRATION_ID_NAME} header") \
+        and return) if end_registration_id != @registration.end_registration_id
+
+      begin
+        tool_proxy_disposition_wrapper = JsonWrapper.new(json_str)
+      rescue
+        return [nil, 400, 'JSON validation failure']
+      end
+
+      tool_proxy_disposition = tool_proxy_disposition.root
+      tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
+      disposition = tool_proxy_disposition['disposition']
+
+      if disposition != 'commit'
+        abort_registration("Tool Consumer requested abort") and return
+      end
+
+      @registration.tool_proxy_json = @registration.proposed_tool_proxy_json
+      @registration.status = 'reregistered'
+      @registration.proposed_tool_proxy_json
+      @registration.end_registration_id = nil
+
+      @registration.save
+
+
+      end_registration_response = {
+          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+          "@type" => "ToolProxy",
+          "@id" => tool_proxy_id,
+          "tool_proxy_guid" => tool_proxy_guid,
+          "disposition" => 'commit'
+      }
+
+      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
+      logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
+      logger.info(JSON.dump(tool_proxy_response))
+
+      render :json => end_registration_response, :content_type => content_type, :status => '201'
+    end
+
     def index
       registration = Lti2Tp::Registration.find(params[:id])
       final_hash = params.select {|k,v| [:status, :tool_guid, :lti_errormsg, :lti_errorlog].include? k.to_sym}
