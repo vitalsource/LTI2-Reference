@@ -50,8 +50,7 @@ module Lti2Tp
     end
 
     def end_registration
-      body_str = request.body.read
-      json_str = CGI::unescape body_str
+      json_str = request.body.read
 
       end_registration_id = request.headers[Registration::END_REGISTRATION_ID_NAME]
       (abort_registration("Missing #{Registration::END_REGISTRATION_ID_NAME} header") and return) if end_registration_id.nil?
@@ -74,11 +73,10 @@ module Lti2Tp
 
       @registration.tool_proxy_json = @registration.proposed_tool_proxy_json
       @registration.status = 'reregistered'
-      @registration.proposed_tool_proxy_json
+      @registration.proposed_tool_proxy_json = nil
       @registration.end_registration_id = nil
 
       @registration.save
-
 
       end_registration_response = {
           "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
@@ -168,6 +166,12 @@ module Lti2Tp
       @registration.save!
 
       show
+    end
+
+    private
+
+    def abort_registration(abort_msg)
+      return [500, abort_msg, nil]
     end
   end
 end

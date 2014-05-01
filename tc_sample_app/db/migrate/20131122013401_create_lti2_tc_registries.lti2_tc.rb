@@ -6,7 +6,7 @@ class CreateLti2TcRegistries < ActiveRecord::Migration
       t.string   :reg_password
       t.string   :partner_url
       t.string   :status
-      t.integer  :tool_id
+      t.string  :end_registration_id
       t.string   :tc_profile_guid
 
       t.timestamps
