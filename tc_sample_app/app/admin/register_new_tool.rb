@@ -12,10 +12,12 @@ ActiveAdmin.register_page "Register New Tool" do
     method = request.method
     if method == "GET"
       deployment_request = Lti2Tc::DeploymentRequest.new
-      session['deployment_request'] = deployment_request
+      deployment_request.save
+      session['lti2_tc_deployment_request_id'] = deployment_request.id
       render "register_new_tool"
     else
-      deployment_request = session['deployment_request']
+      deployment_request_id = session['lti2_tc_deployment_request_id']
+      deployment_request = Lti2Tc::DeploymentRequest.find(deployment_request_id)
       deployment_request.partner_url = params['registration_url']
       deployment_request.save
       # session.delete 'deployment_request'

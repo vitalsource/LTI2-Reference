@@ -6,8 +6,9 @@ class CreateLti2TcRegistries < ActiveRecord::Migration
       t.string   :reg_password
       t.string   :partner_url
       t.string   :status
-      t.string  :end_registration_id
       t.string   :tc_profile_guid
+      t.text     :tool_proxy_json
+      t.integer  :end_registration_id
 
       t.timestamps
     end
@@ -45,6 +46,10 @@ class CreateLti2TcRegistries < ActiveRecord::Migration
       t.string   :description
       t.string   :key
       t.string   :secret
+      t.string   :end_registration_id
+      t.string   :status
+      t.integer  :new_deployment_request_id
+      t.string   :registration_return_url
 
       t.timestamps
     end

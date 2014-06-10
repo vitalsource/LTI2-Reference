@@ -41,6 +41,7 @@ module Lti2Tp
         else
           self.proposed_tool_proxy_json = tool_proxy.to_json
         end
+        self.save!
 
         service_offered = nil
         tool_consumer_profile['service_offered'].select do |entry|
@@ -60,18 +61,22 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        # get guid from the response returned by the TC
-        tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
+        if disposition == 'register'
+          # get guid from the response returned by the TC
+          tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
 
-        # substitute tool_proxy_guid now in the Proxy where needed
-        tool_proxy_wrapper = JsonWrapper.new tool_proxy
-        tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
+          # substitute tool_proxy_guid now in the Proxy where needed
+          tool_proxy_wrapper = JsonWrapper.new tool_proxy
+          tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
 
-        self.tool_proxy_json = tool_proxy.to_json
-        self.status = disposition
-        self.save!
+          self.tool_proxy_json = tool_proxy.to_json
+          self.status = disposition
+          self.save!
 
-        status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
+          status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
+        else
+          status = create_status(true)
+        end
       else
         status = create_status(false, nil, "Can't access ToolProxy")
       end
@@ -115,8 +120,10 @@ module Lti2Tp
     def register_tool_proxy service_offered, method, disposition
       if disposition == 'register'
         data = self.tool_proxy_json
+        label = 'Register'
       else
         data = self.proposed_tool_proxy_json
+        label = 'ReRegister'
       end
 
       # data = CGI::escape(data)
@@ -131,7 +138,7 @@ module Lti2Tp
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer",
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
           END_REGISTRATION_ID_NAME => self.end_registration_id)
       if response.code.between?(200, 202)
         response_body = response.body

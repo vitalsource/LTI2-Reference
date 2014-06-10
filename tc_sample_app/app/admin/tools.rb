@@ -29,6 +29,7 @@ ActiveAdmin.register Lti2Tc::Tool do
     column :description
     column :key
     column :secret
+    column :new_deployment_request_id
     default_actions
   end  
 

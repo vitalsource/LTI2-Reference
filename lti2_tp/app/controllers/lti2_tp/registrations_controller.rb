@@ -50,8 +50,20 @@ module Lti2Tp
     end
 
     def end_registration
+      response = pre_process_tenant
+      if response.nil?
+        return
+      else
+        if response.kind_of?(Array)
+          return unless response[0] == 200
+        end
+      end
+
+      @registration = Lti2Tp::Registration.where(:tenant_key => @tenant.tenant_name).first
+
       json_str = request.body.read
 
+      @registration = Registration.where(:tenant_id => params[:_tenant_id]).first
       end_registration_id = request.headers[Registration::END_REGISTRATION_ID_NAME]
       (abort_registration("Missing #{Registration::END_REGISTRATION_ID_NAME} header") and return) if end_registration_id.nil?
       (abort_registration("Out of sequence #{Registration::END_REGISTRATION_ID_NAME} header") \
@@ -60,11 +72,12 @@ module Lti2Tp
       begin
         tool_proxy_disposition_wrapper = JsonWrapper.new(json_str)
       rescue
-        return [nil, 400, 'JSON validation failure']
+        render :json => 'JSON validation failure', :status => '500'
       end
 
-      tool_proxy_disposition = tool_proxy_disposition.root
+      tool_proxy_disposition = tool_proxy_disposition_wrapper.root
       tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
+      tool_proxy_id = tool_proxy_disposition['@id']
       disposition = tool_proxy_disposition['disposition']
 
       if disposition != 'commit'
@@ -75,6 +88,12 @@ module Lti2Tp
       @registration.status = 'reregistered'
       @registration.proposed_tool_proxy_json = nil
       @registration.end_registration_id = nil
+
+      # recover secret from new tool_proxy
+      tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
+      @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+      @tenant.secret = @registration.reg_password
+      @tenant.save
 
       @registration.save
 
@@ -88,9 +107,9 @@ module Lti2Tp
 
       content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
       logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
-      logger.info(JSON.dump(tool_proxy_response))
+      logger.info(JSON.dump(end_registration_response))
 
-      render :json => end_registration_response, :content_type => content_type, :status => '201'
+      render :json => end_registration_response.to_json, :content_type => content_type, :status => '201'
     end
 
     def index
@@ -171,7 +190,7 @@ module Lti2Tp
     private
 
     def abort_registration(abort_msg)
-      return [500, abort_msg, nil]
+      render :status => 500, :json => abort_msg
     end
   end
 end
