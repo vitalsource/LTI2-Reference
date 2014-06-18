@@ -17,6 +17,9 @@ class CreateLti2TpRegistries < ActiveRecord::Migration
       t.integer  "tool_id"
       t.string   "lti_version"
 
+      t.string   "end_registration_id"
+      t.text     "proposed_tool_proxy"
+
       t.timestamps
     end
 

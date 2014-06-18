@@ -39,8 +39,8 @@ class LtiRegistrationWipsController < InheritedResources::Base
       (@lti_registration_wip.errors[:tenant_name] << "Institution name is already in database") and return
     end
 
-    disposition = @registration.prepare_tool_proxy()
-    if @registration.is_disposition_failure? disposition
+    disposition = @registration.prepare_tool_proxy('register', UUID.generate)
+    if @registration.is_status_failure? disposition
       redirect_to_registration(@registration, disposition) and return
     end
     tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
@@ -57,9 +57,14 @@ class LtiRegistrationWipsController < InheritedResources::Base
 
   def show_reregistration
     tenant = Tenant.where(:tenant_name=>@registration.tenant_key).first
-    disposition = @registration.prepare_tool_proxy()
+    disposition = @registration.prepare_tool_proxy('reregister', @registration.reg_key)
     @registration.status = "reregistered"
     @registration.save!
+
+    tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
+    tenant.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+    tenant.save
+
     return_url = @registration.launch_presentation_return_url + disposition
 
     redirect_to_registration @registration, disposition

@@ -3,7 +3,10 @@ module Lti2Tp
     attr_accessible :launch_presentation_return_url, :reg_key, :reg_password, :status,
                     :tc_profile_url, :tenant_name, :user_id
 
-    def create_tool_proxy tool_consumer_profile, tool_proxy_guid
+
+    END_REGISTRATION_ID_NAME = 'X-IMS-EndRegistration-ID'
+
+    def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = { }
       tool_proxy['@context'] = [
@@ -14,6 +17,7 @@ module Lti2Tp
 
       tool_proxy['lti_version'] = 'LTI-2p0'
       tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['disposition'] = disposition
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
       tool_proxy['tool_profile'] = JSON.load(tool_profile_json)
       tool_proxy['security_contract'] = resolve_security_contract(tool_consumer_profile)
@@ -27,11 +31,18 @@ module Lti2Tp
       JSON.load tcp_response.body
     end
 
-    def prepare_tool_proxy
+    def prepare_tool_proxy disposition, tool_proxy_guid
       tool_consumer_profile = JSON.load(self.tool_consumer_profile_json)
-      tool_proxy = create_tool_proxy(tool_consumer_profile, UUID.generate)
+      tool_proxy = create_tool_proxy(tool_consumer_profile, tool_proxy_guid, disposition)
       if tool_proxy
-        self.tool_proxy_json = tool_proxy.to_json
+        self.end_registration_id = UUID.generate
+        if disposition == 'register'
+          self.tool_proxy_json = tool_proxy.to_json
+        else
+          self.proposed_tool_proxy_json = tool_proxy.to_json
+        end
+        self.save!
+
         service_offered = nil
         tool_consumer_profile['service_offered'].select do |entry|
           if match_services(entry['@id'] , ':ToolProxy.collection')
@@ -40,50 +51,54 @@ module Lti2Tp
           end
         end
         if service_offered.nil?
-          disposition = create_disposition(false, nil, "No matching service definition")
+          status = create_status(false, nil, "No matching service definition")
           return_url = self.launch_presentation_return_url + "?status=failure"
           (redirect_to return_url) and return
         end
 
-        (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post"
+        (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post", disposition
         unless err_code == 201
-          disposition = create_disposition(false, nil, "#{err_code}-#{err_msg}")
-          return disposition
+          status = create_status(false, nil, "#{err_code}-#{err_msg}")
+          return status
         end
-        # get guid from the response returned by the TC
-        tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
+        if disposition == 'register'
+          # get guid from the response returned by the TC
+          tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
 
-        # substitute tool_proxy_guid now in the Proxy where needed
-        tool_proxy_wrapper = JsonWrapper.new tool_proxy
-        tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
+          # substitute tool_proxy_guid now in the Proxy where needed
+          tool_proxy_wrapper = JsonWrapper.new tool_proxy
+          tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy['tool_proxy_guid']}
 
-        self.tool_proxy_json = tool_proxy.to_json
-        self.status = "registered"
-        self.save!
+          self.tool_proxy_json = tool_proxy.to_json
+          self.status = disposition
+          self.save!
 
-        disposition = create_disposition(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
+          status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
+        else
+          status = create_status(true)
+        end
       else
-        disposition = create_disposition(false, nil, "Can't access ToolProxy")
+        status = create_status(false, nil, "Can't access ToolProxy")
       end
 
-      disposition
+      status
     end
 
-    def create_disposition(is_success, tool_guid=nil, message=nil)
-      disposition = "?"
+    def create_status(is_success, tool_guid=nil, message=nil)
+      status = "?"
       if is_success
-        disposition += 'status=success&'
-        disposition += "tool_guid=#{tool_guid}&" if tool_guid.present?
+        status += 'status=success&'
+        status += "tool_guid=#{tool_guid}&" if tool_guid.present?
       else
-        disposition += 'status=failure&'
+        status += 'status=failure&'
         encoded_message = Rack::Utils.escape(message)
-        disposition += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
+        status += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
       end
-      disposition
+      status
     end
 
-    def is_disposition_failure? disposition
-      disposition.include? "status=failure&"
+    def is_status_failure? status
+      status.include? "status=failure&"
     end
 
     private
@@ -102,8 +117,15 @@ module Lti2Tp
       return false
     end
 
-    def register_tool_proxy service_offered, method
-      data = self.tool_proxy_json
+    def register_tool_proxy service_offered, method, disposition
+      if disposition == 'register'
+        data = self.tool_proxy_json
+        label = 'Register'
+      else
+        data = self.proposed_tool_proxy_json
+        label = 'ReRegister'
+      end
+
       # data = CGI::escape(data)
       signed_request = create_signed_request \
         service_offered['endpoint'],
@@ -116,7 +138,8 @@ module Lti2Tp
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Register ToolProxy with ToolConsumer")
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
+          END_REGISTRATION_ID_NAME => self.end_registration_id)
       if response.code.between?(200, 202)
         response_body = response.body
         response_content = JSON.load(response_body) unless response_body.strip.empty?

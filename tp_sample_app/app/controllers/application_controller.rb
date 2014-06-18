@@ -8,15 +8,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def pre_process_tenant
+    oauth_params = OAuth::OAuthProxy::OAuthRequest.parse_authorization_header request.authorization
+    oauth_consumer_key = oauth_params[:oauth_consumer_key] || params['oauth_consumer_key']
+
     # no way home
-    unless params.has_key?('launch_presentation_return_url')
-      render :inline => "<br><br><h2>LTI launch parameters are incomplete and no return URL has been provided</h2>" and return
+    if params['lti_message_type']  == 'basic-lti-launch-request'
+      unless params.has_key?('launch_presentation_return_url')
+        render :inline => "<br><br><h2>LTI launch parameters are incomplete and no return URL has been provided</h2>" and return
+      end
     end
+
 
     # OAuth check here
     tool_provider_registry = Rails.application.config.tool_provider_registry 
 
-    key = request.parameters['oauth_consumer_key']
+    key = oauth_consumer_key
     unless key
       if is_parameters_in_flash
         # no oauth_consumer_key but but flash has been saved from *last* request
@@ -49,28 +55,30 @@ class ApplicationController < ActionController::Base
 
     # LTI conformance
     # Perform extra LTI type checks only for launch
-    if params.has_key?('lti_message_type')
-      lti_message_type = params['lti_message_type']
-      unless ['basic-lti-launch-request', 'ToolProxyRegistrationRequest', 'ToolProxyReregistrationRequest'].include?(lti_message_type)
-        (redirect_to redirect_url("Invalid lti_message_type: #{lti_message_type}")) and return
-      end
-    else
-      (redirect_to redirect_url("Missing lti_message_type")) and return
-    end
-
-    if params['lti_message_type'] == 'basic-lti-launch-request'
-      request.request_parameters['normalized_role'] = normalize_role(params['roles'])
-      unless params.has_key?('resource_link_id')
-        (redirect_to redirect_url("Missing resource link id")) and return
-      end
-
-      if params.has_key?('lti_version')
-        lti_version = params['lti_version']
-        unless ['LTI-1p0', 'LTI-2p0'].include?(lti_version)
-          (redirect_to redirect_url("Invalid lti_version: #{lti_version}")) and return
+    if params['lti_message_type']  == 'basic-lti-launch-request'
+      if params.has_key?('lti_message_type')
+        lti_message_type = params['lti_message_type']
+        unless ['basic-lti-launch-request', 'ToolProxyRegistrationRequest', 'ToolProxyReregistrationRequest'].include?(lti_message_type)
+          (redirect_to redirect_url("Invalid lti_message_type: #{lti_message_type}")) and return
         end
       else
-        (redirect_to redirect_url("Missing lti_version")) and return
+        (redirect_to redirect_url("Missing lti_message_type")) and return
+      end
+
+      if params['lti_message_type'] == 'basic-lti-launch-request'
+        request.request_parameters['normalized_role'] = normalize_role(params['roles'])
+        unless params.has_key?('resource_link_id')
+          (redirect_to redirect_url("Missing resource link id")) and return
+        end
+
+        if params.has_key?('lti_version')
+          lti_version = params['lti_version']
+          unless ['LTI-1p0', 'LTI-2p0'].include?(lti_version)
+            (redirect_to redirect_url("Invalid lti_version: #{lti_version}")) and return
+          end
+        else
+          (redirect_to redirect_url("Missing lti_version")) and return
+        end
       end
     end
 
