@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20131217192847) do
     t.text     "tool_proxy_json"
     t.integer  "tool_id"
     t.string   "lti_version",                    :limit => 32
+    t.string   "end_registration_id"
+    t.text     "proposed_tool_proxy_json"
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
   end

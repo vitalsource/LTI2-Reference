@@ -56,83 +56,117 @@ lti2_tp_tools:
   records: 
   - - 1
     - LTI2 BookTools
-    - ! "{\n\t\"product_instance\": {\n\t\t\"product_info\": {\n\t\t\t\"product_version\":
-      \"10.3\",\n\t\t\t\"technical_description\": {\n\t\t\t\t\"default_value\": \"Support
-      provided for all LTI 1 extensions as well as LTI 2\",\n\t\t\t\t\"key\": \"tool.technical\"\n\t\t\t},\n\t\t\t\"product_name\":
-      {\n\t\t\t\t\"default_value\": \"LTI2 BookTools\",\n\t\t\t\t\"key\": \"tool.name\"\n\t\t\t},\n\t\t\t\"product_family\":
-      {\n\t\t\t\t\"code\": \"assessment-tool\",\n\t\t\t\t\"vendor\": {\n\t\t\t\t\t\"website\":
-      \"{{tp_deployment_url}}\",\n\t\t\t\t\t\"code\": \"fabericious.org\",\n\t\t\t\t\t\"name\":
-      {\n\t\t\t\t\t\t\"default_value\": \"Fab\",\n\t\t\t\t\t\t\"key\": \"tool.vendor.name\"\n\t\t\t\t\t},\n\t\t\t\t\t\"timestamp\":
-      \"2012-04-05T09:08:16-04:00\",\n\t\t\t\t\t\"contact\": {\n\t\t\t\t\t\t\"email\":
-      \"info@fabericious.com\"\n\t\t\t\t\t},\n\t\t\t\t\t\"description\": {\n\t\t\t\t\t\t\"default_value\":
-      \"Fabericious is a leading provider of interactive tools for education\",\n\t\t\t\t\t\t\"key\":
-      \"tool.vendor.description\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"description\":
-      {\n\t\t\t\t\"default_value\": \"Fabericious reflowable ePub3 Textbook\",\n\t\t\t\t\"key\":
-      \"tool.description\"\n\t\t\t}\n\t\t},\n\t\t\"support\": {\n\t\t\t\"email\":
-      \"helpdesk@fabericious.com\"\n\t\t},\n\t\t\"guid\": \"fd75124a-140e-470f-944c-114d2d92bb40\",\n\t\t\"service_provider\":
-      {\n\t\t\t\"support\": {\n\t\t\t\t\"email\": \"support@ec2.fabericious.com\"\n\t\t\t},\n\t\t\t\"service_provider_name\":
-      {\n\t\t\t\t\"default_value\": \"Amazon Cloud\",\n\t\t\t\t\"key\": \"service_provider.name\"\n\t\t\t},\n\t\t\t\"guid\":
-      \"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c\",\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
-      \"Provider of high performance managed hosting environments\",\n\t\t\t\t\"key\":
-      \"service_provider.description\"\n\t\t\t},\n\t\t\t\"timestamp\": \"2012-04-05T09:08:16-04:00\"\n\t\t}\n\t},\n\t\"lti_version\":
-      \"LTI-2p0\",\n\t\"message\": [\n\t\t{\n\t\t\t\"message_type\": [\"ToolProxyRegistrationRequest\",
-      \"ToolProxyReregistrationRequest\"],\n\t\t\t\"path\": \"{tp_deployment_url}/lti2_tp/reregistrations\",\n\t\t\t\"parameter\":
-      [\n\t\t\t\t{\n\t\t\t\t\t\"variable\": \"ToolConsumerProfile.url\",\n\t\t\t\t\t\"name\":
-      \"tc_profile_url\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t],\n\t\"resource_handler\":
-      [\n        {\n            \"message\": [\n                {\n                    \"path\":
-      \"/settings\",\n                    \"parameter\": [\n                        {\n
-      \                           \"variable\": \"ToolProxy.custom.url\",\n                            \"name\":
-      \"tool_proxy_custom_url\"\n                        }, {\n                            \"variable\":
-      \"ToolProxyBinding.custom.url\",\n                            \"name\": \"tool_proxy_binding_custom_url\"\n
-      \                       }, {\n                            \"variable\": \"LtiLink.custom.url\",\n
-      \                           \"name\": \"lti_link_custom_url\"\n                        }\n
-      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
-      \               }\n            ],\n            \"name\": {\n                \"default_value\":
-      \"Settings\",\n                \"key\": \"resource.name\"\n            },\n
-      \           \"resource_type\": {\"code\": \"setting\"},\n            \"description\":
+    - ! "{\n    \"base_url_choice\": [\n        {\n            \"default_base_url\":
+      \"{tp_deployment_url}\",\n            \"selector\": {\n                \"applies_to\":
+      [\n                    \"IconEndpoint\",\n                    \"MessageHandler\"\n
+      \               ]\n            }\n        }\n    ],\n    \"lti_version\": \"LTI-2p0\",\n
+      \   \"message\": [\n        {\n            \"message_type\": [\n                \"ToolProxyRegistrationRequest\",\n
+      \               \"ToolProxyReregistrationRequest\"\n            ],\n            \"parameter\":
+      [\n                {\n                    \"name\": \"tc_profile_url\",\n                    \"variable\":
+      \"ToolConsumerProfile.url\"\n                }\n            ],\n            \"path\":
+      \"{tp_deployment_url}/lti2_tp/reregistrations\"\n        }\n    ],\n    \"product_instance\":
+      {\n        \"guid\": \"fd75124a-140e-470f-944c-114d2d92bb40\",\n        \"product_info\":
+      {\n            \"description\": {\n                \"default_value\": \"Fabericious
+      reflowable ePub3 Textbook\",\n                \"key\": \"tool.description\"\n
+      \           },\n            \"product_family\": {\n                \"code\":
+      \"assessment-tool\",\n                \"vendor\": {\n                    \"code\":
+      \"fabericious.org\",\n                    \"contact\": {\n                        \"email\":
+      \"info@fabericious.com\"\n                    },\n                    \"description\":
+      {\n                        \"default_value\": \"Fabericious is a leading provider
+      of interactive tools for education\",\n                        \"key\": \"tool.vendor.description\"\n
+      \                   },\n                    \"name\": {\n                        \"default_value\":
+      \"Fab\",\n                        \"key\": \"tool.vendor.name\"\n                    },\n
+      \                   \"timestamp\": \"2012-04-05T09:08:16-04:00\",\n                    \"website\":
+      \"{{tp_deployment_url}}\"\n                }\n            },\n            \"product_name\":
+      {\n                \"default_value\": \"LTI2 BookTools\",\n                \"key\":
+      \"tool.name\"\n            },\n            \"product_version\": \"10.3\",\n
+      \           \"technical_description\": {\n                \"default_value\":
+      \"Support provided for all LTI 1 extensions as well as LTI 2\",\n                \"key\":
+      \"tool.technical\"\n            }\n        },\n        \"service_provider\":
+      {\n            \"description\": {\n                \"default_value\": \"Provider
+      of high performance managed hosting environments\",\n                \"key\":
+      \"service_provider.description\"\n            },\n            \"guid\": \"18e7ea50-3d6d-4f6b-aff2-ed3ab577716c\",\n
+      \           \"service_provider_name\": {\n                \"default_value\":
+      \"Amazon Cloud\",\n                \"key\": \"service_provider.name\"\n            },\n
+      \           \"support\": {\n                \"email\": \"support@ec2.fabericious.com\"\n
+      \           },\n            \"timestamp\": \"2012-04-05T09:08:16-04:00\"\n        },\n
+      \       \"support\": {\n            \"email\": \"helpdesk@fabericious.com\"\n
+      \       }\n    },\n    \"resource_handler\": [\n        {\n            \"description\":
       {\n                \"default_value\": \"Settings service\",\n                \"key\":
-      \"resource.description\"\n            }\n        },\n        {\n            \"message\":
-      [\n                {\n                    \"path\": \"/echoes\",\n                    \"parameter\":
+      \"resource.description\"\n            },\n            \"message\": [\n                {\n
+      \                   \"message_type\": \"basic-lti-launch-request\",\n                    \"parameter\":
+      [\n                        {\n                            \"name\": \"tool_proxy_custom_url\",\n
+      \                           \"variable\": \"ToolProxy.custom.url\"\n                        },\n
+      \                       {\n                            \"name\": \"tool_proxy_binding_custom_url\",\n
+      \                           \"variable\": \"ToolProxyBinding.custom.url\"\n
+      \                       },\n                        {\n                            \"name\":
+      \"lti_link_custom_url\",\n                            \"variable\": \"LtiLink.custom.url\"\n
+      \                       }\n                    ],\n                    \"path\":
+      \"/settings\"\n                }\n            ],\n            \"name\": {\n
+      \               \"default_value\": \"Settings\",\n                \"key\": \"resource.name\"\n
+      \           },\n            \"resource_type\": {\n                \"code\":
+      \"setting\"\n            }\n        },\n        {\n            \"description\":
+      {\n                \"default_value\": \"Echo service\",\n                \"key\":
+      \"resource.description\"\n            },\n            \"message\": [\n                {\n
+      \                   \"message_type\": \"basic-lti-launch-request\",\n                    \"parameter\":
       [\n                        {\n                            \"fixed\": \"Narcissus\",\n
-      \                           \"name\": \"referrer\"\n                        },
-      {\n                            \"fixed\": \"3.14159\",\n                            \"name\":
-      \"pi\"\n                        }, {\n                            \"variable\":
-      \"Person.email.primary\",\n                            \"name\": \"user_primary_email\"\n
-      \                       }, {\n                            \"variable\": \"CourseOffering.label\",\n
-      \                           \"name\": \"discipline\"\n                        }\n
-      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\"\n
-      \               }\n            ],\n            \"name\": {\n                \"default_value\":
-      \"Echo\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\":
-      {\"code\": \"echo\"},\n            \"description\": {\n                \"default_value\":
-      \"Echo service\",\n                \"key\": \"resource.description\"\n            }\n
-      \       },\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
-      \"/books\",\n\t\t\t\t\t\"parameter\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\":
-      \"vbid\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
-      {\n\t\t\t\t\"default_value\": \"Book\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      {\"code\": \"book\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
-      \"VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
-      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookselections\",\n\t\t\t\t\t\"parameter\":
-      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"name\":
-      \"book_location\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
-      \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
-      \"BookSelection\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      {\"code\": \"bookselection\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
-      \"Deep-linked VitalSource reader for XML, PDF, and ePub content\",\n\t\t\t\t\"key\":
-      \"resource.description\"\n\t\t\t}\n\t\t},\n        {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\":
-      \"/iresources\",\n\t\t\t\t\t\"enabled_capability\": [\n\t\t\t\t\t\t\"Result.autocreate\"\n\t\t\t\t\t],\n\t\t\t\t\t\"parameter\":
-      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"name\": \"vbid\"\n\t\t\t\t\t\t}, {\n\t\t\t\t\t\t\t\"variable\":
-      \"Result.uri\",\n\t\t\t\t\t\t\t\"name\": \"result_uri\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\":
-      \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\": {\n\t\t\t\t\"default_value\":
-      \"InteractiveResource\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      {\"code\": \"iresource\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
-      \"Interactive resource\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t},\n
-      \       {\n\t\t\t\"message\": [\n\t\t\t\t{\n\t\t\t\t\t\"path\": \"/bookshelves\",\n\t\t\t\t\t\"parameter\":
-      [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"variable\": \"CourseOffering.label\",\n\t\t\t\t\t\t\t\"name\":
-      \"course_label\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"message_type\": \"basic-lti-launch-request\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"name\":
-      {\n\t\t\t\t\"default_value\": \"Bookshelf\",\n\t\t\t\t\"key\": \"resource.name\"\n\t\t\t},\n\t\t\t\"resource_type\":
-      {\"code\": \"bookshelf\"},\n\t\t\t\"description\": {\n\t\t\t\t\"default_value\":
-      \"VitalSource Bookshelf\",\n\t\t\t\t\"key\": \"resource.description\"\n\t\t\t}\n\t\t}\n\t],\n\t\"base_url_choice\":
-      [\n\t\t{\n\t\t\t\"selector\": {\n\t\t\t\t\"applies_to\": [\"IconEndpoint\",
-      \"MessageHandler\"]\n\t\t\t},\n\t\t\t\"default_base_url\": \"{tp_deployment_url}\"\n\t\t}\n\t]\n}\n"
+      \                           \"name\": \"referrer\"\n                        },\n
+      \                       {\n                            \"fixed\": \"3.14159\",\n
+      \                           \"name\": \"pi\"\n                        },\n                        {\n
+      \                           \"name\": \"user_primary_email\",\n                            \"variable\":
+      \"Person.email.primary\"\n                        },\n                        {\n
+      \                           \"name\": \"discipline\",\n                            \"variable\":
+      \"CourseOffering.label\"\n                        }\n                    ],\n
+      \                   \"path\": \"/echoes\"\n                }\n            ],\n
+      \           \"name\": {\n                \"default_value\": \"Echo\",\n                \"key\":
+      \"resource.name\"\n            },\n            \"resource_type\": {\n                \"code\":
+      \"echo\"\n            }\n        },\n        {\n            \"description\":
+      {\n                \"default_value\": \"VitalSource reader for XML, PDF, and
+      ePub content\",\n                \"key\": \"resource.description\"\n            },\n
+      \           \"message\": [\n                {\n                    \"message_type\":
+      \"basic-lti-launch-request\",\n                    \"parameter\": [\n                        {\n
+      \                           \"name\": \"vbid\"\n                        }\n
+      \                   ],\n                    \"path\": \"/books\"\n                }\n
+      \           ],\n            \"name\": {\n                \"default_value\":
+      \"Book\",\n                \"key\": \"resource.name\"\n            },\n            \"resource_type\":
+      {\n                \"code\": \"book\"\n            }\n        },\n        {\n
+      \           \"description\": {\n                \"default_value\": \"Deep-linked
+      VitalSource reader for XML, PDF, and ePub content\",\n                \"key\":
+      \"resource.description\"\n            },\n            \"message\": [\n                {\n
+      \                   \"message_type\": \"basic-lti-launch-request\",\n                    \"parameter\":
+      [\n                        {\n                            \"name\": \"vbid\"\n
+      \                       },\n                        {\n                            \"name\":
+      \"book_location\"\n                        }\n                    ],\n                    \"path\":
+      \"/bookselections\"\n                }\n            ],\n            \"name\":
+      {\n                \"default_value\": \"BookSelection\",\n                \"key\":
+      \"resource.name\"\n            },\n            \"resource_type\": {\n                \"code\":
+      \"bookselection\"\n            }\n        },\n        {\n            \"description\":
+      {\n                \"default_value\": \"Interactive resource\",\n                \"key\":
+      \"resource.description\"\n            },\n            \"message\": [\n                {\n
+      \                   \"enabled_capability\": [\n                        \"Result.autocreate\"\n
+      \                   ],\n                    \"message_type\": \"basic-lti-launch-request\",\n
+      \                   \"parameter\": [\n                        {\n                            \"name\":
+      \"vbid\"\n                        },\n                        {\n                            \"name\":
+      \"result_uri\",\n                            \"variable\": \"Result.uri\"\n
+      \                       }\n                    ],\n                    \"path\":
+      \"/iresources\"\n                }\n            ],\n            \"name\": {\n
+      \               \"default_value\": \"InteractiveResource\",\n                \"key\":
+      \"resource.name\"\n            },\n            \"resource_type\": {\n                \"code\":
+      \"iresource\"\n            }\n        },\n        {\n            \"description\":
+      {\n                \"default_value\": \"VitalSource Bookshelf\",\n                \"key\":
+      \"resource.description\"\n            },\n            \"message\": [\n                {\n
+      \                   \"message_type\": \"basic-lti-launch-request\",\n                    \"parameter\":
+      [\n                        {\n                            \"name\": \"course_label\",\n
+      \                           \"variable\": \"CourseOffering.label\"\n                        }\n
+      \                   ],\n                    \"path\": \"/bookshelves\"\n                }\n
+      \           ],\n            \"name\": {\n                \"default_value\":
+      \"Bookshelf\",\n                \"key\": \"resource.name\"\n            },\n
+      \           \"resource_type\": {\n                \"code\": \"bookshelf\"\n
+      \           }\n        }\n    ],\n    \"service_offered\": [\n        {\n            \"@id\":
+      \"{tc_deployment_url}/lti2_tp/endregistration\",\n            \"@type\": \"RestService\",\n
+      \           \"action\": [\n                \"POST\"\n            ],\n            \"endpoint\":
+      \"{tc_deployment_url}/lti2_tp/end_registration\",\n            \"format\": [\n
+      \               \"application/vnd.ims.lti.v2.toolproxy.id+json\"\n            ]\n
+      \       }\n    ]\n}\n"
     - 2013-01-13 20:12:10.000000000 Z
     - 2013-01-13 20:12:10.000000000 Z
