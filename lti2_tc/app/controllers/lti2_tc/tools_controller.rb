@@ -254,7 +254,7 @@ module Lti2Tc
         @tool.secret,
         {},
         end_registration_request.to_json,
-        "application/vnd.ims.lti.v2.toolproxy+json"
+        "application/vnd.ims.lti.v2.toolproxy.id+json"
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"

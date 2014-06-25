@@ -85,23 +85,46 @@ class ApplicationController < ActionController::Base
     return [200, nil, nil]
   end
   
-  protected 
-  
-  def lti_link_to(path, parameters)
+  protected
+
+  def lti_link_to(path, parameters, role='student')
     parameter_addends = {
-      'lti_version' => 'LTI-1p0',
-      'lti_message_type' => 'basic-lti-launch-request',
-      'resource_link_id' => '12345',
-      'user_id' => 'lti2.user',
-      'roles' => 'student',
+        'lti_version' => 'LTI-1p0',
+        'lti_message_type' => 'basic-lti-launch-request',
+        'resource_link_id' => '12345',
+        'user_id' => 'lti2.user',
+        'roles' => role,
     }
-    
+
     parameters.merge! parameter_addends
-    
+
     service_endpoint = "http://bc.vitalsource.com" + path
     key = '640e19b0-5ff8-11e2-bcfd-0800200c9a66'
     secret = 'A83C3F8E864CA11A'
-    
+
+    signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, parameters
+    # puts "TC Signed Request: #{signed_request.signature_base_string}"    # parameters['oauth_signature'] = Base64.encode64( OpenSSL::HMAC.digest( OpenSSL::Digest::Digest.new( 'sha1' ), secret+"&", "#{signed_request.signature_base_string}" ) ).chomp.gsub( /\n/, '' )
+    MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Launch to external tool")
+  end
+
+  def analytics_lti_link_to(parameters)
+    parameter_addends = {
+        'lti_version' => 'LTI-1p0',
+        'lti_message_type' => 'basic-lti-launch-request',
+        'resource_link_id' => '123456',
+        'user_id' => '5012095',
+        'roles' => 'instructor',
+        'lis_person_contact_email_primary' => 'jbschuman@gmail.com',
+        'lis_person_name_family' => 'Instructor',
+        'lis_person_name_given' => 'John'
+    }
+
+    parameters.merge! parameter_addends
+
+    service_endpoint = "https://servicehub.coursesmart.com/bbdemo/viewEtextbookUsageAnalytics"
+    key = 'bbdemo.key.id'
+    secret = '{SSHA}Wn8PQEzo3zZsq5aqAhLKfYENPTNozFZw'
+
     signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, parameters
     # puts "TC Signed Request: #{signed_request.signature_base_string}"    # parameters['oauth_signature'] = Base64.encode64( OpenSSL::HMAC.digest( OpenSSL::Digest::Digest.new( 'sha1' ), secret+"&", "#{signed_request.signature_base_string}" ) ).chomp.gsub( /\n/, '' )
     MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Launch to external tool")
