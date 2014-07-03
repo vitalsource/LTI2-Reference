@@ -1,7 +1,6 @@
 require 'oauth/request_proxy/base'
 
 module OAuth
-
   module OAuthProxy
     # RequestProxy for Hashes to facilitate simpler signature creation.
     # Usage:
@@ -26,7 +25,6 @@ module OAuth
     NONCE_REPLAY_UNIQUE_WITHIN_SECS = CLOCK_SKEW_ALLOWANCE_IN_SECS
 
     class OAuthRequest < OAuth::RequestProxy::Base
-
       proxies Hash
 
       attr_accessor :body, :content_type, :accept
@@ -129,7 +127,6 @@ module OAuth
       # Validates an OAuth request using the OAuth Gem - https://github.com/oauth/oauth-ruby
       #
       # @return [Bool] Whether the request was valid
-      #
       def verify_signature?( secret, nonce_cache, is_handle_error_not_raise_exception=true, ignore_timestamp_and_nonce=false )
         log 'in verify_signature'
         test_request = self.copy
@@ -150,10 +147,8 @@ module OAuth
 
           # check body-signing if oauth_body_signature
           if self.body and self.parameters.has_key? 'oauth_body_hash'
-            unless compute_oauth_body_hash( self.body ) == self.parameters['oauth_body_hash']
-              raise 'Invalid signature of message body'
+            raise 'Invalid signature of message body' unless compute_oauth_body_hash(self.body) == self.parameters['oauth_body_hash']
             end
-          end
           [true, test_request.signature_base_string]
         rescue Exception => e
           log( e.message )
@@ -179,9 +174,6 @@ module OAuth
         # log "Authorization_Header: #{request.headers['Authorization']}"
         [self.oauth_signature == test_signature, test_request.signature_base_string]
       end
-
     end
-
   end
-
 end

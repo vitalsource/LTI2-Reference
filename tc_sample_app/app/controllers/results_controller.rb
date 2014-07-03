@@ -1,11 +1,11 @@
 class ResultsController < ApplicationController
-
   def pre_process
     Lti2Tc::Authorizer::pre_process_tenant(request)
   end
 
   def show
-    pre_process
+    oauth_error = pre_process
+    (render :text => "Authentication error", :status => 401 if oauth_error) and return
     begin
       grade_result = GradeResult.find(params['id'])
       result_json_object = {
@@ -21,7 +21,8 @@ class ResultsController < ApplicationController
   end
 
   def update
-    pre_process
+    oauth_error = pre_process
+    (render :text => "Authentication error", :status => 401 if oauth_error) and return
     begin
       grade_result = GradeResult.find(params['id'])
       body_str = request.body.read
@@ -36,5 +37,4 @@ class ResultsController < ApplicationController
 
     render :nothing => true
   end
-
 end

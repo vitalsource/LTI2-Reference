@@ -1,5 +1,4 @@
 class BookshelvesController < ApplicationController
-
   before_filter :pre_process_tenant
 
   def create_echo
@@ -18,5 +17,4 @@ class BookshelvesController < ApplicationController
     parameters['context_label'] = parameters['custom_course_label']
     render :inline => (lti_link_to "/books", parameters)
   end
-
 end

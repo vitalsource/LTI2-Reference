@@ -47,7 +47,7 @@ PATH
 PATH
   remote: ../lti2_tp
   specs:
-    lti2_tp (0.0.1)
+    lti2_tp (0.0.2)
       mysql2 (~> 0.3.13)
       rails (~> 4.0.0)
 
@@ -176,9 +176,8 @@ GEM
     pry-debugger (0.2.2)
       debugger (~> 1.3)
       pry (~> 0.9.10)
-    pry-doc (0.7.1)
+    pry-doc (0.6.0)
       pry (~> 0.9)
-      ruby-core-docs
       yard (~> 0.8)
     pry-docmore (0.1.1)
       pry
@@ -283,6 +282,7 @@ DEPENDENCIES
   lti2_tp!
   mysql2 (~> 0.3.13)
   pry
+  pry-doc (~> 0.6.0)
   pry-plus
   pry-rails
   quiet_assets

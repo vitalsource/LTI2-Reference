@@ -62,13 +62,13 @@
           - else
             &nbsp;
         %td{:width => "70"}
-          %a{:href=>"/admin/course_page?method=toggle&course_id=#{@course.id}&link_id=#{link.id}&toggle=#{not link.is_enabled}"} [#{link.toggle_label}]
+          %a{:href=>"/admin/course_page?method=toggle&course_id=#{@course.id}&link_id=#{link.id}&toggle=#{not link.is_enabled}"} [#{link['toggle_label']}]
         %td{:width => "100"}
           #{link.resource.name}
         %td{:width => "100"}
           #{link.grade_item_label}
         %td{:width => "60"}
-          #{link.grade_result}
+          #{link['grade_result']}
         %td
           #{link.link_parameters}
 

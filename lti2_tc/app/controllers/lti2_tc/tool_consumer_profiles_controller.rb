@@ -1,9 +1,7 @@
 require_dependency 'lti2_tc/application_controller'
 
 module Lti2Tc
-
   class ToolConsumerProfilesController < ApplicationController
-
     def index
       show
     end
@@ -21,7 +19,5 @@ module Lti2Tc
         render :inline => '<h2>ToolConsumerProfile not found</h2>',  :status => 404
       end
     end
-
   end
-
 end

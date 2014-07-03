@@ -33,5 +33,4 @@ class AdminUser < ActiveRecord::Base
       self.user_id
     end
   end
-
 end

@@ -1,10 +1,7 @@
 require_dependency 'lti2_tc/application_controller'
 
 module Lti2Tc
-
   class ToolSettingsController < ApplicationController
-
-    before_filter :pre_process_tenant   # look in ApplicationController
 
     def initialize
       @acceptable_headers = [ 'application/vnd.ims.lti.v2.toolsettings+json',
@@ -76,8 +73,13 @@ module Lti2Tc
       ! @acceptable_headers.include?( header )
     end
 
+    def pre_process
+      Lti2Tc::Authorizer::pre_process_tenant(request)
+    end
+
     def show
-      ( render :text => 'Authentication error', :status => 401 if @oauth_error ) and return
+      oauth_error = pre_process
+      (render :text => "Authentication error", :status => 401 if oauth_error) and return
 
       tool_guid = params[:tool_guid]
       collection_type = ToolSettingsController.get_collection_type( request.path )
@@ -143,8 +145,7 @@ module Lti2Tc
 
         if bubble.present?
           if bubble == 'all' && accept == 'application/vnd.ims.lti.v2.toolsettings.simple+json'
-            render :text => 'bubble=all option cannot be used for toolsettings.simple media type', :status => 400
-            return
+            (render :text => 'bubble=all option cannot be used for toolsettings.simple media type', :status => 400) and return
           end
           target_matches = ToolSettingsController.add_ancestor_settings( target_matches )
         end
@@ -161,25 +162,22 @@ module Lti2Tc
     end
 
     def update
-      ( render :text => 'Authentication error', :status => 401 if @oauth_error ) and return
+      oauth_error = pre_process
+      (render :text => "Authentication error", :status => 401 if oauth_error) and return
 
       tool_guid = params[:tool_guid]
+      collection_type = ToolSettingsController.get_collection_type(request.path)
+      node_id = collection_type == 'Tool' ? nil : params[:node_id]
 
       content_type = request.headers['CONTENT_TYPE']
-      if is_unacceptable( content_type )
-        render :text => 'Unacceptable Content_Type header for ToolSettings', :status => 406
-        return
-      end
+      (render :text => "Unacceptable Content_Type header for ToolSettings", :status => 406 if is_unacceptable(content_type)) and return
 
       body_str = request.body.read
-      json_str = CGI::unescape( body_str )
+      json_str = CGI::unescape body_str
 
       if is_header_full_not_simple( content_type )
         settings_object = JSON.load( json_str )
-        if settings_object['@graph'].length > 1
-          render :json => 'Multiple level tool setting updates not allowed', :status => 400
-          return
-        end
+        (render :json => "Multiple level tool setting updates not allowed", :status => 400 if settings_object['@graph'].length > 1) and return
         settings = settings_object['@graph'][0]['custom']
       else
         settings = JSON.load( json_str )
@@ -211,7 +209,6 @@ module Lti2Tc
 
       render :json => "Successfully updated #{settings.length} values"
     end
-
   end
 
 end

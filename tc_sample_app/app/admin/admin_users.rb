@@ -1,5 +1,4 @@
 ActiveAdmin.register AdminUser do
-
   menu :parent => "Admin..."
 
   permit_params :user_id, :first_name, :last_name, :email, :role, :password
@@ -30,5 +29,4 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
 end

@@ -9,7 +9,6 @@ module Lti2Commons
   # the interface exactly matches the protocol of the supplied implementation.
   # Consequently, this adapter is not really required.
   class Cache
-
     # create cache.
     # @params options [Hash] Should include :ttl => <expiry_time>
     def initialize(options)
@@ -27,7 +26,6 @@ module Lti2Commons
     def store(name, value)
       @cache.store(name, value)
     end
-
   end
 
 end

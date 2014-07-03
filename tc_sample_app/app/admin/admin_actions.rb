@@ -1,7 +1,6 @@
 require 'rake'
 
 ActiveAdmin.register_page "Admin Actions" do
-
   menu :label => "Admin Actions", :parent => "LMS..."
 
   content :title => proc{ I18n.t("active_admin.dashboard") } do

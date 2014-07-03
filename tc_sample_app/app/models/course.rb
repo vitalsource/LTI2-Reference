@@ -1,10 +1,8 @@
 class Course < ActiveRecord::Base
 
   has_many :enrollments
-  has_many :links
   has_many :grade_items
   has_many :grade_results
-  has_many :tool_settings, :as => :scopeable
 
   alias_attribute :name, :course_label
 

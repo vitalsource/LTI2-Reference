@@ -26,7 +26,5 @@ module Lti2Commons
     def substitute_template_values_from_hash( source_string, prefix, suffix, hash )
       hash.each { |k,v| source_string.sub!( prefix+k+suffix, v ) }
     end
-
   end
-
 end

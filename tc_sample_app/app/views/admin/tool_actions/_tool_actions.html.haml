@@ -19,6 +19,8 @@
       %h4 Key
     %td
       %h4 Enabled?
+    %td
+      %h4 New ToolProxy?
 
   - @tools.each do |tool|
     %tr
@@ -30,5 +32,7 @@
         #{tool.key}
       %td{:width => "30"}
         %a{:href=> "/admin/tool_actions?method=toggle&tool_id=#{tool.id}&toggle=#{not tool.is_enabled}"} #{tool.toggle_label}
+      %td{:width => "30"}
+        #{tool.new_tool_proxy_url.html_safe}
       %td{:width => "30"}
         %a{:href=> "/admin/tool_actions?method=reregister&tool_id=#{tool.id}"} [re-register]

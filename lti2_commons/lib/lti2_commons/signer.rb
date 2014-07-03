@@ -2,14 +2,6 @@ require "uri"
 require "oauth"
 require 'lti2_commons/oauth_request'
 
-# TODO: still needed in Ruby 2?
-class Symbol
-  # monkey patch needed for OAuth library running in Ruby 1.8.7
-  def downcase
-    self.to_s.downcase.to_sym
-  end
-end
-
 module Lti2Commons
 
   module Signer
@@ -27,7 +19,6 @@ module Lti2Commons
     # @param body [String] Body content.  Usually would include this for body-signing of non form-encoded data.
     # @param content_type [String] HTTP CONTENT-TYPE header; defaults: 'application/x-www-form-urlencoded'
     # @return [Request] Signed request
-    #
     def create_signed_request( launch_url, http_method, consumer_key, consumer_secret, params={},
         body=nil, content_type=nil, accept=nil )
       params['oauth_consumer_key'] = consumer_key
@@ -85,7 +76,6 @@ module Lti2Commons
     #
     # @param launch_url [String] Content to be body signed
     # @return [String] Signature base string (useful for debugging signature problems)
-    #
     def compute_oauth_body_hash content
       Base64.encode64( Digest::SHA1.digest( content.chomp ) ).gsub( /\n/, '' )
     end

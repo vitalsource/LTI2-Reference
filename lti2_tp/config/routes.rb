@@ -2,6 +2,8 @@ Lti2Tp::Engine.routes.draw do
 
   resources :registrations
 
-  #post 'reregistrations' => 'deployment_proposals#reregister'
+  match 'reregistrations' => 'registrations#reregister', :via => :post
+
+  match 'end_registration' => 'registrations#end_registration', :via => :post
 
 end

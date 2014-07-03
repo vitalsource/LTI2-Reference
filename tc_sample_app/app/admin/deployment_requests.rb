@@ -1,5 +1,4 @@
 ActiveAdmin.register Lti2Tc::DeploymentRequest do
-
   menu :parent => "LTI..."
 
   permit_params :partner_url, :reg_password, :reg_key, :status, :tc_profile_guid

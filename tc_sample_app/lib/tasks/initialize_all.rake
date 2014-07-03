@@ -20,5 +20,4 @@ namespace :init_task do
   task :truncate_wirelog => :environment do
     wire_log_file = File.truncate(Rails.application.config.wire_log.output_file_name, 0)
   end
-
 end

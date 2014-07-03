@@ -5,10 +5,8 @@ include Signer
 module Lti2Tc
 
   class Link < ActiveRecord::Base
-
     belongs_to :course
     belongs_to :resource
-
     has_many :tool_settings, :as => :scopeable
 
     attr_accessor :is_link_visible, :url, :toggle_label, :grade_item_label, :grade_result
@@ -23,5 +21,4 @@ module Lti2Tc
     end
 
   end
-
 end

@@ -5,15 +5,15 @@ Lumos::Application.routes.draw do
   resources :registries
   resources :results
 
-  get 'docs' => 'docs#show'
+  get "docs", :to => "docs#show"
 
-  get 'home/index'
+  get "home/index"
 
-  root 'home#index'
+  root :to => "home#index"
 
   ActiveAdmin.routes(self)
 
-  post '/admin/register_new_tool' => 'admin/register_new_tool#index'
+  post '/admin/register_new_tool', :to => 'admin/register_new_tool#index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 

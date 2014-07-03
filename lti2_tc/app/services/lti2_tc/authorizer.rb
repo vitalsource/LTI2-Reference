@@ -4,11 +4,9 @@ include MessageSupport
 include OAuth::OAuthProxy
 
 module Lti2Tc
-
   class Authorizer
-
-    def self.pre_process_tenant( request )
-      rack_parameters = OAuthRequest.collect_rack_parameters( request )
+    def self.pre_process_tenant request
+      rack_parameters = OAuthRequest.collect_rack_parameters request
       key = rack_parameters[:oauth_consumer_key]
       @tool = Lti2Tc::Tool.where( :key => key ).first
       secret = @tool.secret
@@ -32,8 +30,7 @@ module Lti2Tc
 
         puts "request_wrapper: #{request_wrapper.request['parameters'].inspect}"
       end
+      @oauth_error
     end
-
   end
-
 end

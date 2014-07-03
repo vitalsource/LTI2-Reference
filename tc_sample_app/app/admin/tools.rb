@@ -1,8 +1,7 @@
 ActiveAdmin.register Lti2Tc::Tool do
-
   menu :parent => "LTI..."
 
-  permit_params :product_name, :description, :is_enabled, :key, :secret
+  permit_params :product_name, :description, :is_enabled, :key, :secret, :toggle_label
 
   action_item :only => :show do
     link_to 'Reregister', {:action => :reregister}
@@ -31,6 +30,7 @@ ActiveAdmin.register Lti2Tc::Tool do
     column :description
     column :key
     column :secret
+    column :new_deployment_request_id
     default_actions
   end
 

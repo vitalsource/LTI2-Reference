@@ -27,7 +27,7 @@ class IresourcesController < ApplicationController
       else
         @iresource.save
 
-        signed_request = create_signed_request(
+        signed_request = create_signed_request \
           lti_context['custom_result_uri'],
           "put",
           @tenant.tenant_key,
@@ -35,9 +35,8 @@ class IresourcesController < ApplicationController
           {},
           create_result_payload(@iresource.score),
           'application/vnd.ims.lis.v2.Result+json'
-        )
 
-        response = invoke_service( signed_request, Rails.application.config.wire_log, 'Submit Result to ToolConsumer' )
+        response = invoke_service(signed_request, Rails.application.config.wire_log, "Submit Result to ToolConsumer")
 
         redirect_to lti_context['launch_presentation_return_url']
       end
@@ -56,5 +55,4 @@ class IresourcesController < ApplicationController
       "resultScore" => {"@type" => "decimal", "@value" => "#{score.to_s}"}
     })
   end
-
 end

@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-
   before_filter :pre_process_tenant
 
   def create_echo
@@ -19,5 +18,4 @@ class BooksController < ApplicationController
     puts body
     render :inline => body
   end
-
 end

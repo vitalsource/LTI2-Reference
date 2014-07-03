@@ -3,9 +3,7 @@ require 'json'
 require 'jsonpath'
 
 module Lti2Commons
-
   class JsonWrapper
-
     attr_accessor :root
 
     def initialize( json_str_or_obj )

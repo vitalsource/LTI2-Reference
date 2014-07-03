@@ -14,7 +14,6 @@ module Lti2Commons
     #   Object    ::= value by dynamic instrospection of any object's accessor
     #
     #   See the accompanying tester for numerous examples
-    #
     class Resolver
 
       attr_accessor :resolvers
@@ -92,5 +91,4 @@ module Lti2Commons
     end
 
   end
-
 end

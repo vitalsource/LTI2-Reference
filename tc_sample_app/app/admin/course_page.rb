@@ -25,7 +25,7 @@ ActiveAdmin.register_page 'Course Page' do
       end
     elsif method == 'delete'
       begin
-        link = Link.find( link_id )
+        link = Lti2Tc::Link.find( link_id )
         link.delete
       rescue
         # ignore
@@ -83,7 +83,7 @@ ActiveAdmin.register_page 'Course Page' do
       }
 
       # prepare resource key and list
-      resources = Lti2Tc::Resource.order('name').to_a
+      resources = Lti2Tc::Resource.order('name').all
       resource_list = []
       resource_map = {}
       resources.each do |r|
@@ -95,7 +95,7 @@ ActiveAdmin.register_page 'Course Page' do
       request['resource_map'] = resource_map
 
       # prepare grade_item list
-      grade_items = GradeItem.order('label').to_a
+      grade_items = GradeItem.order('label').all
       grade_item_list = [-1]
       grade_item_map = {-1 => '--'}
       grade_items.each do |g|
@@ -123,5 +123,4 @@ ActiveAdmin.register_page 'Course Page' do
     end
 
   end # content
-
 end

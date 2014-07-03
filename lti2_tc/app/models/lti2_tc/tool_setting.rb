@@ -1,9 +1,7 @@
 module Lti2Tc
-
   class ToolSetting < ActiveRecord::Base
-
     belongs_to :scopeable, :polymorphic => true
-
+ 
     COLLECTION_TYPES = [ :Tool, :Context, :Ltilink ]
 
     def self.collection_index( collection_type )
@@ -32,7 +30,7 @@ module Lti2Tc
             result[:Context] = self.create_uri( tool_id, 'Context', scopeable_id )
           when 2
             result[:Ltilink] = self.create_uri( tool_id, 'Ltilink', scopeable_id )
-            link = Link.find( scopeable_id )
+            link = Lti2Tc::Link.find( scopeable_id )
             # for next iteration
             scopeable_id = link.course.id
         end
@@ -59,7 +57,5 @@ module Lti2Tc
     def to_uri
       ToolSetting.create_uri( self.tool_id, self.scopeable_type, self.scopeable_id )
     end
-
   end
-
 end

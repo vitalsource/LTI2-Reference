@@ -71,9 +71,8 @@ module Lti2Tc
           'context_label' => @course.course_label,
           'context_title' => @course.course_title,
           'lis_course_section_sourcedid' => @course.id.to_s,
-          'tool_consumer_info_product_family_code' =>
-            "#{tcp_wrapper.first_at("product_instance.product_info.product_family.code")}",
-          'tool_consumer_info_version' => "#{tcp_wrapper.first_at("product_instance.product_info.product_version")}"
+          'tool_consumer_info_product_family_code' => "#{tcp_wrapper.first_at("product_instance.product_info.product_family.code")}",
+          'tool_consumer_info_version' => "#{tcp_wrapper.first_at("product_instance.product_info.product_version")}",
       }
 
       if @link.is_name_permission
@@ -257,5 +256,4 @@ module Lti2Tc
     end
 
   end
-
 end

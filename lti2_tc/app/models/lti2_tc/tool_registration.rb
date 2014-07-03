@@ -1,7 +1,5 @@
 module Lti2Tc
-
   class ToolRegistration
-
     def self.remap_tool_consumer_profile( tool_consumer_profile_wrapper, tc_profile_guid )
       tool_consumer_profile_wrapper.substitute_text_in_all_nodes(
         '{', '}', { 'tool_consumer_profile_guid' => tc_profile_guid }
@@ -39,6 +37,8 @@ module Lti2Tc
       tool_consumer_profile_wrapper, tc_deployment_url, launch_presentation_return_url )
 
       tool_proxy = tool.get_tool_proxy
+      tp_base_url = tool_proxy.select('tool_profile.base_url_choice',
+              "selector.applies_to", "MessageHandler", 'default_base_url')
       singleton_messages = tool_proxy.first_at( 'tool_profile.message' )
       service_endpoint = nil
       singleton_messages.each { |singleton_message|
@@ -52,8 +52,6 @@ module Lti2Tc
 
       # deployment_request = DeploymentRequest.new
       deployment_request.status = 'reregistering'
-      deployment_request.reg_key = nil
-      deployment_request.reg_password = nil
       deployment_request.save
 
       # tool_consumer_profile = ToolConsumerProfile.new
@@ -66,8 +64,9 @@ module Lti2Tc
       # convert parameters
       parameters = {}
       tc_base_url = tc_deployment_url
-      parameters['tc_profile_url'] = "#{tc_base_url}/tool_consumer_profiles/#{tool_consumer_profile.tc_profile_guid}"
+      parameters['tc_profile_url'] = "#{tc_base_url}/lti2_tc/tool_consumer_profiles/#{tool_consumer_profile.tc_profile_guid}"
       parameters['launch_presentation_return_url'] = launch_presentation_return_url
+      parameters['lti_message_type'] = 'ToolProxyReregistrationRequest'
 
       key = tool_proxy.first_at( 'tool_proxy_guid' )
       secret = tool_proxy.first_at( 'security_contract.shared_secret' )
@@ -78,7 +77,5 @@ module Lti2Tc
         Rails.application.config.wire_log, 'Reregister Tool' )
       body
     end
-
   end
-
 end

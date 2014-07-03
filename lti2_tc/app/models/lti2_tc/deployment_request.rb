@@ -7,7 +7,7 @@ module Lti2Tc
   class DeploymentRequest < ActiveRecord::Base
 
     after_initialize :initialize_fields
-
+    
     def create_lti_message( base_url, current_user )
       parameters = create_request_tool_deployment( base_url, current_user.to_s )
       create_lti_message_body( partner_url, parameters,
@@ -39,7 +39,5 @@ module Lti2Tc
         self.status = 'prepared'
       end
     end
-
   end
-
 end

@@ -129,5 +129,4 @@ class SettingsController < ApplicationController
     response_body = response.body
     #JSON.load(response_body) unless response_body.strip.empty?
   end
-
 end

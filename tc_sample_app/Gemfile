@@ -42,4 +42,5 @@ group :development, :test do
   gem 'pry'
   gem 'pry-plus'
   gem 'pry-rails'
+  gem 'pry-doc', '~> 0.6.0'
 end

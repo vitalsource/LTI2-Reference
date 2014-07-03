@@ -1,7 +1,6 @@
 module Lti2Tp
-
   class Tool < ActiveRecord::Base
-
+    
     def get_tool_profile( tool_options=nil )
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_profile = Lti2Commons::JsonWrapper.new( self.tool_profile_template )
@@ -25,5 +24,4 @@ module Lti2Tp
     end
 
   end
-
 end
