@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20131203170941) do
   create_table "grade_results", force: true do |t|
     t.integer  "link_id"
     t.integer  "admin_user_id"
-    t.float    "result"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.float    "result",        limit: 24
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "lti2_tc_deployment_requests", force: true do |t|
@@ -88,7 +88,8 @@ ActiveRecord::Schema.define(version: 20131203170941) do
     t.string   "status"
     t.string   "tc_profile_guid"
     t.text     "tool_proxy_json"
-    t.integer  "end_registration_id"
+    t.string   "disposition"
+    t.string   "end_registration_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -146,9 +147,9 @@ ActiveRecord::Schema.define(version: 20131203170941) do
     t.string   "description"
     t.string   "key"
     t.string   "secret"
-    t.integer  "end_registration_id"
     t.string   "status"
     t.integer  "new_deployment_request_id"
+    t.string   "end_registration_id"
     t.string   "registration_return_url"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false

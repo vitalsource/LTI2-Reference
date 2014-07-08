@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.2'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.1.1'
 
 gem 'mysql2', '~> 0.3.13'
 gem 'sqlite3'
@@ -12,13 +12,15 @@ gem 'lti2_commons', :path => '../lti2_commons'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 #Active admin dependencies
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
-gem 'inherited_resources', github: 'josevalim/inherited_resources'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'inherited_resources', '~> 1.4.1'
+gem 'devise'
 
 gem 'haml-contrib'
 gem 'haml-rails', '~> 0.4'
 gem 'httparty', '~> 0.8.1'
-gem 'jquery-rails', '~> 3.0.4'
+gem 'jquery-rails', '~> 3.1.0'
+gem 'jquery-ui-rails', '< 5.0.0'
 gem 'json', '~> 1.8.0'
 gem 'jsonpath', '0.5.1'
 gem 'lrucache'
@@ -38,9 +40,17 @@ group :development do
 end
 
 group :development, :test do
-  gem 'ruby-core-docs', '~> 2.0.0'
   gem 'pry'
-  gem 'pry-plus'
   gem 'pry-rails'
-  gem 'pry-doc', '~> 0.6.0'
+  # gem 'pry-plus'
+  # the following components of pry-plus now have to be listed separately
+  # so that pry-debugger, which uses debugger, which doesn't compile under
+  # ruby 2.1.2, can be replaced with pry-byebug
+  gem 'bond'
+  gem 'jist'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-docmore'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
