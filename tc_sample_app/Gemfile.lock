@@ -27,6 +27,12 @@ GIT
       ransack (~> 1.0)
       sass-rails
 
+GIT
+  remote: git://github.com/turgu1/yaml_db.git
+  revision: bd632c7d64940665524af4441580e3c6e96ee359
+  specs:
+    yaml_db (0.2.3)
+
 PATH
   remote: ../lti2_commons
   specs:
@@ -245,7 +251,6 @@ GEM
       macaddr (~> 1.0)
     warden (1.2.3)
       rack (>= 1.0)
-    yaml_db (0.2.3)
     yard (0.8.7.4)
 
 PLATFORMS
@@ -288,4 +293,4 @@ DEPENDENCIES
   therubyracer (~> 0.12.0)
   uglifier (~> 2.4.0)
   uuid (~> 2.3.7)
-  yaml_db
+  yaml_db!

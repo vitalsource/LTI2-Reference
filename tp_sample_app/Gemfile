@@ -23,7 +23,7 @@ gem 'jsonpath', '0.5.1'
 gem 'lrucache'
 gem 'RedCloth', '~> 4.2.9'
 gem 'sass-rails', '~> 4.0.0'
-gem 'yaml_db'
+gem 'yaml_db', github: 'turgu1/yaml_db'
 gem 'uuid', '~> 2.3.7'
 
 group :development do
