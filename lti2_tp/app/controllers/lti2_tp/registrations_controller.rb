@@ -38,7 +38,8 @@ module Lti2Tp
       tcp_wrapper = JsonWrapper.new( @tool_consumer_profile )
 
       @registration.tool_consumer_profile_json = @tool_consumer_profile.to_json
-      @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_basename = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_name = @registration.tenant_basename   # initialize here until we can qualify it
       @registration.tenant_id = nil
       @registration.tool_id = @tool.id
       @registration.tool_profile_json = @tool.get_tool_profile.to_json
@@ -59,7 +60,7 @@ module Lti2Tp
         end
       end
 
-      @registration = Lti2Tp::Registration.where(:tenant_key => @tenant.tenant_name).first
+      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
       json_str = request.body.read
 
@@ -92,8 +93,9 @@ module Lti2Tp
       # recover secret from new tool_proxy
       tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
       @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
-      @tenant.secret = @registration.reg_password
-      @tenant.save
+
+      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
+
 
       @registration.save
 
@@ -130,7 +132,7 @@ module Lti2Tp
         end
       end
 
-      @registration = Lti2Tp::Registration.where(:tenant_key => @tenant.tenant_name).first
+      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
       @registration.tc_profile_url = params['tc_profile_url']
       @registration.launch_presentation_return_url = params['launch_presentation_return_url']
@@ -138,13 +140,14 @@ module Lti2Tp
       @registration.status = 'received'
 
       # Use OLD key/secret to send NEW ToolProxy
-      @registration.reg_key = @tenant.tenant_key
-      @registration.reg_password = @tenant.secret
+      (old_key, old_secret) = LtiRegistrationWip.get_tenant_credentials(@registration.tenant_id)
+      @registration.reg_key = old_key
+      @registration.reg_password = old_secret
       @tool_consumer_profile = @registration.get_tool_consumer_profile()
       tcp_wrapper = JsonWrapper.new @tool_consumer_profile
 
       @registration.tool_consumer_profile_json = @tool_consumer_profile.to_json
-      @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_basename = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
       @registration.tenant_id = @tenant.id
 
       @tool = Tool.find(@registration.tool_id)
@@ -160,9 +163,9 @@ module Lti2Tp
       get_tool_consumer_profile Lti2Tp::Context.get_holder( session )
       form_params = request.params['deployment_proposal']
       @registration = Lti2Tp::Registration.find( request.params[:id] )
-      @registration.tenant_name = form_params['tenant_name']
+      @registration.tenant_basename = form_params['tenant_name']
 
-      is_tenant_exists = Tenant.where( :tenant_name => @registration.tenant_name ).exists?
+      is_tenant_exists = Tenant.where( :tenant_name => @registration.tenant_basename ).exists?
       if @registration.message_type == 'registration' and is_tenant_exists
         @registration.errors[:tenant_name] << 'Institution name is already in database'
         return render_view

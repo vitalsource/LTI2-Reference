@@ -1,8 +1,8 @@
 class CreateLti2TpRegistries < ActiveRecord::Migration
   def change
     create_table :lti2_tp_registrations do |t|
-      t.string   "tenant_key"
       t.string   "tenant_name"
+      t.string   "tenant_basename"
       t.integer  "tenant_id"
       t.string   "user_id"
       t.string   "reg_key"

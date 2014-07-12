@@ -37,7 +37,7 @@ PATH
   remote: ../lti2_commons
   specs:
     lti2_commons (1.4)
-      httparty (~> 0.8.1)
+      httparty
       lrucache
       oauth (~> 0.4.7)
 

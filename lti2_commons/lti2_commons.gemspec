@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_runtime_dependency 'oauth', '~> 0.4.7'
-  gem.add_runtime_dependency 'httparty', '~> 0.8.1'
+  gem.add_runtime_dependency 'httparty'
   gem.add_runtime_dependency 'lrucache'
 
 end
