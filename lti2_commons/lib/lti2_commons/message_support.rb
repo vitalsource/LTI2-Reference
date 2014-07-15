@@ -100,7 +100,6 @@ module Lti2Commons
       full_uri += '?' unless uri.include? "?"
       full_uri += '&' unless full_uri =~ /[?&]$/
       output_parameters.each_pair do |key, value|
-        full_uri += '?' unless uri.include? '?'
         full_uri << '&' unless key == output_parameters.keys.first
         full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key] || '')}"
       end
@@ -123,8 +122,9 @@ module Lti2Commons
 
     def invoke_unsigned_service( uri, method, params={}, headers={}, data=nil, wire_log=nil, title=nil )
       full_uri = uri
+      full_uri += '?' unless uri.include? "?"
+      full_uri += '&' unless full_uri =~ /[?&]$/
       params.each_pair do |key, value|
-        full_uri += '?' unless uri.include? '?'
         full_uri << '&' unless key == params.keys.first
         full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(params[key])}"
       end
