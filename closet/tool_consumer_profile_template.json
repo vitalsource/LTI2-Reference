@@ -95,7 +95,8 @@
 	 "Membership.role",
 	 "ToolProxy.custom.url",
          "ToolProxyBinding.custom.url",
-          "LtiLink.custom.url"
+          "LtiLink.custom.url",
+  	  "ToolConsumerProfile.url"
   ],
   "service_offered" : [
     { 
