@@ -18,7 +18,7 @@ module Lti2Tc
 
       end_registration_id = request.headers[END_REGISTRATION_ID_NAME]
 
-      disposition = tool_proxy_wrapper.root['disposition']
+      disposition = tool_proxy_wrapper.root['disposition'] || 'register'
       if disposition == 'register'
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
