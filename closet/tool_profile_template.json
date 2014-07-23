@@ -262,12 +262,12 @@
     ],
     "service_offered": [
         {
-            "@id": "{tc_deployment_url}/lti2_tp/endregistration",
+            "@id": "{tc_deployment_url}/lti2_tp/ToolProxy.item",
             "@type": "RestService",
             "action": [
-                "POST"
+                "PUT"
             ],
-            "endpoint": "{tc_deployment_url}/lti2_tp/end_registration",
+            "endpoint": "{tc_deployment_url}/lti2_tp/tool_proxies/{tp_guid}",
             "format": [
                 "application/vnd.ims.lti.v2.toolproxy.id+json"
             ]

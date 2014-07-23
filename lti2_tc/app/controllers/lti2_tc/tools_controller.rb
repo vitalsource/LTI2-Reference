@@ -258,7 +258,7 @@ module Lti2Tc
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "EndRegistration ToolProxy",
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy",
                                 END_REGISTRATION_ID_NAME => @tool.end_registration_id)
       # handle response error
 

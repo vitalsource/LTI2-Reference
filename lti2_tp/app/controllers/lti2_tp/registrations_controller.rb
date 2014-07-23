@@ -108,7 +108,7 @@ module Lti2Tp
       }
 
       content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
+      logger.info("Exit from Tool/create(PUT)--status 201  content-type: #{content_type}")
       logger.info(JSON.dump(end_registration_response))
 
       render :json => end_registration_response.to_json, :content_type => content_type, :status => '201'
