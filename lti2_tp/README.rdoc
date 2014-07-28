@@ -1,0 +1,3 @@
+= Lti2Tp
+
+This project rocks and uses MIT-LICENSE.

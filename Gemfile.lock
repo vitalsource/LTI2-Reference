@@ -13,16 +13,16 @@ PATH
 PATH
   remote: lti2_tc
   specs:
-    lti2_tc (0.0.1)
-      mysql2
-      rails
+    lti2_tc (0.0.2)
+      mysql2 (~> 0.3.13)
+      rails (~> 4.1.1)
 
 PATH
   remote: lti2_tp
   specs:
-    lti2_tp (0.0.1)
-      mysql2
-      rails
+    lti2_tp (0.0.2)
+      mysql2 (~> 0.3.13)
+      rails (~> 4.1.1)
 
 GEM
   remote: https://rubygems.org/
