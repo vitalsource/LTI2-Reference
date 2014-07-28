@@ -1,4 +1,4 @@
-require "httparty"
+require 'httparty'
 
 module Lti2Commons
 

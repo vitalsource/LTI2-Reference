@@ -1,6 +1,5 @@
-
-require "test/unit"
-require "rubygems"
+require 'test/unit'
+require 'rubygems'
 require 'json'
 require 'jsonpath'
 
@@ -87,7 +86,7 @@ class TestTree < Test::Unit::TestCase
        }
      ],
     "resource_handler" : [
-      { 
+      {
         "name" : {
           "default_value" : "Acme Assessment",
           "key" : "assessment.resource.name"
@@ -96,7 +95,7 @@ class TestTree < Test::Unit::TestCase
           "default_value" : "An interactive assessment using the Acme scale.",
           "key" : "assessment.resource.description"
         },
-        "message" : { 
+        "message" : {
           "message_type" : "basic-lti-launch-request",
           "path" : "/handler/launchRequest",
           "capability" : [
@@ -113,7 +112,7 @@ class TestTree < Test::Unit::TestCase
           ]
         },
         "icon_info" : [
-           {   
+           {
              "default_location" : {
                "path" : "/images/bb/en/icon.png"
              },
@@ -155,7 +154,7 @@ class TestTree < Test::Unit::TestCase
           "GET",
           "PUT"
         ]
-      }      
+      }
     ]
   }
 }
@@ -163,7 +162,7 @@ PROXY
 
   @json_obj = JSON.parse(@json_str)
   end
-  
+
   # asserts if expected_value is provided, else prints result
   # useful for preparing new tests
   def assert_node(jsonpath, expected_value=nil)
@@ -173,8 +172,8 @@ PROXY
     else
       puts "#{jsonpath}: #{try_result.inspect}"
     end
-  end  
-  
+  end
+
   # asserts if singleton expected_value is provided, else prints result
   # useful for preparing new tests
   def assert_first(jsonpath, expected_value=nil)
@@ -185,7 +184,7 @@ PROXY
       puts "#{jsonpath}: #{try_result.inspect}"
     end
   end
-  
+
   def test_path_on_json
     # Note that same result for JSON string or loaded JSON object 
     assert_equal ["869e5ce5-214c-4e85-86c6-b99e8458a592"], JsonPath.new('tool_proxy_guid').on(@json_str)
@@ -193,11 +192,11 @@ PROXY
     # assert_node 'tool_proxy_guid'
     assert_node 'tool_proxy_guid', ["869e5ce5-214c-4e85-86c6-b99e8458a592"]
   end
-  
+
   def test_first
     assert_equal "869e5ce5-214c-4e85-86c6-b99e8458a592", JsonPath.new('tool_proxy_guid').on(@json_str).first
   end
-  
+
   def test_basics
     assert_node 'tool_proxy_guid', ["869e5ce5-214c-4e85-86c6-b99e8458a592"]
     assert_node 'security_contract.shared_secret', ["ThisIsASecret!"]
@@ -205,12 +204,12 @@ PROXY
     assert_node 'tool_profile.base_url_choice..default_base_url', ["http://acme.example.com"]
     assert_node 'lti_version', ["LTI-2p0"]
   end
-  
+
   def test_arrays
     assert_node "tool_profile.resource_handler[0].message.path", ["/handler/launchRequest"]
     assert_node 'tool_profile.resource_handler[0].message.message_type', ["basic-lti-launch-request"]
   end
-  
+
   def test_filter0
     # resource_handler = JsonPath.new('tool_profile.resource_handler').on(@json_obj)
     # assert_node 'tool_profile.resource_handler[?(true)]'
@@ -218,13 +217,13 @@ PROXY
     #find matching message_type and dig down to get message.path
     assert_equal "/handler/launchRequest", 
       JsonPath.new('tool_profile.resource_handler.[?(@["message"]["message_type"]=="basic-lti-launch-request")]').on(@json_obj).first['message']['path']
-    
+
     # do the same replying JsonPath
     assert_equal "/handler/launchRequest", JsonPath.new('@..message..path').on(
       JsonPath.new('tool_profile.resource_handler.[?(@["message"]["message_type"]=="basic-lti-launch-request")]').on(@json_obj)).first
-    
+
   end
-  
+
   def test_filter
     assert_first 'security_contract.tool_service[0].action', "POST"
     assert_first 'security_contract.tool_service[?(@["action"]=="POST")]', 
@@ -232,25 +231,25 @@ PROXY
     # assert_first 'security_contract.tool_service[?(@["action"]=="POST")]'
     assert_equal "POST", JsonPath.new('security_contract.tool_service[?(@["action"]=="POST")]').on(@json_obj).first['action']
   end
-  
+
   def test_enumerate
     enum = JsonPath.new("$..*")[@json_obj]
     counter = 0
     enum.each {|node| counter += 1}
     assert_equal 114, counter
   end
-  
+
   def test_enumerate
     root = JsonPath.new("$").on(@json_str).first
     assert_equal ["http://acme.example.com"], JsonPath.new('tool_profile.base_url_choice..default_base_url').on(root)
   end
-    
+
   def test_print
     root = JsonPath.new("$").on(@json_str).first
     # puts root.to_json
     puts JSON.pretty_generate root
   end
-  
+
   ARGV = ['', "--name", "test_print"]
   Test::Unit::AutoRunner.run(false, nil, ARGV)
 end

@@ -92,7 +92,7 @@ class TestJsonWrapper < Test::Unit::TestCase
        }
      ],
     "resource_handler" : [
-      { 
+      {
        "resource_type": "urn:lti:ResourceType:{fabericious.lti.org}/handler/launchRequest",
         "name" : {
           "default_value" : "Acme Assessment",
@@ -102,7 +102,7 @@ class TestJsonWrapper < Test::Unit::TestCase
           "default_value" : "An interactive assessment using the Acme scale.",
           "key" : "assessment.resource.description"
         },
-        "message" : [{ 
+        "message" : [{
           "message_type" : "basic-lti-launch-request",
           "path" : "/handler/launchRequest",
           "capability" : [
@@ -119,7 +119,7 @@ class TestJsonWrapper < Test::Unit::TestCase
           ]
         }],
         "icon_info" : [
-           {   
+           {
              "default_location" : {
                "path" : "/images/bb/en/icon.png"
              },
@@ -161,7 +161,7 @@ class TestJsonWrapper < Test::Unit::TestCase
           "GET",
           "PUT"
         ]
-      }      
+      }
     ]
   }
 }
@@ -169,50 +169,50 @@ PROXY
 
   @json_wrapper = JsonWrapper.new @json_str
   end
-  
+
   def test_constuctor
     assert_not_nil @json_wrapper.root
   end
-  
+
   def test_at
     assert_equal ["869e5ce5-214c-4e85-86c6-b99e8458a592"], @json_wrapper.at('tool_proxy_guid')
   end
-  
-  def test_first_at 
+
+  def test_first_at
     assert_equal "869e5ce5-214c-4e85-86c6-b99e8458a592", @json_wrapper.first_at('tool_proxy_guid')
     assert_nil @json_wrapper.first_at('asdf')
   end
-  
+
   def test_each_leaf
     counter = 0
     @json_wrapper.each_leaf { |node| counter += 1 }
     assert_equal 70, counter
   end
-  
+
   def test_deep_copy
     new_json_wrapper = @json_wrapper.deep_copy
     assert_not_equal new_json_wrapper.object_id, @json_wrapper.object_id
-    assert_equal "869e5ce5-214c-4e85-86c6-b99e8458a592", new_json_wrapper.first_at('tool_proxy_guid')    
+    assert_equal "869e5ce5-214c-4e85-86c6-b99e8458a592", new_json_wrapper.first_at('tool_proxy_guid')
   end
-  
+
   def test_search
-    assert_equal "/handler/launchRequest", 
-        ( @json_wrapper.search 'tool_profile.resource_handler..message', 
-            { 'message_type' => "basic-lti-launch-request" }, 
+    assert_equal "/handler/launchRequest",
+        ( @json_wrapper.search 'tool_profile.resource_handler..message',
+            { 'message_type' => "basic-lti-launch-request" },
             "path")
-    assert_nil @json_wrapper.search 'tool_profile.resource_handler..message', 
-            { 'message_type' => "basic-lti-launch-request" }, 
+    assert_nil @json_wrapper.search 'tool_profile.resource_handler..message',
+            { 'message_type' => "basic-lti-launch-request" },
             "xxxx"
-    assert_nil @json_wrapper.search 'tool_profile.resource_handler..message', 
-            { 'message_type' => "xxx" }, 
+    assert_nil @json_wrapper.search 'tool_profile.resource_handler..message',
+            { 'message_type' => "xxx" },
             "path"
   end
-  
+
   def test_select
     assert_equal "http://acme.example.com",
-        @json_wrapper.select('tool_profile.base_url_choice', 
+        @json_wrapper.select('tool_profile.base_url_choice',
             "selector.applies_to", "MessageHandler", 'default_base_url')
-    assert_equal nil, @json_wrapper.select('tool_profile.xxxxx', 
+    assert_equal nil, @json_wrapper.select('tool_profile.xxxxx',
             "selector.applies_to", "MessageHandler", 'default_base_url')
   end
 
@@ -220,11 +220,11 @@ PROXY
     hash = {"root" => {"child1" => "{value}1", "child2" => {"grandchild1" => "{grand}{value}1"}, "child3" => "{value}3"}}
     json_hash = JsonWrapper.new hash
     subst_hash = {'value' => 'VLU', 'great' => 'GRT', 'grand' => 'GRND'}
-    json_hash.substitute_text_in_all_nodes '{', '}', subst_hash 
+    json_hash.substitute_text_in_all_nodes '{', '}', subst_hash
     assert_equal "VLU1", json_hash.first_at('$..child1')
     assert_equal "GRNDVLU1", json_hash.first_at('$..grandchild1')
   end
-    
+
   ARGV = ['', "--name", "test_select"]
   # Test::Unit::AutoRunner.run(false, nil, ARGV)
 end

@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'lrucache'
   s.add_runtime_dependency 'jsonpath'
   s.add_runtime_dependency 'uuid'
+  s.add_runtime_dependency 'rb-readline'
 
   # automated tests
   s.add_development_dependency 'rspec-rails'

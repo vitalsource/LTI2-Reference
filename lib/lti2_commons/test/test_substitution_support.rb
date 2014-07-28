@@ -1,4 +1,4 @@
-require "test/unit"
+require 'test/unit'
 require File.expand_path('../../lib/lti2_commons/substitution_support', __FILE__)
 
 include Lti2Commons

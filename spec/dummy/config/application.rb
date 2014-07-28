@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "lti2"
+require 'lti2'
 
 module Dummy
   class Application < Rails::Application
