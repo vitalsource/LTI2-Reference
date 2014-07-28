@@ -1,6 +1,6 @@
 Lumos::Application.routes.draw do
 
-  #mount Lti2Tc::Engine, at: '/lti2_tc'
+  mount Lti2Tc::Engine, at: '/lti2_tc'
 
   resources :registries
   resources :results
