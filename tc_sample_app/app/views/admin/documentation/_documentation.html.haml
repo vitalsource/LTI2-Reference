@@ -1,0 +1,31 @@
+
+:javascript
+  function render_document(filename) {
+    window.open('/docs?filename=' + filename, "_blank")
+  }
+  
+  function render_site(site) {
+    window.open(site, "_blank")
+  }
+
+:textile
+
+  h3. LuMoS -- Documentation
+
+
+%h4
+  %a{:href => "#", :onclick => "return render_site(\"http://www.imsglobal.org/lti/index.html\");"} LTI2 Documentation Site
+
+  
+%h4
+  %a{:href => "#", :onclick => "return render_site(\"https://github.com/IMSGlobal/lti2_tc/blob/master/README.md\");"} LTI2 Tool Provider Readme
+
+  
+%h4
+  %a{:href => "#", :onclick => "return render_site(\"https://github.com/IMSGlobal/lti2_tc/blob/master/README.md\");"} LTI2 Tool Consumer Readme
+
+  
+%h4
+  %a{:href => "#", :onclick => "return render_site(\"https://github.com/IMSGlobal/lti2_commons/blob/master/README.md\");"} LTI2 Commons Readme
+
+  

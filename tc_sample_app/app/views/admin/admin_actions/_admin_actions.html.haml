@@ -1,0 +1,26 @@
+
+:javascript
+  function render_document(filename) {
+    window.open(filename, "_blank")
+  }
+  
+  function render_site(site) {
+    window.open(site+"?time="+Math.random(), "_blank")
+    return false
+  }
+
+
+:textile
+
+  h3. LuMoS -- Admin Actions
+  
+  h3. * "Register New Tool":/admin/register_new_tool
+  
+  h3. * "Maintain Tools":/admin/tool_actions
+  
+  h3. * "Clear Wirelog":/admin/admin_actions?operation=clearlog
+
+%h3
+  *
+  %a{:href => "#", :onclick => "return render_site('/wirelog.html');"} Show Wirelog
+  

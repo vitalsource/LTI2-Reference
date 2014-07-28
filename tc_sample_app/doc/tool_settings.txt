@@ -1,0 +1,120 @@
+ToolConsumer            ToolProvider
+
+   ......Registration Time......
+
+In TCP has:
+
+  "capability_offered" : [
+     "basic-lti-launch-request",
+        ...
+   	 "ToolProxy.custom.url",
+     "ToolProxyBinding.custom.url",
+     "LtiLink.custom.url"
+     ],
+     "service_offered" : [
+       {
+         "@type" : "RestService",
+         "@id" : "ltitcp:LtiLinkSettings",
+         "endpoint" : "http://lms.example.com/resources/links/{link_id}/custom",
+         "format" : ["application/vnd.ims.lti.v2.toolsettings+json", "application/vnd.ims.lti.v2.toolsettings.simple+json"],
+         "action" : ["GET", "PUT"]
+       },
+       ...etc for other settings services
+       Endpoint defines the pattern that the TC employs to create URL
+
+
+
+
+                        ToolProfile defines a service using some tool settings
+                        TP uses standard variable substitution (eg ToolProxy.custom.uri) names as values.
+                        "message": [
+                            {
+                                "path": "/settings",
+                                "parameter": [
+                                    {
+                                        "name": "tool_proxy_custom_uri"
+                                        "variable": "ToolProxy.custom.uri",
+                                    },
+                                    {
+                                        "name": "tool_proxy_binding_custom_uri"
+                                        "variable": "ToolProxyBinding.custom.uri",
+                                    },
+                                    {
+                                        "name": "lti_link_custom_uri"
+                                        "variable": "LtiLink.custom.uri",
+                                    }
+                                ],
+                                "message_type": "basic-lti-launch-request"
+                            }
+                        ],
+
+                        This goes into ToolProxy at Registration time.
+
+                        And in the security contract we construct something like the following at Registration
+
+                        {
+                            "@type": "RestServiceProfile",
+                            "service": "http://lms.example.com/resources/links/{link_id}/custom",
+                            "action": [
+                                "GET",
+                                "PUT"
+                            ],
+                            "format": [
+                                "application/vnd.ims.lti.v2.toolsettings+json",
+                                "application/vnd.ims.lti.v2.toolsettings.simple+json"
+                            ]
+                        },
+                        ...etc for other service profiles
+
+
+    ........Launch Time........
+
+Some agent activates the launch specifying the Tool Settings.
+
+Due to ToolProxy /settings compute the resolved values the settings URLS...in the launch they would like this:
+
+      <input type="hidden" name="custom_tool_proxy_custom_uri" value="http://localhost:4000/tool_settings/e1088270-197e-0131-9887-20c9d07c6451"/>
+      <input type="hidden" name="custom_tool_proxy_binding_custom_uri" value="http://localhost:4000/tool_settings/e1088270-197e-0131-9887-20c9d07c6451/context/2"/>
+      <input type="hidden" name="custom_lti_link_custom_uri" value="http://localhost:4000/tool_settings/e1088270-197e-0131-9887-20c9d07c6451/ltilink/2"/>
+
+I think this is the heart of your question--how to compute these URLS.
+
+I can think of two ways to do this:
+
+1. I did the short cut because I wasn't really writing a real Tool Consumer...
+
+I simply had a hard-wired piece of code that knew the format of the template...and it constructed the URLs using that knowledge.
+
+In Ruby:
+
+  def self.create_uri(tool_id, scopeable_type, scopeable_id=nil)
+    tool_consumer_registry = Rails.application.config.tool_consumer_registry
+    result = "#{tool_consumer_registry.tc_deployment_url}/tool_settings/#{tool_id}"
+    if scopeable_type == 'Context'
+      result << "/context/#{scopeable_id}"
+    elsif scopeable_type == 'Ltilink'
+      result << "/ltilink/#{scopeable_id}"
+    end
+    result
+  end
+
+Note that the TC doesn't *use* the template to create the URL.  Instead it merely advertises the format that will be used.  (Keep in mind that
+only the TC needs knowledge of how to create this URL).
+
+2. A better practice approach is probably to use the template itself to create this URL.  In this case you do need to look up the endpoint template.
+But you can do this only by using the @id.  In your email you say it shouldn't be used because the fully qualified address is private to the local
+environment.  But in this case it's only needed by the local environment.  The TC is the only party that needs to know how to resolve the URL.
+
+I find it useful to keep in mind this service definition has already served it's other purpose (during Registration) of filling out the ToolProxy
+service description.
+
+  ........Final step: TP uses a ToolSetting (during launch or in the future) .............
+
+The TP has the easy part.  When it wants to GET/PUT a setting it just grabs the fully constructed URL and invokes it.
+
+
+
+
+
+
+

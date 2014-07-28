@@ -1,8 +1,5 @@
 source "https://rubygems.org"
 
-gem 'lti2_tc', path: 'lti2_tc'
-gem 'lti2_tp', path: 'lti2_tp'
-
 # Declare your gem's dependencies in lti2.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.

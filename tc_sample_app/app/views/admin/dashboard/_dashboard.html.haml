@@ -1,0 +1,17 @@
+:textile
+
+  h3. LuMoS -- Lightweight Learning Management System
+    
+  h4. Welcome #{current_admin_user.first_name} #{current_admin_user.last_name} [ #{current_admin_user.role} ]
+  
+    
+- if current_admin_user.role.downcase == "administrator"
+  
+  :textile  
+    h3. * "Admin Functions":/admin/admin_actions
+ 
+:textile
+    
+  h3. * "My Courses":/admin/course_actions
+  
+  h3. * "LTI2 Docs":/admin/documentation
