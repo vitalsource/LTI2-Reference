@@ -240,11 +240,10 @@ module Lti2Tc
       headers = {}
       headers[END_REGISTRATION_ID_NAME] = @tool.end_registration_id
 
-      base_url = tool_proxy_wrapper.root['tool_profile']['base_url_choice'][0]['default_base_url']
-
-      #reregistration_service_endpoint.sub!('{tc_deployment_url}', base_url)
       #DEBUG ONLY
-      reregistration_service_endpoint.sub!('{tc_deployment_url}', 'http://localhost:5100')
+      if reregistration_service_endpoint.include? 'http://localhost:5000'
+        reregistration_service_endpoint.sub!('http://localhost:5000', 'http://localhost:5100')
+      end
 
       #response = HTTParty.post reregistration_service_endpoint, :body => end_registration_request.to_json, :headers => headers
       signed_request = create_signed_request \
@@ -254,7 +253,7 @@ module Lti2Tc
         @tool.secret,
         {},
         end_registration_request.to_json,
-        "application/vnd.ims.lti.v2.toolproxy+json"
+        "application/vnd.ims.lti.v2.toolproxy.id+json"
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"
