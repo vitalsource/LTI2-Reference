@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    lti2_commons (1.4)
+      httparty (~> 0.8.1)
+      lrucache
+      oauth (~> 0.4.7)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    PriorityQueue (0.1.2)
+    httparty (0.8.3)
+      multi_json (~> 1.0)
+      multi_xml
+    lrucache (0.1.4)
+      PriorityQueue (~> 0.1.2)
+    multi_json (1.9.2)
+    multi_xml (0.5.5)
+    oauth (0.4.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  lti2_commons!

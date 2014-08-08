@@ -14,6 +14,7 @@ module Lti2Tp
 
       tool_proxy['lti_version'] = 'LTI-2p0'
       tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      # Fails conformance since it's undefined and checking is too strict
       tool_proxy['disposition'] = disposition
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
       tool_proxy['tool_profile'] = JSON.load( tool_profile_json )
@@ -24,7 +25,7 @@ module Lti2Tp
     end
 
     def get_tool_consumer_profile()
-      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {}, {}, nil, nil, "Get Tool Consumer Profile")
+      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {}, {}, nil, Rails.application.config.wire_log, "Get Tool Consumer Profile")
       JSON.load( tcp_response.body )
     end
 
@@ -122,6 +123,8 @@ module Lti2Tp
         data = self.proposed_tool_proxy_json
         label = 'ReRegister'
       end
+
+      data = JSON.pretty_generate(JSON.load(data))
 
       # data = CGI::escape(data)
       signed_request = create_signed_request \

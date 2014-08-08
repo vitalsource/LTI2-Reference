@@ -1,0 +1,6 @@
+{
+    "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId",
+    "@type": "ToolProxy",
+    "@id": "http://rails.kinexis.com:4000/tools/85894ab0-1b20-0131-9899-20c9d07c6451",
+    "tool_proxy_guid": "85894ab0-1b20-0131-9899-20c9d07c6451"
+}

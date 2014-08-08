@@ -1,0 +1,11 @@
+.bundle/
+log/*.log
+pkg/
+.project
+.powrc
+.rspec
+.rvmrc
+
+public/files
+
+.idea
