@@ -1,5 +1,5 @@
 class CreateLti2TcResources < ActiveRecord::Migration
-  def change
+  def up
     create_table :lti2_tc_resources do |t|
       t.integer  :tool_id
       t.string   :resource_type
@@ -28,5 +28,10 @@ class CreateLti2TcResources < ActiveRecord::Migration
     execute('ALTER TABLE lti2_tc_links CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;')
     execute("ALTER TABLE lti2_tc_links MODIFY `resource_link_label` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tc_links MODIFY `link_parameters` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
+  end
+
+  def down
+    drop_table :lti2_tc_resources
+    drop_table :lti2_tc_links
   end
 end
