@@ -94,7 +94,7 @@ module Lti2Tc
           link = Lti2Tc::Link.new
           link.course_id = course_id
           link.resource = resource
-          link.resource_link_label = resource.name
+          link.resource_link_label = resource.resource_name
           link_parameter_str = "{"
           if ["Book", "BookSelection", "InteractiveResource"].include? resource.name
             link_parameter_str += "\"vbid\":\"L-999-74180\""
@@ -106,7 +106,7 @@ module Lti2Tc
           link.link_parameters = link_parameter_str
 
           # and a grade_item for resource iResource only
-          if resource.name == "InteractiveResource"
+          if resource.resource_name == "InteractiveResource"
             grade_item = GradeItem.new
             grade_item.course_id = link.course_id
             grade_item.label = "IRTestGrade"
