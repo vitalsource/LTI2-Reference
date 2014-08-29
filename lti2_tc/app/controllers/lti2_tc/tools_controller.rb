@@ -96,10 +96,10 @@ module Lti2Tc
           link.resource = resource
           link.resource_link_label = resource.resource_name
           link_parameter_str = "{"
-          if ["Book", "BookSelection", "InteractiveResource"].include? resource.name
+          if ["Book", "BookSelection", "InteractiveResource"].include? resource.resource_name
             link_parameter_str += "\"vbid\":\"L-999-74180\""
           end
-          if resource.name == "BookSelection"
+          if resource.resource_name == "BookSelection"
             link_parameter_str += ",\"book_location\":\"outline\/3\""
           end
           link_parameter_str += "}"
