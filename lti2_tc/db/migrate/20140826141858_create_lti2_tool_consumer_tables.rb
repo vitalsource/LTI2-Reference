@@ -21,7 +21,7 @@ class CreateLti2ToolConsumerTables < ActiveRecord::Migration
     execute("ALTER TABLE lti2_tc_deployment_requests MODIFY `disposition` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tc_deployment_requests MODIFY `tc_profile_guid` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tc_deployment_requests MODIFY `end_registration_id` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
-    execute("ALTER TABLE lti2_tc_registries MODIFY `tool_proxy_json` TEXT CHARACTER SET utf8mb4 NULL;")
+    execute("ALTER TABLE lti2_tc_deployment_requests MODIFY `tool_proxy_json` TEXT CHARACTER SET utf8mb4 NULL;")
 
     create_table :lti2_tc_registries do |t|
       t.string   :name
