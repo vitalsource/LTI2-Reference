@@ -86,7 +86,7 @@ module Lti2Tc
           resource = Resource.new
           resource.tool = @tool
           resource.resource_type = resource_json_obj.first_at('resource_type.code')
-          resource.name = resource_json_obj.first_at('name.default_value')
+          resource.resource_name = resource_json_obj.first_at('name.default_value')
           resource.description = resource_json_obj.first_at('description.default_value')
           resource.save
 
