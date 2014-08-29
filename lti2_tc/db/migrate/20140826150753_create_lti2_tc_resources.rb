@@ -14,11 +14,11 @@ class CreateLti2TcResources < ActiveRecord::Migration
     execute("ALTER TABLE lti2_tc_resources MODIFY `description` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
 
     create_table :lti2_tc_links do |t|
+      t.string   :resource_link_label
+      t.boolean  :is_enabled
       t.integer  :grade_item_id
       t.integer  :course_id
       t.integer  :resource_id
-      t.string   :resource_link_label
-      t.boolean  :is_enabled
       t.string   :link_parameters
       t.boolean  :is_name_permission
       t.boolean  :is_email_permissions
