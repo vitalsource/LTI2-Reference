@@ -22,4 +22,3 @@ class CreateResource < ActiveRecord::Migration
 
   end
 end
-c
