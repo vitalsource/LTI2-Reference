@@ -83,7 +83,7 @@ ActiveAdmin.register_page 'Course Page' do
       }
 
       # prepare resource key and list
-      resources = Lti2Tc::Resource.order('name').all
+      resources = Lti2Tc::Resource.order('resource_name').all
       resource_list = []
       resource_map = {}
       resources.each do |r|

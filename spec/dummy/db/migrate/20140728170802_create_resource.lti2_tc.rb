@@ -4,7 +4,7 @@ class CreateResource < ActiveRecord::Migration
     create_table "lti2_tc_resources", :force => true do |t|
       t.integer "tool_id"
       t.string  "resource_type"
-      t.string  "name"
+      t.string  "resource_name"
       t.string  "description"
     end
 
