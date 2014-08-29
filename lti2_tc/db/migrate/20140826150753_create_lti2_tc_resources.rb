@@ -3,14 +3,14 @@ class CreateLti2TcResources < ActiveRecord::Migration
     create_table :lti2_tc_resources do |t|
       t.integer  :tool_id
       t.string   :resource_type
-      t.string   :name
+      t.string   :resource_name
       t.string   :description
 
       t.timestamps
     end
     execute('ALTER TABLE lti2_tc_resources CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;')
     execute("ALTER TABLE lti2_tc_resources MODIFY `resource_type` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
-    execute("ALTER TABLE lti2_tc_resources MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
+    execute("ALTER TABLE lti2_tc_resources MODIFY `resource_name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tc_resources MODIFY `description` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
 
     create_table :lti2_tc_links do |t|
