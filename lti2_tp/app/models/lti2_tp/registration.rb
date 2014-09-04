@@ -15,7 +15,7 @@ module Lti2Tp
       tool_proxy['lti_version'] = 'LTI-2p0'
       tool_proxy['tool_proxy_guid'] = tool_proxy_guid
       # Fails conformance since it's undefined and checking is too strict
-      tool_proxy['disposition'] = disposition
+      tool_proxy['disposition'] = disposition if disposition == 'reregister'
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
       tool_proxy['tool_profile'] = JSON.load( tool_profile_json )
       tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
@@ -60,21 +60,22 @@ module Lti2Tp
           return status
         end
         if disposition == 'register'
-        # get guid from the response returned by the TC
-        tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
+          # get guid from the response returned by the TC
+          tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
 
-        # substitute tool_proxy_guid now in the Proxy where needed
-        tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
-        tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
 
-        self.tool_proxy_json = tool_proxy.to_json
+          # substitute tool_proxy_guid now in the Proxy where needed
+          tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
+          tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+
+          self.tool_proxy_json = tool_proxy.to_json
           self.status = disposition
-        self.save!
+          self.save!
 
           status = create_status(true, tool_proxy_wrapper.first_at('tool_proxy_guid'))
-      else
+        else
           status = create_status(true)
-      end
+        end
       else
         status = create_status(false, nil, "Can't access ToolProxy")
       end
