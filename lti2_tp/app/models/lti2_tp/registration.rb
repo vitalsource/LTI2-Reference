@@ -59,7 +59,7 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        if disposition == 'register'
+        if disposition.blank? || disposition == 'register' 
           # get guid from the response returned by the TC
           tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
 
