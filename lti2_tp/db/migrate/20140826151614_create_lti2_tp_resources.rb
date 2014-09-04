@@ -17,7 +17,7 @@ class CreateLti2TpResources < ActiveRecord::Migration
       t.text     :tool_consumer_profile_json
       t.text     :tool_profile_json
       t.text     :tool_proxy_json
-      t.text     :proposed_tool_proxy
+      t.text     :proposed_tool_proxy_json
 
       t.timestamps
     end
@@ -36,7 +36,7 @@ class CreateLti2TpResources < ActiveRecord::Migration
     execute("ALTER TABLE lti2_tp_registrations MODIFY `tool_consumer_profile_json` TEXT CHARACTER SET utf8mb4 NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `tool_profile_json` TEXT CHARACTER SET utf8mb4 NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `tool_proxy_json` TEXT CHARACTER SET utf8mb4 NULL;")
-    execute("ALTER TABLE lti2_tp_registrations MODIFY `proposed_tool_proxy` TEXT CHARACTER SET utf8mb4 NULL;")
+    execute("ALTER TABLE lti2_tp_registrations MODIFY `proposed_tool_proxy_json` TEXT CHARACTER SET utf8mb4 NULL;")
 
     create_table :lti2_tp_registries do |t|
       t.string   :name
