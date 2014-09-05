@@ -13,7 +13,7 @@ module Lti2Tp
       tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
 
       tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['tool_proxy_guid'] = tool_proxy_guid if disposition == 'reregister'
       # Fails conformance since it's undefined and checking is too strict
       tool_proxy['disposition'] = disposition if disposition == 'reregister'
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
