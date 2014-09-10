@@ -160,6 +160,7 @@ module Lti2Tp
       services_offered = tool_consumer_profile['service_offered']
       services_offered.each { |service_offered|
         tool_service = {}
+        tool_service['@id'] = service_offered['@id']
         tool_service['@type'] = 'RestServiceProfile'
         tool_service['service'] = service_offered['endpoint']
         tool_service['action'] = service_offered['action']
