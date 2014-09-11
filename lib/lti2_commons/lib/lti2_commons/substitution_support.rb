@@ -1,7 +1,5 @@
 module Lti2Commons
-
   module SubstitutionSupport
-
     # Resolver resolves values by name from a variety of object sources.
     # It's useful for variable substitution.
     #
@@ -9,13 +7,12 @@ module Lti2Commons
     #   Hash      ::= value by key
     #   Proc      ::= single-argument block evaluation
     #   Method    ::= single-argument method obect evaluation
-    #   Resolver  ::= a nested resolver.  useful for scoping resolvers; 
+    #   Resolver  ::= a nested resolver.  useful for scoping resolvers;
     #                 i.e. a constant, global inner resolver, but a one-time outer-resolver
     #   Object    ::= value by dynamic instrospection of any object's accessor
     #
     #   See the accompanying tester for numerous examples
     class Resolver
-
       attr_accessor :resolvers
 
       def initialize
@@ -28,20 +25,18 @@ module Lti2Commons
       # @param resolver [ObjectSource] a raw object_source for resolving
       # @returns [String] value.  If no resolution, return the incoming name
       #
-      def add_resolver( key, resolver )
-        unless resolver.is_a? Resolver
-          key_sym = key.to_sym
-        else
+      def add_resolver(key, resolver)
+        if resolver.is_a? Resolver
           # Resolvers themselves should always be generic
           key_sym = :*
+        else
+          key_sym = key.to_sym
         end
-        unless @resolver_hash.has_key? key_sym
-          @resolver_hash[key_sym] = []
-        end
+        @resolver_hash[key_sym] = [] unless @resolver_hash.key? key_sym
         @resolver_hash[key_sym] << resolver
       end
 
-      def resolve( full_name )
+      def resolve(full_name)
         full_name ||= ''
         zones = full_name.split('.')
         return full_name if zones[0].blank?
@@ -49,19 +44,19 @@ module Lti2Commons
         name = zones[1..-1].join('.')
 
         # Find any hits within category
-        @resolver_hash.each_pair { |k, v|
+        @resolver_hash.each_pair do |k, v|
           if k == category
-            result = resolve_by_category( full_name, name, v )
+            result = resolve_by_category(full_name, name, v)
             return result if result
           end
-        }
+        end
 
         # Find any hits in global category
         resolvers = @resolver_hash[:*]
         result = resolve_by_category full_name, name, resolvers if resolvers
         return result if result
 
-        return "#{full_name}"
+        "#{full_name}"
       end
 
       def to_s
@@ -70,25 +65,23 @@ module Lti2Commons
 
       private
 
-      def resolve_by_category( full_name, name, resolvers )
-        for resolver in resolvers
+      def resolve_by_category(full_name, name, resolvers)
+        resolvers.each do |resolver|
           if resolver.is_a? Hash
             value = resolver[name]
           elsif resolver.is_a? Proc
-            value = resolver.call( name )
+            value = resolver.call(name)
           elsif resolver.is_a? Method
-            value = resolver.call( name )
+            value = resolver.call(name)
           elsif resolver.is_a? Resolver
-            value = resolver.resolve( full_name )
+            value = resolver.resolve(full_name)
           elsif resolver.is_a? Object
-            value = resolver.send( name )
+            value = resolver.send(name)
           end
           return value if value
         end
         nil
       end
-
     end
-
   end
 end
