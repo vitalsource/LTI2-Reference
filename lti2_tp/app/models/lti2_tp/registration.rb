@@ -7,7 +7,10 @@ module Lti2Tp
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = {}
       tool_proxy['@context'] = [
-        'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy'
+        'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy',
+        {
+          'tcp' => tool_consumer_profile
+        }
       ]
       tool_proxy['@type'] = 'ToolProxy'
       tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
@@ -160,9 +163,8 @@ module Lti2Tp
       services_offered = tool_consumer_profile['service_offered']
       services_offered.each { |service_offered|
         tool_service = {}
-        tool_service['@id'] = service_offered['@id']
         tool_service['@type'] = 'RestServiceProfile'
-        tool_service['service'] = service_offered['endpoint']
+        tool_service['service'] = service_offered['@id']
         tool_service['action'] = service_offered['action']
 
         # following may be wrong...check on proper construction of RestService
