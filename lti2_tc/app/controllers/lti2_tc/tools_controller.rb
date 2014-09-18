@@ -317,7 +317,7 @@ module Lti2Tc
       tcp_str = tcp_obj.tc_profile
       tcp = JsonWrapper.new( tcp_str ).root
       tcp_service_hash = {}
-      tcp['service_offered'].each { |service| tcp_service_hash[service['endpoint']] = service['action'] }
+      tcp['service_offered'].each { |service| tcp_service_hash[service['@id']] = service['action'] }
       tool_proxy_wrapper.root['security_contract']['tool_service'].each do |tp_service_item|
         if tcp_service_hash.keys.include?( tp_service_item['service'] )
           tp_service_item['action'].each do |action|

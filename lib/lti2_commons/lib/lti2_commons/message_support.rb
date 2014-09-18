@@ -169,22 +169,19 @@ module Lti2Commons
       result
     end
 
-    def create_message_footer(is_open_in_external_window = false)
-      footer = ''
+    def create_message_footer(is_open_in_external_window=false)
+      footer = ""
       if is_open_in_external_window
         footer += %Q{
       <a href="/admin/launches" target="_self">Return to Admin</a>\n
-<script language="javascript" type="text/javascript">
-setTimeout(function () {window.location.href = "/admin/launches";}, 200);
-</script>
         }
       end
       footer += %Q{
-  </form>
+</form>
 </div>
-<script language="javascript" type="text/javascript">
+<script language="javascript">
   document.ltiLaunchForm.submit();
-</script>
+</script>        
       }
       footer
     end

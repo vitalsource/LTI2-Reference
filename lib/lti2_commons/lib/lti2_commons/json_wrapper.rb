@@ -73,12 +73,14 @@ module Lti2Commons
     # @return [Object] result_path within matching node or nil
     def select(path, selector, value, return_path)
       candidates = JsonPath.new(path).on(@root)
+      now_candidate = nil
       candidates.each do |candidate|
+        now_candidate = candidate
         selector_node = JsonPath.new(selector).on(candidate.first)
         break if selector_node.include? value
       end
-      if candidate
-        JsonPath.new(return_path).on(candidate.first).first
+      if now_candidate
+        JsonPath.new(return_path).on(now_candidate.first).first
       else
         nil
       end

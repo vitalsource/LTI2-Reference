@@ -9,7 +9,7 @@ module Lti2Tp
       tool_proxy['@context'] = [
         'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy',
         {
-          'tcp' => tool_consumer_profile
+          'ltitcp' => tool_consumer_profile['@id']
         }
       ]
       tool_proxy['@type'] = 'ToolProxy'
