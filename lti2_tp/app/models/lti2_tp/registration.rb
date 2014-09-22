@@ -6,12 +6,8 @@ module Lti2Tp
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = {}
-      tool_proxy['@context'] = [
-        'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy',
-        {
-          'ltitcp' => tool_consumer_profile['@id']
-        }
-      ]
+      # clone from provided TCP
+      tool_proxy['@context'] = tool_consumer_profile['@context'].clone
       tool_proxy['@type'] = 'ToolProxy'
       tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
 
