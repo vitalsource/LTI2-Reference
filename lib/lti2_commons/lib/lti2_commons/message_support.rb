@@ -163,7 +163,7 @@ module Lti2Commons
       params.each_pair do |k, v|
         if is_include_oauth_params || ! (k =~ /^oauth_/)
           result +=
-              %Q(      <input type="hidden" name="#{k}" value="#{v}"/>\n)
+              %Q(      <input type="hidden" name="#{k}" value="#{CGI.escapeHTML(v)}"/>\n)
         end
       end
       result
