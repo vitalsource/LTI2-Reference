@@ -65,9 +65,9 @@ module Lti2Tp
       json_str = request.body.read
 
       @registration = Registration.where(:tenant_id => @tenant.id).first
-      end_registration_id = request.headers[Registration::END_REGISTRATION_ID_NAME]
-      (abort_registration("Missing #{Registration::END_REGISTRATION_ID_NAME} header") and return) if end_registration_id.nil?
-      (abort_registration("Out of sequence #{Registration::END_REGISTRATION_ID_NAME} header") \
+      end_registration_id = request.headers[Registration::CORRELATION_ID]
+      (abort_registration("Missing #{Registration::CORRELATION_ID} header") and return) if end_registration_id.nil?
+      (abort_registration("Out of sequence #{Registration::CORRELATION_ID} header") \
         and return) if end_registration_id != @registration.end_registration_id
 
       begin

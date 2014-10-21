@@ -1,7 +1,8 @@
 module Lti2Tp
   class Registration < ActiveRecord::Base
 
-    END_REGISTRATION_ID_NAME = 'X-IMS-EndRegistration-ID'
+    CORRELATION_ID = 'VND-IMS-CORRELATION-ID'
+    DISPOSITION = 'VND-IMS-DISPOSITION'
 
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
@@ -139,7 +140,7 @@ module Lti2Tp
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
       response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
-          END_REGISTRATION_ID_NAME => self.end_registration_id)
+          CORRELATION_ID => self.end_registration_id)
       if response.code.between?( 200, 202 )
         response_body = response.body
         response_content = JSON.load( response_body ) unless response_body.strip.empty?
