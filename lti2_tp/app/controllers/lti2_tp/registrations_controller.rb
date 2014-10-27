@@ -65,7 +65,7 @@ module Lti2Tp
       json_str = request.body.read
 
       @registration = Registration.where(:tenant_id => @tenant.id).first
-      end_registration_id = request.headers[Registration::CORRELATION_ID]
+      end_registration_id = request.headers[Registration::HTTP_CORRELATION_ID]
       (abort_registration("Missing #{Registration::CORRELATION_ID} header") and return) if end_registration_id.nil?
       (abort_registration("Out of sequence #{Registration::CORRELATION_ID} header") \
         and return) if end_registration_id != @registration.end_registration_id
@@ -79,7 +79,8 @@ module Lti2Tp
       tool_proxy_disposition = tool_proxy_disposition_wrapper.root
       tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
       tool_proxy_id = tool_proxy_disposition['@id']
-      disposition = tool_proxy_disposition['disposition']
+
+      disposition = request.headers[Registration::HTTP_DISPOSITION]
 
       if disposition != 'commit'
         abort_registration("Tool Consumer requested abort") and return
