@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705131318) do
+ActiveRecord::Schema.define(version: 20141027193548) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -86,10 +86,11 @@ ActiveRecord::Schema.define(version: 20140705131318) do
     t.string   "reg_password"
     t.string   "partner_url"
     t.string   "status"
-    t.string   "tc_profile_guid"
-    t.text     "tool_proxy_json"
     t.string   "disposition"
     t.string   "end_registration_id"
+    t.string   "tc_profile_guid"
+    t.string   "tool_proxy_guid"
+    t.text     "tool_proxy_json"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -100,13 +101,13 @@ ActiveRecord::Schema.define(version: 20140705131318) do
     t.string   "resource_link_label"
     t.boolean  "is_enabled"
     t.integer  "grade_item_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
     t.integer  "course_id"
     t.integer  "resource_id"
     t.string   "link_parameters"
     t.boolean  "is_name_permission"
     t.boolean  "is_email_permission"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "lti2_tc_registries", force: true do |t|
@@ -119,7 +120,7 @@ ActiveRecord::Schema.define(version: 20140705131318) do
   create_table "lti2_tc_resources", force: true do |t|
     t.integer "tool_id"
     t.string  "resource_type"
-    t.string  "name"
+    t.string  "resource_name"
     t.string  "description"
   end
 

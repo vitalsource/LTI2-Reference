@@ -24,7 +24,7 @@ module Lti2Tc
 
       end_registration_id = request.headers[CORRELATION_ID]
 
-      disposition = tool_proxy_wrapper.root['disposition'] || 'register'
+      disposition = (tool_proxy_wrapper.root.has_key? 'tool_proxy_guid') ? 'reregister' : 'register'
       if disposition == 'register'
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
@@ -139,7 +139,7 @@ module Lti2Tc
 
       @tool.save
 
-      @deployment_request.reg_key = tool_proxy_guid
+      @deployment_request.tool_proxy_guid = tool_proxy_guid
       @deployment_request.save
 
       #@deployment_request.delete
