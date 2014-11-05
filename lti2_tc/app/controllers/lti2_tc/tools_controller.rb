@@ -6,7 +6,13 @@ module Lti2Tc
     include Lti2Commons::Utils
 
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
-    END_REGISTRATION_ID_NAME = 'X-IMS-EndRegistration-ID'
+
+    CORRELATION_ID = 'VND-IMS-CORRELATION-ID'
+    DISPOSITION = 'VND-IMS-DISPOSITION'
+
+    DISPOSITION_COMMIT = 'commit'
+    DISPOSITION_ABORT = 'abort'
+
 
     def create
       rack_parameters = OAuthRequest.collect_rack_parameters request
@@ -16,16 +22,16 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      end_registration_id = request.headers[END_REGISTRATION_ID_NAME]
+      end_registration_id = request.headers[CORRELATION_ID]
 
-      disposition = tool_proxy_wrapper.root['disposition'] || 'register'
+      disposition = (tool_proxy_wrapper.root.has_key? 'tool_proxy_guid') ? 'reregister' : 'register'
       if disposition == 'register'
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
       else
         reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
         tool = Lti2Tc::Tool.where(:key => reg_key).first
-        @deployment_request = Lti2Tc::DeploymentRequest.find(tool.new_deployment_request_id)
+        @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
       end
 
       # prompt for disposition
@@ -133,7 +139,7 @@ module Lti2Tc
 
       @tool.save
 
-      @deployment_request.reg_key = tool_proxy_guid
+      @deployment_request.tool_proxy_guid = tool_proxy_guid
       @deployment_request.save
 
       #@deployment_request.delete
@@ -233,12 +239,12 @@ module Lti2Tc
           "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
           "@type" => "ToolProxy",
           "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid,
-          "disposition" => 'commit'
+          "tool_proxy_guid" => tool_proxy_guid
       }
 
       headers = {}
-      headers[END_REGISTRATION_ID_NAME] = @tool.end_registration_id
+      headers[CORRELATION_ID] = @tool.end_registration_id
+      headers[DISPOSITION] = DISPOSITION_COMMIT
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
@@ -258,7 +264,7 @@ module Lti2Tc
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"
       response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy",
-                                END_REGISTRATION_ID_NAME => @tool.end_registration_id)
+                                CORRELATION_ID => @tool.end_registration_id, DISPOSITION => DISPOSITION_COMMIT)
       # handle response error
 
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')

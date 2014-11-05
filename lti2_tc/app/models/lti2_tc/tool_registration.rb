@@ -55,6 +55,8 @@ module Lti2Tc
       deployment_request.save
 
       # tool_consumer_profile = ToolConsumerProfile.new
+      current_tcp = Lti2Tc::ToolConsumerProfile.where(:tc_profile_guid => deployment_request.tc_profile_guid).first
+      tool_consumer_profile = current_tcp if current_tcp.present?
       tool_consumer_profile.tc_profile = remap_tool_consumer_profile(
         tool_consumer_profile_wrapper, deployment_request.tc_profile_guid
       )
