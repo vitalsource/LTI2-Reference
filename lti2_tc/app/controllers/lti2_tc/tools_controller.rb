@@ -31,7 +31,7 @@ module Lti2Tc
       else
         reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
         tool = Lti2Tc::Tool.where(:key => reg_key).first
-        @deployment_request = Lti2Tc::DeploymentRequest.find(tool.new_deployment_request_id)
+        @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
       end
 
       # prompt for disposition
