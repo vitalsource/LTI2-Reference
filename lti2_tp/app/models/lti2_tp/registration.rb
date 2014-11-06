@@ -141,8 +141,10 @@ module Lti2Tp
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
+      headers = {}
+      (headers[CORRELATION_ID] = self.end_registration_id) if disposition == 'reregister'
       response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
-          CORRELATION_ID => self.end_registration_id)
+          headers)
       if response.code.between?( 200, 202 )
         response_body = response.body
         response_content = JSON.load( response_body ) unless response_body.strip.empty?
