@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'Lti2 Engine.'
   s.license     = 'MIT'
 
-  s.files = Dir['{app,config,db,lib,lti2_tc,lti_tp}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.files = Dir['{app,config,db,lib,lti2_tc,lti2_tp}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
   s.add_dependency 'rails', '~> 4.1.6'
 
