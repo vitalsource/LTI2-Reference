@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lti2 (0.0.2)
+    lti2 (0.0.3)
       httparty
       jsonpath
       lrucache
