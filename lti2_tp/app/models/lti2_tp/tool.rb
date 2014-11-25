@@ -12,7 +12,7 @@ module Lti2Tp
         resource_handlers_to_delete = []
         resource_handlers.each { |resource_handler|
           resource_handler_wrapper = Lti2Commons::JsonWrapper.new( resource_handler )
-          unless tool_options.include? resource_handler_wrapper.first_at('name.default_value')
+          unless tool_options.include? resource_handler_wrapper.first_at('resource_name.default_value')
             resource_handlers_to_delete << resource_handler
           end
         }

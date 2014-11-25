@@ -2,6 +2,7 @@ require_dependency 'lti2_tc/application_controller'
 
 module Lti2Tc
   class ToolSettingsController < ApplicationController
+    skip_before_filter :verify_authenticity_token
 
     def initialize
       @acceptable_headers = [ 'application/vnd.ims.lti.v2.toolsettings+json',

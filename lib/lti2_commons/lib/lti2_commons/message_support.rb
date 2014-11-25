@@ -1,7 +1,6 @@
 require 'httparty'
 
 module Lti2Commons
-
   # Module to support LTI 1 and 2 secure messaging.
   # This messaging is documented in the LTI 2 Security Document
   #
@@ -27,7 +26,6 @@ module Lti2Commons
   #     LTI 2.x will add Tool Consumer --> Tool Provider services using the same machinery.
 
   module MessageSupport
-
     TIMEOUT = 300
 
     # Convenience method signs and then invokes create_lti_message_from_signed_request
@@ -36,14 +34,14 @@ module Lti2Commons
     # @params parameters [Hash] Full set of params for message
     # @return [String] Post body ready for use
     #
-    def create_lti_message_body( launch_url, parameters, wire_log=nil, title=nil, is_open_in_external_window=false )
-      result = create_message_header( launch_url, is_open_in_external_window )
-      result += create_message_body( parameters )
-      result += create_message_footer( is_open_in_external_window )
+    def create_lti_message_body(launch_url, parameters, wire_log = nil, title = nil, is_open_in_external_window = false)
+      result = create_message_header(launch_url, is_open_in_external_window)
+      result += create_message_body(parameters)
+      result += create_message_footer(is_open_in_external_window)
 
       if wire_log
         wire_log.timestamp
-        wire_log.raw_log((title.nil?) ? "LtiMessage" : "LtiMessage: #{title}")
+        wire_log.raw_log((title.nil?) ? 'LtiMessage' : "LtiMessage: #{title}")
         wire_log.raw_log "LaunchUrl: #{launch_url}"
         wire_log.raw_log result.strip
         wire_log.newline
@@ -61,11 +59,11 @@ module Lti2Commons
     # @param params [Hash] Full set of params for message (including OAuth provided params)
     # @return [String] Post body ready for use
     #
-    def create_lti_message_body_from_signed_request( signed_request, is_include_oauth_params=true,
-        is_open_in_external_window=false )
-      result = create_message_header( signed_request.uri, is_open_in_external_window )
-      result += create_message_body( signed_request.parameters, is_include_oauth_params )
-      result += create_message_footer( is_open_in_external_window )
+    def create_lti_message_body_from_signed_request(signed_request, is_include_oauth_params = true,
+                                                    is_open_in_external_window = false)
+      result = create_message_header(signed_request.uri, is_open_in_external_window)
+      result += create_message_body(signed_request.parameters, is_include_oauth_params)
+      result += create_message_footer(is_open_in_external_window)
       result
     end
 
@@ -73,7 +71,7 @@ module Lti2Commons
     # This is fully-compliant REST request suitable for LTI server-to-server services.
     #
     # @param request [Request] Signed Request encapsulates everything needed for service.
-    def invoke_service(request, wire_log=nil, title=nil, other_headers={})
+    def invoke_service(request, wire_log = nil, title = nil, other_headers = {})
       uri = request.uri.to_s
       # set_headers_proc = lambda { |http|
       # http.headers['Authorization'] = request.oauth_header
@@ -92,128 +90,129 @@ module Lti2Commons
 
       parameters = request.parameters
       output_parameters = {}
-      request.parameters.each { |k,v| output_parameters[k] = v unless k =~ /^oauth_/ }
+      parameters.each { |k, v| output_parameters[k] = v unless k =~ /^oauth_/ }
 
-      (write_wirelog_header wire_log, title, request.method, uri, headers, request.parameters, request.body, output_parameters) if wire_log
+      (write_wirelog_header wire_log, title, request.method, uri, headers, parameters, request.body, output_parameters) if wire_log
 
       full_uri = uri
-      full_uri += '?' unless uri.include? "?"
+      full_uri += '?' unless uri.include? '?'
       full_uri += '&' unless full_uri =~ /[?&]$/
-      output_parameters.each_pair do |key, value|
+      output_parameters.each_pair do |key, _value|
         full_uri << '&' unless key == output_parameters.keys.first
         full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(output_parameters[key] || '')}"
       end
 
       case method
-        when 'get'
-          response = HTTParty.get( full_uri, :headers => headers, :timeout => TIMEOUT )
-        when 'post'
-          response = HTTParty.post( full_uri, :body => request.body, :headers => headers, :timeout => TIMEOUT )
-        when 'put'
-          response = HTTParty.put( full_uri, :body => request.body, :headers => headers, :timeout => TIMEOUT )
-        when 'delete'
-          response = HTTParty.delete( full_uri, :headers => headers, :timeout => TIMEOUT )
+      when 'get'
+        response = HTTParty.get(full_uri, headers: headers, timeout: TIMEOUT)
+      when 'post'
+        response = HTTParty.post(full_uri, body: request.body, headers: headers, timeout: TIMEOUT)
+      when 'put'
+        response = HTTParty.put(full_uri, body: request.body, headers: headers, timeout: TIMEOUT)
+      when 'delete'
+        response = HTTParty.delete(full_uri, headers: headers, timeout: TIMEOUT)
       end
 
-      wire_log.log_response( response, title ) if wire_log
+      wire_log.log_response(response, title) if wire_log
 
       response
     end
 
-    def invoke_unsigned_service( uri, method, params={}, headers={}, data=nil, wire_log=nil, title=nil )
+    def invoke_unsigned_service(uri, method, params = {}, headers = {},
+                                data = nil, wire_log = nil, title = nil)
       full_uri = uri
-      full_uri += '?' unless uri.include? "?"
+      full_uri += '?' unless uri.include? '?'
       full_uri += '&' unless full_uri =~ /[?&]$/
-      params.each_pair do |key, value|
+      params.each_pair do |key, _value|
         full_uri << '&' unless key == params.keys.first
         full_uri << "#{URI.encode(key.to_s)}=#{URI.encode(params[key])}"
       end
 
-      write_wirelog_header( wire_log, title, method, uri, headers, params, data, {} ) if wire_log
+      write_wirelog_header(wire_log, title, method, uri, headers, params, data, {}) if wire_log
 
       case method
-        when 'get'
-          response = HTTParty.get( full_uri, :headers => headers, :timeout => 120 )
-        when 'post'
-          response = HTTParty.post( full_uri, :body => data, :headers => headers, :timeout => 120 )
-        when 'put'
-          response = HTTParty.put( full_uri, :body => data, :headers => headers, :timeout => 120 )
-        when 'delete'
-          response = HTTParty.delete( full_uri, :headers => headers, :timeout => 120 )
+      when 'get'
+        response = HTTParty.get(full_uri, headers: headers, timeout: 120)
+      when 'post'
+        response = HTTParty.post(full_uri, body: data, headers: headers, timeout: 120)
+      when 'put'
+        response = HTTParty.put(full_uri, body: data, headers: headers, timeout: 120)
+      when 'delete'
+        response = HTTParty.delete(full_uri, headers: headers, timeout: 120)
       end
 
-      wire_log.log_response( response, title ) if wire_log
+      wire_log.log_response(response, title) if wire_log
 
       response
     end
 
     private
 
-    def create_message_header( launch_url, is_open_in_external_window=false )
+    def create_message_header(launch_url, is_open_in_external_window = false)
       attribute_for_external_window = is_open_in_external_window ? 'target="_blank"' : ''
-      %Q{
+      %Q(
 <div id="ltiLaunchFormSubmitArea">
   <form action="#{launch_url}" #{attribute_for_external_window}
     name="ltiLaunchForm" id="ltiLaunchForm" method="post"
     encType="application/x-www-form-urlencoded">
-}
+)
     end
 
-    def create_message_body( params, is_include_oauth_params=true )
+    def create_message_body(params, is_include_oauth_params = true)
       result = ''
-      params.each_pair do |k,v|
+      params.each_pair do |k, v|
         if is_include_oauth_params || ! (k =~ /^oauth_/)
           result +=
-              %Q{      <input type="hidden" name="#{k}" value="#{v}"/>\n}
+              %Q(      <input type="hidden" name="#{k}" value="#{CGI.escapeHTML(v)}"/>\n)
         end
       end
       result
     end
 
-    def create_message_footer( is_open_in_external_window=false )
-      footer = ''
+    def create_message_footer(is_open_in_external_window=false)
+      footer = ""
       if is_open_in_external_window
         footer += %Q{
       <a href="/admin/launches" target="_self">Return to Admin</a>\n
         }
       end
       footer += %Q{
-  </form>
+</form>
 </div>
 <script language="javascript">
   document.ltiLaunchForm.submit();
-</script>
+</script>        
       }
       footer
     end
 
-    def set_http_headers( http, request )
+    def set_http_headers(http, request)
       http.headers['Authorization'] = request.oauth_header
       http.headers['Content-Type'] = request.content_type if request.content_type
       http.headers['Content-Length'] = request.body.length if request.body
     end
 
-    def write_wirelog_header( wire_log, title, method, uri, headers={}, parameters={}, body=nil, output_parameters={} )
+    def write_wirelog_header(wire_log, title, method, uri, headers = {},
+                             parameters = {}, body = nil, output_parameters = {})
       wire_log.timestamp
-      wire_log.raw_log( (title.nil?) ? "LtiService" : "LtiService: #{title}" )
-      wire_log.raw_log( "#{method.upcase} #{uri}" )
+      wire_log.raw_log((title.nil?) ? 'LtiService' : "LtiService: #{title}")
+      wire_log.raw_log("#{method.upcase} #{uri}")
       unless headers.blank?
-        wire_log.raw_log( 'Headers:' )
-        headers.each { |k,v| wire_log.raw_log( "#{k}: #{v}" ) }
+        wire_log.raw_log('Headers:')
+        headers.each { |k, v| wire_log.raw_log("#{k}: #{v}") }
       end
-      parameters.each { |k,v| output_parameters[k] = v unless k =~ /^oauth_/ }
+      parameters.each { |k, v| output_parameters[k] = v unless k =~ /^oauth_/ }
 
       if output_parameters.length > 0
-        wire_log.raw_log( 'Parameters:' )
-        output_parameters.each { |k,v| wire_log.raw_log( "#{k}: #{v}" ) }
+        wire_log.raw_log('Parameters:')
+        output_parameters.each { |k, v| wire_log.raw_log("#{k}: #{v}") }
       end
       if body
-        wire_log.raw_log( 'Body:' )
-        wire_log.raw_log( body )
+        wire_log.raw_log('Body:')
+        wire_log.raw_log(body)
       end
       wire_log.newline
       wire_log.flush
     end
-
   end
 end

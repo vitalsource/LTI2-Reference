@@ -1,4 +1,3 @@
-# This migration comes from lti2_tc (originally 20131121012233)
 class CreateLti2TcRegistries < ActiveRecord::Migration
   def change
     create_table :lti2_tc_deployment_requests do |t|

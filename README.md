@@ -3,14 +3,13 @@ LTI2 -- Ruby/Rails reference implementation
 ==============
 __John Tibbetts, Integration Architect, Vital Source Technologies__
 
-This is an LTI2 reference implementation.  A reference implementation is one that is intended to demonstrate working code based on an emerging standard.  However implementation provides than just exemplary code.  In 
-addition, it fulfills the following responsibilities:
+This is Vital Source's LTI2 implementation.  VST uses this code primarily as a Tool Provider.  However there's also a Tool Consumer here that we've used for early testing (even before there were any LTI2 TCs).  In addition we use the Tool Consumer for brokered LTI launches.  This is used, say, in an interactive book that has been launched by an external Tool Consumer but contains dynamic pages within the book that, in turn, launch other LTI tools.
 
 * It implements both sides of the LTI convesation; that is, Tool Consumer (often an LMS) and Tool Provider.  These two components will work (out-of-the-box) with one another.  Or the Tool Consumer can be aimed at an external Tool Provider (possibly in development) to test it.  Or the Tool Provider can be addressed by an external Tool Consumer (possibly in development) to test it.
 
 * As new facilities, messages, or services are added to LTI2 they will be added to this reference model.  The intent is to add them in while they are still in development so that the LTI Services Task Force can see them in early operation.
 
-* The actual LTI-specific TC and TP functionality are implemented as Rails moountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
+* The actual LTI-specific TC and TP functionality are implemented as Rails mountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
 
 * The reference implementation contains sample applications that can either be run under sqlite3 or MySQL.  Sample data is provided for each type of database.
 
@@ -23,9 +22,7 @@ Prerequisites
 
 * Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 1.9.3.
 
-* Github identity.  During the prototype period (pre-conformance test) this must be sent to Lisa Mattson )Lisa Mattson (lisa@imsglobal.org) all access to the repos.
-
-* With a valid Github identity, clone this repo.
+* This code is in a github Vital Source public repo (LTI-Reference.  Clone it in a work directory.
 
 * Run bundler in subsdirectories tc_sample_app (the TC directory) and tp_sample_app (the TP directory).
 
@@ -48,7 +45,7 @@ The repository structure is as follows:
 		--lti2_tp			(tool provider engine)
 		|
 		|
-		--lti2_commons		(library used by both TC and TP)
+		--lib/lti2_commons		(library used by both TC and TP)
 		|
 		|
 		--tc_sample_app		(lightweight TC host based on active_admin gem)

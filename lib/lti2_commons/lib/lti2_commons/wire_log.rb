@@ -1,11 +1,8 @@
 require 'stringio'
 
 module Lti2Commons
-
   module WireLogSupport
-
     class WireLog
-
       STATUS_CODES = {
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -64,7 +61,7 @@ module Lti2Commons
 
       attr_accessor :is_logging, :output_file_name
 
-      def initialize( wire_log_name, output_file, is_html_output=true )
+      def initialize(wire_log_name, output_file, is_html_output = true)
         @output_file_name = output_file
         @is_logging = true
         @wire_log_name = wire_log_name
@@ -73,19 +70,19 @@ module Lti2Commons
       end
 
       def clear_log
-        output_file = File.open( @output_file_name, 'a+' )
+        output_file = File.open(@output_file_name, 'a+')
         output_file.truncate(0)
         output_file.close
       end
 
-      def flush( options={} )
-        output_file = File.open( @output_file_name, 'a+' )
+      def flush(options = {})
+        output_file = File.open(@output_file_name, 'a+')
         @log_buffer.rewind
         buffer = @log_buffer.read
         if @is_html_output
           oldbuffer = buffer.dup
           buffer = ''
-          oldbuffer.each_char { |c|
+          oldbuffer.each_char do |c|
             if c == '<'
               buffer << '&lt;'
             elsif c == '>'
@@ -93,80 +90,74 @@ module Lti2Commons
             else
               buffer << c
             end
-          }
+          end
         end
-        if options.has_key? :css_class
+        if options.key? :css_class
           css_class = options[:css_class]
         else
           css_class = "#{@wire_log_name}"
         end
-        output_file.puts( "<div class=\"#{css_class}\"><pre>" ) if @is_html_output
-        output_file.write( buffer )
-        output_file.puts( "\n</div></pre>" ) if @is_html_output
+        output_file.puts("<div class=\"#{css_class}\"><pre>") if @is_html_output
+        output_file.write(buffer)
+        output_file.puts("\n</div></pre>") if @is_html_output
         output_file.close
         @log_buffer = nil
       end
 
-      def log s
+      def log(s)
         timestamp
-        raw_log( "#{s}" )
+        raw_log("#{s}")
         flush
       end
 
-      def log_response( response, title=nil )
+      def log_response(response, title = nil)
         timestamp
-        raw_log( title.nil? ? "Response" : "Response: #{title}" )
-        raw_log( "Status: #{response.code} #{STATUS_CODES[response.code]}" )
+        raw_log(title.nil? ? 'Response' : "Response: #{title}")
+        raw_log("Status: #{response.code} #{STATUS_CODES[response.code]}")
         headers = response.headers
         unless headers.blank?
-          raw_log( 'Headers:' )
-          headers.each { |k,v| raw_log( "#{k}: #{v}" ) if k.downcase =~ /^content/ }
+          raw_log('Headers:')
+          headers.each { |k, v| raw_log("#{k}: #{v}") if k.downcase =~ /^content/ }
         end
 
         if response.body
           # the following is expensive so do only when needed
-          if @is_logging
-            raw_log( 'Body:' )
-          end
+          raw_log('Body:') if @is_logging
           begin
-            json_obj = JSON.load( response.body )
-            raw_log( JSON.pretty_generate( json_obj ) )
+            json_obj = JSON.load(response.body)
+            raw_log(JSON.pretty_generate(json_obj))
           rescue
-            raw_log( "#{response.body}" )
+            raw_log("#{response.body}")
           end
         end
         newline
-        flush( :css_class => "#{@wire_log_name}Response" )
+        flush(css_class: "#{@wire_log_name}Response")
       end
 
       def newline
-        raw_log( "\n" )
+        raw_log("\n")
       end
 
       def log_buffer
         # put in the css header if file doesn't exist
         unless File.size? @output_file_name
-          @output_file = File.open( @output_file_name, 'a' )
+          @output_file = File.open(@output_file_name, 'a')
           @output_file.puts '<link rel="stylesheet" type="text/css" href="wirelog.css" />'
           @output_file.puts ''
           @output_file.close
         end
-        unless @log_buffer
-          @log_buffer = StringIO.new
-        end
+        @log_buffer = StringIO.new unless @log_buffer
         @log_buffer
       end
 
-      def raw_log( s )
+      def raw_log(s)
         @log_buffer = log_buffer
-        @log_buffer.puts( s )
+        @log_buffer.puts(s)
       end
 
       def timestamp
-        raw_log( Time.new )
+        raw_log(Time.new)
       end
     end
-
   end
-
 end

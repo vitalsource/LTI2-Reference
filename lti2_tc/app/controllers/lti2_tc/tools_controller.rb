@@ -6,7 +6,9 @@ module Lti2Tc
     include Lti2Commons::Utils
 
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
-    END_REGISTRATION_ID_NAME = 'X-IMS-EndRegistration-ID'
+
+    ACKNOWLEDGEMENT_URL = 'VND-IMS-ACKNOWLEDGEMENT-URL'
+
 
     def create
       rack_parameters = OAuthRequest.collect_rack_parameters request
@@ -16,16 +18,15 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      end_registration_id = request.headers[END_REGISTRATION_ID_NAME]
+      acknowledgement_url = request.headers[ACKNOWLEDGEMENT_URL]
 
-      disposition = tool_proxy_wrapper.root['disposition'] || 'register'
-      if disposition == 'register'
+      if acknowledgement_url.blank?
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
       else
         reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
         tool = Lti2Tc::Tool.where(:key => reg_key).first
-        @deployment_request = Lti2Tc::DeploymentRequest.find(tool.new_deployment_request_id)
+        @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
       end
 
       # prompt for disposition
@@ -33,7 +34,7 @@ module Lti2Tc
       session[LTI2TC_SESSION_MAP] = session_map
       session_map['deployment_request_id'] = @deployment_request.id
       @deployment_request.disposition = disposition
-      @deployment_request.end_registration_id = end_registration_id
+      @deployment_request.end_registration_id = acknowledgement_url
       @deployment_request.tool_proxy_json = tool_proxy_wrapper.root.to_json
       @deployment_request.save
 
@@ -86,7 +87,7 @@ module Lti2Tc
           resource = Resource.new
           resource.tool = @tool
           resource.resource_type = resource_json_obj.first_at('resource_type.code')
-          resource.name = resource_json_obj.first_at('name.default_value')
+          resource.resource_name = resource_json_obj.first_at('resource_name.default_value')
           resource.description = resource_json_obj.first_at('description.default_value')
           resource.save
 
@@ -94,19 +95,19 @@ module Lti2Tc
           link = Lti2Tc::Link.new
           link.course_id = course_id
           link.resource = resource
-          link.resource_link_label = resource.name
+          link.resource_link_label = resource.resource_name
           link_parameter_str = "{"
-          if ["Book", "BookSelection", "InteractiveResource"].include? resource.name
+          if ["Book", "BookSelection", "InteractiveResource"].include? resource.resource_name
             link_parameter_str += "\"vbid\":\"L-999-74180\""
           end
-          if resource.name == "BookSelection"
+          if resource.resource_name == "BookSelection"
             link_parameter_str += ",\"book_location\":\"outline\/3\""
           end
           link_parameter_str += "}"
           link.link_parameters = link_parameter_str
 
           # and a grade_item for resource iResource only
-          if resource.name == "InteractiveResource"
+          if resource.resource_name == "InteractiveResource"
             grade_item = GradeItem.new
             grade_item.course_id = link.course_id
             grade_item.label = "IRTestGrade"
@@ -133,7 +134,7 @@ module Lti2Tc
 
       @tool.save
 
-      @deployment_request.reg_key = tool_proxy_guid
+      @deployment_request.tool_proxy_guid = tool_proxy_guid
       @deployment_request.save
 
       #@deployment_request.delete
@@ -206,59 +207,24 @@ module Lti2Tc
       @tool.end_registration_id = @deployment_request.end_registration_id
       @tool.save
 
-      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      tool_consumer_registry = Rails.application.config.tool_consumer_registry
-      tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
-
-      # Post EndRegistration
-      tool_proxy_service_hash = {}
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      reregistration_service = nil
       reregistration_service_endpoint = nil
-
-      tool_proxy_wrapper.root['tool_profile']['service_offered'].each do |service|
-        if service['format'][0] == content_type
-          reregistration_service = service
-        end
-        if reregistration_service.nil?
-          return [nil, 500, 'No reregistration service defined']
-        end
-        reregistration_service_endpoint = reregistration_service['endpoint']
-        if reregistration_service_endpoint.nil?
-          return [nil, 500, 'No reregistration endpoint defined in reregistration service']
-        end
-      end
-
-      end_registration_request = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid,
-          "disposition" => 'commit'
-      }
-
-      headers = {}
-      headers[END_REGISTRATION_ID_NAME] = @tool.end_registration_id
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
         reregistration_service_endpoint.sub!('http://localhost:5000', 'http://localhost:5100')
       end
 
-      #response = HTTParty.post reregistration_service_endpoint, :body => end_registration_request.to_json, :headers => headers
       signed_request = create_signed_request \
         reregistration_service_endpoint,
-        'POST',
+        'PUT',
         @tool.key,
         @tool.secret,
-        {},
-        end_registration_request.to_json,
-        "application/vnd.ims.lti.v2.toolproxy.id+json"
+        new_params,
+        ""
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy",
-                                END_REGISTRATION_ID_NAME => @tool.end_registration_id)
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy")
       # handle response error
 
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
@@ -317,7 +283,7 @@ module Lti2Tc
       tcp_str = tcp_obj.tc_profile
       tcp = JsonWrapper.new( tcp_str ).root
       tcp_service_hash = {}
-      tcp['service_offered'].each { |service| tcp_service_hash[service['endpoint']] = service['action'] }
+      tcp['service_offered'].each { |service| tcp_service_hash[service['@id']] = service['action'] }
       tool_proxy_wrapper.root['security_contract']['tool_service'].each do |tp_service_item|
         if tcp_service_hash.keys.include?( tp_service_item['service'] )
           tp_service_item['action'].each do |action|
