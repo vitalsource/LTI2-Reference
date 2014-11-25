@@ -50,7 +50,7 @@ module Lti2Tp
       redirect_to "/lti_registration_wips?registration_id=#{@registration.id}&return_url=/lti2_tp/registrations"
     end
 
-    def end_registration
+    def complete_reregistration
       response = pre_process_tenant
       if response.nil?
         return
@@ -62,27 +62,14 @@ module Lti2Tp
 
       @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
-      json_str = request.body.read
-
       @registration = Registration.where(:tenant_id => @tenant.id).first
-      end_registration_id = request.headers[Registration::HTTP_CORRELATION_ID]
-      (abort_registration("Missing #{Registration::CORRELATION_ID} header") and return) if end_registration_id.nil?
-      (abort_registration("Out of sequence #{Registration::CORRELATION_ID} header") \
-        and return) if end_registration_id != @registration.end_registration_id
+      correlation = params[:correlation]
+      (abort_registration("Missing correlation parameter") and return) if correlation.nil?
+      (abort_registration("Uncorrelated reregistration") \
+        and return) if correlation != @registration.end_registration_id
 
-      begin
-        tool_proxy_disposition_wrapper = JsonWrapper.new(json_str)
-      rescue
-        render :json => 'JSON validation failure', :status => '500'
-      end
-
-      tool_proxy_disposition = tool_proxy_disposition_wrapper.root
-      tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
-      tool_proxy_id = tool_proxy_disposition['@id']
-
-      disposition = request.headers[Registration::HTTP_DISPOSITION]
-
-      if disposition != 'commit'
+      method = request.method
+      if method != 'PUT'
         abort_registration("Tool Consumer requested abort") and return
       end
 

@@ -1,11 +1,9 @@
 module Lti2Tp
   class Registration < ActiveRecord::Base
 
-    CORRELATION_ID = 'VND-IMS-CORRELATION-ID'
-    DISPOSITION = 'VND-IMS-DISPOSITION'
+    ACKNOWLEDGE_URL = 'VND-IMS-ACKNOWLEDGE-URL'
 
-    HTTP_CORRELATION_ID = 'HTTP_VND_IMS_CORRELATION_ID'
-    HTTP_DISPOSITION = 'HTTP_VND_IMS_DISPOSITION'
+    HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_ACKNOWLEDGE_URL'
 
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_provider_registry = Rails.application.config.tool_provider_registry
@@ -141,8 +139,9 @@ module Lti2Tp
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{self.reg_password}"
+
       headers = {}
-      (headers[CORRELATION_ID] = self.end_registration_id) if disposition == 'reregister'
+      (headers[ACKNOWLEDGE_URL] = self.end_registration_id) if disposition == 'reregister'
       response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
           headers)
       if response.code.between?( 200, 202 )

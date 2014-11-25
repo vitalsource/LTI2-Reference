@@ -7,11 +7,7 @@ module Lti2Tc
 
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
 
-    CORRELATION_ID = 'VND-IMS-CORRELATION-ID'
-    DISPOSITION = 'VND-IMS-DISPOSITION'
-
-    DISPOSITION_COMMIT = 'commit'
-    DISPOSITION_ABORT = 'abort'
+    ACKNOWLEDGEMENT_URL = 'VND-IMS-ACKNOWLEDGEMENT-URL'
 
 
     def create
@@ -22,10 +18,9 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      end_registration_id = request.headers[CORRELATION_ID]
+      acknowledgement_url = request.headers[ACKNOWLEDGEMENT_URL]
 
-      disposition = (tool_proxy_wrapper.root.has_key? 'tool_proxy_guid') ? 'reregister' : 'register'
-      if disposition == 'register'
+      if acknowledgement_url.blank?
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
       else
@@ -39,7 +34,7 @@ module Lti2Tc
       session[LTI2TC_SESSION_MAP] = session_map
       session_map['deployment_request_id'] = @deployment_request.id
       @deployment_request.disposition = disposition
-      @deployment_request.end_registration_id = end_registration_id
+      @deployment_request.end_registration_id = acknowledgement_url
       @deployment_request.tool_proxy_json = tool_proxy_wrapper.root.to_json
       @deployment_request.save
 
@@ -212,47 +207,13 @@ module Lti2Tc
       @tool.end_registration_id = @deployment_request.end_registration_id
       @tool.save
 
-      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      tool_consumer_registry = Rails.application.config.tool_consumer_registry
-      tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
-
-      # Post EndRegistration
-      tool_proxy_service_hash = {}
-      # content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      reregistration_service = nil
       reregistration_service_endpoint = nil
-
-      tool_proxy_wrapper.root['tool_profile']['service_offered'].each do |service|
-        # if service['format'][0] == content_type
-        if service['action'][0].upcase == 'PUT'
-          reregistration_service = service
-        end
-        if reregistration_service.nil?
-          return [nil, 500, 'No reregistration service defined']
-        end
-        reregistration_service_endpoint = "#{reregistration_service['endpoint']}/#{tool_proxy_guid}"
-        if reregistration_service_endpoint.nil?
-          return [nil, 500, 'No reregistration endpoint defined in reregistration service']
-        end
-      end
-
-      # end_registration_request = {
-      #     "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-      #     "@type" => "ToolProxy",
-      #     "@id" => tool_proxy_id,
-      #     "tool_proxy_guid" => tool_proxy_guid
-      # }
-
-      new_params = {}
-      new_params['oauth_ims_correlation_id'] = @tool.end_registration_id
-      new_params['oauth_ims_disposition'] = DISPOSITION_COMMIT
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
         reregistration_service_endpoint.sub!('http://localhost:5000', 'http://localhost:5100')
       end
 
-      #response = HTTParty.post reregistration_service_endpoint, :body => end_registration_request.to_json, :headers => headers
       signed_request = create_signed_request \
         reregistration_service_endpoint,
         'PUT',
