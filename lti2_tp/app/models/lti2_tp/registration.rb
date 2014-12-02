@@ -2,11 +2,9 @@ module Lti2Tp
   class Registration < ActiveRecord::Base
 
     ACKNOWLEDGE_URL = 'VND-IMS-ACKNOWLEDGE-URL'
-
     HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_ACKNOWLEDGE_URL'
 
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
-      tool_provider_registry = Rails.application.config.tool_provider_registry
       tool_proxy = {}
       # clone from provided TCP
       tool_proxy['@context'] = tool_consumer_profile['@context'].clone
@@ -141,7 +139,11 @@ module Lti2Tp
       puts "Register secret: #{self.reg_password}"
 
       headers = {}
-      (headers[ACKNOWLEDGE_URL] = self.end_registration_id) if disposition == 'reregister'
+      if disposition == 'reregister'
+        tool_provider_registry = Rails.application.config.tool_provider_registry
+        base_url = "#{tool_provider_registry.tp_deployment_url}/lti2_tp/tool_proxies/#{self.reg_key}?correlation=#{self.end_registration_id}"
+      end
+      (headers[ACKNOWLEDGE_URL] = base_url) if disposition == 'reregister'
       response = invoke_service(signed_request, Rails.application.config.wire_log, "#{label} ToolProxy with ToolConsumer",
           headers)
       if response.code.between?( 200, 202 )

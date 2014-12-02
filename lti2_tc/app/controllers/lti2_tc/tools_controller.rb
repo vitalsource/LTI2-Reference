@@ -8,7 +8,7 @@ module Lti2Tc
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
 
     ACKNOWLEDGEMENT_URL = 'VND-IMS-ACKNOWLEDGEMENT-URL'
-
+    HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_ACKNOWLEDGE_URL'
 
     def create
       rack_parameters = OAuthRequest.collect_rack_parameters request
@@ -18,27 +18,27 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      acknowledgement_url = request.headers[ACKNOWLEDGEMENT_URL]
+      acknowledgement_url = request.headers[HTTP_ACKNOWLEDGE_URL]
 
       if acknowledgement_url.blank?
         reg_key = rack_parameters[:oauth_consumer_key]
         @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
+        state = 'registration'
       else
         reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
         tool = Lti2Tc::Tool.where(:key => reg_key).first
         @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
+        state = 'reregistration'
       end
 
-      # prompt for disposition
       session_map = {}
       session[LTI2TC_SESSION_MAP] = session_map
       session_map['deployment_request_id'] = @deployment_request.id
-      @deployment_request.disposition = disposition
       @deployment_request.end_registration_id = acknowledgement_url
       @deployment_request.tool_proxy_json = tool_proxy_wrapper.root.to_json
       @deployment_request.save
 
-      if disposition == 'reregister'
+      if state == 'reregistration'
         #tool = Tool.where(:key => reg_key).last
         #tool.new_deployment_request_id = @deployment_request.id
         #tool.save
@@ -69,7 +69,6 @@ module Lti2Tc
       @tool.key = tool_proxy_guid
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.status = 'registered'
-      @tool.end_registration_id = end_registration_id
 
       # TEMPORARY: enable tool...FOR DEMOS
       # @tool.is_enabled = true
@@ -207,7 +206,7 @@ module Lti2Tc
       @tool.end_registration_id = @deployment_request.end_registration_id
       @tool.save
 
-      reregistration_service_endpoint = nil
+      reregistration_service_endpoint = @tool.end_registration_id
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
@@ -219,7 +218,7 @@ module Lti2Tc
         'PUT',
         @tool.key,
         @tool.secret,
-        new_params,
+        {},
         ""
 
       puts "Register request: #{signed_request.signature_base_string}"
@@ -236,7 +235,8 @@ module Lti2Tc
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.new_deployment_request_id = nil
 
-      tool_proxy_wrapper.root['@id'] = tool_proxy_id
+      tool_consumer_registry = Rails.application.config.tool_consumer_registry
+      tool_proxy_wrapper.root['@id'] = "#{tool_consumer_registry.tc_deployment_url}/tools/#{@tool.key}"
 
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
 

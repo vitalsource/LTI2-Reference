@@ -84,22 +84,52 @@ module Lti2Tp
 
       LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
 
+      @registration.save
+
+      logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
+
+      render :nothing => true, :status => '200'
+    end
+
+    def complete_reregistration
+      response = pre_process_tenant
+      if response.nil?
+        return
+      else
+        if response.kind_of?(Array)
+          return unless response[0] == 200
+        end
+      end
+
+      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
+
+      @registration = Registration.where(:tenant_id => @tenant.id).first
+      correlation = params[:correlation]
+      (abort_registration("Missing correlation parameter") and return) if correlation.nil?
+      (abort_registration("Uncorrelated reregistration") \
+        and return) if correlation != @registration.end_registration_id
+
+      method = request.method
+      if method != 'PUT'
+        abort_registration("Tool Consumer requested abort") and return
+      end
+
+      @registration.tool_proxy_json = @registration.proposed_tool_proxy_json
+      @registration.status = 'reregistered'
+      @registration.proposed_tool_proxy_json = nil
+      @registration.end_registration_id = nil
+
+      # recover secret from new tool_proxy
+      tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
+      @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+
+      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
 
       @registration.save
 
-      end_registration_response = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid,
-          "disposition" => 'commit'
-      }
+      logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
 
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
-      logger.info(JSON.dump(end_registration_response))
-
-      render :json => end_registration_response.to_json, :content_type => content_type, :status => '201'
+      render :nothing => true, :status => '200'
     end
 
     def index
