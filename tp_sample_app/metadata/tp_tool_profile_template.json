@@ -13,47 +13,44 @@
     "lti_version": "LTI-2p0",
     "message": [
         {
-            "message_type": [
-                "ToolProxyRegistrationRequest",
-                "ToolProxyReregistrationRequest"
-            ],
+            "message_type": "ToolProxyReregistrationRequest",
             "parameter": [
                 {
                     "name": "tc_profile_url",
                     "variable": "ToolConsumerProfile.url"
                 }
             ],
-            "path": "{tp_deployment_url}/lti2_tp/reregistrations"
+            "path": "http://{tp_deployment_url}/lti2_tp/reregistrations"
         }
     ],
     "product_instance": {
         "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
         "product_info": {
             "description": {
-                "default_value": "Fabericious reflowable ePub3 Textbook",
+                "default_value": "VitalSource ePub3 Textbook",
                 "key": "tool.description"
             },
             "product_family": {
                 "code": "assessment-tool",
                 "vendor": {
-                    "code": "fabericious.org",
+                    "code": "vitalsource.com",
                     "contact": {
-                        "email": "info@fabericious.com"
+                        "email": "jtibbetts@ingramcontent.con"
                     },
                     "description": {
-                        "default_value": "Fabericious is a leading provider of interactive tools for education",
+                        "default_value": "VitalSource is the leading provider of interactive digital content",
                         "key": "tool.vendor.description"
                     },
                     "name": {
-                        "default_value": "Fab",
+                        "default_value": "VitalSource Technologies",
                         "key": "tool.vendor.name"
                     },
                     "timestamp": "2012-04-05T09:08:16-04:00",
-                    "website": "{{tp_deployment_url}}"
+                    "website": "{tp_deployment_url}"
                 }
             },
             "product_name": {
-                "default_value": "LTI2 BookTools",
+                "default_value": "VitalSource Bookshelf",
                 "key": "tool.name"
             },
             "product_version": "10.3",
@@ -67,18 +64,18 @@
                 "default_value": "Provider of high performance managed hosting environments",
                 "key": "service_provider.description"
             },
-            "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+            "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577ffff",
             "service_provider_name": {
-                "default_value": "Amazon Cloud",
+                "default_value": "IngramContent",
                 "key": "service_provider.name"
             },
             "support": {
-                "email": "support@ec2.fabericious.com"
+                "email": "support@vitalsource.com"
             },
             "timestamp": "2012-04-05T09:08:16-04:00"
         },
         "support": {
-            "email": "helpdesk@fabericious.com"
+            "email": "support@vitalsource.com"
         }
     },
     "resource_handler": [
@@ -104,10 +101,23 @@
                             "variable": "LtiLink.custom.url"
                         }
                     ],
+                    "enabled_capability": [
+                        "User.id",
+                        "Context.id",
+                        "CourseSection.label",
+                        "CourseSection.title",
+                        "Person.name.family",
+                        "Person.name.given",
+                        "Person.email.primary",
+                        "ToolProxy.custom.url",
+                        "ToolProxyBinding.custom.url",
+                        "LtiLink.custom.url"
+                    ],
+
                     "path": "/settings"
                 }
             ],
-            "name": {
+            "resource_name": {
                 "default_value": "Settings",
                 "key": "resource.name"
             },
@@ -117,7 +127,7 @@
         },
         {
             "description": {
-                "default_value": "Echo service",
+                "default_value": "Diagnostics service",
                 "key": "resource.description"
             },
             "message": [
@@ -125,31 +135,28 @@
                     "message_type": "basic-lti-launch-request",
                     "parameter": [
                         {
-                            "fixed": "Narcissus",
-                            "name": "referrer"
-                        },
-                        {
-                            "fixed": "3.14159",
-                            "name": "pi"
-                        },
-                        {
                             "name": "user_primary_email",
                             "variable": "Person.email.primary"
-                        },
-                        {
-                            "name": "discipline",
-                            "variable": "CourseOffering.label"
                         }
                     ],
-                    "path": "/echoes"
+                    "enabled_capability": [
+                        "User.id",
+                        "Context.id",
+                        "CourseSection.label",
+                        "CourseSection.title",
+                        "Person.name.family",
+                        "Person.name.given",
+                        "Person.email.primary"
+                    ],
+                    "path": "/diagnostics"
                 }
             ],
-            "name": {
-                "default_value": "Echo",
+            "resource_name": {
+                "default_value": "Diagnostics",
                 "key": "resource.name"
             },
             "resource_type": {
-                "code": "echo"
+                "code": "diagnostics"
             }
         },
         {
@@ -162,13 +169,23 @@
                     "message_type": "basic-lti-launch-request",
                     "parameter": [
                         {
-                            "name": "vbid"
+                            "name": "vbid",
+                            "fixed": "L-999-70049"
                         }
                     ],
-                    "path": "/books"
+                    "enabled_capability": [
+                        "User.id",
+                        "Context.id",
+                        "CourseSection.label",
+                        "CourseSection.title",
+                        "Person.name.family",
+                        "Person.name.given",
+                        "Person.email.primary"
+                    ],
+                    "path": "/books/book"
                 }
             ],
-            "name": {
+            "resource_name": {
                 "default_value": "Book",
                 "key": "resource.name"
             },
@@ -192,46 +209,24 @@
                             "name": "book_location"
                         }
                     ],
-                    "path": "/bookselections"
+                    "enabled_capability": [
+                        "User.id",
+                        "Context.id",
+                        "CourseSection.label",
+                        "CourseSection.title",
+                        "Person.name.family",
+                        "Person.name.given",
+                        "Person.email.primary"
+                    ],
+                    "path": "/books/book"
                 }
             ],
-            "name": {
-                "default_value": "BookSelection",
+            "resource_name": {
+                "default_value": "Book with deep link",
                 "key": "resource.name"
             },
             "resource_type": {
                 "code": "bookselection"
-            }
-        },
-        {
-            "description": {
-                "default_value": "Interactive resource",
-                "key": "resource.description"
-            },
-            "message": [
-                {
-                    "enabled_capability": [
-                        "Result.autocreate"
-                    ],
-                    "message_type": "basic-lti-launch-request",
-                    "parameter": [
-                        {
-                            "name": "vbid"
-                        },
-                        {
-                            "name": "result_uri",
-                            "variable": "Result.uri"
-                        }
-                    ],
-                    "path": "/iresources"
-                }
-            ],
-            "name": {
-                "default_value": "InteractiveResource",
-                "key": "resource.name"
-            },
-            "resource_type": {
-                "code": "iresource"
             }
         },
         {
@@ -243,34 +238,31 @@
                 {
                     "message_type": "basic-lti-launch-request",
                     "parameter": [
+
                         {
                             "name": "course_label",
-                            "variable": "CourseOffering.label"
+                            "variable": "CourseSection.label"
                         }
                     ],
-                    "path": "/bookshelves"
+                    "enabled_capability": [
+                        "User.id",
+                        "Context.id",
+                        "CourseSection.label",
+                        "CourseSection.title",
+                        "Person.name.family",
+                        "Person.name.given",
+                        "Person.email.primary"
+                    ],
+                    "path": "/bookshelf"
                 }
             ],
-            "name": {
+            "resource_name": {
                 "default_value": "Bookshelf",
                 "key": "resource.name"
             },
             "resource_type": {
                 "code": "bookshelf"
             }
-        }
-    ],
-    "service_offered": [
-        {
-            "@id": "{tc_deployment_url}/lti2_tp/ToolProxy.item",
-            "@type": "RestService",
-            "action": [
-                "PUT"
-            ],
-            "endpoint": "{tc_deployment_url}/lti2_tp/tool_proxies/{tp_guid}",
-            "format": [
-                "application/vnd.ims.lti.v2.toolproxy.id+json"
-            ]
         }
     ]
 }

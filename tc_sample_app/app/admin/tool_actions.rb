@@ -24,12 +24,10 @@ ActiveAdmin.register_page 'Tool Actions' do
       end
     elsif method == 'reregister'
       tool = Lti2Tc::Tool.find(tool_id) unless tool_id.nil?
-      tool_proxy_wrapper = JsonWrapper.new(tool.tool_proxy)
-      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
 
-      deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => tool_proxy_guid).first
+      deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => tool.key).first
       deployment_request.reg_key = tool.key
       deployment_request.save
       tool.new_deployment_request_id = deployment_request.id

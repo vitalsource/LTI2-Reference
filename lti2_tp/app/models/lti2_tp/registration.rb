@@ -27,9 +27,9 @@ module Lti2Tp
       JSON.load( tcp_response.body )
     end
 
-    def prepare_tool_proxy disposition, tool_proxy_guid
+    def prepare_tool_proxy disposition
       tool_consumer_profile = JSON.load( self.tool_consumer_profile_json )
-      tool_proxy = create_tool_proxy(tool_consumer_profile, tool_proxy_guid, disposition)
+      tool_proxy = create_tool_proxy(tool_consumer_profile, self.reg_key, disposition)
       if tool_proxy
         self.end_registration_id = UUID.generate
         if disposition == 'register'

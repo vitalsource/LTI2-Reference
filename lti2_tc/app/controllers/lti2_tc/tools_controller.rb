@@ -20,16 +20,10 @@ module Lti2Tc
 
       acknowledgement_url = request.headers[HTTP_ACKNOWLEDGE_URL]
 
-      if acknowledgement_url.blank?
-        reg_key = rack_parameters[:oauth_consumer_key]
-        @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
-        state = 'registration'
-      else
-        reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
-        tool = Lti2Tc::Tool.where(:key => reg_key).first
-        @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
-        state = 'reregistration'
-      end
+      reg_key = rack_parameters[:oauth_consumer_key]
+      @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
+
+      state = acknowledgement_url.blank? ? 'registration' : 'reregistration'
 
       session_map = {}
       session[LTI2TC_SESSION_MAP] = session_map
@@ -39,9 +33,6 @@ module Lti2Tc
       @deployment_request.save
 
       if state == 'reregistration'
-        #tool = Tool.where(:key => reg_key).last
-        #tool.new_deployment_request_id = @deployment_request.id
-        #tool.save
         (render :nothing => true, :status => 201) and return
       end
 
@@ -199,8 +190,7 @@ module Lti2Tc
 
       tool_id = params[:tool_id]
       @tool = Lti2Tc::Tool.find(tool_id)
-      new_deployment_request_id = @tool.new_deployment_request_id
-      @deployment_request = DeploymentRequest.find(new_deployment_request_id)
+      @deployment_request = DeploymentRequest.where(:req_key => @tool.key)
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
       @tool.end_registration_id = @deployment_request.end_registration_id

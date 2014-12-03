@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
     end
     end
 
-
     # OAuth check here
     tool_provider_registry = Rails.application.config.tool_provider_registry
 
@@ -86,26 +85,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def lti_link_to(path, parameters)
-    parameter_addends = {
-      'lti_version' => 'LTI-1p0',
-      'lti_message_type' => 'basic-lti-launch-request',
-      'resource_link_id' => '12345',
-      'user_id' => 'lti2.user',
-      'roles' => 'student',
-    }
-
-    parameters.merge! parameter_addends
-
-    service_endpoint = "http://bc.vitalsource.com" + path
-    key = '640e19b0-5ff8-11e2-bcfd-0800200c9a66'
-    secret = 'A83C3F8E864CA11A'
-
-    signed_request = Signer::create_signed_request service_endpoint, 'post', key, secret, parameters
-    # puts "TC Signed Request: #{signed_request.signature_base_string}"    # parameters['oauth_signature'] = Base64.encode64( OpenSSL::HMAC.digest( OpenSSL::Digest::Digest.new( 'sha1' ), secret+"&", "#{signed_request.signature_base_string}" ) ).chomp.gsub( /\n/, '' )
-    MessageSupport::create_lti_message_body(service_endpoint, parameters, Rails.application.config.wire_log, "Launch to external tool")
-  end
 
   def normalize_role(roles_string)
     roles_string ||= 'learner'

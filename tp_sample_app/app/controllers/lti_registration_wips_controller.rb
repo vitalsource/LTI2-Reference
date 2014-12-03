@@ -40,7 +40,7 @@ class LtiRegistrationWipsController < InheritedResources::Base
       (@lti_registration_wip.errors[:tenant_name] << "Institution name is already in database") and return
     end
 
-    disposition = @registration.prepare_tool_proxy('register', UUID.generate)
+    disposition = @registration.prepare_tool_proxy('register')
     if @registration.is_status_failure? disposition
       redirect_to_registration(@registration, disposition) and return
     end
@@ -58,7 +58,7 @@ class LtiRegistrationWipsController < InheritedResources::Base
 
   def show_reregistration
     tenant = Tenant.where(:tenant_name=>@registration.tenant_name).first
-    disposition = @registration.prepare_tool_proxy('reregister', @registration.reg_key)
+    disposition = @registration.prepare_tool_proxy('reregister')
     @registration.status = "reregistered"
     @registration.save!
 
