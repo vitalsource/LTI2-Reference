@@ -27,10 +27,9 @@ ActiveAdmin.register_page 'Tool Actions' do
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
 
-      deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => tool.key).first
+      deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => tool.key).first
       deployment_request.reg_key = tool.key
       deployment_request.save
-      tool.new_deployment_request_id = deployment_request.id
       tool.registration_return_url = "#{tool_consumer_registry.tc_deployment_url}/admin/tool_actions"
       tool.save
       tool_consumer_profile = Lti2Tc::ToolConsumerProfile.new
@@ -49,11 +48,11 @@ ActiveAdmin.register_page 'Tool Actions' do
       else
        tool.toggle_label = 'NO [enable now]'
       end
-      if tool.new_deployment_request_id.nil?
+      if tool.status != 'reregistering'
        tool.new_tool_proxy_url = 'NO'
       else
-       deployment_request = Lti2Tc::DeploymentRequest.find(tool.new_deployment_request_id)
-       tool.new_tool_proxy_url = "<a href=\"/lti2_tc/reregister_continue?tool_id=#{tool.id}&deployment_request_id=#{deployment_request.id}\">ACCEPT NOW</a>"
+       # deployment_request = Lti2Tc::DeploymentRequest.find(tool.new_deployment_request_id)
+       tool.new_tool_proxy_url = "<a href=\"/lti2_tc/reregister_continue?tool_id=#{tool.id}\">ACCEPT NOW</a>"
       end
     end
     request['tools'] = tools

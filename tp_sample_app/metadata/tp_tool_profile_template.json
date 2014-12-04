@@ -176,75 +176,6 @@
         },
         {
             "description": {
-                "default_value": "VitalSource reader for XML, PDF, and ePub content",
-                "key": "resource.description"
-            },
-            "message": [
-                {
-                    "message_type": "basic-lti-launch-request",
-                    "parameter": [
-                        {
-                            "name": "vbid"
-                        }
-                    ],
-                    "enabled_capability": [
-                        "User.id",
-                        "Context.id",
-                        "CourseSection.label",
-                        "CourseSection.title",
-                        "Person.name.family",
-                        "Person.name.given",
-                        "Person.email.primary"
-                    ],
-                    "path": "/books"
-                }
-            ],
-            "resource_name": {
-                "default_value": "Book",
-                "key": "resource.name"
-            },
-            "resource_type": {
-                "code": "book"
-            }
-        },
-        {
-            "description": {
-                "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
-                "key": "resource.description"
-            },
-            "message": [
-                {
-                    "message_type": "basic-lti-launch-request",
-                    "parameter": [
-                        {
-                            "name": "vbid"
-                        },
-                        {
-                            "name": "book_location"
-                        }
-                    ],
-                    "enabled_capability": [
-                        "User.id",
-                        "Context.id",
-                        "CourseSection.label",
-                        "CourseSection.title",
-                        "Person.name.family",
-                        "Person.name.given",
-                        "Person.email.primary"
-                    ],
-                    "path": "/bookselections"
-                }
-            ],
-            "resource_name": {
-                "default_value": "BookSelection",
-                "key": "resource.name"
-            },
-            "resource_type": {
-                "code": "bookselection"
-            }
-        },
-        {
-            "description": {
                 "default_value": "Interactive resource",
                 "key": "resource.description"
             },
@@ -282,40 +213,6 @@
             "resource_type": {
                 "code": "iresource"
             }
-        },
-        {
-            "description": {
-                "default_value": "VitalSource Bookshelf",
-                "key": "resource.description"
-            },
-            "message": [
-                {
-                    "message_type": "basic-lti-launch-request",
-                    "parameter": [
-                        {
-                            "name": "course_label",
-                            "variable": "CourseOffering.label"
-                        }
-                    ],
-                    "enabled_capability": [
-                        "User.id",
-                        "Context.id",
-                        "CourseSection.label",
-                        "CourseSection.title",
-                        "Person.name.family",
-                        "Person.name.given",
-                        "Person.email.primary"
-                    ],
-                    "path": "/bookshelves"
-                }
-            ],
-            "resource_name": {
-                "default_value": "Bookshelf",
-                "key": "resource.name"
-            },
-            "resource_type": {
-                "code": "bookshelf"
-            }
-        }
+		} 
     ]
 }

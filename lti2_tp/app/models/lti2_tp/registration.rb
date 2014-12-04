@@ -1,8 +1,8 @@
 module Lti2Tp
   class Registration < ActiveRecord::Base
 
-    ACKNOWLEDGE_URL = 'VND-IMS-ACKNOWLEDGE-URL'
-    HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_ACKNOWLEDGE_URL'
+    ACKNOWLEDGE_URL = 'VND-IMS-CONFIRM-URL'
+    HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_CONFIRM_URL'
 
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_proxy = {}
@@ -12,13 +12,15 @@ module Lti2Tp
       tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
 
       tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid if disposition == 'reregister'
+      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
 
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
       tool_proxy['tool_profile'] = JSON.load( tool_profile_json )
       tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
       tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
+      tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+
       tool_proxy_wrapper.root
     end
 
@@ -57,14 +59,8 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        if disposition.blank? || disposition == 'register' 
-          # get guid from the response returned by the TC
-          tool_proxy['tool_proxy_guid'] = tool_proxy_response['tool_proxy_guid']
-
-
-          # substitute tool_proxy_guid now in the Proxy where needed
+        if disposition.blank? || disposition == 'register'
           tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
-          tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
 
           self.tool_proxy_json = tool_proxy.to_json
           self.status = disposition

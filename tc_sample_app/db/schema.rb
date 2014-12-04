@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027193548) do
+ActiveRecord::Schema.define(version: 20141203013344) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -87,12 +87,11 @@ ActiveRecord::Schema.define(version: 20141027193548) do
     t.string   "partner_url"
     t.string   "status"
     t.string   "disposition"
-    t.string   "end_registration_id"
+    t.string   "confirm_url"
     t.string   "tc_profile_guid"
-    t.string   "tool_proxy_guid"
     t.text     "tool_proxy_json"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "lti2_tc_deployment_requests", ["tc_profile_guid"], name: "index_deployment_requests_on_tc_profile_guid", unique: true, using: :btree
@@ -149,11 +148,9 @@ ActiveRecord::Schema.define(version: 20141027193548) do
     t.string   "key"
     t.string   "secret"
     t.string   "status"
-    t.integer  "new_deployment_request_id"
-    t.string   "end_registration_id"
     t.string   "registration_return_url"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "lti2_tc_tools", ["key"], name: "index_tools_on_key", unique: true, using: :btree

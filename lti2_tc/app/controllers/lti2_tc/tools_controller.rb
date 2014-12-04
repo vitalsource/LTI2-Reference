@@ -7,8 +7,8 @@ module Lti2Tc
 
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
 
-    ACKNOWLEDGEMENT_URL = 'VND-IMS-ACKNOWLEDGEMENT-URL'
-    HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_ACKNOWLEDGE_URL'
+    CONFIRM_URL = 'VND-IMS-CONFIRM-URL'
+    HTTP_CONFIRM_URL = 'HTTP_VND_IMS_CONFIRM_URL'
 
     def create
       rack_parameters = OAuthRequest.collect_rack_parameters request
@@ -18,21 +18,24 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      acknowledgement_url = request.headers[HTTP_ACKNOWLEDGE_URL]
+      confirm_url = request.headers[HTTP_CONFIRM_URL]
 
       reg_key = rack_parameters[:oauth_consumer_key]
       @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
 
-      state = acknowledgement_url.blank? ? 'registration' : 'reregistration'
+      state = confirm_url.blank? ? 'registration' : 'reregistration'
 
       session_map = {}
       session[LTI2TC_SESSION_MAP] = session_map
       session_map['deployment_request_id'] = @deployment_request.id
-      @deployment_request.end_registration_id = acknowledgement_url
+      @deployment_request.confirm_url = confirm_url
       @deployment_request.tool_proxy_json = tool_proxy_wrapper.root.to_json
       @deployment_request.save
 
       if state == 'reregistration'
+        tool = Lti2Tc::Tool.where(:key => reg_key).first
+        tool.status = 'reregistering'
+        tool.save
         (render :nothing => true, :status => 201) and return
       end
 
@@ -44,9 +47,9 @@ module Lti2Tc
       end
 
       # generate guid for tool_proxy
-      tool_proxy_guid = UUID.generate
-      tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
-      tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
+      # tool_proxy_guid = UUID.generate
+      # tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
+      # tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
 
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
@@ -57,7 +60,7 @@ module Lti2Tc
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
       @tool.product_name = product_name
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
-      @tool.key = tool_proxy_guid
+      @tool.key = @deployment_request.reg_key
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.status = 'registered'
 
@@ -124,24 +127,24 @@ module Lti2Tc
 
       @tool.save
 
-      @deployment_request.tool_proxy_guid = tool_proxy_guid
-      @deployment_request.save
-
       #@deployment_request.delete
 
+      # tool_proxy_response = {
+      #     "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+      #     "@type" => "ToolProxy",
+      #     "@id" => tool_proxy_id,
+      #     "tool_proxy_guid" => tool_proxy_guid
+      # }
+      #
+      # content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
+      # logger.info( "Exit from Tool/create(POST)--status 201  content-type: #{content_type}" )
+      # logger.info( JSON.dump( tool_proxy_response ) )
+      #
+      # render :json => tool_proxy_response, :content_type => content_type, :status => '201'
 
-      tool_proxy_response = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid
-      }
+      logger.info( "Exit from Tool/create(POST)--status 201" )
 
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info( "Exit from Tool/create(POST)--status 201  content-type: #{content_type}" )
-      logger.info( JSON.dump( tool_proxy_response ) )
-
-      render :json => tool_proxy_response, :content_type => content_type, :status => '201'
+      render :nothing => true, :status => '201'
     end
 
     def show
@@ -190,13 +193,10 @@ module Lti2Tc
 
       tool_id = params[:tool_id]
       @tool = Lti2Tc::Tool.find(tool_id)
-      @deployment_request = DeploymentRequest.where(:req_key => @tool.key)
+      @deployment_request = DeploymentRequest.where(:reg_key => @tool.key).first
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
-      @tool.end_registration_id = @deployment_request.end_registration_id
-      @tool.save
-
-      reregistration_service_endpoint = @tool.end_registration_id
+      reregistration_service_endpoint = @deployment_request.confirm_url
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
@@ -223,7 +223,7 @@ module Lti2Tc
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
       @tool.key = tool_proxy_wrapper.first_at('tool_proxy_guid')
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
-      @tool.new_deployment_request_id = nil
+      @tool.status = 'reregistered'
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
       tool_proxy_wrapper.root['@id'] = "#{tool_consumer_registry.tc_deployment_url}/tools/#{@tool.key}"
