@@ -62,6 +62,7 @@ GEM
     minitest (5.4.3)
     multi_json (1.10.1)
     multi_xml (0.5.5)
+    mysql2 (0.3.16)
     oauth (0.4.7)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -99,6 +100,8 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
+    shoulda-matchers (2.5.0)
+      activesupport (>= 3.0.0)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -123,5 +126,7 @@ PLATFORMS
 
 DEPENDENCIES
   lti2!
+  mysql2 (~> 0.3.13)
   rspec-rails (~> 3.1.0)
+  shoulda-matchers (~> 2.5.0)
   sqlite3

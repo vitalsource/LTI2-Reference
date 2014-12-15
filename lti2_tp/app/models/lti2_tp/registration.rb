@@ -22,7 +22,7 @@ module Lti2Tp
       tool_proxy['tool_profile'] = JSON.load(tool_profile_json)
       tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
-      tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
+      tool_proxy_wrapper = JsonWrapper.new(tool_proxy )
       tool_proxy_wrapper.root
     end
 
@@ -84,14 +84,14 @@ module Lti2Tp
       status
     end
 
-    def create_status(is_success, tool_guid = nil, message = nil)
+    def create_status(is_success, tool_proxy_guid = nil, message = nil)
       status = '?'
       if is_success
         status += 'status=success&'
-        status += "tool_guid=#{tool_guid}&" if tool_guid.present?
+        status += "tool_proxy_guid=#{tool_proxy_guid}&" if tool_proxy_guid.present?
       else
         status += 'status=failure&'
-        encoded_message = Rack::Utils.escape( message )
+        encoded_message = Rack::Utils.escape(message)
         status += "lti_errormsg=#{encoded_message}&lti_errorlog=#{encoded_message}&"
       end
       status

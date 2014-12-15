@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
 
   # automated tests
   s.add_development_dependency 'rspec-rails', '~> 3.1.0'
-
+  s.add_development_dependency 'shoulda-matchers', '~> 2.5.0'
+  s.add_development_dependency 'mysql2', '~> 0.3.13'
   s.add_development_dependency 'sqlite3'
 end
