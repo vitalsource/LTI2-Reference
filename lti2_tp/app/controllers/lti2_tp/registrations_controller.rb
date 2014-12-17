@@ -118,9 +118,13 @@ module Lti2Tp
     def index
       registration = Lti2Tp::Registration.find( params[:id] )
       final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
-      final_qs = final_hash.to_query
-      final_url = "#{registration.launch_presentation_return_url}?#{final_qs}"
-      redirect_to final_url
+
+      # merge query portion of launch_presentation_return_url and params we add
+      return_url_queries = Rack::Utils.parse_query(URI("#{registration.launch_presentation_return_url}").query)
+      query_string = return_url_queries.reverse_merge!(final_hash).to_query
+
+      base_url = URI.parse(registration.launch_presentation_return_url)
+      redirect_to "#{base_url.scheme}://#{base_url.host}#{base_url.path}?#{query_string}"
     end
 
     def reregister
