@@ -4,9 +4,6 @@ Fabericious::Application.routes.draw do
 
   resources :echoes
   resources :settings
-  resources :books
-  resources :bookshelves
-  resources :bookselections
   resources :iresources
   resources :lti_registration_wips
 

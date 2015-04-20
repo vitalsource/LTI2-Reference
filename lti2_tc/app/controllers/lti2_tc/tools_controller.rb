@@ -11,6 +11,9 @@ module Lti2Tc
     HTTP_CONFIRM_URL = 'HTTP_VND_IMS_CONFIRM_URL'
 
     def create
+      tool_consumer_registry = Rails.application.config.tool_consumer_registry
+      tc_deployment_url = tool_consumer_registry.tc_deployment_url
+
       rack_parameters = OAuthRequest.collect_rack_parameters request
 
       (tool_proxy_wrapper, status, error_msg) = process_tool_proxy(request)
@@ -18,10 +21,10 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      confirm_url = request.headers[HTTP_CONFIRM_URL]
-
       reg_key = rack_parameters[:oauth_consumer_key]
       @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
+
+      confirm_url = request.headers[HTTP_CONFIRM_URL]
 
       state = confirm_url.blank? ? 'registration' : 'reregistration'
 
@@ -33,6 +36,10 @@ module Lti2Tc
       @deployment_request.save
 
       if state == 'reregistration'
+        if !verify_common_domain(@deployment_request.tool_proxy_json, confirm_url)
+          (render :json => {:errors => ['Invalid base url for confirmation']}, :status => 403) and return
+        end
+
         tool = Lti2Tc::Tool.where(:key => reg_key).first
         tool.status = 'reregistering'
         tool.save
@@ -50,8 +57,6 @@ module Lti2Tc
       # tool_proxy_guid = UUID.generate
       # tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
       # tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
-      tool_consumer_registry = Rails.application.config.tool_consumer_registry
-
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
 
       @tool = Tool.new
@@ -119,7 +124,7 @@ module Lti2Tc
       tc_profile_guid = tc_profile_url.split('/').last if tc_profile_url =~ /\//
 
       tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
+      tool_proxy_id = "#{tc_deployment_url}/tools/#{tool_proxy_guid}"
       tool_proxy_wrapper.root['@id'] = tool_proxy_id
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
 
@@ -129,22 +134,18 @@ module Lti2Tc
 
       #@deployment_request.delete
 
-      # tool_proxy_response = {
-      #     "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-      #     "@type" => "ToolProxy",
-      #     "@id" => tool_proxy_id,
-      #     "tool_proxy_guid" => tool_proxy_guid
-      # }
-      #
-      # content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      # logger.info( "Exit from Tool/create(POST)--status 201  content-type: #{content_type}" )
-      # logger.info( JSON.dump( tool_proxy_response ) )
-      #
-      # render :json => tool_proxy_response, :content_type => content_type, :status => '201'
+      tool_proxy_response = {
+          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+          "@type" => "ToolProxy",
+          "@id" => tool_proxy_id,
+          "tool_proxy_guid" => tool_proxy_guid
+      }
 
-      logger.info( "Exit from Tool/create(POST)--status 201" )
+      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
+      logger.info( "Exit from Tool/create(POST)--status 201  content-type: #{content_type}" )
+      logger.info( JSON.dump( tool_proxy_response ) )
 
-      render :nothing => true, :status => '201'
+      render :json => tool_proxy_response, :content_type => content_type, :status => '201'
     end
 
     def show
@@ -306,6 +307,12 @@ module Lti2Tc
       logger.info(JSON.pretty_generate(tool_proxy_wrapper.root))
 
       [tool_proxy_wrapper, nil, nil]
+    end
+
+    def verify_common_domain(tool_proxy_json, test_url)
+      tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
+      base_url = tool_proxy_wrapper.first_at('tool_profile.base_url_choice[0].default_base_url')
+      test_url.start_with? base_url
     end
   end
 end

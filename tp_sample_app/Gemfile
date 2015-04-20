@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.4'
 
-gem 'rails', '~> 4.1.1'
+gem 'rails', '~> 4.1.6'
 
 gem 'mysql2', '~> 0.3.13'
 gem 'sqlite3'
@@ -11,8 +11,8 @@ gem 'lti2', :path => '../'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 #Active admin dependencies
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
-gem 'inherited_resources', '~> 1.4.1'
+gem 'ransack'
+gem 'inherited_resources'
 
 gem 'haml-rails', '~> 0.4'
 gem 'httparty', '~> 0.8.1'
