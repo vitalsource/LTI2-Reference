@@ -31,6 +31,7 @@ public/files
 .powrc
 .rvmrc
 .idea
+*.iml
 
 public/wirelog.html
 
