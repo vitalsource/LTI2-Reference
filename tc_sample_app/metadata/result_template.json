@@ -1,8 +1,0 @@
-{
-    "@context" : "http://purl.imsglobal.org/ctx/lis/v2/Result",
-    "@type" : "Result",
-    "resultScore" : {
-        "@type" : "decimal",
-        "@value"  : {value}
-    }
-}
