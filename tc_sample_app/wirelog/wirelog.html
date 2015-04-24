@@ -1,0 +1,1073 @@
+<link rel="stylesheet" type="text/css" href="wirelog.css" />
+
+<div class="ToolConsumer"><pre>
+Mon Dec 10 09:04:01 -0800 2012
+LtiMessage: Request Tool Registration
+LaunchUrl: http://localhost:5000/deployment_proposals
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://localhost:5000/deployment_proposals"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://lumos.lti.org:4000/tool_consumer_profiles/80daead0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="reg_key" value="80dae470-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="ToolProxyRegistrationRequest"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="roles" value="urn:lti:sysrole:ims/lti/SysAdmin"/&gt;
+      &lt;input type="hidden" name="reg_password" value="cfb953a46ff601f8817c6459cf1c26e6"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:04:02 -0800 2012
+LtiService: Get Tool Consumer Profile
+GET http://lumos.lti.org:4000/tool_consumer_profiles/80daead0-2519-0130-e5b3-60c54704cdf8
+Headers:
+Authorization: OAuth oauth_nonce="3567153681855", oauth_timestamp="1355159042", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="80dae470-2519-0130-e5b3-60c54704cdf8", oauth_signature="6gMnvJ9E7ReXbWLBPW02MjdYbmA%3D", oauth_version="1.0"
+Content-Type: application/x-www-form-urlencoded
+Accept: application/x-www-form-urlencoded
+Parameters:
+basiclti_submit: Press to continue to external tool.
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+Mon Dec 10 09:04:02 -0800 2012
+Response: Get Tool Consumer Profile
+Status: 200
+{
+  "guid": "4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id": "http://lumos.lti.org:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+    {
+      "": "http://http://lumos.lti.org:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+    }
+  ],
+  "@type": "ToolConsumerProfile",
+  "lti_version": "LTI-2p0",
+  "capability_enabled": [
+    "basic-lti-launch-request",
+    "Result.autocreate",
+    "Result.sourcedId"
+  ],
+  "product_instance": {
+    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+    "service_provider": {
+      "guid": "ec2.LuMoS.org",
+      "timestamp": "2012-07-09T012:08:16-04:00",
+      "@id": "http://ec2.LuMoS.org/ServiceProvider",
+      "provider_name": {
+        "default_value": "Elan University",
+        "key": "service_provider.name"
+      },
+      "support": {
+        "email": "support@yasp.LuMoS.org"
+      },
+      "description": {
+        "default_value": "Elan University EC2 Cloud",
+        "key": "service_provider.description"
+      }
+    },
+    "support": {
+      "email": "john.tibbetts@kinexis.com"
+    },
+    "product_info": {
+      "product_family": {
+        "code": "LuMoS",
+        "vendor": {
+          "name": {
+            "default_value": "LuMoS Corporation",
+            "key": "product.vendor.name"
+          },
+          "code": "lms.LuMoS.org",
+          "timestamp": "2012-07-09T012:08:16-04:00",
+          "contact": {
+            "email": "support@lms.LuMoS.org"
+          },
+          "website": "http://lms.LuMoS.org/products/omega",
+          "description": {
+            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
+            "key": "product.vendor.description"
+          }
+        }
+      },
+      "product_name": {
+        "default_value": "Elan/LuMoS",
+        "key": "product.name"
+      },
+      "description": {
+        "default_value": "Elan University/LuMoS Learning Platform",
+        "key": "product.version"
+      },
+      "technical_description": {
+        "default_value": "LTI 1, 1.1 and 2.0 compliant",
+        "key": "product.technicalDescription"
+      },
+      "product_version": "3.1"
+    }
+  },
+  "service_offered": [
+    {
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": "POST",
+      "@id": ":ToolProxy.collection",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/tools"
+    },
+    {
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": [
+        "GET",
+        "PUT"
+      ],
+      "@id": ":ToolProxy.item",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/tools/{tool_proxy_guid}"
+    },
+    {
+      "format": "application/vnd.ims.lis.v2.Result+json",
+      "action": [
+        "GET",
+        "PUT"
+      ],
+      "@id": ":Result.item",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/resources/Result/{sourcedGUID}"
+    }
+  ]
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:04:11 -0800 2012
+LtiService: Register ToolProxy with ToolConsumer
+POST http://lumos.lti.org:4000/tools
+Headers:
+Authorization: OAuth oauth_nonce="2579405828222", oauth_body_hash="43CjMbUz8Ya3gfleMYNhcYFGZwE%3D", oauth_timestamp="1355159051", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="80dae470-2519-0130-e5b3-60c54704cdf8", oauth_signature="25mztMpKkUWh5Gr08SnF8EoGGds%3D", oauth_version="1.0"
+Content-Type: application/json
+Content-Length: 7456
+Accept: application/json
+Body:
+{
+  "tool_consumer_profile": "http://lumos.lti.org:4000/tool_consumer_profiles/80daead0-2519-0130-e5b3-60c54704cdf8",
+  "tool_profile": {
+    "base_url_choice": [
+      {
+        "secure_base_url": "http://fabericious.lti.org:5000",
+        "default_base_url": "http://fabericious.lti.org:5000",
+        "selector": {
+          "applies_to": [
+            "IconEndpoint",
+            "MessageHandler"
+          ]
+        }
+      }
+    ],
+    "resource_handler": [
+      {
+        "name": {
+          "default_value": "Echo",
+          "key": "resource.name"
+        },
+        "resource_type": "echo",
+        "description": {
+          "default_value": "Echo service",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "referrer",
+                "fixed": "Narcissus"
+              },
+              {
+                "name": "pi",
+                "fixed": "3.14159"
+              },
+              {
+                "name": "user_primary_email",
+                "variable": "$Person.email.primary"
+              },
+              {
+                "name": "discipline",
+                "variable": "$CourseOffering.label"
+              }
+            ],
+            "path": "/echoes"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "Book",
+          "key": "resource.name"
+        },
+        "resource_type": "book",
+        "description": {
+          "default_value": "VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              }
+            ],
+            "path": "/books"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "BookSelection",
+          "key": "resource.name"
+        },
+        "resource_type": "bookselection",
+        "description": {
+          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "book_location"
+              }
+            ],
+            "path": "/bookselections"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "InteractiveResource",
+          "key": "resource.name"
+        },
+        "resource_type": "iresource",
+        "description": {
+          "default_value": "Interactive resource",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "result_uri",
+                "variable": "$Result.uri"
+              }
+            ],
+            "capability": [
+              "Result.autocreate"
+            ],
+            "enabled_capability": [
+              "Result.autocreate"
+            ],
+            "path": "/iresources"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "Bookshelf",
+          "key": "resource.name"
+        },
+        "resource_type": "bookshelf",
+        "description": {
+          "default_value": "VitalSource Bookshelf",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "course_label",
+                "variable": "$CourseOffering.label"
+              }
+            ],
+            "path": "/bookshelves"
+          }
+        ]
+      }
+    ],
+    "lti_version": "LTI-2p0",
+    "product_instance": {
+      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
+      "service_provider": {
+        "timestamp": "2012-04-05T09:08:16-04:00",
+        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+        "provider_name": {
+          "default_value": "Amazon Cloud",
+          "key": "service_provider.name"
+        },
+        "support": {
+          "email": "support@ec2.fabericious.com"
+        },
+        "description": {
+          "default_value": "Provider of high performance managed hosting environments",
+          "key": "service_provider.description"
+        }
+      },
+      "support": {
+        "email": "helpdesk@fabericious.com"
+      },
+      "product_info": {
+        "product_family": {
+          "code": "assessment-tool",
+          "vendor": {
+            "name": {
+              "default_value": "Fab",
+              "key": "tool.vendor.name"
+            },
+            "timestamp": "2012-04-05T09:08:16-04:00",
+            "code": "fabericious.org",
+            "contact": {
+              "email": "info@fabericious.com"
+            },
+            "website": "{http://fabericious.lti.org:5000}",
+            "description": {
+              "default_value": "Fabericious is a leading provider of interactive tools for education",
+              "key": "tool.vendor.description"
+            }
+          }
+        },
+        "product_name": {
+          "default_value": "LTI2 BookTools",
+          "key": "tool.name"
+        },
+        "description": {
+          "default_value": "Fabericious reflowable ePub3 Textbook",
+          "key": "tool.description"
+        },
+        "technical_description": {
+          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
+          "key": "tool.technical"
+        },
+        "product_version": "10.3"
+      }
+    },
+    "message": [
+      {
+        "parameter": [
+          {
+            "name": "tc_profile_url",
+            "variable": "$Lti.tc_profile_url"
+          }
+        ],
+        "message_type": [
+          "ToolProxyRegistrationRequest",
+          "ToolProxyReregistrationRequest"
+        ],
+        "path": "http://fabericious.lti.org:5000/reregistrations"
+      }
+    ]
+  },
+  "tool_proxy_guid": "8aa291a0-2519-0130-e5b4-60c54704cdf8",
+  "@id": "http://fabericious.lti.org:50008aa29450-2519-0130-e5b4-60c54704cdf8",
+  "lti_version": "LTI-2p0",
+  "@type": "ToolProxy",
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
+    "http://purl.org/blackboard/ctx/v1/iconStyle"
+  ],
+  "security_contract": {
+    "shared_secret": "4569e9a18730a9f5cc67fc8a7ae6f4d0",
+    "tool_service": [
+      {
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+        "service": "http://lumos.lti.org:4000/tools",
+        "action": "POST",
+        "@id": ":ToolProxy.collection",
+        "@type": "RestService"
+      },
+      {
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+        "service": "http://lumos.lti.org:4000/tools/{tool_proxy_guid}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "@id": ":ToolProxy.item",
+        "@type": "RestService"
+      },
+      {
+        "format": "application/vnd.ims.lis.v2.Result+json",
+        "service": "http://lumos.lti.org:4000/resources/Result/{sourcedGUID}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "@id": ":Result.item",
+        "@type": "RestService"
+      }
+    ]
+  }
+}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+Mon Dec 10 09:04:11 -0800 2012
+Response: Register ToolProxy with ToolConsumer
+Status: 200
+{
+  "tool_proxy_guid": "8aa7bbc0-2519-0130-e5b3-60c54704cdf8",
+  "@id": "http://lumos.lti.org:4000/toolproxies/8aa7bbc0-2519-0130-e5b3-60c54704cdf8",
+  "@type": "ToolProxy",
+  "@context": "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxyId"
+}
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+Mon Dec 10 09:05:16 -0800 2012
+LtiMessage: Lti Launch
+LaunchUrl: http://fabericious.lti.org:5000/echoes
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://fabericious.lti.org:5000/echoes"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="375305309518"/&gt;
+      &lt;input type="hidden" name="custom_pi" value="3.14159"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_user_primary_email" value="admin@lumos.org"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="custom_referrer" value="Narcissus"/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1355159116"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="31"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="8aa7bbc0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="dwH909snLJPXZiaFaixKyhODd4c="/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="roles" value="admin"/&gt;
+      &lt;input type="hidden" name="custom_discipline" value="SMPL101A"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+Mon Dec 10 09:05:24 -0800 2012
+LtiMessage: Lti Launch
+LaunchUrl: http://fabericious.lti.org:5000/books
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://fabericious.lti.org:5000/books"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="4703442405493"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1355159124"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="32"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="8aa7bbc0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="1DXdjRGGrFRrGd+pgdBwc9O4170="/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="roles" value="admin"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:05:25 -0800 2012
+LtiMessage: Launch to external tool
+LaunchUrl: http://dev.vst-bc.com/tenants/5/books/book
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://dev.vst-bc.com/tenants/5/books/book"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="7738886273471"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1355159125"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-1p0"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="12345"/&gt;
+      &lt;input type="hidden" name="user_id" value="lti2.user"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="12345"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="KprWVzjeiLf7OYxEpk/IrGoLocI="/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="roles" value="student"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+Mon Dec 10 09:06:20 -0800 2012
+LtiMessage: Lti Launch
+LaunchUrl: http://fabericious.lti.org:5000/iresources
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://fabericious.lti.org:5000/iresources"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="9289963891139"/&gt;
+      &lt;input type="hidden" name="context_id" value="2"/&gt;
+      &lt;input type="hidden" name="custom_vbid" value="L-999-74180"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1355159180"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="lti_message_type" value="basic-lti-launch-request"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/course_page?method=show&course_id=2"/&gt;
+      &lt;input type="hidden" name="custom_result_uri" value="http://lumos.lti.org:4000/results/2"/&gt;
+      &lt;input type="hidden" name="lti_version" value="LTI-2p0"/&gt;
+      &lt;input type="hidden" name="resource_link_id" value="34"/&gt;
+      &lt;input type="hidden" name="user_id" value="2"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="8aa7bbc0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="i+hX5+gttGLOpWV/GSbnZ424gD4="/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="roles" value="admin"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:06:27 -0800 2012
+LtiService: Submit Result to ToolConsumer
+PUT http://lumos.lti.org:4000/results/2
+Headers:
+Authorization: OAuth oauth_nonce="3598648252080", oauth_body_hash="DYEZ3pav1LkAOKStUAO%2B2yJ%2B2v8%3D", oauth_timestamp="1355159187", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="8aa7bbc0-2519-0130-e5b3-60c54704cdf8", oauth_signature="rSYWSefAY0JymytQQ6eItxmCfBU%3D", oauth_version="1.0"
+Content-Type: application/vnd.ims.lis.v2.Result+json
+Content-Length: 132
+Accept: application/vnd.ims.lis.v2.Result+json
+Body:
+{"resultScore":{"@type":"decimal","@value":"0.93"},"@type":"Result","@context":"http://www.imsglobal.org/imspurl/lis/v2/ctx/Result"}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+Mon Dec 10 09:06:27 -0800 2012
+Response: Submit Result to ToolConsumer
+Status: 200
+ 
+
+
+</div></pre>
+<div class="ToolConsumer"><pre>
+Mon Dec 10 09:06:57 -0800 2012
+LtiMessage: Reregister Tool
+LaunchUrl: http://fabericious.lti.org:5000/reregistrations
+&lt;div id="ltiLaunchFormSubmitArea"&gt;
+  &lt;form action="http://fabericious.lti.org:5000/reregistrations"
+    name="ltiLaunchForm" id="ltiLaunchForm" method="post"
+    encType="application/x-www-form-urlencoded"
+    target="_blank"&gt;
+      &lt;input type="hidden" name="oauth_nonce" value="9323731053328"/&gt;
+      &lt;input type="hidden" name="tc_profile_url" value="http://lumos.lti.org:4000/tool_consumer_profiles/ed6f47c0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+      &lt;input type="hidden" name="oauth_timestamp" value="1355159217"/&gt;
+      &lt;input type="hidden" name="oauth_signature_method" value="HMAC-SHA1"/&gt;
+      &lt;input type="hidden" name="launch_presentation_return_url" value="http://lumos.lti.org:4000/admin/tool_actions"/&gt;
+      &lt;input type="hidden" name="oauth_consumer_key" value="8aa7bbc0-2519-0130-e5b3-60c54704cdf8"/&gt;
+      &lt;input type="hidden" name="oauth_signature" value="RrDrsumbOiiu3YiMW/06kmMe2j0="/&gt;
+      &lt;input type="hidden" name="oauth_version" value="1.0"/&gt;
+      &lt;input type="hidden" name="basiclti_submit" value="Press to continue to external tool."/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;script language="javascript"&gt;
+  document.getElementById("ltiLaunchFormSubmitArea").style.display = "none";
+  nei = document.createElement('input');
+  nei.setAttribute('type', 'hidden');
+  nei.setAttribute('name', 'basiclti_submit');
+  nei.setAttribute('value', 'Press to continue to external tool.');
+  document.getElementById("ltiLaunchForm").appendChild(nei);
+  document.ltiLaunchForm.submit(); 
+&lt;/script&gt;
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:06:57 -0800 2012
+LtiService: Get Tool Consumer Profile
+GET http://lumos.lti.org:4000/tool_consumer_profiles/ed6f47c0-2519-0130-e5b3-60c54704cdf8
+Headers:
+Authorization: OAuth oauth_nonce="5425181543666", oauth_timestamp="1355159217", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="8aa7bbc0-2519-0130-e5b3-60c54704cdf8", oauth_signature="VMgrsCE1whhPsR49hsrzCgDa3FY%3D", oauth_version="1.0"
+Content-Type: application/x-www-form-urlencoded
+Accept: application/x-www-form-urlencoded
+Parameters:
+basiclti_submit: Press to continue to external tool.
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+Mon Dec 10 09:06:57 -0800 2012
+Response: Get Tool Consumer Profile
+Status: 200
+{
+  "guid": "4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@id": "http://lumos.lti.org:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b",
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile",
+    {
+      "": "http://http://lumos.lti.org:4000/profile/4d469a076541-fcc9-9454-d1ec-106aff6b#"
+    }
+  ],
+  "@type": "ToolConsumerProfile",
+  "lti_version": "LTI-2p0",
+  "capability_enabled": [
+    "basic-lti-launch-request",
+    "Result.autocreate",
+    "Result.sourcedId"
+  ],
+  "product_instance": {
+    "guid": "dcddf9808107-81ea-eaa4-1edf-5d24568c",
+    "service_provider": {
+      "guid": "ec2.LuMoS.org",
+      "timestamp": "2012-07-09T012:08:16-04:00",
+      "@id": "http://ec2.LuMoS.org/ServiceProvider",
+      "provider_name": {
+        "default_value": "Elan University",
+        "key": "service_provider.name"
+      },
+      "support": {
+        "email": "support@yasp.LuMoS.org"
+      },
+      "description": {
+        "default_value": "Elan University EC2 Cloud",
+        "key": "service_provider.description"
+      }
+    },
+    "support": {
+      "email": "john.tibbetts@kinexis.com"
+    },
+    "product_info": {
+      "product_family": {
+        "code": "LuMoS",
+        "vendor": {
+          "name": {
+            "default_value": "LuMoS Corporation",
+            "key": "product.vendor.name"
+          },
+          "code": "lms.LuMoS.org",
+          "timestamp": "2012-07-09T012:08:16-04:00",
+          "contact": {
+            "email": "support@lms.LuMoS.org"
+          },
+          "website": "http://lms.LuMoS.org/products/omega",
+          "description": {
+            "default_value": "LuMoS Corporation is a fictitious vendor of a Learning Management System",
+            "key": "product.vendor.description"
+          }
+        }
+      },
+      "product_name": {
+        "default_value": "Elan/LuMoS",
+        "key": "product.name"
+      },
+      "description": {
+        "default_value": "Elan University/LuMoS Learning Platform",
+        "key": "product.version"
+      },
+      "technical_description": {
+        "default_value": "LTI 1, 1.1 and 2.0 compliant",
+        "key": "product.technicalDescription"
+      },
+      "product_version": "3.1"
+    }
+  },
+  "service_offered": [
+    {
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": "POST",
+      "@id": ":ToolProxy.collection",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/tools"
+    },
+    {
+      "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+      "action": [
+        "GET",
+        "PUT"
+      ],
+      "@id": ":ToolProxy.item",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/tools/{tool_proxy_guid}"
+    },
+    {
+      "format": "application/vnd.ims.lis.v2.Result+json",
+      "action": [
+        "GET",
+        "PUT"
+      ],
+      "@id": ":Result.item",
+      "@type": "RestService",
+      "endpoint": "http://lumos.lti.org:4000/resources/Result/{sourcedGUID}"
+    }
+  ]
+}
+
+
+</div></pre>
+<div class="ToolProvider"><pre>
+Mon Dec 10 09:07:00 -0800 2012
+LtiService: Register ToolProxy with ToolConsumer
+PUT http://lumos.lti.org:4000/tools/8aa7bbc0-2519-0130-e5b3-60c54704cdf8
+Headers:
+Authorization: OAuth oauth_nonce="3357590895592", oauth_body_hash="iTA7SBgXZF7XW7ws83T31GztNYI%3D", oauth_timestamp="1355159220", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="8aa7bbc0-2519-0130-e5b3-60c54704cdf8", oauth_signature="Vb3KHQAEHkOpaZIVruXOsqOEIps%3D", oauth_version="1.0"
+Content-Type: application/json
+Content-Length: 7475
+Accept: application/json
+Body:
+{
+  "tool_consumer_profile": "http://lumos.lti.org:4000/tool_consumer_profiles/ed6f47c0-2519-0130-e5b3-60c54704cdf8",
+  "tool_profile": {
+    "base_url_choice": [
+      {
+        "secure_base_url": "http://fabericious.lti.org:5000",
+        "default_base_url": "http://fabericious.lti.org:5000",
+        "selector": {
+          "applies_to": [
+            "IconEndpoint",
+            "MessageHandler"
+          ]
+        }
+      }
+    ],
+    "resource_handler": [
+      {
+        "name": {
+          "default_value": "Echo",
+          "key": "resource.name"
+        },
+        "resource_type": "echo",
+        "description": {
+          "default_value": "Echo service",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "referrer",
+                "fixed": "Narcissus"
+              },
+              {
+                "name": "pi",
+                "fixed": "3.14159"
+              },
+              {
+                "name": "user_primary_email",
+                "variable": "$Person.email.primary"
+              },
+              {
+                "name": "discipline",
+                "variable": "$CourseOffering.label"
+              }
+            ],
+            "path": "/echoes"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "Book",
+          "key": "resource.name"
+        },
+        "resource_type": "book",
+        "description": {
+          "default_value": "VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              }
+            ],
+            "path": "/books"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "BookSelection",
+          "key": "resource.name"
+        },
+        "resource_type": "bookselection",
+        "description": {
+          "default_value": "Deep-linked VitalSource reader for XML, PDF, and ePub content",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "book_location"
+              }
+            ],
+            "path": "/bookselections"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "InteractiveResource",
+          "key": "resource.name"
+        },
+        "resource_type": "iresource",
+        "description": {
+          "default_value": "Interactive resource",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "vbid"
+              },
+              {
+                "name": "result_uri",
+                "variable": "$Result.uri"
+              }
+            ],
+            "capability": [
+              "Result.autocreate"
+            ],
+            "enabled_capability": [
+              "Result.autocreate"
+            ],
+            "path": "/iresources"
+          }
+        ]
+      },
+      {
+        "name": {
+          "default_value": "Bookshelf",
+          "key": "resource.name"
+        },
+        "resource_type": "bookshelf",
+        "description": {
+          "default_value": "VitalSource Bookshelf",
+          "key": "resource.description"
+        },
+        "message": [
+          {
+            "message_type": "basic-lti-launch-request",
+            "parameter": [
+              {
+                "name": "course_label",
+                "variable": "$CourseOffering.label"
+              }
+            ],
+            "path": "/bookshelves"
+          }
+        ]
+      }
+    ],
+    "lti_version": "LTI-2p0",
+    "product_instance": {
+      "guid": "fd75124a-140e-470f-944c-114d2d92bb40",
+      "service_provider": {
+        "timestamp": "2012-04-05T09:08:16-04:00",
+        "guid": "18e7ea50-3d6d-4f6b-aff2-ed3ab577716c",
+        "provider_name": {
+          "default_value": "Amazon Cloud",
+          "key": "service_provider.name"
+        },
+        "support": {
+          "email": "support@ec2.fabericious.com"
+        },
+        "description": {
+          "default_value": "Provider of high performance managed hosting environments",
+          "key": "service_provider.description"
+        }
+      },
+      "support": {
+        "email": "helpdesk@fabericious.com"
+      },
+      "product_info": {
+        "product_family": {
+          "code": "assessment-tool",
+          "vendor": {
+            "name": {
+              "default_value": "Fab",
+              "key": "tool.vendor.name"
+            },
+            "timestamp": "2012-04-05T09:08:16-04:00",
+            "code": "fabericious.org",
+            "contact": {
+              "email": "info@fabericious.com"
+            },
+            "website": "{http://fabericious.lti.org:5000}",
+            "description": {
+              "default_value": "Fabericious is a leading provider of interactive tools for education",
+              "key": "tool.vendor.description"
+            }
+          }
+        },
+        "product_name": {
+          "default_value": "LTI2 BookTools",
+          "key": "tool.name"
+        },
+        "description": {
+          "default_value": "Fabericious reflowable ePub3 Textbook",
+          "key": "tool.description"
+        },
+        "technical_description": {
+          "default_value": "Support provided for all LTI 1 extensions as well as LTI 2",
+          "key": "tool.technical"
+        },
+        "product_version": "10.3"
+      }
+    },
+    "message": [
+      {
+        "parameter": [
+          {
+            "name": "tc_profile_url",
+            "variable": "$Lti.tc_profile_url"
+          }
+        ],
+        "message_type": [
+          "ToolProxyRegistrationRequest",
+          "ToolProxyReregistrationRequest"
+        ],
+        "path": "http://fabericious.lti.org:5000/reregistrations"
+      }
+    ]
+  },
+  "tool_proxy_guid": "8aa7bbc0-2519-0130-e5b3-60c54704cdf8",
+  "@id": "http://fabericious.lti.org:5000ef6623c0-2519-0130-e5b4-60c54704cdf8",
+  "lti_version": "LTI-2p0",
+  "@type": "ToolProxy",
+  "@context": [
+    "http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolProxy",
+    "http://purl.org/blackboard/ctx/v1/iconStyle"
+  ],
+  "security_contract": {
+    "shared_secret": "73d1324d3d6e1ff0ffaccdb117b6d4d1",
+    "tool_service": [
+      {
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+        "service": "http://lumos.lti.org:4000/tools",
+        "action": "POST",
+        "@id": ":ToolProxy.collection",
+        "@type": "RestService"
+      },
+      {
+        "format": "application/vnd.ims.lti.v2.ToolProxy+json",
+        "service": "http://lumos.lti.org:4000/tools/8aa7bbc0-2519-0130-e5b3-60c54704cdf8",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "@id": ":ToolProxy.item",
+        "@type": "RestService"
+      },
+      {
+        "format": "application/vnd.ims.lis.v2.Result+json",
+        "service": "http://lumos.lti.org:4000/resources/Result/{sourcedGUID}",
+        "action": [
+          "GET",
+          "PUT"
+        ],
+        "@id": ":Result.item",
+        "@type": "RestService"
+      }
+    ]
+  }
+}
+
+
+</div></pre>
+<div class="ToolProviderResponse"><pre>
+Mon Dec 10 09:07:00 -0800 2012
+Response: Register ToolProxy with ToolConsumer
+Status: 202
+ 
+
+
+</div></pre>

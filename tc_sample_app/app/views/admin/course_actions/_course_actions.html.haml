@@ -1,0 +1,13 @@
+:textile
+
+  h3. LuMoS -- Course Actions
+
+  h4. Welcome #{current_admin_user.first_name} #{current_admin_user.last_name} [ #{current_admin_user.role} ]
+
+%table
+  - request['courses'].each do |course|
+    %tr
+      %td{:width => "150"}
+        %a{:href=>"/#{course.url}"} #{course.course_label}
+      %td
+        #{course.course_title}

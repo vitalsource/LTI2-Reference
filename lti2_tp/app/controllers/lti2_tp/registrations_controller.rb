@@ -50,7 +50,7 @@ module Lti2Tp
       redirect_to "/lti_registration_wips?registration_id=#{@registration.id}&return_url=/lti2_tp/registrations"
     end
 
-    def end_registration
+    def complete_reregistration
       response = pre_process_tenant
       if response.nil?
         return
@@ -62,27 +62,14 @@ module Lti2Tp
 
       @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
-      json_str = request.body.read
-
       @registration = Registration.where(:tenant_id => @tenant.id).first
-      end_registration_id = request.headers[Registration::HTTP_CORRELATION_ID]
-      (abort_registration("Missing #{Registration::CORRELATION_ID} header") and return) if end_registration_id.nil?
-      (abort_registration("Out of sequence #{Registration::CORRELATION_ID} header") \
-        and return) if end_registration_id != @registration.end_registration_id
+      correlation = params[:correlation]
+      (abort_registration("Missing correlation parameter") and return) if correlation.nil?
+      (abort_registration("Uncorrelated reregistration") \
+        and return) if correlation != @registration.end_registration_id
 
-      begin
-        tool_proxy_disposition_wrapper = JsonWrapper.new(json_str)
-      rescue
-        render :json => 'JSON validation failure', :status => '500'
-      end
-
-      tool_proxy_disposition = tool_proxy_disposition_wrapper.root
-      tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
-      tool_proxy_id = tool_proxy_disposition['@id']
-
-      disposition = request.headers[Registration::HTTP_DISPOSITION]
-
-      if disposition != 'commit'
+      method = request.method
+      if method != 'PUT'
         abort_registration("Tool Consumer requested abort") and return
       end
 
@@ -97,34 +84,19 @@ module Lti2Tp
 
       LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
 
-
       @registration.save
 
-      end_registration_response = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid,
-          "disposition" => 'commit'
-      }
+      logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
 
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
-      logger.info(JSON.dump(end_registration_response))
-
-      render :json => end_registration_response.to_json, :content_type => content_type, :status => '201'
+      render :nothing => true, :status => '200'
     end
 
     def index
       registration = Lti2Tp::Registration.find( params[:id] )
       final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
-
-      # merge query portion of launch_presentation_return_url and params we add
-      return_url_queries = Rack::Utils.parse_query(URI("#{registration.launch_presentation_return_url}").query)
-      query_string = return_url_queries.reverse_merge!(final_hash).to_query
-
-      base_url = URI.parse(registration.launch_presentation_return_url)
-      redirect_to "#{base_url.scheme}://#{base_url.host}#{base_url.path}?#{query_string}"
+      final_qs = final_hash.to_query
+      final_url = "#{registration.launch_presentation_return_url}?#{final_qs}"
+      redirect_to final_url
     end
 
     def reregister

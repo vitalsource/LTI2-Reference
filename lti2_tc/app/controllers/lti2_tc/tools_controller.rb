@@ -7,14 +7,13 @@ module Lti2Tc
 
     LTI2TC_SESSION_MAP = 'lti2_tc_session_map'
 
-    CORRELATION_ID = 'VND-IMS-CORRELATION-ID'
-    DISPOSITION = 'VND-IMS-DISPOSITION'
-
-    DISPOSITION_COMMIT = 'commit'
-    DISPOSITION_ABORT = 'abort'
-
+    CONFIRM_URL = 'VND-IMS-CONFIRM-URL'
+    HTTP_CONFIRM_URL = 'HTTP_VND_IMS_CONFIRM_URL'
 
     def create
+      tool_consumer_registry = Rails.application.config.tool_consumer_registry
+      tc_deployment_url = tool_consumer_registry.tc_deployment_url
+
       rack_parameters = OAuthRequest.collect_rack_parameters request
 
       (tool_proxy_wrapper, status, error_msg) = process_tool_proxy(request)
@@ -22,31 +21,28 @@ module Lti2Tc
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
 
-      end_registration_id = request.headers[CORRELATION_ID]
+      reg_key = rack_parameters[:oauth_consumer_key]
+      @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
 
-      disposition = (tool_proxy_wrapper.root.has_key? 'tool_proxy_guid') ? 'reregister' : 'register'
-      if disposition == 'register'
-        reg_key = rack_parameters[:oauth_consumer_key]
-        @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
-      else
-        reg_key = tool_proxy_wrapper.root['tool_proxy_guid']
-        tool = Lti2Tc::Tool.where(:key => reg_key).first
-        @deployment_request = Lti2Tc::DeploymentRequest.where(:tool_proxy_guid => reg_key).first
-      end
+      confirm_url = request.headers[HTTP_CONFIRM_URL]
 
-      # prompt for disposition
+      state = confirm_url.blank? ? 'registration' : 'reregistration'
+
       session_map = {}
       session[LTI2TC_SESSION_MAP] = session_map
       session_map['deployment_request_id'] = @deployment_request.id
-      @deployment_request.disposition = disposition
-      @deployment_request.end_registration_id = end_registration_id
+      @deployment_request.confirm_url = confirm_url
       @deployment_request.tool_proxy_json = tool_proxy_wrapper.root.to_json
       @deployment_request.save
 
-      if disposition == 'reregister'
-        #tool = Tool.where(:key => reg_key).last
-        #tool.new_deployment_request_id = @deployment_request.id
-        #tool.save
+      if state == 'reregistration'
+        if !verify_common_domain(@deployment_request.tool_proxy_json, confirm_url)
+          (render :json => {:errors => ['Invalid base url for confirmation']}, :status => 403) and return
+        end
+
+        tool = Lti2Tc::Tool.where(:key => reg_key).first
+        tool.status = 'reregistering'
+        tool.save
         (render :nothing => true, :status => 201) and return
       end
 
@@ -58,11 +54,9 @@ module Lti2Tc
       end
 
       # generate guid for tool_proxy
-      tool_proxy_guid = UUID.generate
-      tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
-      tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
-      tool_consumer_registry = Rails.application.config.tool_consumer_registry
-
+      # tool_proxy_guid = UUID.generate
+      # tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
+      # tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
 
       @tool = Tool.new
@@ -71,10 +65,9 @@ module Lti2Tc
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
       @tool.product_name = product_name
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
-      @tool.key = tool_proxy_guid
+      @tool.key = @deployment_request.reg_key
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.status = 'registered'
-      @tool.end_registration_id = end_registration_id
 
       # TEMPORARY: enable tool...FOR DEMOS
       # @tool.is_enabled = true
@@ -131,7 +124,7 @@ module Lti2Tc
       tc_profile_guid = tc_profile_url.split('/').last if tc_profile_url =~ /\//
 
       tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
+      tool_proxy_id = "#{tc_deployment_url}/tools/#{tool_proxy_guid}"
       tool_proxy_wrapper.root['@id'] = tool_proxy_id
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
 
@@ -139,11 +132,7 @@ module Lti2Tc
 
       @tool.save
 
-      @deployment_request.tool_proxy_guid = tool_proxy_guid
-      @deployment_request.save
-
       #@deployment_request.delete
-
 
       tool_proxy_response = {
           "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
@@ -205,66 +194,27 @@ module Lti2Tc
 
       tool_id = params[:tool_id]
       @tool = Lti2Tc::Tool.find(tool_id)
-      new_deployment_request_id = @tool.new_deployment_request_id
-      @deployment_request = DeploymentRequest.find(new_deployment_request_id)
+      @deployment_request = DeploymentRequest.where(:reg_key => @tool.key).first
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
-      @tool.end_registration_id = @deployment_request.end_registration_id
-      @tool.save
-
-      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      tool_consumer_registry = Rails.application.config.tool_consumer_registry
-      tool_proxy_id = "#{tool_consumer_registry.tc_deployment_url}/tools/#{tool_proxy_guid}"
-
-      # Post EndRegistration
-      tool_proxy_service_hash = {}
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      reregistration_service = nil
-      reregistration_service_endpoint = nil
-
-      tool_proxy_wrapper.root['tool_profile']['service_offered'].each do |service|
-        if service['format'][0] == content_type
-          reregistration_service = service
-        end
-        if reregistration_service.nil?
-          return [nil, 500, 'No reregistration service defined']
-        end
-        reregistration_service_endpoint = reregistration_service['endpoint']
-        if reregistration_service_endpoint.nil?
-          return [nil, 500, 'No reregistration endpoint defined in reregistration service']
-        end
-      end
-
-      end_registration_request = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid
-      }
-
-      headers = {}
-      headers[CORRELATION_ID] = @tool.end_registration_id
-      headers[DISPOSITION] = DISPOSITION_COMMIT
+      reregistration_service_endpoint = @deployment_request.confirm_url
 
       #DEBUG ONLY
       if reregistration_service_endpoint.include? 'http://localhost:5000'
         reregistration_service_endpoint.sub!('http://localhost:5000', 'http://localhost:5100')
       end
 
-      #response = HTTParty.post reregistration_service_endpoint, :body => end_registration_request.to_json, :headers => headers
       signed_request = create_signed_request \
         reregistration_service_endpoint,
-        'POST',
+        'PUT',
         @tool.key,
         @tool.secret,
         {},
-        end_registration_request.to_json,
-        "application/vnd.ims.lti.v2.toolproxy.id+json"
+        ""
 
       puts "Register request: #{signed_request.signature_base_string}"
       puts "Register secret: #{@tool.secret}"
-      response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy",
-                                CORRELATION_ID => @tool.end_registration_id, DISPOSITION => DISPOSITION_COMMIT)
+      response = invoke_service(signed_request, Rails.application.config.wire_log, "Reregister ToolProxy")
       # handle response error
 
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
@@ -274,9 +224,10 @@ module Lti2Tc
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
       @tool.key = tool_proxy_wrapper.first_at('tool_proxy_guid')
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
-      @tool.new_deployment_request_id = nil
+      @tool.status = 'reregistered'
 
-      tool_proxy_wrapper.root['@id'] = tool_proxy_id
+      tool_consumer_registry = Rails.application.config.tool_consumer_registry
+      tool_proxy_wrapper.root['@id'] = "#{tool_consumer_registry.tc_deployment_url}/tools/#{@tool.key}"
 
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
 
@@ -356,6 +307,12 @@ module Lti2Tc
       logger.info(JSON.pretty_generate(tool_proxy_wrapper.root))
 
       [tool_proxy_wrapper, nil, nil]
+    end
+
+    def verify_common_domain(tool_proxy_json, test_url)
+      tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
+      base_url = tool_proxy_wrapper.first_at('tool_profile.base_url_choice[0].default_base_url')
+      test_url.start_with? base_url
     end
   end
 end

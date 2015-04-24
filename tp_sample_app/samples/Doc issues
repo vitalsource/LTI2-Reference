@@ -1,0 +1,63 @@
+
+1. ToolMgmt Updating a ToolProxy
+
+Use case 4.1.8 -- "PUT" or "POST" ...
+
+8.	PUT updated Tool Proxy.  TP constructs a revised Tool Proxy and POSTs a JSON binding of the Tool Proxy 
+at the appropriate REST endpoint as declared in the Tool Consumer Profile. As a best practice, the updated 
+Tool Proxy submitted to the TC should contain a new shared secret.  
+
+**I opted for POST because there's no correlation ID and POST is a 'create' action.
+
+
+2. Also, is a Reregistration a "REPLACE" or an "ADD".
+
+In other words, is the old version still accessible under it's own identity?
+
+
+3. JSON Binding 3.22 Security Contract
+
+Does example really show it's both a tool_service and a user_service?
+
+
+4. JSON Binding 3. 3.21 Rest Service Profile
+
+From example Figure 7:
+
+  "security_contract" : {
+    "shared_secret" : "ThisIsASecret!",
+    "tool_service" : [
+      { "@type" : "RestServiceProfile",
+        "service" : "http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.collection",
+        "action" : ["POST"]
+      },
+      { "@type" : "RestServiceProfile",
+        "service" : "http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#ToolProxy.item",
+        "action" : ["GET", "PUT"]
+      },
+      { "@type" : "RestServiceProfile",
+        "service" : "http://lms.example.com/profile/b6ffa601-ce1d-4549-9ccf-145670a964d4#Result.item",
+        "action" : ["GET", "PUT"]
+      }      
+    ]
+  }
+  
+Shouldn't service above be a RestServiceProfile (it's own assocative array?)
+
+
+5. Big issue for me: How to negotiate the ToolProxy.
+
+Seems to me to be an under-constrained problem.  i.e. too many elements with too few independent variables
+
+Either we need some bullet points of instruction; i.e.:
+
+	Services offered and services provided should be common set.
+	Capability checking.
+	etc, etc...
+	
+OR we provide a mythical ToolProfile and define the ToolProxy as
+
+	ToolConsumerProfile AND ToolProfile
+	
+
+  

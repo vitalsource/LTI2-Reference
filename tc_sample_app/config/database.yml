@@ -1,0 +1,43 @@
+development:
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  database: tcsampleapp
+  username: ltiuser
+  password: ltipswd
+  pool: 5
+  timeout: 5000
+
+# for mysql use  (default)
+mysql:
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  database: tcsampleapp
+  username: ltiuser
+  password: ltipswd
+  pool: 5
+  timeout: 5000
+
+# for sqlite3
+sqlite3:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  database: tcsampleapp
+  username: ltiuser
+  password: ltipswd
+  pool: 5
+  timeout: 5000

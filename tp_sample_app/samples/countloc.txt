@@ -1,0 +1,88 @@
+Lumos
+
+     LOC COMMENTS    BLANK    LINES CODE:COMMENT    FILE
+      27        0        3       30           --    app/admin/admin_users.rb
+       3        0        0        3           --    app/admin/courses.rb
+      13        2        3       17         6.50    app/admin/dashboards.rb
+      48       16        7       71         3.00    app/admin/deployment_requests.rb
+       3        0        1        4           --    app/admin/enrollments.rb
+       3        0        0        3           --    app/admin/grade_items.rb
+       3        0        0        3           --    app/admin/grade_results.rb
+     132       12       27      171        11.00    app/admin/links.rb
+       3        0        1        4           --    app/admin/registries.rb
+       3        0        0        3           --    app/admin/resources.rb
+       3        0        0        3           --    app/admin/tool_consumer_profile.rb
+      54        1       11       66        54.00    app/admin/tools.rb
+      21        2        4       27        10.50    app/controllers/application_controller.rb
+       5        0        4        9           --    app/controllers/deployment_requests_controller.rb
+       4        0        0        4           --    app/controllers/home_controller.rb
+      30        1        6       36        30.00    app/controllers/results_controller.rb
+      12        0        3       15           --    app/controllers/tool_consumer_profiles_controller.rb
+       4        0        0        4           --    app/controllers/tool_proxies_controller.rb
+      85        6       25      115        14.17    app/controllers/tools_controller.rb
+       2        0        0        2           --    app/helpers/application_helper.rb
+       2        0        0        2           --    app/helpers/home_helper.rb
+      27        5        4       36         5.40    app/models/admin_user.rb
+      16        0        3       19           --    app/models/course.rb
+      32        0        8       40           --    app/models/deployment_request.rb
+       8        0        2       10           --    app/models/enrollment.rb
+       3        0        1        4           --    app/models/grade_item.rb
+      17        0        3       20           --    app/models/grade_result.rb
+       5        0        2        7           --    app/models/link.rb
+       2        0        2        4           --    app/models/registry.rb
+       3        0        1        4           --    app/models/resource.rb
+       7        0        2        9           --    app/models/tool.rb
+       3        0        3        6           --    app/models/tool_consumer_profile.rb
+      16        1        6       23        16.00    app/models/tool_consumer_registry.rb
+     599       46      132      774        13.02    TOTAL
+     
+Fabericious
+
+     LOC COMMENTS    BLANK    LINES CODE:COMMENT    FILE
+      18        0        2       20           --    app/admin/admin_user.rb
+      11       19        4       33         0.58    app/admin/dashboard.rb
+       2        0        1        3           --    app/admin/deployment_proposals.rb
+       2        0        1        3           --    app/admin/iresources.rb
+       2        0        1        3           --    app/admin/registries.rb
+       2        0        1        3           --    app/admin/tenant_users.rb
+       2        0        1        3           --    app/admin/tenants.rb
+       2        0        1        3           --    app/admin/tool_deployments.rb
+       2        0        1        3           --    app/admin/tools.rb
+      61        5       15       81        12.20    app/controllers/application_controller.rb
+      18        1        2       21        18.00    app/controllers/books_controller.rb
+      16        1        2       19        16.00    app/controllers/bookselections_controller.rb
+      17        1        2       20        17.00    app/controllers/bookshelves_controller.rb
+     198       23       45      266         8.61    app/controllers/deployment_proposals_controller.rb
+      18        2        1       20         9.00    app/controllers/echoes_controller.rb
+       4        0        0        4           --    app/controllers/home_controller.rb
+      52        0       10       62           --    app/controllers/iresources_controller.rb
+      12        1        2       15        12.00    app/controllers/tenants_controller.rb
+       2        0        0        2           --    app/helpers/application_helper.rb
+       2        0        0        2           --    app/helpers/deployment_proposals_helper.rb
+       2        0        0        2           --    app/helpers/home_helper.rb
+       5        5        1       11         1.00    app/models/admin_user.rb
+       4        0        0        4           --    app/models/deployment_proposal.rb
+       4        0        1        5           --    app/models/iresource.rb
+       2        0        1        3           --    app/models/registry.rb
+      10        0        4       14           --    app/models/tenant.rb
+       4        0        1        5           --    app/models/tenant_user.rb
+      23        1        4       28        23.00    app/models/tool.rb
+       4        0        1        5           --    app/models/tool_deployment.rb
+      14        0        6       20           --    app/models/tool_provider_registry.rb
+     515       59      111      683         8.73    TOTAL
+     
+Lti2Commons
+
+     LOC COMMENTS    BLANK    LINES CODE:COMMENT    FILE
+      17        8        7       32         2.12    lib/lti2_commons/cache.rb
+      78       26       17      121         3.00    lib/lti2_commons/json_wrapper.rb
+     107       52       17      176         2.06    lib/lti2_commons/message_support.rb
+      89       13       18      120         6.85    lib/lti2_commons/mock_request.rb
+      51       22       20       93         2.32    lib/lti2_commons/signer.rb
+      57       20       13       90         2.85    lib/lti2_commons/substitution_support.rb
+      26        2        5       33        13.00    lib/lti2_commons/utils.rb
+       3        0        0        3           --    lib/lti2_commons/version.rb
+      93        3       16      111        31.00    lib/lti2_commons/wire_log.rb
+       9        0        1       10           --    lib/lti2_commons.rb
+     530      146      114      789         3.63    TOTAL
+     
