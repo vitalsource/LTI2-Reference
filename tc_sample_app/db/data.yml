@@ -24,17 +24,17 @@ admin_users:
   - - 2
     - admin@lumos.org
     - Administrator
-    - $2a$10$1ZWuZtLGqk7jUO7bIQRdHuBLSpwy/VTIwYIL4YW8skDxgknbCVHpC
+    - "$2a$10$q3KfzYswPFmhHzJv9uVUgeRFp7/xTQL/h.AC7I9fMsd3aLCz7IL7y"
     - 
     - 2012-07-31 22:37:10.000000000 Z
     - 
-    - 174
-    - 2014-06-11 23:12:43.000000000 Z
-    - 2014-06-06 20:22:37.000000000 Z
+    - 164
+    - 2014-07-22 17:17:53.000000000 Z
+    - 2014-07-22 12:47:33.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
     - 2012-07-09 23:37:35.000000000 Z
-    - 2014-06-11 23:12:43.000000000 Z
+    - 2014-07-22 17:17:53.000000000 Z
     - admin
     - John
     - Tibbetts
@@ -42,7 +42,7 @@ admin_users:
   - - 6
     - jadams@lumos.org
     - Instructor
-    - $2a$10$fcq0XejjaJ30GSyE34wzxO5pMXh1EV75BfI3t76YQ7IEW4/9qdzYq
+    - "$2a$10$fcq0XejjaJ30GSyE34wzxO5pMXh1EV75BfI3t76YQ7IEW4/9qdzYq"
     - 
     - 
     - 
@@ -60,7 +60,7 @@ admin_users:
   - - 7
     - tarne@lumos.org
     - Learner
-    - $2a$10$KrvXKBGBCYH6idjDE3Ctpe1fUmvbkRFISyJBpriHtPCrTHkt.UPV6
+    - "$2a$10$KrvXKBGBCYH6idjDE3Ctpe1fUmvbkRFISyJBpriHtPCrTHkt.UPV6"
     - 
     - 
     - 
@@ -78,7 +78,7 @@ admin_users:
   - - 8
     - hbingen@lumos.org
     - Instructor
-    - $2a$10$IVQh8q/2t38cF2wuVO6Ec.GQF3RVKNy45W1tr.vqX2F4QxT3nzMwG
+    - "$2a$10$IVQh8q/2t38cF2wuVO6Ec.GQF3RVKNy45W1tr.vqX2F4QxT3nzMwG"
     - 
     - 
     - 
@@ -96,7 +96,7 @@ admin_users:
   - - 9
     - wbach@lumos.org
     - Learner
-    - $2a$10$QcjasSRFSesjvBodh5A0zOd6aux..zHhZ7znkOzDaeIxrIj/Gyu32
+    - "$2a$10$QcjasSRFSesjvBodh5A0zOd6aux..zHhZ7znkOzDaeIxrIj/Gyu32"
     - 
     - 
     - 
@@ -114,7 +114,7 @@ admin_users:
   - - 10
     - bdev@lumos.org
     - Learner
-    - $2a$10$Y99OkiogEHrTW8G96Dhty.84RSgCcbFOqevTfEyUgY8qtATbLLQGa
+    - "$2a$10$Y99OkiogEHrTW8G96Dhty.84RSgCcbFOqevTfEyUgY8qtATbLLQGa"
     - 
     - 
     - 
@@ -132,17 +132,17 @@ admin_users:
   - - 11
     - sian@imscert.org
     - Instructor
-    - $2a$10$FN4zFj0iPu8ZHa0jSVF5MucJu68gjjpQdrG.zlDlgHDydI/i9XgsK
+    - "$2a$10$FN4zFj0iPu8ZHa0jSVF5MucJu68gjjpQdrG.zlDlgHDydI/i9XgsK"
     - 
     - 
     - 
-    - 13
-    - 2014-04-14 23:20:28.000000000 Z
-    - 2014-04-14 23:13:47.000000000 Z
+    - 8
+    - 2014-01-17 23:38:34.000000000 Z
+    - 2014-01-16 14:06:20.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
     - 2013-10-25 00:00:00.000000000 Z
-    - 2014-04-14 23:22:37.000000000 Z
+    - 2014-01-17 23:38:34.000000000 Z
     - sian.instructor
     - Siân
     - Instructor
@@ -150,35 +150,35 @@ admin_users:
   - - 12
     - john@imscert.org
     - Learner
-    - $2a$10$BZiiR4/Iuy1lgV..afB6t.mIlwcBUCcLs1uNIybca0L/kkGkky7Fa
+    - "$2a$10$BZiiR4/Iuy1lgV..afB6t.mIlwcBUCcLs1uNIybca0L/kkGkky7Fa"
     - 
     - 
     - 
-    - 8
-    - 2014-04-14 23:22:49.000000000 Z
-    - 2014-04-14 23:11:37.000000000 Z
+    - 5
+    - 2014-01-17 23:42:18.000000000 Z
+    - 2014-01-16 14:04:48.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
     - 2013-10-25 00:00:00.000000000 Z
-    - 2014-04-14 23:23:10.000000000 Z
+    - 2014-01-17 23:42:18.000000000 Z
     - john.student
     - John
     - Student
     - 
   - - 14
     - jean@imscert.org
-    - Administrator
-    - $2a$10$.cfJBb9t.alfAS/pAz7gb.6FlSuUysgSEySHMdW6Z6fCvrzBv3sQC
+    - administrator
+    - "$2a$10$.cfJBb9t.alfAS/pAz7gb.6FlSuUysgSEySHMdW6Z6fCvrzBv3sQC"
     - 
     - 
-    - 2014-04-14 23:23:20.000000000 Z
-    - 9
-    - 2014-04-14 23:23:20.000000000 Z
-    - 2014-04-14 23:14:30.000000000 Z
+    - 
+    - 5
+    - 2014-01-17 23:43:02.000000000 Z
+    - 2014-01-16 14:05:46.000000000 Z
     - 127.0.0.1
     - 127.0.0.1
     - 2014-01-15 23:37:48.000000000 Z
-    - 2014-04-14 23:23:20.000000000 Z
+    - 2014-01-17 23:43:02.000000000 Z
     - jean.mentor
     - Jean
     - Mentor
@@ -378,7 +378,7 @@ lti2_tc_registries:
   records: 
   - - 1
     - tool_consumer_profile_template
-    - ! "{\n  \"@context\" : [\n    \"http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile\",\n
+    - "{\n  \"@context\" : [\n    \"http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile\",\n
       \   {\n      \"ltitcp\" : \"{tc_deployment_url}/lti2_tc/tool_consumer_profiles/{tc_profile_guid}#\"\n
       \   }\n  ],\n  \"@type\" : \"ToolConsumerProfile\",\n  \"@id\" : \"{tc_deployment_url}/tool_consumer_profiles/{tc_profile_guid}\",\n
       \ \"lti_version\" : \"LTI-2p0\",\n  \"guid\" : \"{tc_profile_guid}\",\n  \"product_instance\"
@@ -452,9 +452,15 @@ lti2_tc_registries:
     - 2013-12-24 00:00:00.000000000 Z
   - - 6
     - result_template
-    - ! "{\n  \"@context\" : \"http://purl.imsglobal.org/ctx/lis/v2/Result\",\n  \"@type\"
-      : \"Result\",\n  \"resultScore\" : {\n    \"@type\" : \"decimal\",\n    \"@value\"
-      \ : {value}\n  }\n}\n"
+    - |
+      {
+        "@context" : "http://purl.imsglobal.org/ctx/lis/v2/Result",
+        "@type" : "Result",
+        "resultScore" : {
+          "@type" : "decimal",
+          "@value"  : {value}
+        }
+      }
     - 2013-12-24 00:00:00.000000000 Z
     - 2013-12-24 00:00:00.000000000 Z
   - - 7

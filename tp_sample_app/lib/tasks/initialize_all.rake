@@ -1,4 +1,3 @@
-
 namespace :init_task do
   desc "Do all initialization tasks"
   task :all => :environment do

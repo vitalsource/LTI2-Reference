@@ -1,4 +1,3 @@
-
 namespace :init_task do
 
   desc "Reseed and backup all--assumes current is canonic"

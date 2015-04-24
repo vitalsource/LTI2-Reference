@@ -12,5 +12,5 @@ ActiveAdmin.register_page "Dashboard" do
     render "dashboard"
 
   end # content
-  
+
 end

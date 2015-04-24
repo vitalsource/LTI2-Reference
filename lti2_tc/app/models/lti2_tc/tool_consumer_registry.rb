@@ -2,8 +2,8 @@ module Lti2Tc
   class ToolConsumerRegistry
 
     attr_reader :tool_consumer_profile, :tc_deployment_url, :relaxed_oauth_check, :result_template,
-                :tool_consumer_name, :registry, :tool_consumer_profile_wrapper
-
+                    :tool_consumer_name, :registry, :tool_consumer_profile_wrapper
+                    
     def initialize
       registry_entries = Registry.all
       @registry = {}

@@ -1,66 +1,52 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+ruby '2.1.4'
 
-# until spurious security warning disappears
-gem 'rack', '< 1.4.2'
+gem 'rails', '~> 4.1.6'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'mysql2', '~> 0.3.13'
 gem 'sqlite3'
 
-gem 'redis'
+gem 'lti2', :path => '../'
 
-# gem 'lti2_tp', :github => 'jtibbetts/lti2_tp'
-gem 'lti2_tp', :path => '../lti2_tp'
+gem 'activeadmin', github: 'gregbell/active_admin'
+#Active admin dependencies
+gem 'ransack'
+gem 'inherited_resources'
 
-# gem 'lti2_commons', :github => 'jtibbetts/lti2_commons'
-gem 'lti2_commons', :path => '../lti2_commons'
-
-gem 'json'
-# gem 'json-ld'
-gem 'jsonpath'
-
-gem "haml-rails"
-
-#gem 'lti2_commons',   '~> 1.4'
-gem "haml-rails"
-gem 'RedCloth'
-gem "activeadmin" , :git  =>  'git://github.com/gregbell/active_admin.git'
-gem 'lrucache'
+gem 'haml-rails', '~> 0.4'
 gem 'httparty', '~> 0.8.1'
-gem 'yaml_db'
-gem 'mysql2','0.3.13'
-gem 'uuid'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'json', '~> 1.8.0'
+gem 'jsonpath', '0.5.1'
+gem 'lrucache'
+gem 'RedCloth', '~> 4.2.9'
+gem 'sass-rails', '~> 4.0.0'
+gem 'yaml_db', github: 'turgu1/yaml_db'
+gem 'uuid', '~> 2.3.7'
 
-# gem 'haml-contrib'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+group :development do
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'uglifier', '~> 2.4.0'
+  gem 'execjs'
+  gem 'therubyracer', '~> 0.12.0'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
-gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
+group :development, :test do
+  gem 'pry'
+  gem 'pry-rails'
+  # gem 'pry-plus'
+  # the following components of pry-plus now have to be listed separately
+  # so that pry-debugger, which uses debugger, which doesn't compile under
+  # ruby 2.1.2, can be replaced with pry-byebug
+  gem 'bond'
+  gem 'jist'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-docmore'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+end

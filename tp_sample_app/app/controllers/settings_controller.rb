@@ -1,4 +1,3 @@
-
 class SettingsController < ApplicationController
 
   def create
@@ -61,7 +60,7 @@ class SettingsController < ApplicationController
         tool_proxy_binding_hash = {}
       end
 
-      if params.has_key? 'resource_link_id'
+      if params.has_key? 'ltilink'
         lti_link_hash = gather_params('LtiLink', params['ltilink'])
         send_put_request('ToolProxy', params['custom_lti_link_custom_url'], lti_link_hash)
       else

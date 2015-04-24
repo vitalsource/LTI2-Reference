@@ -1,6 +1,6 @@
 class CreateLtiRegistrationWip < ActiveRecord::Migration
   def change
-    create_table "lti_registration_wips", :force => true do |t|
+    create_table :lti_registration_wips do |t|
       t.string  :tenant_name
       t.integer :registration_id
       t.string  :lti_version

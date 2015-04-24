@@ -3,14 +3,13 @@ LTI2 -- Ruby/Rails reference implementation
 ==============
 __John Tibbetts, Integration Architect, Vital Source Technologies__
 
-This is an LTI2 reference implementation.  A reference implementation is one that is intended to demonstrate working code based on an emerging standard.  However, this implementation provides more
-than just exemplary code.  In addition, it fulfills the following responsibilities:
+This is Vital Source's LTI2 implementation.  VST uses this code primarily as a Tool Provider.  However there's also a Tool Consumer here that we've used for early testing (even before there were any LTI2 TCs).  In addition we use the Tool Consumer for brokered LTI launches.  This is used, say, in an interactive book that has been launched by an external Tool Consumer but contains dynamic pages within the book that, in turn, launch other LTI tools.
 
-* It implements both sides of the LTI conversation; that is, Tool Consumer (often an LMS) and Tool Provider.  These two components will work (out-of-the-box) with one another.  Or the Tool Consumer can be aimed at an external Tool Provider (possibly in development) to test it.  Or the Tool Provider can be addressed by an external Tool Consumer (possibly in development) to test it.
+* It implements both sides of the LTI convesation; that is, Tool Consumer (often an LMS) and Tool Provider.  These two components will work (out-of-the-box) with one another.  Or the Tool Consumer can be aimed at an external Tool Provider (possibly in development) to test it.  Or the Tool Provider can be addressed by an external Tool Consumer (possibly in development) to test it.
 
 * As new facilities, messages, or services are added to LTI2 they will be added to this reference model.  The intent is to add them in while they are still in development so that the LTI Services Task Force can see them in early operation.
 
-* The actual LTI-specific TC and TP functionality are implemented as Rails moountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
+* The actual LTI-specific TC and TP functionality are implemented as Rails mountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
 
 * The reference implementation contains sample applications that can either be run under sqlite3 or MySQL.  Sample data is provided for each type of database.
 
@@ -23,13 +22,11 @@ Prerequisites
 
 * Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 1.9.3.
 
-* Github identity.  During the prototype period (pre-conformance test) this must be sent to Lisa Mattson (lisa@imsglobal.org) all access to the repos.
-
-* With a valid Github identity, clone this repo.
+* This code is in a github Vital Source public repo (LTI-Reference.  Clone it in a work directory.
 
 * Run bundler in subsdirectories tc_sample_app (the TC directory) and tp_sample_app (the TP directory).
 
-* This code has been tested with MySQL and sqlite.  The default database load instructions will work for either of these databases. They would likely work with virtually any other Rails-compatible database.
+* This code has been tested with either MySQL or sqlite.  The default database load instructions will work for either of these databases. They would likely work with virtually any other Rails-compatible database.
 
 
 Structure of this repository
@@ -48,7 +45,7 @@ The repository structure is as follows:
 		--lti2_tp			(tool provider engine)
 		|
 		|
-		--lti2_commons		(library used by both TC and TP)
+		--lib/lti2_commons		(library used by both TC and TP)
 		|
 		|
 		--tc_sample_app		(lightweight TC host based on active_admin gem)
@@ -64,15 +61,15 @@ Getting it running
 
 2. Create a command prompt for the tool consumer.  chdir into <lti_repo>/tc_sample_app.  
 
-3. [FIRST-TIME ONLY after clone of TC] `bundle exec rake init_task:backup`.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
+3. [FIRST-TIME ONLY after clone of TC] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
 
-4. Start a rails server for the Tool Consumer on port 4000: `rails s -p 4000`.
+4. Start a rails server for the Tool Consumer on port 4000: 'rails s -p 4000'.
 
 5. Create a command prompt for the tool provider.  chdir into <lti_repo>/tp_sample_app.
 
-6. [FIRST-TIME ONLY after clone of TP] `bundle exec rake init_task:backup`.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
+6. [FIRST-TIME ONLY after clone of TP] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
 
-7. Start a rails server for the Tool Provider on port 5000: `rails s -p 5000`.
+7. Start a rails server for the Tool Provider on port 5000: 'rails s -p 5000'.
 
 8. Open a browser and go to: 'http://localhost:4000/admin'.  If you're prompted for a login, username is 'admin@lumos.org', password is 'password'.
 
@@ -94,7 +91,7 @@ Resetting the data
 After running the demo, the data can be reset to its base state (eliminating any current registrations, links, etc.).  To reset the data for the Tool Consumer:
 
 1. Stop the server in the TC directory. 
-2. `bundle exec rake db:seed`
+2. rake db:seed
 3. Restart the server
 
 The procedure is identical for the Tool Provider, except perform the operations in the TP directory.
@@ -118,17 +115,17 @@ It's also possible to switch database configurations with a command line option 
 
 For example:
 
-* Start the TC server with mysql: `rails s -p 4000 -e mysql`
+* Start the TC server with mysql: rails s -p 4000 -e mysql
 
-* Start the TP server with sqlite: `rails s -p 5000 -e sqlite3`
+* Start the TP server with sqlite: rails s -p 5000 -e sqlite3
 
 If using this method remember to apply these same environments to rake tasks:
 
 For example:
 
-* Reseed the mysql database: `RAILS_ENV=mysql bundle exec rake db:seed`
+* Reseed the mysql database: RAILS_ENV=mysql rake db:seed
 
-* Reseed the sqlite3 database: `RAILS_ENV=sqlite3 bundle exec rake db:seed`
+* Reseed the sqlite3 database: RAILS_ENV=sqlite3 rake db:seed
 
 
 Setting up MySQL databases
@@ -138,13 +135,13 @@ _If you choose a MySQL Database for TC_
 
 1. Create the 'Lumos' database.
 2. Allow Lumos access to user: 'ltiuser' with password 'ltipswd'.
-3. Initialize the database: `mysql Lumos -u ltiuser -p < backup/lti2_tc.sql`
+3. Initialize the database: mysql Lumos -u ltiuser -p < backup/lti2_tc.sql
 
 _If you choose a MySQL Database for TP__ 
 
 1. Create the 'fabericious' database.
 2. Allow fabericious access to user: 'ltiuser' with password 'ltipswd'.
-3. `mysql fabericious -u ltiuser -p < backup/lti2_tp.sql`
+3. mysql fabericious -u ltiuser -p < backup/lti2_tp.sql
 
 Using the Tool Consumer Engine with another host application
 =========================================
@@ -154,7 +151,7 @@ As described above, this distribution uses tc_sample_app as a pseudo LMS.  All o
 	* gem 'lti2_tc', :github => 'vitalsource/lti2_tc'
 
 2. At a rails command-line in the host, import the TC engine migrations into the db migrations of the host:
-	* bundle exec rake lti2_tc:install:migrations
+	* rake lti2_tc:install:migrations
 	
 3. In the host application's routes.rb, specify the mount point of the TC engine:
 	* mount Lti2Tc::Engine, :at => '/lti2_tc'
@@ -175,7 +172,7 @@ As described above, this distribution uses tp_sample_app as a pseudo tool provid
 	* gem 'lti2_tp', :github => 'vitalsource/lti2_tp'
 
 2. At a rails command-line in the host, import the TP engine migrations into the db migrations of the host:
-	* bundle exec rake lti2_tp:install:migrations
+	* rake lti2_tp:install:migrations
 	
 3. In the host application's routes.rb, specify the mount point of the TP engine:
 	* mount Lti2Tp::Engine, :at => '/lti2_tp'

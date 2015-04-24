@@ -1,9 +1,8 @@
-
 :javascript
   function show_tool_consumer_profile(tool) {
     window.open('tcp_url')
   }
-  
+
 :textile
 
   h3. LuMoS -- Tool Actions
@@ -32,8 +31,8 @@
       %td{:width => "50"}
         #{tool.key}
       %td{:width => "30"}
-        %a{:href=> "/admin/tool_actions?method=toggle&tool_id=#{tool.id}&toggle=#{not tool.is_enabled}"} #{tool['toggle_label']}
+        %a{:href=> "/admin/tool_actions?method=toggle&tool_id=#{tool.id}&toggle=#{not tool.is_enabled}"} #{tool.toggle_label}
       %td{:width => "30"}
-        #{tool['new_tool_proxy_url'].html_safe}
+        #{tool.new_tool_proxy_url.html_safe}
       %td{:width => "30"}
         %a{:href=> "/admin/tool_actions?method=reregister&tool_id=#{tool.id}"} [re-register]

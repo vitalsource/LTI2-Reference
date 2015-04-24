@@ -11,11 +11,11 @@ module Lti2Tp
       # this signals initial POST from TC
       tool = params[:tool]
       if tool.present?
-        tools = Tool.where(:id => tool)
+        tools = Tool.where( :id => tool )
         if tools.present?
           @tool = tools.first
         else
-          tools = Tool.where(:tool_name => tool)
+          tools = Tool.where( :tool_name => tool )
           if tools.present?
             @tool = tools.first
           end
@@ -31,14 +31,15 @@ module Lti2Tp
       @registration.reg_key = params['reg_key']
       @registration.reg_password = params['reg_password']
       @registration.launch_presentation_return_url = params['launch_presentation_return_url']
-      @registration.message_type = "registration"
-      @registration.status = "received"
+      @registration.message_type = 'registration'
+      @registration.status = 'received'
 
       @tool_consumer_profile = @registration.get_tool_consumer_profile()
-      tcp_wrapper = JsonWrapper.new @tool_consumer_profile
+      tcp_wrapper = JsonWrapper.new( @tool_consumer_profile )
 
       @registration.tool_consumer_profile_json = @tool_consumer_profile.to_json
-      @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_basename = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_name = @registration.tenant_basename   # initialize here until we can qualify it
       @registration.tenant_id = nil
       @registration.tool_id = @tool.id
       @registration.tool_profile_json = @tool.get_tool_profile.to_json
@@ -49,7 +50,7 @@ module Lti2Tp
       redirect_to "/lti_registration_wips?registration_id=#{@registration.id}&return_url=/lti2_tp/registrations"
     end
 
-    def end_registration
+    def complete_reregistration
       response = pre_process_tenant
       if response.nil?
         return
@@ -59,28 +60,16 @@ module Lti2Tp
         end
       end
 
-      @registration = Lti2Tp::Registration.where(:tenant_key => @tenant.tenant_name).first
+      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
-      json_str = request.body.read
+      @registration = Registration.where(:tenant_id => @tenant.id).first
+      correlation = params[:correlation]
+      (abort_registration("Missing correlation parameter") and return) if correlation.nil?
+      (abort_registration("Uncorrelated reregistration") \
+        and return) if correlation != @registration.end_registration_id
 
-      @registration = Registration.where(:tenant_id => params[:_tenant_id]).first
-      end_registration_id = request.headers[Registration::END_REGISTRATION_ID_NAME]
-      (abort_registration("Missing #{Registration::END_REGISTRATION_ID_NAME} header") and return) if end_registration_id.nil?
-      (abort_registration("Out of sequence #{Registration::END_REGISTRATION_ID_NAME} header") \
-        and return) if end_registration_id != @registration.end_registration_id
-
-      begin
-        tool_proxy_disposition_wrapper = JsonWrapper.new(json_str)
-      rescue
-        render :json => 'JSON validation failure', :status => '500'
-      end
-
-      tool_proxy_disposition = tool_proxy_disposition_wrapper.root
-      tool_proxy_guid = tool_proxy_disposition['tool_proxy_guid']
-      tool_proxy_id = tool_proxy_disposition['@id']
-      disposition = tool_proxy_disposition['disposition']
-
-      if disposition != 'commit'
+      method = request.method
+      if method != 'PUT'
         abort_registration("Tool Consumer requested abort") and return
       end
 
@@ -92,29 +81,19 @@ module Lti2Tp
       # recover secret from new tool_proxy
       tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
       @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
-      @tenant.secret = @registration.reg_password
-      @tenant.save
+
+      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
 
       @registration.save
 
-      end_registration_response = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid,
-          "disposition" => 'commit'
-      }
+      logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
 
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info("Exit from Tool/create(POST)--status 201  content-type: #{content_type}")
-      logger.info(JSON.dump(end_registration_response))
-
-      render :json => end_registration_response.to_json, :content_type => content_type, :status => '201'
+      render :nothing => true, :status => '200'
     end
 
     def index
-      registration = Lti2Tp::Registration.find(params[:id])
-      final_hash = params.select {|k,v| [:status, :tool_guid, :lti_errormsg, :lti_errorlog].include? k.to_sym}
+      registration = Lti2Tp::Registration.find( params[:id] )
+      final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
       final_qs = final_hash.to_query
       final_url = "#{registration.launch_presentation_return_url}?#{final_qs}"
       redirect_to final_url
@@ -130,21 +109,22 @@ module Lti2Tp
         end
       end
 
-      @registration = Lti2Tp::Registration.where(:tenant_key => @tenant.tenant_name).first
+      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
 
       @registration.tc_profile_url = params['tc_profile_url']
       @registration.launch_presentation_return_url = params['launch_presentation_return_url']
       @registration.message_type = "reregistration"
-      @registration.status = "received"
+      @registration.status = 'received'
 
       # Use OLD key/secret to send NEW ToolProxy
-      @registration.reg_key = @tenant.tenant_key
-      @registration.reg_password = @tenant.secret
+      (old_key, old_secret) = LtiRegistrationWip.get_tenant_credentials(@registration.tenant_id)
+      @registration.reg_key = old_key
+      @registration.reg_password = old_secret
       @tool_consumer_profile = @registration.get_tool_consumer_profile()
       tcp_wrapper = JsonWrapper.new @tool_consumer_profile
 
       @registration.tool_consumer_profile_json = @tool_consumer_profile.to_json
-      @registration.tenant_name = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
+      @registration.tenant_basename = tcp_wrapper.first_at('product_instance.service_owner.service_owner_name.default_value')
       @registration.tenant_id = @tenant.id
 
       @tool = Tool.find(@registration.tool_id)
@@ -157,28 +137,28 @@ module Lti2Tp
     end
 
     def update
-      get_tool_consumer_profile Lti2Tp::Context.get_holder(session)
+      get_tool_consumer_profile Lti2Tp::Context.get_holder( session )
       form_params = request.params['deployment_proposal']
-      @registration = Lti2Tp::Registration.find(request.params[:id])
-      @registration.tenant_name = form_params['tenant_name']
+      @registration = Lti2Tp::Registration.find( request.params[:id] )
+      @registration.tenant_basename = form_params['tenant_name']
 
-      is_tenant_exists = Tenant.where(:tenant_name=>@registration.tenant_name).exists?
-      if @registration.message_type == "registration" and is_tenant_exists
-        @registration.errors[:tenant_name] << "Institution name is already in database"
+      is_tenant_exists = Tenant.where( :tenant_name => @registration.tenant_basename ).exists?
+      if @registration.message_type == 'registration' and is_tenant_exists
+        @registration.errors[:tenant_name] << 'Institution name is already in database'
         return render_view
-      elsif @registration.message_type == "reregistration" and not is_tenant_exists
-        raise "Attempt to reregister but not tenant currently exists"
+      elsif @registration.message_type == 'reregistration' and not is_tenant_exists
+        raise 'Attempt to reregister but not tenant currently exists'
       end
 
       @tool_options = []
-      params.each {|p|
+      params.each { |p|
         if p.first =~ /^tool_/
           @tool_options << p.first[5..-1]
         end
       }
 
       if @tool_options.length == 0
-        @registration.errors[:tenant_name] << "You must check at least one tool below to download"
+        @registration.errors[:tenant_name] << 'You must check at least one tool below to download'
         return render_view
       end
 
@@ -191,6 +171,6 @@ module Lti2Tp
 
     def abort_registration(abort_msg)
       render :status => 500, :json => abort_msg
+      end
     end
-  end
 end

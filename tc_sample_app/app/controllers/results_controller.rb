@@ -1,5 +1,3 @@
-
-
 class ResultsController < ApplicationController
   def pre_process
     Lti2Tc::Authorizer::pre_process_tenant(request)
@@ -15,13 +13,13 @@ class ResultsController < ApplicationController
         '@type' => "Result",
         'resourceScore' => { '@type' => 'decimal', '@value' => "#{grade_result.result}" }
       }
-      
+
       render :json => result_json_object
     rescue
       raise ActionController::RoutingError.new('Not Found')
     end
   end
-  
+
   def update
     oauth_error = pre_process
     (render :text => "Authentication error", :status => 401 if oauth_error) and return
@@ -36,7 +34,7 @@ class ResultsController < ApplicationController
     rescue
       raise ActionController::RoutingError.new('Not Found')
     end
-    
+
     render :nothing => true
   end
 end

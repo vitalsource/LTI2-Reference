@@ -1,4 +1,3 @@
-
 include Lti2Commons
 include Signer
 include MessageSupport
@@ -9,18 +8,18 @@ module Lti2Tc
     def self.pre_process_tenant request
       rack_parameters = OAuthRequest.collect_rack_parameters request
       key = rack_parameters[:oauth_consumer_key]
-      @tool = Lti2Tc::Tool.where(:key => key).first
+      @tool = Lti2Tc::Tool.where( :key => key ).first
       secret = @tool.secret
-      self.validate request, secret
+      self.validate( request, secret )
     end
-    
-    def self.validate request, secret
+
+    def self.validate( request, secret )
       # OAuth check here
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
       unless tool_consumer_registry.relaxed_oauth_check == 'true'
-        request_wrapper = OAuthRequest.create_from_rack_request request
+        request_wrapper = OAuthRequest.create_from_rack_request( request )
         begin
-          request_wrapper.verify_signature? secret, Rails.application.config.nonce_cache, false
+          request_wrapper.verify_signature?( secret, Rails.application.config.nonce_cache, false )
           @oauth_error = false
           return
         rescue

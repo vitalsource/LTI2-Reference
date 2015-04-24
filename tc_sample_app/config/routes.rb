@@ -5,8 +5,8 @@ Lumos::Application.routes.draw do
   resources :registries
   resources :results
 
-  match "docs", :to => "docs#show"
-  
+  get "docs", :to => "docs#show"
+
   get "home/index"
 
   root :to => "home#index"

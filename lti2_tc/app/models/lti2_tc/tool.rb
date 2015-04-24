@@ -3,10 +3,10 @@ module Lti2Tc
     has_many :resources
     has_many :tool_settings, :as => :scopeable
 
-    attr_accessible :product_name, :description, :is_enabled, :key, :secret, :created_at, :updated_at
+    attr_accessor :toggle_label, :new_tool_proxy_url
 
     def get_tool_proxy
-      (Lti2Commons::JsonWrapper.new self.tool_proxy)
+      Lti2Commons::JsonWrapper.new( self.tool_proxy )
     end
   end
 end

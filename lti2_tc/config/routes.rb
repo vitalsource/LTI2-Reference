@@ -1,6 +1,6 @@
 Lti2Tc::Engine.routes.draw do
 
-  get "tool_proxies_controller/index"
+  get 'tool_proxies_controller/index'
 
   resources :tool_consumer_profiles
 
@@ -8,7 +8,7 @@ Lti2Tc::Engine.routes.draw do
 
   resources :tools
 
-  match "reregister_continue", :to => "tools#reregister_continue", :via => ['get']
+  get 'reregister_continue', :to => "tools#reregister_continue"
 
   get 'tool_settings/:tool_guid', :to => 'tool_settings#show'
   get 'tool_settings/:tool_guid/context/:node_id', :to => 'tool_settings#show'

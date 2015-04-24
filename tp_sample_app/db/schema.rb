@@ -9,21 +9,21 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217192847) do
+ActiveRecord::Schema.define(version: 20131217192847) do
 
-  create_table "iresources", :force => true do |t|
+  create_table "iresources", force: true do |t|
     t.integer  "tenant_id"
     t.string   "result_uri"
     t.string   "userid"
     t.string   "contextid"
     t.float    "score"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "lti2_tp_registrations", :force => true do |t|
+  create_table "lti2_tp_registrations", force: true do |t|
     t.string   "tenant_key"
     t.string   "tenant_name"
     t.integer  "tenant_id"
@@ -38,28 +38,28 @@ ActiveRecord::Schema.define(:version => 20131217192847) do
     t.text     "tool_profile_json"
     t.text     "tool_proxy_json"
     t.integer  "tool_id"
-    t.string   "lti_version",                    :limit => 32
+    t.string   "lti_version",                    limit: 32
     t.string   "end_registration_id"
     t.text     "proposed_tool_proxy_json"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
-  create_table "lti2_tp_registries", :force => true do |t|
+  create_table "lti2_tp_registries", force: true do |t|
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "lti2_tp_tools", :force => true do |t|
+  create_table "lti2_tp_tools", force: true do |t|
     t.string   "tool_name"
     t.text     "tool_profile_template"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  create_table "lti_registration_wips", :force => true do |t|
+  create_table "lti_registration_wips", force: true do |t|
     t.string   "tenant_name"
     t.integer  "registration_id"
     t.string   "lti_version"
@@ -73,26 +73,26 @@ ActiveRecord::Schema.define(:version => 20131217192847) do
     t.string   "result_message"
     t.string   "support_email"
     t.string   "product_name"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  create_table "tenant_users", :force => true do |t|
+  create_table "tenant_users", force: true do |t|
     t.integer  "tenant_id"
     t.string   "user_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "tenants", :force => true do |t|
+  create_table "tenants", force: true do |t|
     t.string   "tenant_key"
     t.string   "secret"
     t.string   "tenant_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

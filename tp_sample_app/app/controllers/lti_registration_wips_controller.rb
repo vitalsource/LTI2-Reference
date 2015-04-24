@@ -1,11 +1,12 @@
 class LtiRegistrationWipsController < InheritedResources::Base
   def index
+    action = params[:action]
     registration_id = params[:registration_id]
     registration = Lti2Tp::Registration.find(registration_id)
     @lti_registration_wip = LtiRegistrationWip.new
 
     # On orig registration, first assume tenant_name == name
-    @lti_registration_wip.tenant_name = registration.message_type == 'registration' ? registration.tenant_name : registration.tenant_key
+    @lti_registration_wip.tenant_name = registration.message_type == 'registration' ? registration.tenant_basename : registration.tenant_name
 
     @lti_registration_wip.registration_id = registration_id
     @lti_registration_wip.registration_return_url = params[:return_url]
@@ -39,7 +40,7 @@ class LtiRegistrationWipsController < InheritedResources::Base
       (@lti_registration_wip.errors[:tenant_name] << "Institution name is already in database") and return
     end
 
-    disposition = @registration.prepare_tool_proxy('register', UUID.generate)
+    disposition = @registration.prepare_tool_proxy('register')
     if @registration.is_status_failure? disposition
       redirect_to_registration(@registration, disposition) and return
     end
@@ -56,8 +57,8 @@ class LtiRegistrationWipsController < InheritedResources::Base
   end
 
   def show_reregistration
-    tenant = Tenant.where(:tenant_name=>@registration.tenant_key).first
-    disposition = @registration.prepare_tool_proxy('reregister', @registration.reg_key)
+    tenant = Tenant.where(:tenant_name=>@registration.tenant_name).first
+    disposition = @registration.prepare_tool_proxy('reregister')
     @registration.status = "reregistered"
     @registration.save!
 
@@ -76,7 +77,7 @@ class LtiRegistrationWipsController < InheritedResources::Base
     @lti_registration_wip.save
 
     registration = Lti2Tp::Registration.find(@lti_registration_wip.registration_id)
-    registration.tenant_key = @lti_registration_wip.tenant_name
+    registration.tenant_name = @lti_registration_wip.tenant_name
     registration.save
 
     show

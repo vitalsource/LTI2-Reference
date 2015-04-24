@@ -1,12 +1,12 @@
-
-
 ActiveAdmin.register Lti2Tc::DeploymentRequest do
   menu :parent => "LTI..."
-# 
+
+  permit_params :partner_url, :reg_password, :reg_key, :status, :tc_profile_guid
+
   # collection_action :method => :post do
     # link_to 'Create Product', {:action => :create_product, :id => deployment_request}
   # end
-#   
+
   # member_action :create_product do
     # @deployment_request = DeploymentRequest.new
     # uuid = UUID.new
@@ -16,7 +16,7 @@ ActiveAdmin.register Lti2Tc::DeploymentRequest do
     # @deployment_request.status = "prepared"
     # @deployment_request.save
   # end
-  
+
   action_item :only => :show do
     link_to 'Request Product', {:action => :request_product, :id => deployment_request}
   end
@@ -28,12 +28,12 @@ ActiveAdmin.register Lti2Tc::DeploymentRequest do
     #@deployment_request = DeploymentRequest.find(params[:id])
     @deployment_request = nil
 
-        html_body = Lti2_Tc::ToolRegistration.register_tool current_admin_user, @deployment_request,
-    				tool_consumer_registry.tool_consumer_profile_wrapper, tool_consumer_registry.tc_deployment_url
-    
+    html_body = Lti2_Tc::ToolRegistration.register_tool current_admin_user, @deployment_request,
+      tool_consumer_registry.tool_consumer_profile_wrapper, tool_consumer_registry.tc_deployment_url
+
     render :inline => html_body
   end
-  
+
   index do
     selectable_column
     id_column
@@ -42,8 +42,8 @@ ActiveAdmin.register Lti2Tc::DeploymentRequest do
     column :reg_password
     column :status
     default_actions
-  end  
-  
+  end
+
   form do |f|
     f.inputs "Deployment Proposal" do
       f.input :partner_url, :required => true
@@ -56,5 +56,5 @@ ActiveAdmin.register Lti2Tc::DeploymentRequest do
     end
     f.buttons
   end
-  
+
 end
