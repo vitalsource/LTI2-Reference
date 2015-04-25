@@ -3,10 +3,10 @@ LTI2 Gem -- Ruby/Rails reference implementation
 ==============
 __John Tibbetts, Integration Architect, Vital Source Technologies__
 
-> ### Note the LTI2 gem and sample apps have been signficantly reorganized!
-> ### The LTI2-Reference repo only contains the revised LTI2 gem
-> ### The LTI2_tc_sample_app repo contains the Tool Consumer sample app
-> ### The LTI2_tp_sample_app repo contains the Tool Provider sample app
+> #### Note the LTI2 gem and sample apps have been signficantly reorganized!  The sample apps have been removed!
+> #### The LTI2-Reference repo only contains the revised LTI2 gem
+> #### The LTI2_tc_sample_app repo contains the Tool Consumer sample app
+> #### The LTI2_tp_sample_app repo contains the Tool Provider sample app
 
 
 This is Vital Source's LTI2 implementation.  VST uses this code primarily as a Tool Provider.  However there's also a Tool Consumer here that we've used for early testing (even before there were any LTI2 TCs).  In addition we use the Tool Consumer for brokered LTI launches.  This is used, say, in an interactive book that has been launched by an external Tool Consumer but contains dynamic pages within the book that, in turn, launch other LTI tools.
