@@ -1,7 +1,13 @@
 
-LTI2 -- Ruby/Rails reference implementation
+LTI2 Gem -- Ruby/Rails reference implementation
 ==============
 __John Tibbetts, Integration Architect, Vital Source Technologies__
+
+> ### Note the LTI2 gem and sample apps have been signficantly reorganized!
+> ### The LTI2-Reference repo only contains the revised LTI2 gem
+> ### The LTI2_tc_sample_app repo contains the Tool Consumer sample app
+> ### The LTI2_tp_sample_app repo contains the Tool Provider sample app
+
 
 This is Vital Source's LTI2 implementation.  VST uses this code primarily as a Tool Provider.  However there's also a Tool Consumer here that we've used for early testing (even before there were any LTI2 TCs).  In addition we use the Tool Consumer for brokered LTI launches.  This is used, say, in an interactive book that has been launched by an external Tool Consumer but contains dynamic pages within the book that, in turn, launch other LTI tools.
 
@@ -9,7 +15,7 @@ This is Vital Source's LTI2 implementation.  VST uses this code primarily as a T
 
 * As new facilities, messages, or services are added to LTI2 they will be added to this reference model.  The intent is to add them in while they are still in development so that the LTI Services Task Force can see them in early operation.
 
-* The actual LTI-specific TC and TP functionality are implemented as Rails mountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Common behavior of both engines is abstracted into a third gem: lti2-commons.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
+* The actual LTI-specific TC and TP functionality are implemented as Rails mountable engines.  A mountable engine is a type of gem that is used for creating a Rails 'sub-application'; that is, an application within an application.  Each mountable engine has its own models, controller, etc.  Both of these engines are embedded in the single parent gem.  Common behavior of both engines is abstracted into the /lib folder.  A consequence of using this design modularity is that either one or both engines can also be mounted in real working production code.  In particular, the Vital Source BusinessCenter incorporates the Tool Consumer engine to provide launches appropriate for viewing e-textbooks.  It also incorporates the Tool Provider to allow new interactive e-textbooks to launch out of the book into other LTI tools, either provided by Vital Source, the book publisher, or anyone else.
 
 * The reference implementation contains sample applications that can either be run under sqlite3 or MySQL.  Sample data is provided for each type of database.
 
@@ -22,50 +28,28 @@ Prerequisites
 
 * Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 1.9.3.
 
-* This code is in a github Vital Source public repo (LTI-Reference.  Clone it in a work directory.
+* This code is in a github Vital Source public repo 'LTI2-Reference'.  Clone it in a work directory.
 
-* Run bundler in subsdirectories tc_sample_app (the TC directory) and tp_sample_app (the TP directory).
+* If you wish to use the sample Tool Consumer, clone 'LTI2_tc_sample_app.  Then bundle.
+
+* If you wish to use the sample Tool Provider, clone 'LTI2_tp_sample_app.  Then bundle.
 
 * This code has been tested with either MySQL or sqlite.  The default database load instructions will work for either of these databases. They would likely work with virtually any other Rails-compatible database.
 
-
-Structure of this repository
------------------------------
-The repository structure is as follows:
-
-	LTI2--
-		|
-		|
-		--closet			(database backups, common scripts, metadata artifacts)
-		|
-		|
-		--lti2_tc   		(tool consumer engine)
-		|
-		|
-		--lti2_tp			(tool provider engine)
-		|
-		|
-		--lib/lti2_commons		(library used by both TC and TP)
-		|
-		|
-		--tc_sample_app		(lightweight TC host based on active_admin gem)
-		|
-		|˙
-		--tp_sample_app		(lightweight TP and tool)
 		
 
 Getting it running
 ==================
 
-1. Clone the repo onto your machine.  
+1. Follow instructions above for cloning and building the three repos.
 
-2. Create a command prompt for the tool consumer.  chdir into <lti_repo>/tc_sample_app.  
+2. Create a command prompt for the tool consumer.  chdir into <your_repo>/LTI2_tc_sample_app.  
 
 3. [FIRST-TIME ONLY after clone of TC] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
 
 4. Start a rails server for the Tool Consumer on port 4000: 'rails s -p 4000'.
 
-5. Create a command prompt for the tool provider.  chdir into <lti_repo>/tp_sample_app.
+5. Create a command prompt for the tool provider.  chdir into <your_repo>/LTI2_tp_sample_app.
 
 6. [FIRST-TIME ONLY after clone of TP] 'rake init_task:backup'.  This will reset data to base state and ensure that sqlite3 is the current database.  (Instructions below for changing to MySQL.  Recommend running it first as sqlite3).
 
