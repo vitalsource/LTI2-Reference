@@ -85,6 +85,8 @@ Changing your database configuration
 
 __NOTE WELL: Default database choice has changed!  It is now sqlite3, not MySQL__
 
+__NOTE WELL: Both the TC and TP registries table has a base URL setting named tc_deployment_url and tp_deployment_url, respectively.  Make sure these contain reasonable values for your environment.  'localhost' is handy for testing locally, but since these values are passed to their partners they may need to contain environment-specific, external URLs__
+
 sqlite3 is built in and the data is prebuilt in github.  This means that the TC and TP can be checked out and immediately run with no database prep.
 
 If you'd prefer to use MySQL it's easy to switch.  
