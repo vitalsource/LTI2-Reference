@@ -138,9 +138,10 @@ As described above, this distribution uses tc_sample_app as a pseudo LMS.  All o
 
 2. At a rails command-line in the host, import the TC engine migrations into the db migrations of the host:
 	* rake lti2_tc:install:migrations
+	* rake db:migrate
 	
 3. In the host application's routes.rb, specify the mount point of the TC engine:
-	* mount Lti2Tc::Engine, :at => '/lti2_tc'
+	* mount Lti2Tc::Engine, :at => '/LTI2-Reference'
 	
 4. Implement the host responsibilities of the engine.  The can be seen in exemplary code in the tc_sample_app.
 	* In the database table 'lti2_tc_registries': modify the tc_deployment_url to the base URL of your server.
@@ -155,10 +156,11 @@ Using the Tool Provider Engine with another host application
 As described above, this distribution uses tp_sample_app as a pseudo tool provider.  All of the LTI-specific behavior is mounted into this app using the Rails mountable engine capability.  To use this same engine in another host application the following steps need to be followed.
 
 1. The Gemfile of the host application should access the gem from VST github by including the line:
-	* gem 'lti2_tp', :github => 'vitalsource/lti2_tp'
+	* gem 'lti2_tp', :github => 'vitalsource/LTI2-Reference'
 
 2. At a rails command-line in the host, import the TP engine migrations into the db migrations of the host:
 	* rake lti2_tp:install:migrations
+	* rake db:migrate
 	
 3. In the host application's routes.rb, specify the mount point of the TP engine:
 	* mount Lti2Tp::Engine, :at => '/lti2_tp'
