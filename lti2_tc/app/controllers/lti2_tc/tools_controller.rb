@@ -76,6 +76,8 @@ module Lti2Tc
 
       resource_nodes = tool_proxy_wrapper.first_at('tool_profile.resource_handler')
 
+      # TODO: Move this resource creation code to LTI2_tc_sample_app
+      
       # course 2(SMPL101), 11 & 12 DEP from conformance test
       target_courses = [2, 5, 6]
       for resource_node in resource_nodes
