@@ -6,7 +6,7 @@ PATH
       jsonpath
       lrucache
       oauth (~> 0.4.7)
-      rails (~> 4.1.1)
+      rails
       rb-readline
       uuid
 
@@ -57,7 +57,7 @@ GEM
       systemu (~> 2.6.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.4.3)
+    mime-types (2.6.1)
     minitest (5.6.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
@@ -94,9 +94,9 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sprockets (3.0.2)
+    sprockets (3.1.0)
       rack (~> 1.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
