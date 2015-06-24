@@ -78,11 +78,7 @@ module Lti2Tp
       @registration.proposed_tool_proxy_json = nil
       @registration.end_registration_id = nil
 
-      # recover secret from new tool_proxy
-      tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
-      @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
-
-      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
+      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.final_secret)
 
       @registration.save
 

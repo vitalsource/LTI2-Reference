@@ -40,10 +40,19 @@ module Lti2Tc
           (render :json => {:errors => ['Invalid base url for confirmation']}, :status => 403) and return
         end
 
+
         tool = Lti2Tc::Tool.where(:key => reg_key).first
         tool.status = 'reregistering'
         tool.save
-        (render :nothing => true, :status => 201) and return
+
+        tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
+
+        tool_proxy_response = render_response(tool_proxy_wrapper, tool.key, tool_proxy_guid, @deployment_request)
+
+        logger.info( "Exit from registration(POST)--status 201  content-type: #{content_type}" )
+        logger.info( JSON.dump( tool_proxy_response ) )
+
+        (render :json => tool_proxy_response, :content_type => 'application/vnd.ims.lti.v2.toolproxy.id+json', :status => '201') and return
       end
 
       secret = @deployment_request.reg_password
@@ -54,7 +63,7 @@ module Lti2Tc
       end
 
       # generate guid for tool_proxy
-      # tool_proxy_guid = UUID.generate
+      # tool_proxy_guid = UUID.generate``
       # tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
       # tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
@@ -66,8 +75,22 @@ module Lti2Tc
       @tool.product_name = product_name
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
       @tool.key = @deployment_request.reg_key
-      @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.status = 'registered'
+
+      if tool_proxy_wrapper.first_at('security_contract.shared_secret').present?
+        @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+        tc_half_shared_secret = nil
+      else
+        tc_half_shared_secret = SecureRandom.hex(64)
+        tp_half_shared_secret = tool_proxy_wrapper.first_at('security_contract.tp_half_shared_secret')
+        if tp_half_shared_secret.present?
+          @tool.secret = tc_half_shared_secret + tp_half_shared_secret
+        else
+          ( render :text => "Missing tp_half_shared_secret", :status => 401 ) and return
+
+        end
+      end
+
 
       # TEMPORARY: enable tool...FOR DEMOS
       # @tool.is_enabled = true
@@ -132,22 +155,16 @@ module Lti2Tc
 
       capture_and_excise_settings(tool_proxy_wrapper.root, @tool)
 
-      @tool.save
-
       #@deployment_request.delete
 
-      tool_proxy_response = {
-          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
-          "@type" => "ToolProxy",
-          "@id" => tool_proxy_id,
-          "tool_proxy_guid" => tool_proxy_guid
-      }
+      tool_proxy_response = render_response(tool_proxy_wrapper, tool_proxy_id, tool_proxy_guid, @deployment_request)
+      @tool.secret = @deployment_request.final_secret
+      @tool.save
 
-      content_type = 'application/vnd.ims.lti.v2.toolproxy.id+json'
-      logger.info( "Exit from Tool/create(POST)--status 201  content-type: #{content_type}" )
+      logger.info( "Exit from registration(POST)--status 201  content-type: #{content_type}" )
       logger.info( JSON.dump( tool_proxy_response ) )
 
-      render :json => tool_proxy_response, :content_type => content_type, :status => '201'
+      render :json => tool_proxy_response, :content_type => 'application/vnd.ims.lti.v2.toolproxy.id+json', :status => '201'
     end
 
     def show
@@ -197,6 +214,7 @@ module Lti2Tc
       tool_id = params[:tool_id]
       @tool = Lti2Tc::Tool.find(tool_id)
       @deployment_request = DeploymentRequest.where(:reg_key => @tool.key).first
+
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
       reregistration_service_endpoint = @deployment_request.confirm_url
@@ -225,7 +243,7 @@ module Lti2Tc
       @tool.product_name = product_name
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
       @tool.key = tool_proxy_wrapper.first_at('tool_proxy_guid')
-      @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+      @tool.secret = @deployment_request.final_secret
       @tool.status = 'reregistered'
 
       tool_consumer_registry = Rails.application.config.tool_consumer_registry
@@ -266,7 +284,9 @@ module Lti2Tc
 
     def check_for_validity(tool_proxy_wrapper)
       if tool_proxy_wrapper.first_at('security_contract.shared_secret').blank?
-        return 'Missing shared_secret'
+        if tool_proxy_wrapper.first_at('security_contract.tp_half_shared_secret').blank?
+          return 'Missing shared_secret or tp_half_shared_secret'
+        end
       end
 
       # check that services are a subset of those offered
@@ -310,6 +330,36 @@ module Lti2Tc
 
       [tool_proxy_wrapper, nil, nil]
     end
+
+    def render_response(tool_proxy_wrapper, tool_proxy_id, tool_proxy_guid, deployment_request)
+      if tool_proxy_wrapper.first_at('security_contract.shared_secret').present?
+        deployment_request.final_secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+        tc_half_shared_secret = nil
+      else
+        tc_half_shared_secret = SecureRandom.hex(64)
+        tp_half_shared_secret = tool_proxy_wrapper.first_at('security_contract.tp_half_shared_secret')
+        if tp_half_shared_secret.present?
+          deployment_request.final_secret = tc_half_shared_secret + tp_half_shared_secret
+        else
+          ( render :text => "Missing tp_half_shared_secret", :status => 401 ) and return
+        end
+      end
+      deployment_request.save
+
+      tool_proxy_response = {
+          "@context" => "http://purl.imsglobal.org/ctx/lti/v2/ToolProxyId",
+          "@type" => "ToolProxy",
+          "@id" => tool_proxy_wrapper.first_at('@id'),
+          "tool_proxy_guid" => tool_proxy_wrapper.first_at('tool_proxy_guid')
+      }
+
+      if tc_half_shared_secret.present?
+        tool_proxy_response['tc_half_shared_secret'] = tc_half_shared_secret
+      end
+
+      tool_proxy_response
+    end
+
 
     def verify_common_domain(tool_proxy_json, test_url)
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)

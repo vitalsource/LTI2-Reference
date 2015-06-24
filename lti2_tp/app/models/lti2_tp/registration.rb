@@ -59,10 +59,11 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        if disposition.blank? || disposition == 'register'
+        if disposition.blank? || disposition == 'register' || disposition == 'reregister'
           tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
 
           self.tool_proxy_json = tool_proxy.to_json
+          self.tool_proxy_response = tool_proxy_response.to_json
           self.status = disposition
           self.save!
 
@@ -155,7 +156,14 @@ module Lti2Tp
     def resolve_security_contract tool_consumer_profile
       security_contract = {}
 
-      security_contract['shared_secret'] = SecureRandom.hex
+      if (tool_consumer_profile['capability_offered'].include? 'OAuth.splitsecret')
+        tp_half_shared_secret = SecureRandom.hex(64)
+        security_contract['tp_half_shared_secret'] = tp_half_shared_secret
+      else
+        secret = SecureRandom.hex
+        security_contract['shared_secret'] = secret
+      end
+
       security_contract['tool_service'] = []
 
       services_offered = tool_consumer_profile['service_offered']

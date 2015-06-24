@@ -71,7 +71,7 @@ module Lti2Tc
       parameters['lti_message_type'] = 'ToolProxyReregistrationRequest'
 
       key = tool_proxy.first_at( 'tool_proxy_guid' )
-      secret = tool_proxy.first_at( 'security_contract.shared_secret' )
+      secret = tool.secret
 
       signed_request = Signer::create_signed_request( service_endpoint, 'post', key, secret, parameters )
       puts "TC Signed Request: #{signed_request.signature_base_string}"
