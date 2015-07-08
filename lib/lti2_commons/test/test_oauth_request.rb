@@ -8,13 +8,15 @@ require File.expand_path('../../lib/lti2_commons/oauth_request', __FILE__)
 require 'rack'
 require 'oauth'
 
+require 'minitest'
+
 include Lti2Commons
 include Signer
 include Utils
 include MessageSupport
 include OAuth::RequestProxy
 
-class TestOAuthRequest < Test::Unit::TestCase
+class TestOAuthRequest < Minitest::Unit::TestCase
   def setup
     @launch_url = 'http://localhost:3000/tenants/3'
     # @launch_url = 'http://vst-bc.com/tenants/3/books'
@@ -138,6 +140,15 @@ class TestOAuthRequest < Test::Unit::TestCase
     assert_equal false, (request.verify_signature? @consumer_secret, @nonce_cache)
   end
 
-  ARGV = ['', "--name", "test_duplicate_nonce"]
+  def test_sha26
+    params = @params.dup
+    params['oauth_signature_method'] = "HMAC-SHA256"
+    request = Lti2Commons::Signer.create_signed_request @launch_url, @http_method, @consumer_key, @consumer_secret, params
+    assert_equal true, (request.verify_signature? @consumer_secret, @nonce_cache)
+    request = Lti2Commons::Signer.create_signed_request @launch_url, @http_method, @consumer_key, @consumer_secret, params
+    assert_equal false, (request.verify_signature? @consumer_secret, @nonce_cache)
+  end
+
+  ARGV = ['', "--name", "test_sha256"]
   Test::Unit::AutoRunner.run(false, nil, ARGV)
 end

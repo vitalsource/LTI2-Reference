@@ -156,7 +156,7 @@ module Lti2Tp
     def resolve_security_contract tool_consumer_profile
       security_contract = {}
 
-      if (tool_consumer_profile['capability_offered'].include? 'OAuth.splitsecret')
+      if (tool_consumer_profile['capability_offered'].include? 'OAuth.splitSecret')
         tp_half_shared_secret = SecureRandom.hex(64)
         security_contract['tp_half_shared_secret'] = tp_half_shared_secret
       else

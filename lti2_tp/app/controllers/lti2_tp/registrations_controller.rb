@@ -8,6 +8,7 @@ module Lti2Tp
     include Signer
 
     def create
+      puts('enter RegController::create')
       # this signals initial POST from TC
       tool = params[:tool]
       if tool.present?
@@ -88,6 +89,7 @@ module Lti2Tp
     end
 
     def index
+      puts("RegId: #{params[:id]}")
       registration = Lti2Tp::Registration.find( params[:id] )
       final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
       final_qs = final_hash.to_query
