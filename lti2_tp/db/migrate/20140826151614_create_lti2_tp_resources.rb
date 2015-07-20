@@ -8,6 +8,7 @@ class CreateLti2TpResources < ActiveRecord::Migration
       t.string   :user_id
       t.string   :reg_key
       t.string   :reg_password
+      t.string   :tool_proxy_guid
       t.string   :tc_profile_url
       t.string   :launch_presentation_return_url
       t.string   :status
@@ -27,6 +28,7 @@ class CreateLti2TpResources < ActiveRecord::Migration
     execute("ALTER TABLE lti2_tp_registrations MODIFY `user_id` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `reg_key` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `reg_password` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
+    execute("ALTER TABLE lti2_tp_registrations MODIFY `tool_proxy_guid` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `tc_profile_url` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `launch_presentation_return_url` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")
     execute("ALTER TABLE lti2_tp_registrations MODIFY `status` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;")

@@ -20,6 +20,11 @@ module Lti2Tc
       if error_msg.present?
         ( render :json => { :errors => [error_msg] }, :status => status ) and return
       end
+      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
+      if tool_proxy_guid.blank?
+        tool_proxy_guid = SecureRandom.hex
+        tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
+      end
 
       reg_key = rack_parameters[:oauth_consumer_key]
       @deployment_request = Lti2Tc::DeploymentRequest.where(:reg_key => reg_key).first
@@ -54,9 +59,7 @@ module Lti2Tc
       end
 
       # generate guid for tool_proxy
-      # tool_proxy_guid = UUID.generate
-      # tool_proxy_wrapper.root['tool_proxy_guid'] = tool_proxy_guid
-      # tool_proxy_wrapper.substitute_text_in_all_nodes '{', '}', {'tool_proxy_guid' => tool_proxy_guid}
+      # generate guid for tool_proxy
       product_name = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.product_name.default_value')
 
       @tool = Tool.new
@@ -125,7 +128,6 @@ module Lti2Tc
       tc_profile_url = tool_proxy_wrapper.first_at('tool_consumer_profile')
       tc_profile_guid = tc_profile_url.split('/').last if tc_profile_url =~ /\//
 
-      tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
       tool_proxy_id = "#{tc_deployment_url}/tools/#{tool_proxy_guid}"
       tool_proxy_wrapper.root['@id'] = tool_proxy_id
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root

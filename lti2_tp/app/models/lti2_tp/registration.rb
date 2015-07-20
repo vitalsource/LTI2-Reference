@@ -7,15 +7,19 @@ module Lti2Tp
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_proxy = {}
       # clone from provided TCP
-      tool_proxy['@context'] = tool_consumer_profile['@context'].clone
+      tool_proxy['@context'] = 'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy'
       tool_proxy['@type'] = 'ToolProxy'
-      tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
+      if self.tool_proxy_guid.present?
+        tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
+      else
+        tool_proxy['tool_proxy_guid'] = nil
+      end
 
       tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
 
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
-      tool_proxy['tool_profile'] = JSON.load( tool_profile_json )
+      tool_proxy['tool_profile'] = resolve_tool_profile(tool_consumer_profile, JSON.load( tool_profile_json ))
       tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
       tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
@@ -173,5 +177,38 @@ module Lti2Tp
       security_contract
     end
 
+    def resolve_tool_profile tool_consumer_profile, tool_profile
+      # we're going to vet resource_handlers versus offered capabilities
+      resolved_tool_profile = tool_profile.clone
+      resolved_tool_profile['resource_handler'] = []
+      tcp_capabilities = tool_consumer_profile['capability_offered']
+      tool_profile['resource_handler'].each do |handler|
+        resolved_resource_handler = handler.clone
+        resolved_resource_handler['message'] = []
+        capabilities = []
+        handler['message'].select do |a_message|
+          capabilities = a_message['enabled_capability']
+          # capabilities implicitly include defined substitution variables
+          a_message['parameter'].each do |a_parameter|
+            if a_parameter.has_key?('variable')
+              capabilities << a_parameter['variable']
+            end
+          end
+          missing_capabilities = capabilities - tool_consumer_profile['capability_offered']
+          if missing_capabilities.count == 0
+            resolved_resource_handler['message'] << a_message
+          else
+            Rails.logger.warn("Could not install resource_handler.message due to missing capabilities: #{missing_capabilities.inspect}")
+          end
+        end
+        if resolved_resource_handler['message'].length > 0
+          resolved_tool_profile['resource_handler'] << resolved_resource_handler
+        else
+
+        end
+      end
+
+      resolved_tool_profile
+    end
   end
 end

@@ -23,9 +23,13 @@ module Lti2Tc
           'tc_profile_url' => "#{base_url}/lti2_tc/tool_consumer_profiles/#{self.tc_profile_guid}",
           'reg_key' => self.reg_key,
           'reg_password' => self.reg_password,
+          'tool_proxy_guid' => SecureRandom.hex,
           'launch_presentation_return_url' => "#{base_url}/admin/tool_actions",
           'launch_presentation_document_target' => 'window'
       }
+
+      # TEST no init guid by commenting this out
+      parameters['tool_proxy_guid'] = SecureRandom.hex
       parameters
     end
 
