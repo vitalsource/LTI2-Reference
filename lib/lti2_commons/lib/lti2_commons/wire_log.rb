@@ -70,7 +70,7 @@ module Lti2Commons
       end
 
       def clear_log
-        output_file = File.open(@output_file_name, 'a+')
+        output_file = File.open(@output_file_name, 'a')
         output_file.truncate(0)
         output_file.close
       end

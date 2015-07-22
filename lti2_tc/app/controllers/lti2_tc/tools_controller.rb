@@ -68,7 +68,7 @@ module Lti2Tc
       @tool.tool_proxy = JSON.pretty_generate tool_proxy_wrapper.root
       @tool.product_name = product_name
       @tool.description = tool_proxy_wrapper.first_at('tool_profile.product_instance.product_info.description.default_value')
-      @tool.key = @deployment_request.reg_key
+      @tool.key = tool_proxy_wrapper.first_at('tool_proxy_guid')
       @tool.secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
       @tool.status = 'registered'
 
@@ -76,6 +76,10 @@ module Lti2Tc
       # @tool.is_enabled = true
 
       @tool.save
+
+      # never to change again
+      @deployment_request.reg_key = @tool.key
+      @deployment_request.save
 
       resource_nodes = tool_proxy_wrapper.first_at('tool_profile.resource_handler')
 
