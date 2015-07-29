@@ -7,21 +7,32 @@ module Lti2Tp
     def create_tool_proxy tool_consumer_profile, tool_proxy_guid, disposition
       tool_proxy = {}
       # clone from provided TCP
-      tool_proxy['@context'] = tool_consumer_profile['@context'].clone
+      tool_proxy['@context'] = 'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy'
       tool_proxy['@type'] = 'ToolProxy'
-      tool_proxy['@id'] = "ToolProxyProposal_at_#{Time.now.utc.iso8601}"
+      if self.tool_proxy_guid.present?
+        tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
+      else
+        tool_proxy['tool_proxy_guid'] = nil
+      end
 
       tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = tool_proxy_guid
+      tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
 
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
-      tool_proxy['tool_profile'] = JSON.load( tool_profile_json )
-      tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
-      tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
-      tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+      (tool_profile, msg) = resolve_tool_profile(tool_consumer_profile, JSON.load( tool_profile_json ))
+      if tool_profile.present?
+        tool_proxy['tool_profile'] = tool_profile
+        tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
-      tool_proxy_wrapper.root
+        tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
+        tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+
+        result = tool_proxy_wrapper.root
+      else
+        result = nil
+      end
+      [result, msg]
     end
 
     def get_tool_consumer_profile()
@@ -31,7 +42,7 @@ module Lti2Tp
 
     def prepare_tool_proxy disposition
       tool_consumer_profile = JSON.load( self.tool_consumer_profile_json )
-      tool_proxy = create_tool_proxy(tool_consumer_profile, self.reg_key, disposition)
+      (tool_proxy, msg) = create_tool_proxy(tool_consumer_profile, self.reg_key, disposition)
       if tool_proxy
         self.end_registration_id = UUID.generate
         if disposition == 'register'
@@ -59,11 +70,10 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        if disposition.blank? || disposition == 'register' || disposition == 'reregister'
+        if disposition.blank? || disposition == 'register'
           tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
 
           self.tool_proxy_json = tool_proxy.to_json
-          self.tool_proxy_response = tool_proxy_response.to_json
           self.status = disposition
           self.save!
 
@@ -72,7 +82,7 @@ module Lti2Tp
           status = create_status(true)
         end
       else
-        status = create_status(false, nil, "Can't access ToolProxy")
+        status = create_status(false, nil, "ToolProxy error: #{msg}")
       end
 
       status
@@ -156,14 +166,7 @@ module Lti2Tp
     def resolve_security_contract tool_consumer_profile
       security_contract = {}
 
-      if (tool_consumer_profile['capability_offered'].include? 'OAuth.splitSecret')
-        tp_half_shared_secret = SecureRandom.hex(64)
-        security_contract['tp_half_shared_secret'] = tp_half_shared_secret
-      else
-        secret = SecureRandom.hex
-        security_contract['shared_secret'] = secret
-      end
-
+      security_contract['shared_secret'] = SecureRandom.hex
       security_contract['tool_service'] = []
 
       services_offered = tool_consumer_profile['service_offered']
@@ -181,5 +184,38 @@ module Lti2Tp
       security_contract
     end
 
+    def resolve_tool_profile tool_consumer_profile, tool_profile
+      # we're going to vet resource_handlers versus offered capabilities
+      msg = nil
+      capabilities_error = false
+      tcp_capabilities = tool_consumer_profile['capability_offered']
+      tool_profile['resource_handler'].each do |handler|
+        capabilities = []
+        handler['message'].select do |a_message|
+          capabilities = a_message['enabled_capability']
+          # capabilities implicitly include defined substitution variables
+          a_message['parameter'].each do |a_parameter|
+            if a_parameter.has_key?('variable')
+              capabilities << a_parameter['variable']
+            end
+          end
+          missing_capabilities = capabilities - tool_consumer_profile['capability_offered']
+          if missing_capabilities.count > 0
+            msg = "Could not install resource_handler.message due to missing capabilities: #{missing_capabilities.inspect}"
+            Rails.logger.warn(msg)
+            capabilities_error = true
+            break;
+          end
+        end
+        if capabilities_error
+          break
+        end
+      end
+      if msg.present?
+        tool_profile = nil
+      end
+
+      [tool_profile, msg]
+    end
   end
 end
