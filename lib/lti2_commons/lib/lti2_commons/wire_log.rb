@@ -70,13 +70,13 @@ module Lti2Commons
       end
 
       def clear_log
-        output_file = File.open(@output_file_name, 'a')
+        output_file = File.open(@output_file_name, 'w')
         output_file.truncate(0)
         output_file.close
       end
 
       def flush(options = {})
-        output_file = File.open(@output_file_name, 'a+')
+        output_file = File.open(@output_file_name, 'a')
         @log_buffer.rewind
         buffer = @log_buffer.read
         if @is_html_output

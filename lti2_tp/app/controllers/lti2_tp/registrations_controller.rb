@@ -79,11 +79,12 @@ module Lti2Tp
       @registration.proposed_tool_proxy_json = nil
       @registration.end_registration_id = nil
 
-      # recover secret from new tool_proxy
       tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
-      @registration.reg_password = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+      tool_proxy_response_wrapper = JsonWrapper.new(@registration.tool_proxy_response)
 
-      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.reg_password)
+      @registration.final_secret = change_secret(@tenant, tool_proxy_wrapper, tool_proxy_response_wrapper)
+
+      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.final_secret)
       @registration.save
 
       logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
@@ -171,6 +172,19 @@ module Lti2Tp
 
     def abort_registration(abort_msg)
       render :status => 500, :json => abort_msg
-      end
     end
+
+    def change_secret(tenant, tool_proxy_wrapper, tool_proxy_response_wrapper)
+      if tool_proxy_wrapper.first_at('security_contract.shared_secret').present?
+        final_secret = tool_proxy_wrapper.first_at('security_contract.shared_secret')
+      else
+        if tool_proxy_wrapper.first_at('security_contract.tp_half_shared_secret').present?
+          final_secret = tool_proxy_response_wrapper.first_at('tc_half_shared_secret') \
+          + tool_proxy_wrapper.first_at('security_contract.tp_half_shared_secret')
+        end
+      end
+      final_secret
+    end
+  end
 end
+
