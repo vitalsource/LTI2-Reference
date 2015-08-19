@@ -96,7 +96,7 @@ module Lti2Tp
       registration = Lti2Tp::Registration.find( params[:id] )
       final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
       final_qs = final_hash.to_query
-      final_url = "#{registration.launch_presentation_return_url}?#{final_qs}"
+      final_url = "#{get_adjusted_baseurl(registration.launch_presentation_return_url)}#{final_qs}"
       redirect_to final_url
     end
 
@@ -184,6 +184,12 @@ module Lti2Tp
         end
       end
       final_secret
+    end
+
+    def get_adjusted_baseurl(baseurl)
+      result = baseurl
+      result += (baseurl.include?('?')) ? '&' : '?'
+      result
     end
   end
 end
