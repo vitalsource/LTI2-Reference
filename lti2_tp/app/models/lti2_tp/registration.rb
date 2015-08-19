@@ -26,7 +26,9 @@ module Lti2Tp
         tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
 
         tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
-        tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+        unless tool_proxy['tool_proxy_guid'].nil?
+          tool_proxy_wrapper.substitute_text_in_all_nodes( '{', '}', { 'tool_proxy_guid' => tool_proxy['tool_proxy_guid'] } )
+        end
 
         result = tool_proxy_wrapper.root
       else
