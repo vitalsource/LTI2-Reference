@@ -63,8 +63,8 @@ module Lti2Tp
         end
         if service_offered.nil?
           status = create_status(false, nil, "No matching service definition")
-          return_url = self.launch_presentation_return_url + '?status=failure'
-          (redirect_to return_url) and return
+          dispostion = get_adjusted_baseurl(self.launch_presentation_return_url) + 'status=failure'
+          return disposition
         end
 
         (tool_proxy_response, err_code, err_msg) = register_tool_proxy service_offered, "post", disposition
@@ -110,6 +110,12 @@ module Lti2Tp
     end
 
     private
+
+    def get_adjusted_baseurl(baseurl)
+      result = baseurl
+      result += (baseurl.include?('?')) ? '&' : '?'
+      result
+    end
 
     def match_services( test_service, model_service )
       service_name_pattern = /.*\W(\w+?\.\w+)$/
@@ -229,4 +235,6 @@ module Lti2Tp
       [tool_profile, msg]
     end
   end
+
+
 end
