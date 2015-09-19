@@ -51,6 +51,11 @@ module Lti2Tc
 
         tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
 
+        # Old style tool_proxy_guid reassignment happens here
+        # Only uncomment to test tool_proxy_guid_reassignent
+        # tool_proxy_guid = UUID.generate
+        # ^^^ usually leave previous line commented out
+
         tool_proxy_response = render_response(tool_proxy_wrapper, tool.key, tool_proxy_guid, @deployment_request)
 
         logger.info( "Exit from registration(POST)--status 201  content-type: #{content_type}" )
@@ -222,13 +227,10 @@ module Lti2Tc
       @deployment_request = DeploymentRequest.where(:reg_key => @tool.key).first
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
-      reregistration_service_endpoint = @deployment_request.confirm_url
+      reregistration_service_endpoint = @deployment_request.partner_url
 
-      #DEBUG ONLY
-      if reregistration_service_endpoint.include? 'http://localhost:5000'
-        reregistration_service_endpoint.sub!('http://localhost:5000', 'http://localhost:5100')
-      end
-
+      reregistration_service_endpoint.sub!('registrations', 'reregistrations');
+      
       signed_request = create_signed_request \
         reregistration_service_endpoint,
         'PUT',

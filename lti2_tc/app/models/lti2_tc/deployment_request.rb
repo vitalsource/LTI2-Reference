@@ -26,10 +26,6 @@ module Lti2Tc
           'launch_presentation_return_url' => "#{base_url}/admin/tool_actions",
           'launch_presentation_document_target' => 'window'
       }
-
-      # TEST no init guid by commenting this out
-      parameters['tool_proxy_guid'] = SecureRandom.hex
-      parameters
     end
 
     private

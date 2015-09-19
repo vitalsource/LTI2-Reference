@@ -30,7 +30,6 @@ module Lti2Tp
       @registration.tc_profile_url = params['tc_profile_url']
       @registration.reg_key = params['reg_key']
       @registration.reg_password = params['reg_password']
-      @registration.tool_proxy_guid = params['tool_proxy_guid'] if params.has_key? 'tool_proxy_guid'
       @registration.launch_presentation_return_url = params['launch_presentation_return_url']
       @registration.message_type = 'registration'
       @registration.status = 'received'

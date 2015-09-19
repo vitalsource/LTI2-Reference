@@ -9,14 +9,9 @@ module Lti2Tp
       # clone from provided TCP
       tool_proxy['@context'] = 'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy'
       tool_proxy['@type'] = 'ToolProxy'
-      if self.tool_proxy_guid.present?
-        tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
-      else
-        tool_proxy['tool_proxy_guid'] = nil
-      end
+      tool_proxy['tool_proxy_guid'] = self.reg_key
 
       tool_proxy['lti_version'] = 'LTI-2p0'
-      tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
 
       tool_proxy['tool_consumer_profile'] = self.tc_profile_url
 
