@@ -41,9 +41,10 @@ module Lti2Tc
       @deployment_request.save
 
       if state == 'reregistration'
-        if !verify_common_domain(@deployment_request.tool_proxy_json, confirm_url)
-          (render :json => {:errors => ['Invalid base url for confirmation']}, :status => 403) and return
-        end
+        # ensure common domain with confirmation
+        # if !verify_common_domain(@deployment_request.tool_proxy_json, confirm_url)
+        #   (render :json => {:errors => ['Invalid base url for confirmation']}, :status => 403) and return
+        # end
 
         tool = Lti2Tc::Tool.where(:key => reg_key).first
         tool.status = 'reregistering'
@@ -227,16 +228,17 @@ module Lti2Tc
       @deployment_request = DeploymentRequest.where(:reg_key => @tool.key).first
       tool_proxy_wrapper = JsonWrapper.new(@deployment_request.tool_proxy_json)
 
-      reregistration_service_endpoint = @deployment_request.partner_url
+      confirm_url = @deployment_request.confirm_url
+      query_params = Rack::Utils::parse_nested_query(URI.parse(confirm_url).query)
 
-      reregistration_service_endpoint.sub!('registrations', 'reregistrations');
-      
+      puts "Reregistration endpoint: #{confirm_url}"
+
       signed_request = create_signed_request \
-        reregistration_service_endpoint,
+        confirm_url,
         'PUT',
         @tool.key,
         @tool.secret,
-        {},
+        query_params,
         ""
 
       puts "Register request: #{signed_request.signature_base_string}"

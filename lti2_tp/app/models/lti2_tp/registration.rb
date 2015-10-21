@@ -67,7 +67,7 @@ module Lti2Tp
           status = create_status(false, nil, "#{err_code}-#{err_msg}")
           return status
         end
-        if disposition.blank? || disposition == 'register' || 'reregister'
+        if disposition.blank? || disposition == 'register' || disposition == 'reregister'
           tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
 
           self.tool_proxy_json = tool_proxy.to_json
@@ -163,6 +163,7 @@ module Lti2Tp
         response_content = JSON.load( response_body ) unless response_body.strip.empty?
       else
         response_content = nil
+        response_message = response['errors'].first
       end
       [ response_content, response.code, response.message ]
     end

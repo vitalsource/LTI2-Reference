@@ -1,4 +1,6 @@
 
+require 'httparty'
+
 module Lti2Tp
   class RegistrationsController < InheritedResources::Base
     protect_from_forgery :except => :create
@@ -81,12 +83,13 @@ module Lti2Tp
       tool_proxy_wrapper = JsonWrapper.new(@registration.tool_proxy_json)
       tool_proxy_response_wrapper = JsonWrapper.new(@registration.tool_proxy_response)
 
-      @registration.final_secret = change_secret(@tenant, tool_proxy_wrapper, tool_proxy_response_wrapper)
+      # jump to the wrapper...but don't redirect within a service
+      tp_base_url = Rails.application.config.tool_provider_registry.registry['tp_deployment_url']
+      url = "#{tp_base_url}/complete_reregistration?registration_id=#{@registration.id}"
 
-      LtiRegistrationWip.change_tenant_secret(@registration.tenant_id, @registration.final_secret)
-      @registration.save
+      logger.info(JSON.dump("http GET to #{url} for #{@registration.reg_key}"))
 
-      logger.info(JSON.dump("reregistration complete for #{@registration.reg_key}"))
+      LtiRegistrationWip.complete_reregistration(@registration.id)
 
       render :nothing => true, :status => '200'
     end
@@ -109,7 +112,7 @@ module Lti2Tp
         end
       end
 
-      @registration = Lti2Tp::Registration.where(:tenant_name => @tenant.tenant_name).first
+      @registration = Lti2Tp::Registration.where(:reg_key => @tenant.tenant_key).first
 
       @registration.tc_profile_url = params['tc_profile_url']
       @registration.launch_presentation_return_url = params['launch_presentation_return_url']
