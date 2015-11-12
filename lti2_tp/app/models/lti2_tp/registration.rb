@@ -9,7 +9,7 @@ module Lti2Tp
       # clone from provided TCP
       tool_proxy['@context'] = 'http://purl.imsglobal.org/ctx/lti/v2/ToolProxy'
       tool_proxy['@type'] = 'ToolProxy'
-      tool_proxy['tool_proxy_guid'] = self.reg_key
+      tool_proxy['tool_proxy_guid'] = tool_proxy_guid if tool_proxy_guid.present?
 
       tool_proxy['lti_version'] = 'LTI-2p0'
 
@@ -33,13 +33,15 @@ module Lti2Tp
     end
 
     def get_tool_consumer_profile()
-      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {}, {}, nil, Rails.application.config.wire_log, "Get Tool Consumer Profile")
+      tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {},
+                                 {'accept' => 'application/vnd.ims.lti.v2.toolconsumerprofile+json'},
+                                 nil, Rails.application.config.wire_log, "Get Tool Consumer Profile")
       JSON.load( tcp_response.body )
     end
 
     def prepare_tool_proxy disposition
       tool_consumer_profile = JSON.load( self.tool_consumer_profile_json )
-      (tool_proxy, msg) = create_tool_proxy(tool_consumer_profile, self.reg_key, disposition)
+      (tool_proxy, msg) = create_tool_proxy(tool_consumer_profile, self.tool_proxy_guid, disposition)
       if tool_proxy
         self.end_registration_id = UUID.generate
         if disposition == 'register'
@@ -72,6 +74,11 @@ module Lti2Tp
 
           self.tool_proxy_json = tool_proxy.to_json
           self.tool_proxy_response = tool_proxy_response.to_json
+
+          # late pull of tool_proxy_guid (in case it needs updating due to new/old assignments)
+          self.tool_proxy_guid = tool_proxy_response['tool_proxy_guid']
+          tool_proxy['tool_proxy_guid'] = self.tool_proxy_guid
+          self.tool_proxy_json = tool_proxy.to_json
 
           self.status = disposition
           self.save!

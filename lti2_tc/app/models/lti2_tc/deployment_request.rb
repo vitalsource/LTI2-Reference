@@ -8,13 +8,13 @@ module Lti2Tc
 
     after_initialize :initialize_fields
     
-    def create_lti_message( base_url, current_user )
-      parameters = create_request_tool_deployment( base_url, current_user.to_s )
+    def create_lti_message( base_url, current_user, tool_proxy_guid=nil )
+      parameters = create_request_tool_deployment( base_url, current_user.to_s, tool_proxy_guid )
       create_lti_message_body( partner_url, parameters,
-        Rails.application.config.wire_log, 'Request Tool Registration' )
+        Rails.application.config.wire_log, tool_proxy_guid, 'Request Tool Registration' )
     end
 
-    def create_request_tool_deployment( base_url, user_id, lti_message_type = 'ToolProxyRegistrationRequest' )
+    def create_request_tool_deployment( base_url, user_id, tool_proxy_guid, lti_message_type = 'ToolProxyRegistrationRequest' )
       parameters = {
           'lti_message_type' => lti_message_type,
           'lti_version' => 'LTI-2p0',
@@ -26,6 +26,12 @@ module Lti2Tc
           'launch_presentation_return_url' => "#{base_url}/admin/tool_actions",
           'launch_presentation_document_target' => 'window'
       }
+
+      if tool_proxy_guid.present?
+        parameters['tool_proxy_guid'] = tool_proxy_guid
+      end
+
+      parameters
     end
 
     private

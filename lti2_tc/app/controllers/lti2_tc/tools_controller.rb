@@ -52,11 +52,6 @@ module Lti2Tc
 
         tool_proxy_guid = tool_proxy_wrapper.first_at('tool_proxy_guid')
 
-        # Old style tool_proxy_guid reassignment happens here
-        # Only uncomment to test tool_proxy_guid_reassignent
-        # tool_proxy_guid = UUID.generate
-        # ^^^ usually leave previous line commented out
-
         tool_proxy_response = render_response(tool_proxy_wrapper, tool.key, tool_proxy_guid, @deployment_request)
 
         logger.info( "Exit from registration(POST)--status 201  content-type: #{content_type}" )
