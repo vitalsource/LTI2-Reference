@@ -94,11 +94,11 @@ module Lti2Tp
       status
     end
 
-    def create_status(is_success, tool_guid=nil, message=nil)
+    def create_status(is_success, tool_proxy_guid=nil, message=nil)
       status = "?"
       if is_success
         status += 'status=success&'
-        status += "tool_guid=#{tool_guid}&" if tool_guid.present?
+        status += "tool_proxy_guid=#{tool_proxy_guid}&" if tool_proxy_guid.present?
       else
         status += 'status=failure&'
         encoded_message = Rack::Utils.escape( message )
