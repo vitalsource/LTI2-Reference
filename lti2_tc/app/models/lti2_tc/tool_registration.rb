@@ -24,7 +24,6 @@ module Lti2Tc
       # Only comment out to test old-style ('late') tool_proxy_guid creation
       tool_proxy_guid = UUID.generate
 
-      deployment_request.tool_proxy_guid = tool_proxy_guid
       deployment_request.status = 'submitted'
       deployment_request.save
 
