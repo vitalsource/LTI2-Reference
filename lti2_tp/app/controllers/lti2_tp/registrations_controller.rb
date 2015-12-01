@@ -99,7 +99,10 @@ module Lti2Tp
       registration = Lti2Tp::Registration.find( params[:id] )
       final_hash = params.select { |k,v| [ :status, :tool_guid, :lti_errormsg, :lti_errorlog ].include? k.to_sym }
       final_qs = final_hash.to_query
-      final_url = "#{get_adjusted_baseurl(registration.launch_presentation_return_url)}#{final_qs}"
+      tool_proxy_guid = params[:tool_proxy_guid] if params.has_key? :tool_proxy_guid
+      guid_addend = (tool_proxy_guid.empty?) ? '' : "&tool_proxy_guid=#{tool_proxy_guid}"
+
+      final_url = "#{get_adjusted_baseurl(registration.launch_presentation_return_url)}#{final_qs}#{guid_addend}"
       redirect_to final_url
     end
 

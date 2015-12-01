@@ -18,7 +18,7 @@ module Lti2Tp
       (tool_profile, msg) = resolve_tool_profile(tool_consumer_profile, JSON.load( tool_profile_json ))
       if tool_profile.present?
         tool_proxy['tool_profile'] = tool_profile
-        tool_proxy['security_contract'] = resolve_security_contract( tool_consumer_profile )
+        tool_proxy['security_contract'] = resolve_security_contract( tool_proxy, tool_consumer_profile )
 
         tool_proxy_wrapper = JsonWrapper.new( tool_proxy )
         unless tool_proxy['tool_proxy_guid'].nil?
@@ -34,7 +34,7 @@ module Lti2Tp
 
     def get_tool_consumer_profile()
       tcp_response = invoke_unsigned_service(self.tc_profile_url, 'get', {},
-                                 {'accept' => 'application/vnd.ims.lti.v2.toolconsumerprofile+json'},
+                                 {'Accept' => 'application/vnd.ims.lti.v2.toolconsumerprofile+json'},
                                  nil, Rails.application.config.wire_log, "Get Tool Consumer Profile")
       JSON.load( tcp_response.body )
     end
@@ -170,14 +170,30 @@ module Lti2Tp
         response_content = JSON.load( response_body ) unless response_body.strip.empty?
       else
         response_content = nil
-        response_message = response['errors'].first
+        response_message = response['errors']
       end
       [ response_content, response.code, response.message ]
     end
 
 
-    def resolve_security_contract tool_consumer_profile
+    def resolve_security_contract tool_proxy, tool_consumer_profile
       security_contract = {}
+
+      # collect term defs from tcp and trasnfer to tool_proxy
+      tcp_context = tool_consumer_profile['@context']
+
+      # turn tool_proxycontext into an array
+      tproxy_context = tool_proxy['@context']
+      unless tproxy_context.is_a? Array
+        term_defs_array = [tproxy_context]
+        tool_proxy['@context'] = term_defs_array
+      end
+
+      tcp_context.each do |element|
+        if element.is_a? Hash
+          tool_proxy['@context'] << element
+        end
+      end
 
       if (tool_consumer_profile['capability_offered'].include? 'OAuth.splitSecret')
         tp_half_shared_secret = SecureRandom.hex(64)

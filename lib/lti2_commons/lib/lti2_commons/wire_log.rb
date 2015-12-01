@@ -3,6 +3,7 @@ require 'stringio'
 module Lti2Commons
   module WireLogSupport
     class WireLog
+
       STATUS_CODES = {
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -58,7 +59,7 @@ module Lti2Commons
         507 => 'Insufficient Storage',
         510 => 'Not Extended'
       }
-
+      
       attr_accessor :is_logging, :output_file_name
 
       def initialize(wire_log_name, output_file, is_html_output = true)
@@ -139,13 +140,6 @@ module Lti2Commons
       end
 
       def log_buffer
-        # put in the css header if file doesn't exist
-        unless File.size? @output_file_name
-          @output_file = File.open(@output_file_name, 'a')
-          @output_file.puts '<link rel="stylesheet" type="text/css" href="wirelog.css" />'
-          @output_file.puts ''
-          @output_file.close
-        end
         @log_buffer = StringIO.new unless @log_buffer
         @log_buffer
       end
