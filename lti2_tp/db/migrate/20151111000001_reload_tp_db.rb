@@ -62,5 +62,6 @@ class ReloadTpDb < ActiveRecord::Migration
     drop_table :lti2_tp_registrations
     drop_table :lti2_tp_registries
     drop_table :lti2_tp_tools
+    drop_table :lti_registration_wips
   end
 end
