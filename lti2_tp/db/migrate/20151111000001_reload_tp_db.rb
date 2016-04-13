@@ -1,4 +1,4 @@
-class CreateLti2TpResources < ActiveRecord::Migration
+class ReloadTpDb < ActiveRecord::Migration
   def up
     create_table "lti2_tp_registrations", force: true do |t|
       t.integer  "tenant_id"
@@ -62,5 +62,6 @@ class CreateLti2TpResources < ActiveRecord::Migration
     drop_table :lti2_tp_registrations
     drop_table :lti2_tp_registries
     drop_table :lti2_tp_tools
+    drop_table :lti_registration_wips
   end
 end

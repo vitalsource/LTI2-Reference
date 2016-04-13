@@ -1,5 +1,6 @@
 module Lti2Tp
   class Registration < ActiveRecord::Base
+    include Lti2Commons::MessageSupport
 
     ACKNOWLEDGE_URL = 'VND-IMS-CONFIRM-URL'
     HTTP_ACKNOWLEDGE_URL = 'HTTP_VND_IMS_CONFIRM_URL'
