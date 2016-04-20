@@ -28,7 +28,7 @@ module Lti2Commons
 
       content_type = 'application/x-www-form-urlencoded' unless content_type
 
-      launch_url = URI.unescape(launch_url)
+      launch_url = URI.unescape(launch_url).downcase
       uri = URI.parse(launch_url)
 
       # flatten in query string arrays
