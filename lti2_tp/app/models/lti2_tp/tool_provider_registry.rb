@@ -19,7 +19,7 @@ module Lti2Tp
           @tp_deployment_url = "http://#{hostname}#{port}"
         end
       end
-      puts "tp_deployment_url: #{@tp_deployment_url}"
+      Rails.logger.warn "tp_deployment_url: #{@tp_deployment_url}"
       # replace loaded value with derived
       @registry['tp_deployment_url'] = @tp_deployment_url
 

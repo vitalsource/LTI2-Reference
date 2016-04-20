@@ -18,7 +18,7 @@ module Lti2Tc
           @tc_deployment_url = "http://#{hostname}#{port}"
         end
       end
-      puts "tc_deployment_url: #{@tc_deployment_url}"
+      Rails.logger.warn "tc_deployment_url: #{@tc_deployment_url}"
       # replace loaded value with derived
       @registry['tc_deployment_url'] = @tc_deployment_url
       
