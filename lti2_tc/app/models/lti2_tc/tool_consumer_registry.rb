@@ -11,7 +11,7 @@ module Lti2Tc
 
       @tc_deployment_url = ENV['TC_DEPLOYMENT_URL']
       if @tc_deployment_url.blank?
-        @tc_deployment_url = registry['tc_deployment_url'] if registry.has_key? 'tp_deployment_url'
+        @tc_deployment_url = registry['tc_deployment_url'] if registry.has_key? 'tc_deployment_url'
         if @tc_deployment_url.blank?
           hostname = Socket.gethostname
           port = ":#{Rails::Server.new.options[:Port]}" if defined? Rails::Server
