@@ -12,7 +12,7 @@ module Lti2Tp
 
       @tp_deployment_url = ENV['TP_DEPLOYMENT_URL']
       if @tp_deployment_url.blank?
-        @tp_deployment_url = registry['tp_deployment_url'] if registry.has_key? 'tp_deployement_url'
+        @tp_deployment_url = registry['tp_deployment_url'] if registry.has_key? 'tp_deployment_url'
         if @tp_deployment_url.blank?
           hostname = Socket.gethostname
           port = ":#{Rails::Server.new.options[:Port]}" if defined? Rails::Server
