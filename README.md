@@ -1,12 +1,26 @@
 
 LTI2 Gem -- Ruby/Rails reference implementation
 ==============
-__John Tibbetts, Integration Architect, Vital Source Technologies__
+__John Tibbetts, Integration Architect, Vitalsource Technologies__
 
 > #### Note the LTI2 gem and sample apps have been signficantly reorganized!  The sample apps have been removed!
 > #### The LTI2-Reference repo only contains the revised LTI2 gem
 > #### The LTI2_tc_sample_app repo contains the Tool Consumer sample app
 > #### The LTI2_tp_sample_app repo contains the Tool Provider sample app
+
+**New initialization protocol:**
+
+**An important change has been made to the LTI-Reference gem that relates to the initialization of the deployment URL.
+In the Tool Consumer, this is the value tc\_deployment\_url.  In the Tool Provider, this is the value tp\_deployment\_url.**
+
+**In the past these were set as values in the registries table.  Now they are set using a prioritized initialization algorithm.**
+
+**1) If the environment variable TC\_DEPLOYMENT\_URL is set in the TC (or TP_DEPLOYMENT\_URL in the TP), the value of the environment variable
+is used**
+
+**2) If the registries table has a value for tc\_deployment\_url or tp\_deployment\_url, the 'content' field is used'.  (In other words this is the current method).**
+
+**3) If neither of the above provides values, the sample app will be initialized with a) the hostname of the host and b) the port the server was started on.**
 
 
 This is Vital Source's LTI2 implementation.  VST uses this code primarily as a Tool Provider.  However there's also a Tool Consumer here that we've used for early testing (even before there were any LTI2 TCs).  In addition we use the Tool Consumer for brokered LTI launches.  This is used, say, in an interactive book that has been launched by an external Tool Consumer but contains dynamic pages within the book that, in turn, launch other LTI tools.
@@ -26,7 +40,7 @@ For all the details of LTI, see the full [LTI2 online docs](http://www.imsglobal
 Prerequisites
 -------------
 
-* Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 1.9.3.
+* Ruby/Rails.  Follow online docs to install Ruby/Rails for your development platform.  This code is currently built on Ruby 2.1.4.
 
 * This code is in a github Vital Source public repo 'LTI2-Reference'.  Clone it in a work directory.
 
